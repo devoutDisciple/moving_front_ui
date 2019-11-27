@@ -1,42 +1,52 @@
 /* eslint-disable react-native/no-inline-styles */
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import {Text, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import HomeScreen from './src/Home';
+import DetailScreen from './src/Detail';
+import TabBarItem from './TabBarItem';
 
-class HomeScreen extends React.Component {
-    render() {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                <Text>Home!</Text>
-            </View>
-        );
-    }
-}
+const TabNavigator = createBottomTabNavigator(
+    {
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                headerTitle: '首页',
+                title: 'Home',
+                tabBarLabel: '首页',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <TabBarItem
+                        focused={focused}
+                        normalImage={require('./images/hello.png')}
+                        selectedImage={require('./images/world.png')}
+                    />
+                ),
+            },
+        },
+        Settings: DetailScreen,
+    },
+    {
+        tabBarOptions: {
+            activeTintColor: '#fff',
+            activeBackgroundColor: '#fff',
+            inactiveTintColor: 'red',
+            inactiveBackgroundColor: 'red',
+            labelStyle: {
+                color: 'red',
+            },
+        },
+    },
+);
 
-class SettingsScreen extends React.Component {
-    render() {
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                <Text>Settings!</Text>
-            </View>
-        );
-    }
-}
-
-const TabNavigator = createBottomTabNavigator({
-    Home: HomeScreen,
-    Settings: SettingsScreen,
-});
+const TabNavigationConfigs = {
+    activeTintColor: 'red',
+    activeBackgroundColor: 'red',
+    inactiveTintColor: 'green',
+    inactiveBackgroundColor: 'green',
+    labelStyle: {
+        color: 'red',
+    },
+};
 
 export default createAppContainer(TabNavigator);
