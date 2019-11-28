@@ -8,18 +8,9 @@
  */
 
 import React from 'react';
-import {Image, View, Text, StatusBar} from 'react-native';
-import RootConfig from './NavigatorFirst';
-import TabNav from './TabNav';
-
+import RouterConfig from './src/roter/RouterConfig';
 export default class App extends React.Component {
-    componentDidMount() {
-        let obj = {hello: 'world'};
-        console.log(123);
-        console.log(obj);
-    }
     render() {
-        // return <RootConfig />;
-        return <TabNav />;
+        return <RouterConfig />;
     }
 }
