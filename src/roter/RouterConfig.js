@@ -59,7 +59,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const SimpleApp = createStackNavigator(
     {
-        Tab: {screen: TabNavigator, headerTitle: '首页'},
+        Tab: {
+            screen: TabNavigator,
+            navigationOptions: {
+                headerTitle: '首页',
+                headerBackTitle: '返回',
+                // headerRight: '详情',
+                // headerLeft: <Text>返回</Text>,
+            },
+        },
         Detail: {
             screen: Detail,
             navigationOptions: {
