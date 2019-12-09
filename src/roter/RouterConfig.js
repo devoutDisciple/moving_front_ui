@@ -105,7 +105,7 @@ const SimpleApp = createStackNavigator(
                 return {
                     title: title,
                     headerBackTitle: '返回',
-                    headerShown: false, // 是否显示header
+                    // headerShown: false, // 是否显示header
                 };
             },
         },
