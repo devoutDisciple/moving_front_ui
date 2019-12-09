@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import {Button, Avatar} from 'react-native-elements';
 import ImagePicker from 'react-native-image-picker';
 
@@ -17,6 +17,12 @@ const options = {
     },
 };
 export default class MyScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            avatarSource: null,
+        };
+    }
     componentDidMount() {}
 
     choosePic() {
@@ -57,6 +63,7 @@ export default class MyScreen extends React.Component {
                     activeOpacity={0.7}
                     // showEditButton={true}
                 />
+                <Image source={this.state.avatarSource} />
             </View>
         );
     }
