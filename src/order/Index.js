@@ -2,7 +2,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-export default class DetailScreen extends React.Component {
+export default class OrderScreen extends React.Component {
     render() {
         return (
             <View
@@ -11,7 +11,7 @@ export default class DetailScreen extends React.Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                <Text>我的页面</Text>
+                <Text>这是订单页面</Text>
             </View>
         );
     }

@@ -5,9 +5,14 @@ import {Text} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import HomeScreen from '../Home';
-import MyScreen from '../My';
-import Detail from '../Detail';
+// 首页
+import HomeScreen from '../home/Home';
+// 我的
+import MyScreen from '../my/My';
+// 订单页面
+import OrderScreen from '../order/Index';
+// 测试详情
+import Detail from '../home/Detail';
 import TabBarItem from './TabBarItem';
 
 const TabNavigator = createBottomTabNavigator(
@@ -16,43 +21,60 @@ const TabNavigator = createBottomTabNavigator(
             screen: HomeScreen,
             navigationOptions: {
                 title: 'Home',
-                tabBarLabel: '后台',
+                tabBarLabel: '首页',
                 tabBarIcon: ({focused, tintColor}) => (
                     <TabBarItem
                         focused={focused}
-                        normalImage={require('../../img/home/icon_homepage_hotel_category.png')}
-                        selectedImage={require('../../img/home/icon_homepage_ktv_category.png')}
+                        normalImage={require('../../img/tabbar/tabbar_homepage.png')}
+                        selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
+                    />
+                ),
+            },
+        },
+        Order: {
+            screen: OrderScreen,
+            navigationOptions: {
+                title: 'Order',
+                tabBarLabel: '订单',
+                tabBarIcon: ({focused, tintColor}) => (
+                    <TabBarItem
+                        focused={focused}
+                        normalImage={require('../../img/tabbar/tabbar_order.png')}
+                        selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
                     />
                 ),
             },
         },
         My: {
             screen: MyScreen,
+            params: {hello: 'world'},
             navigationOptions: {
                 title: 'My',
                 tabBarLabel: '我的',
                 tabBarIcon: ({focused, tintColor}) => (
                     <TabBarItem
                         focused={focused}
-                        normalImage={require('../../img/home/icon_homepage_beauty_category.png')}
-                        selectedImage={require('../../img/home/icon_homepage_default.png')}
+                        normalImage={require('../../img/tabbar/tabbar_mine.png')}
+                        selectedImage={require('../../img/tabbar/tabbar_mine_selected.png')}
                     />
                 ),
+                // tabBarOnPress: (props, a) => {
+                //     console.log(props.defaultHandler());
+                //     console.log(props, a);
+                // },
             },
         },
     },
     {
-        initialRouteName: 'Home', // 第一次加载tab bar时路由的routeName
+        initialRouteName: 'My', // 第一次加载tab bar时路由的routeName
         tabBarOptions: {
-            activeTintColor: '#008dcf',
-            inactiveTintColor: '#333333',
-            // activeTintColor: '#333', //当前选中的tab bar的文本颜色和图标颜色
-            // inactiveTintColor: '#fff', // 当前未选中的tab bar的文本颜色和图标颜色
-            activeBackgroundColor: 'green', // 当前选中的tab bar的背景色
+            activeTintColor: '#2fc3af', //当前选中的tab bar的文本颜色和图标颜色
+            inactiveTintColor: '#666', // 当前未选中的tab bar的文本颜色和图标颜色
+            activeBackgroundColor: '#fff', // 当前选中的tab bar的背景色
             inactiveBackgroundColor: '#fff', //当前未选中的tab bar的背景色
-            labelStyle: {
-                color: 'orange',
-            },
+            // labelStyle: {
+            //     color: 'orange',
+            // },
         },
     },
 );
@@ -61,19 +83,38 @@ const SimpleApp = createStackNavigator(
     {
         Tab: {
             screen: TabNavigator,
-            navigationOptions: {
-                headerTitle: '首页',
-                headerBackTitle: '返回',
-                // headerRight: '详情',
-                // headerLeft: <Text>返回</Text>,
+            // navigationOptions: {
+            //     title: '首页',
+            //     headerTitle: '首页',
+            //     headerBackTitle: '返回',
+            //     headerRight: () => <Text>详情</Text>,
+            //     headerLeft: <Text>返回</Text>,
+            // },
+            navigationOptions: ({navigation}) => {
+                console.log(navigation);
+                let title = '首页';
+                if (navigation.state.index == 0) {
+                    title = '首页';
+                }
+                if (navigation.state.index == 1) {
+                    title = '订单';
+                }
+                if (navigation.state.index == 2) {
+                    title = '我的';
+                }
+                return {
+                    title: title,
+                    headerBackTitle: '返回',
+                    headerShown: false, // 是否显示header
+                };
             },
         },
         Detail: {
             screen: Detail,
             navigationOptions: {
-                headerTitle: '详情页',
+                title: '详情页',
                 headerBackTitle: '返回',
-                // headerRight: '详情',
+                // headerRight: () => <Text>详情</Text>,
                 // headerLeft: <Text>返回</Text>,
             },
         },

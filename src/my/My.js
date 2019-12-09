@@ -2,7 +2,14 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-export default class Detail extends React.Component {
+export default class MyScreen extends React.Component {
+    static navigationOptions = {
+        title: 'fuck!',
+    };
+
+    componentDidMount() {
+        console.log(123);
+    }
     render() {
         return (
             <View
@@ -11,7 +18,7 @@ export default class Detail extends React.Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                <Text>这是详情页</Text>
+                <Text>我的页面s</Text>
             </View>
         );
     }
