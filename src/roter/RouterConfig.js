@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import {Text} from 'react-native';
+import {Image, View} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -13,12 +13,15 @@ import MyScreen from '../my/My';
 import OrderScreen from '../order/Index';
 // 测试详情
 import Detail from '../home/Detail';
+// 登录和注册页面
+import Login from '../login/Login';
 import TabBarItem from './TabBarItem';
 
 const TabNavigator = createBottomTabNavigator(
     {
         Home: {
             screen: HomeScreen,
+            path: 'Home',
             navigationOptions: {
                 title: 'Home',
                 tabBarLabel: '首页',
@@ -66,7 +69,7 @@ const TabNavigator = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'My', // 第一次加载tab bar时路由的routeName
+        initialRouteName: 'Home', // 第一次加载tab bar时路由的routeName
         tabBarOptions: {
             activeTintColor: '#2fc3af', //当前选中的tab bar的文本颜色和图标颜色
             inactiveTintColor: '#666', // 当前未选中的tab bar的文本颜色和图标颜色
@@ -81,15 +84,39 @@ const TabNavigator = createBottomTabNavigator(
 
 const SimpleApp = createStackNavigator(
     {
+        Login: {
+            screen: Login,
+            navigationOptions: {
+                title: 'Moving Laundry',
+                headerTitleStyle: {
+                    color: '#2fc3af',
+                },
+                // headerBackTitle: '返回',
+                // headerShown: false,
+                // headerBackground: (tintColor, title) => {
+                //     console.log(tintColor, title);
+                //     return (
+                //         <View
+                //             style={{
+                //                 backgroundColor: '#fff',
+                //                 flex: 1,
+                //                 justifyContent: 'center',
+                //                 alignItems: 'center',
+                //             }}>
+                //             <Image
+                //                 source={require('../../img/moving.jpg')}
+                //                 style={{
+                //                     width: '50%',
+                //                     height: 50,
+                //                 }}
+                //             />
+                //         </View>
+                //     );
+                // },
+            },
+        },
         Tab: {
             screen: TabNavigator,
-            // navigationOptions: {
-            //     title: '首页',
-            //     headerTitle: '首页',
-            //     headerBackTitle: '返回',
-            //     headerRight: () => <Text>详情</Text>,
-            //     headerLeft: <Text>返回</Text>,
-            // },
             navigationOptions: ({navigation}) => {
                 let title = '首页';
                 if (navigation.state.index == 0) {
