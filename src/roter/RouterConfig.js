@@ -91,7 +91,6 @@ const SimpleApp = createStackNavigator(
             //     headerLeft: <Text>返回</Text>,
             // },
             navigationOptions: ({navigation}) => {
-                console.log(navigation);
                 let title = '首页';
                 if (navigation.state.index == 0) {
                     title = '首页';
