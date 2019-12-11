@@ -1,7 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, View} from 'react-native';
-import {Sae} from 'react-native-textinput-effects';
+import {
+    Sae,
+    Kaede,
+    Hoshi,
+    Jiro,
+    Isao,
+    Madoka,
+    Akira,
+    Hideo,
+    Kohana,
+    Makiko,
+    Fumi,
+} from 'react-native-textinput-effects';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -11,7 +23,7 @@ export default class LoginScreen extends React.Component {
             <View
                 style={{
                     flex: 1,
-                    backgroundColor: 'red',
+                    backgroundColor: 'orange',
                 }}>
                 <Text>登录页面</Text>
                 <Text
@@ -32,6 +44,25 @@ export default class LoginScreen extends React.Component {
                     // TextInput props
                     autoCapitalize={'none'}
                     autoCorrect={false}
+                />
+                <Hoshi
+                    label={'Street'}
+                    maskColor={'#F9F7F6'}
+                    borderColor={'#7ac1ba'}
+                />
+                <Fumi
+                    label={'Course Name'}
+                    labelStyle={{color: '#a3a3a3'}}
+                    inputStyle={{color: '#f95a25'}}
+                    iconClass={FontAwesomeIcon}
+                    iconName={'university'}
+                    iconColor={'#f95a25'}
+                    iconSize={15}
+                />
+                <Akira
+                    label={'First Name'}
+                    borderColor={'#a5d1cc'}
+                    labelStyle={{color: '#ac83c4'}}
                 />
             </View>
         );
