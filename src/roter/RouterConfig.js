@@ -92,7 +92,7 @@ const SimpleApp = createStackNavigator(
                     color: '#2fc3af',
                 },
                 // headerBackTitle: '返回',
-                // headerShown: false,
+                headerShown: false,
                 // headerBackground: (tintColor, title) => {
                 //     console.log(tintColor, title);
                 //     return (
