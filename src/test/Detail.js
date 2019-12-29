@@ -18,17 +18,6 @@ export default class DetailScreen extends React.Component {
         };
     };
 
-    goOrder() {
-        console.log(this.props, 99);
-        const {navigation} = this.props;
-        // const resetAction = StackActions.reset({
-        //     index: 0,
-        //     actions: [NavigationActions.navigate({routeName: 'Order'})],
-        // });
-        // this.props.navigation.dispatch(resetAction);
-        this.props.navigation.navigate('Order');
-    }
-
     render() {
         return (
             <View
@@ -37,8 +26,7 @@ export default class DetailScreen extends React.Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                <Text>这是详情页</Text>
-                <Button title="去到详情页" onPress={this.goOrder.bind(this)} />
+                <Text>test也米娜</Text>
             </View>
         );
     }

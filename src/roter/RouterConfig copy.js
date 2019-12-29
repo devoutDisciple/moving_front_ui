@@ -12,32 +12,15 @@ import MyScreen from '../my/My';
 // 订单页面
 import OrderScreen from '../order/Index';
 // 测试详情
-import DetailScreen from '../home/Detail';
+import Detail from '../home/Detail';
 // 登录和注册页面
 import Login from '../login/Login';
 import TabBarItem from './TabBarItem';
 
-const HomeApp = createStackNavigator(
-    {
-        HomeScreen: {
-            screen: HomeScreen,
-            path: 'home/app',
-        },
-        DetailScreen: {
-            screen: DetailScreen,
-            path: 'home/detail',
-        },
-    },
-    {
-        mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
-        headerMode: 'float', // headerMode -
-    },
-);
-
 const TabNavigator = createBottomTabNavigator(
     {
         Home: {
-            screen: HomeApp,
+            screen: HomeScreen,
             path: 'Home',
             navigationOptions: {
                 title: 'Home',
@@ -99,24 +82,78 @@ const TabNavigator = createBottomTabNavigator(
     },
 );
 
-const finnalApp = createStackNavigator(
+const SimpleApp = createStackNavigator(
     {
-        HomeScreen: {
+        Login: {
+            screen: Login,
+        },
+        Tab: {
             screen: TabNavigator,
-            path: 'home/app',
-            navigationOptions: {
-                headerShown: false,
+            navigationOptions: ({navigation}) => {
+                let title = '首页';
+                if (navigation.state.index == 0) {
+                    title = 'Cleaner';
+                }
+                if (navigation.state.index == 1) {
+                    title = '订单';
+                }
+                if (navigation.state.index == 2) {
+                    title = '我的';
+                }
+                return {
+                    title: title,
+                    headerBackTitle: '返回',
+                    headerRight: () => {
+                        return <Text>234</Text>;
+                    },
+                    headerLeft: () => {
+                        return <Text>123</Text>;
+                    },
+                    headerTitleStyle: {
+                        alignSelf: 'center',
+                        textAlign: 'center',
+                        flex: 1,
+                    },
+                    // 整个标题的样式
+                    headerStyle: {
+                        shadowColor: '#505050',
+                        shadowOffset: {
+                            width: 0,
+                            height: 3,
+                        },
+                        shadowOpacity: 0.3,
+                    },
+                    headerLeftContainerStyle: {
+                        color: 'red',
+                        padding: 10,
+                    },
+                    // 题组件的样式对象
+                    // headerTitleStyle: {
+                    //     // backgroundColor: 'red',
+                    //     color: '#333',
+                    //     alignItems: 'center',
+                    //     alignSelf: 'center',
+                    // },
+
+                    // headerShown: false, // 是否显示header
+                };
             },
         },
-        DetailScreen2: {
-            screen: DetailScreen,
-            path: 'home/detail',
+        Detail: {
+            screen: Detail,
+            navigationOptions: {
+                title: '详情页',
+                headerBackTitle: '返回',
+                // headerRight: () => <Text>详情</Text>,
+                // headerLeft: <Text>返回</Text>,
+            },
         },
     },
     {
         mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
         headerMode: 'float', // headerMode -
+        initialRouteName: 'Tab', // 第一次加载tab bar时路由的routeName
     },
 );
 
-export default createAppContainer(finnalApp);
+export default createAppContainer(SimpleApp);

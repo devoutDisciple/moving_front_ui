@@ -6,6 +6,7 @@ import {
     ImageBackground,
     Dimensions,
     SafeAreaView,
+    ScrollView,
     StatusBar,
 } from 'react-native';
 import {
@@ -22,60 +23,49 @@ import {
     Fumi,
 } from 'react-native-textinput-effects';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-// import Icon from 'react-native-vector-icons/FontAwesome';
 
 const {width, height} = Dimensions.get('window');
 
 export default class LoginScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: 'Home!',
-        headerShown: false,
+        headerShown: true,
     };
     render() {
         return (
-            <SafeAreaView style={{flex: 1}}>
-                <StatusBar backgroundColor="red" barStyle="dark-content" />
-                <ImageBackground
-                    source={require('../../img/bg.jpg')}
-                    // resizeMode="cover" // 等比放大或缩小，以填充整个 view。超出的部分被裁剪掉。默认值。
-                    // resizeMode="contain" // 等比例缩小或放大至图片完全显示出来。可能会无法填充整个 view
-                    resizeMode="stretch" // 直接填充整个 view。图片会变形。
-                    style={{flex: 1, width: null}}>
-                    <View
-                        style={{
-                            flex: 1,
-                        }}>
-                        <Text>登录页面</Text>
-                        <Text
-                            onPress={() => {
-                                this.props.navigation.push('Tab');
-                            }}>
-                            返回
-                        </Text>
-                        <Fumi
-                            label={'用户名'}
-                            labelStyle={{color: '#a3a3a3'}}
-                            inputStyle={{color: '#f95a25'}}
-                            iconClass={FontAwesomeIcon}
-                            style={{
-                                backgroundColor: 'rgba(251,251,251, 0.5)',
-                                width: '96%',
-                                marginLeft: '2%',
-                            }}
-                            iconName={'pencil'}
-                            iconColor={'white'}
-                            inputPadding={8}
-                            labelHeight={12}
-                            // active border height
-                            borderHeight={1}
-                            // TextInput props
-                            autoCapitalize={'none'}
-                            autoCorrect={false}
-                            iconSize={15}
-                        />
-                    </View>
-                </ImageBackground>
-            </SafeAreaView>
+            <Text>12</Text>
+            // <ScrollView style={{flex: 1}}>
+            //     {/* <StatusBar backgroundColor="#fff" barStyle="dark-content" /> */}
+            //     {/* <Text>登录页面11</Text>
+            //     <Text
+            //         onPress={() => {
+            //             this.props.navigation.push('Tab');
+            //         }}>
+            //         返回
+            //     </Text> */}
+            //     <Kohana
+            //         // 背景色
+            //         style={{
+            //             backgroundColor: 'gray',
+            //             borderRadius: 20,
+            //             width: 300,
+            //             marginLeft: 20,
+            //         }}
+            //         label={'账号'}
+            //         iconClass={FontAwesomeIcon}
+            //         iconName={'pencil'}
+            //         // 图标的颜色
+            //         iconColor={'orange'}
+            //         inputPadding={16}
+            //         // label的颜色
+            //         labelStyle={{color: 'blue'}}
+            //         // input里面的字体颜色
+            //         inputStyle={{color: 'red'}}
+            //         labelContainerStyle={{paddingTop: 5, paddingLeft: 0}}
+            //         iconContainerStyle={{padding: 20}}
+            //         useNativeDriver
+            //     />
+            // </ScrollView>
         );
     }
 }

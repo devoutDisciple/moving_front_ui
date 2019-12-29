@@ -3,6 +3,9 @@ import React from 'react';
 import {Text, View} from 'react-native';
 
 export default class OrderScreen extends React.Component {
+    componentDidMount() {
+        console.log(this.props, 878);
+    }
     render() {
         return (
             <View

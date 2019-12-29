@@ -72,7 +72,6 @@ export default class MyScreen extends React.Component {
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log(124);
                         ActionSheetIOS.showActionSheetWithOptions(
                             {
                                 options: ['取消', '删除'],
