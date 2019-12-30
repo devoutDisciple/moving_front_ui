@@ -13,7 +13,11 @@ class HomeScreen extends React.Component {
             headerLeft: () => {
                 return (
                     <TouchableOpacity
-                        onPress={() => navigation.state.params.leftIconClick()}>
+                        onPress={() =>
+                            navigation.state.params.customAction({
+                                hello: 'world',
+                            })
+                        }>
                         <View
                             style={{
                                 width: 150,
@@ -40,17 +44,12 @@ class HomeScreen extends React.Component {
             },
             headerRight: () => {
                 return (
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.state.params.rightIconClick()
-                        }>
-                        <Icon
-                            style={{width: 20, marginTop: 3}}
-                            name="aliwangwang-o1"
-                            size={16}
-                            color="#333"
-                        />
-                    </TouchableOpacity>
+                    <Icon
+                        style={{width: 20, marginTop: 3}}
+                        name="aliwangwang-o1"
+                        size={16}
+                        color="#333"
+                    />
                 );
             },
             headerRightContainerStyle: {
@@ -76,22 +75,17 @@ class HomeScreen extends React.Component {
 
     componentDidMount() {
         const {setParams} = this.props.navigation;
-        setParams({
-            // 左侧按钮点击
-            leftIconClick: () => this.locationClick(),
-            // 右侧按钮点击
-            rightIconClick: () => this.serviceClick(),
-        });
+        setParams({customAction: () => this.tempAction()});
     }
 
-    // 位置点击
-    locationClick() {
-        console.log('切换位置');
-    }
-
-    // 点击客服按钮
-    serviceClick() {
-        console.log('点击客服按钮');
+    tempAction() {
+        let navigation = this.props.navigation;
+        console.log(navigation, 11);
+        console.log(navigation.state.params, 9091);
+        console.log(navigation.getParam('hello'), 6789);
+        console.log(
+            '在导航栏按钮上调用Component内中的函数，因为static修饰的函数为静态函数，内部不能使用this',
+        );
     }
 
     render() {
@@ -109,6 +103,8 @@ class HomeScreen extends React.Component {
                         this.props.navigation.navigate('DetailScreen')
                     }
                 />
+                {/* <Icon type="down" /> */}
+
                 <Button
                     title="Go to test"
                     onPress={() =>
