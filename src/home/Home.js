@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View, Button, TouchableOpacity, alert} from 'react-native';
+import Swiper from './Swiper';
+import {Text, View, Button, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 class HomeScreen extends React.Component {
@@ -99,22 +100,11 @@ class HomeScreen extends React.Component {
             <View
                 style={{
                     flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
                 }}>
-                <Text>这是主页</Text>
-                <Button
-                    title="Go to Details"
-                    onPress={() =>
-                        this.props.navigation.navigate('DetailScreen')
-                    }
-                />
-                <Button
-                    title="Go to test"
-                    onPress={() =>
-                        this.props.navigation.navigate('DetailScreen2')
-                    }
-                />
+                {/* <Text>这是主页</Text> */}
+                <Swiper />
             </View>
         );
     }

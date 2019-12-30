@@ -39,6 +39,18 @@ export default class DetailScreen extends React.Component {
                 }}>
                 <Text>这是详情页</Text>
                 <Button title="去到详情页" onPress={this.goOrder.bind(this)} />
+                <Button
+                    title="Go to Details"
+                    onPress={() =>
+                        this.props.navigation.navigate('DetailScreen')
+                    }
+                />
+                <Button
+                    title="Go to test"
+                    onPress={() =>
+                        this.props.navigation.navigate('DetailScreen2')
+                    }
+                />
             </View>
         );
     }
