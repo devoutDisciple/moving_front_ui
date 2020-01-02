@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import {Image, View, Text} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -17,15 +16,32 @@ import DetailScreen from '../home/Detail';
 import Login from '../login/Login';
 import TabBarItem from './TabBarItem';
 
-const HomeApp = createStackNavigator(
+// 首页的页面
+const HomeContainer = createStackNavigator(
     {
         HomeScreen: {
             screen: HomeScreen,
-            path: 'home/app',
         },
         DetailScreen: {
             screen: DetailScreen,
-            path: 'home/detail',
+        },
+    },
+    {
+        mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
+        headerMode: 'float', // headerMode -
+    },
+);
+// 订单页面
+const OrderContainer = createStackNavigator(
+    {
+        OrderScreen: {
+            screen: OrderScreen,
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        DetailScreen: {
+            screen: DetailScreen,
         },
     },
     {
@@ -36,23 +52,22 @@ const HomeApp = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator(
     {
-        Home: {
-            screen: HomeApp,
-            path: 'Home',
-            navigationOptions: {
-                title: 'Home',
-                tabBarLabel: '首页',
-                tabBarIcon: ({focused, tintColor}) => (
-                    <TabBarItem
-                        focused={focused}
-                        normalImage={require('../../img/tabbar/tabbar_homepage.png')}
-                        selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
-                    />
-                ),
-            },
-        },
+        // Home: {
+        //     screen: HomeContainer,
+        //     navigationOptions: {
+        //         title: 'Home',
+        //         tabBarLabel: '首页',
+        //         tabBarIcon: ({focused, tintColor}) => (
+        //             <TabBarItem
+        //                 focused={focused}
+        //                 normalImage={require('../../img/tabbar/tabbar_homepage.png')}
+        //                 selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
+        //             />
+        //         ),
+        //     },
+        // },
         Order: {
-            screen: OrderScreen,
+            screen: OrderContainer,
             navigationOptions: {
                 title: 'Order',
                 tabBarLabel: '订单',
@@ -78,10 +93,6 @@ const TabNavigator = createBottomTabNavigator(
                         selectedImage={require('../../img/tabbar/tabbar_mine_selected.png')}
                     />
                 ),
-                // tabBarOnPress: (props, a) => {
-                //     console.log(props.defaultHandler());
-                //     console.log(props, a);
-                // },
             },
         },
     },
@@ -103,14 +114,12 @@ const finnalApp = createStackNavigator(
     {
         HomeScreen: {
             screen: TabNavigator,
-            path: 'home/app',
             navigationOptions: {
                 headerShown: false,
             },
         },
         DetailScreen2: {
             screen: DetailScreen,
-            path: 'home/detail',
         },
     },
     {
