@@ -1,13 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Swiper from './Swiper';
-import {Text, View, Button, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {Text, View, Button, TouchableOpacity} from 'react-native';
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
     }
+
     static navigationOptions = ({navigation, navigationOptions}) => {
         return {
             headerTitle: 'moving',
@@ -97,13 +98,7 @@ class HomeScreen extends React.Component {
 
     render() {
         return (
-            <View
-                style={{
-                    flex: 1,
-                    // justifyContent: 'center',
-                    // alignItems: 'center',
-                }}>
-                {/* <Text>这是主页</Text> */}
+            <View style={{flex: 1}}>
                 <Swiper />
             </View>
         );

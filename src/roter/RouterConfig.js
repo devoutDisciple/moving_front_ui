@@ -86,7 +86,7 @@ const TabNavigator = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'Home', // 第一次加载tab bar时路由的routeName
+        initialRouteName: 'Order', // 第一次加载tab bar时路由的routeName
         tabBarOptions: {
             activeTintColor: '#2fc3af', //当前选中的tab bar的文本颜色和图标颜色
             inactiveTintColor: '#666', // 当前未选中的tab bar的文本颜色和图标颜色

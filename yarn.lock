@@ -2693,7 +2693,7 @@ fbjs-scripts@^1.1.0:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.4, fbjs@^0.8.9:
+fbjs@^0.8.9:
   version "0.8.17"
   resolved "https://registry.npmjs.org/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -5309,7 +5309,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.5.10, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -5375,14 +5375,6 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-addons-shallow-compare@15.6.2:
-  version "15.6.2"
-  resolved "https://registry.npm.taobao.org/react-addons-shallow-compare/download/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
-  integrity sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8=
-  dependencies:
-    fbjs "^0.8.4"
-    object-assign "^4.1.0"
-
 react-devtools-core@^3.6.3:
   version "3.6.3"
   resolved "https://registry.npmjs.org/react-devtools-core/-/react-devtools-core-3.6.3.tgz#977d95b684c6ad28205f0c62e1e12c5f16675814"
@@ -5430,6 +5422,11 @@ react-native-image-picker@^1.1.0:
   resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-1.1.0.tgz#c2a0523886edb4cf2cdc008ad0a71433142a4d53"
   integrity sha512-/KjHf4NNAjl6XM7FQuqvGDz1wB9sRdLf86+2yksLW/QTRR7CitX4TLCM8ZF9CX6Y0MsCTndkZia3zWE+nt/GiA==
 
+react-native-picker@^4.3.7:
+  version "4.3.7"
+  resolved "https://registry.npm.taobao.org/react-native-picker/download/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"
+  integrity sha1-mELoxi/w2LZ26VFNn5FyQTwFGKg=
+
 react-native-ratings@^6.3.0:
   version "6.5.0"
   resolved "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"
@@ -5457,23 +5454,15 @@ react-native-safe-area-view@^0.14.1, react-native-safe-area-view@^0.14.6:
   dependencies:
     debounce "^1.2.0"
 
-react-native-snap-carousel@^3.8.4:
-  version "3.8.4"
-  resolved "https://registry.npm.taobao.org/react-native-snap-carousel/download/react-native-snap-carousel-3.8.4.tgz#4c749c6a714d46ed82de527233850cb5da41bc62"
-  integrity sha1-THScanFNRu2C3lJyM4UMtdpBvGI=
-  dependencies:
-    prop-types "^15.6.1"
-    react-addons-shallow-compare "15.6.2"
-
 react-native-status-bar-height@^2.2.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"
   integrity sha512-pWvZFlyIHiuxLugLioq97vXiaGSovFXEyxt76wQtbq0gxv4dGXMPqYow46UmpwOgeJpBhqL1E0EKxnfJRrFz5w==
 
 react-native-swiper@^1.6.0-nightly.5:
-  version "1.6.0-rc.3"
-  resolved "https://registry.npmjs.org/react-native-swiper/-/react-native-swiper-1.6.0-rc.3.tgz#ece82906d908c6a78a0b75fa41982ffc2cd2fb20"
-  integrity sha512-aZk6M7WsFdxlfHfS6OKb7gsaS3q7Z4Oqm8iTyJO7duE28EUK9kzfA2Cp5S6FdZkGXoWCXoUFGlzaO0lnhW/jtw==
+  version "1.6.0-nightly.5"
+  resolved "https://registry.npm.taobao.org/react-native-swiper/download/react-native-swiper-1.6.0-nightly.5.tgz#894319918ff22680c325b8052457ccf213a7c7cd"
+  integrity sha1-iUMZkY/yJoDDJbgFJFfM8hOnx80=
   dependencies:
     prop-types "^15.5.10"
 

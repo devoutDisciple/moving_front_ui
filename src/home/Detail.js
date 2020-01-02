@@ -10,7 +10,6 @@ export default class DetailScreen extends React.Component {
     // };
 
     static navigationOptions = ({navigation, navigationOptions}) => {
-        console.log(navigation, navigationOptions, 222);
         const {params} = navigation.state;
         return {
             title: 'hello',
@@ -19,7 +18,6 @@ export default class DetailScreen extends React.Component {
     };
 
     goOrder() {
-        console.log(this.props, 99);
         const {navigation} = this.props;
         // const resetAction = StackActions.reset({
         //     index: 0,
