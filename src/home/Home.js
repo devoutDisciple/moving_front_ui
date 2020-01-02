@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Swiper from './Swiper';
+import Picker from 'react-native-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Text, View, Button, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -88,7 +89,32 @@ class HomeScreen extends React.Component {
 
     // 位置点击
     locationClick() {
-        console.log('切换位置');
+        let data = [
+            '广州一号洗衣店',
+            '广州二号洗衣店',
+            '广州三号洗衣店',
+            '广州四号洗衣店',
+        ];
+        Picker.init({
+            pickerData: data,
+            selectedValue: ['广州三号洗衣店'],
+            pickerConfirmBtnText: '确认',
+            pickerCancelBtnText: '取消',
+            pickerTitleText: '选择店铺',
+            pickerConfirmBtnColor: [84, 185, 116, 1],
+            pickerCancelBtnColor: [196, 199, 206, 1],
+            pickerTitleColor: [84, 185, 116, 1],
+            onPickerConfirm: res => {
+                console.log(res);
+            },
+            onPickerCancel: res => {
+                console.log(res);
+            },
+            onPickerSelect: res => {
+                console.log(res);
+            },
+        });
+        Picker.show();
     }
 
     // 点击客服按钮
