@@ -13,7 +13,7 @@ export default class OrderScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPageIndex: 2,
+            currentPageIndex: 1,
         };
     }
 
@@ -31,22 +31,29 @@ export default class OrderScreen extends React.Component {
         let {currentPageIndex} = this.state;
         return (
             <View style={{flex: 1}}>
-                <ScrollableTabView
-                    tabBarActiveTextColor="#54b974"
-                    tabBarInactiveTextColor="#333"
-                    style={{marginTop: 20}}
-                    tabBarUnderlineStyle={{
-                        backgroundColor: '#54b974',
-                        borderRadius: 3,
-                    }}
-                    initialPage={1}
-                    onChangeTab={this.changeTab.bind(this)}
-                    renderTabBar={() => <DefaultTabBar />}>
-                    <Text tabLabel="全部" />
-                    <Text tabLabel="待支付" />
-                    <Text tabLabel="进行中" />
-                    <Text tabLabel="带点评" />
-                </ScrollableTabView>
+                <View
+                    style={{
+                        height: 50,
+                        marginTop: 20,
+                    }}>
+                    <ScrollableTabView
+                        tabBarActiveTextColor="#54b974"
+                        tabBarInactiveTextColor="#333"
+                        tabBarUnderlineStyle={{
+                            backgroundColor: '#54b974',
+                            borderRadius: 3,
+                        }}
+                        initialPage={0}
+                        onChangeTab={this.changeTab.bind(this)}
+                        renderTabBar={() => (
+                            <DefaultTabBar containerWidth={100} />
+                        )}>
+                        <Text style={{height: 0}} tabLabel="全部" />
+                        <Text style={{height: 0}} tabLabel="待支付" />
+                        <Text style={{height: 0}} tabLabel="进行中" />
+                        <Text style={{height: 0}} tabLabel="带点评" />
+                    </ScrollableTabView>
+                </View>
                 {currentPageIndex === 1 && <Allorder />}
                 {currentPageIndex === 2 && <WatingOrder />}
                 {currentPageIndex === 3 && <ProcessOrder />}

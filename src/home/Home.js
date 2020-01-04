@@ -90,14 +90,20 @@ class HomeScreen extends React.Component {
     // 位置点击
     locationClick() {
         let data = [
-            '广州一号洗衣店',
-            '广州二号洗衣店',
-            '广州三号洗衣店',
-            '广州四号洗衣店',
+            '广州1号洗衣店',
+            '广州2号洗衣店',
+            '广州3号洗衣店',
+            '广州4号洗衣店',
+            '广州5号洗衣店',
+            '广州6号洗衣店',
+            '广州7号洗衣店',
+            '广州8号洗衣店',
+            '广州9号洗衣店',
+            '广州0号洗衣店',
         ];
         Picker.init({
             pickerData: data,
-            selectedValue: ['广州三号洗衣店'],
+            selectedValue: ['广州3号洗衣店'],
             pickerConfirmBtnText: '确认',
             pickerCancelBtnText: '取消',
             pickerTitleText: '选择店铺',

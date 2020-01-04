@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
+import Empty from './Empty';
 
 export default class OrderScreen extends React.Component {
     constructor(props) {
@@ -8,13 +9,18 @@ export default class OrderScreen extends React.Component {
     }
 
     componentDidMount() {
-        console.log(2);
+        console.log(1);
     }
 
     render() {
         return (
             <View style={{flex: 1}}>
-                <Text>待支付</Text>
+                <FlatList
+                    // data={[{key: 'a'}, {key: 'b'}]}
+                    data={[]}
+                    ListEmptyComponent={<Empty />}
+                    renderItem={({item}) => <Text>{item.key}</Text>}
+                />
             </View>
         );
     }
