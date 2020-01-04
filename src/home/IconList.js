@@ -56,7 +56,7 @@ export default class IconList extends React.Component {
             },
         ];
         return (
-            <View>
+            <View style={{marginTop: 10}}>
                 <View style={styles.home_icon}>
                     {iconList1.map((item, index) => {
                         return this.renderIcon(item.url, item.text, index);
@@ -67,25 +67,6 @@ export default class IconList extends React.Component {
                         return this.renderIcon(item.url, item.text, index);
                     })}
                 </View>
-
-                {/* <View style={styles.home_icon}>
-                    {this.renderIcon(imgUrl.icon1, '柜子')}
-                    {this.renderIcon(imgUrl.icon1, '自取')}
-                    {this.renderIcon(imgUrl.icon1, '会员')}
-                    {this.renderIcon(imgUrl.icon1, '商店')}
-                </View>
-                <View style={styles.home_icon}>
-                    {this.renderIcon(imgUrl.icon1, '商店')}
-                    {this.renderIcon(imgUrl.icon1, '商店')}
-                    {this.renderIcon(
-                        require('../../img/home/icon7.png'),
-                        '商店',
-                    )}
-                    {this.renderIcon(
-                        require('../../img/home/icon8.png'),
-                        '商店',
-                    )}
-                </View> */}
             </View>
         );
     }
@@ -94,7 +75,7 @@ export default class IconList extends React.Component {
 let iconSize = 45;
 const styles = StyleSheet.create({
     home_icon: {
-        height: 100,
+        height: 80,
         // backgroundColor: 'red',
         marginHorizontal: 10,
         flexDirection: 'row',
