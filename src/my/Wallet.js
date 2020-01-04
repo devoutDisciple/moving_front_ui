@@ -41,7 +41,6 @@ export default class Waller extends React.Component {
                         </View>
                     </View>
                     <View style={styles.my_member_right}>
-                        {/* <Text>成为会员</Text> */}
                         <Button
                             icon={
                                 <Icon name="right" size={15} color="#b1a082" />
@@ -51,6 +50,7 @@ export default class Waller extends React.Component {
                             buttonStyle={{
                                 backgroundColor: '#f8eacf',
                                 borderRadius: 10,
+                                width: 100,
                             }}
                             titleStyle={{
                                 color: '#333',
@@ -67,14 +67,11 @@ export default class Waller extends React.Component {
 const styles = StyleSheet.create({
     my_wallet: {
         height: 80,
-        // backgroundColor: 'red',
         marginTop: 10,
         flexDirection: 'row',
     },
     my_wallet_chunk: {
         width: 100,
-        // backgroundColor: 'blue',
-        // marginRight: 20,
         alignItems: 'center',
     },
     my_wallet_chunk_top: {
@@ -90,15 +87,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#3c3e57',
         height: 50,
         flexDirection: 'row',
-        // paddingHorizontal: 20,
         paddingRight: 10,
         alignItems: 'center',
     },
     my_member_left: {
         flex: 1,
-        // backgroundColor: 'orange',
         height: 30,
-        width: 110,
         paddingHorizontal: 9,
         flexDirection: 'row',
     },
@@ -110,7 +104,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     my_member_right: {
-        width: 100,
-        // backgroundColor: 'green',
+        width: 110,
     },
 });
