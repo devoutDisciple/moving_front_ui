@@ -1,11 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Swiper from './Swiper';
+import IconList from './IconList';
 import Picker from 'react-native-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Text, View, TouchableOpacity} from 'react-native';
 
-class HomeScreen extends React.Component {
+export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -29,10 +30,10 @@ class HomeScreen extends React.Component {
                                 style={{width: 20, marginTop: 3}}
                                 name="enviromento"
                                 size={16}
-                                color="#333"
+                                color="#79d9c5"
                             />
                             <Text style={{flex: 1, marginTop: 2}}>
-                                广州一号洗衣店
+                                太行山洗衣店
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -89,18 +90,10 @@ class HomeScreen extends React.Component {
 
     // 位置点击
     locationClick() {
-        let data = [
-            '广州1号洗衣店',
-            '广州2号洗衣店',
-            '广州3号洗衣店',
-            '广州4号洗衣店',
-            '广州5号洗衣店',
-            '广州6号洗衣店',
-            '广州7号洗衣店',
-            '广州8号洗衣店',
-            '广州9号洗衣店',
-            '广州0号洗衣店',
-        ];
+        let data = [];
+        for (let i = 0; i < 10; i++) {
+            data.push(`广州${i}号洗衣店`);
+        }
         Picker.init({
             pickerData: data,
             selectedValue: ['广州3号洗衣店'],
@@ -132,9 +125,8 @@ class HomeScreen extends React.Component {
         return (
             <View style={{flex: 1}}>
                 <Swiper />
+                <IconList />
             </View>
         );
     }
 }
-
-export default HomeScreen;

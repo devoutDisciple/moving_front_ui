@@ -51,7 +51,7 @@ export default class OrderScreen extends React.Component {
                         <Text style={{height: 0}} tabLabel="全部" />
                         <Text style={{height: 0}} tabLabel="待支付" />
                         <Text style={{height: 0}} tabLabel="进行中" />
-                        <Text style={{height: 0}} tabLabel="带点评" />
+                        <Text style={{height: 0}} tabLabel="待点评" />
                     </ScrollableTabView>
                 </View>
                 {currentPageIndex === 1 && <Allorder />}

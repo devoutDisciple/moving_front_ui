@@ -4,7 +4,7 @@ import My_Header from './Header';
 import My_Wallert from './Wallet';
 import ListItem from './ListItem';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import {StyleSheet, TouchableOpacity, ScrollView, View} from 'react-native';
 
 export default class MyScreen extends React.Component {
     static navigationOptions = ({navigation, navigationOptions}) => {
@@ -54,6 +54,7 @@ export default class MyScreen extends React.Component {
             <ScrollView style={styles.container}>
                 <My_Header navigation={this.props.navigation} />
                 <My_Wallert navigation={this.props.navigation} />
+                <View style={{height: 20}} />
                 <ListItem iconName="creditcard" text="我的点评" />
                 <ListItem iconName="creditcard" text="车牌号" />
                 <ListItem iconName="creditcard" text="hello" />
