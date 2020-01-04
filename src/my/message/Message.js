@@ -17,9 +17,7 @@ export default class OrderScreen extends React.Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 18, color: '#bfbfbf'}}>
-                    这是设置页面
-                </Text>
+                <Text style={{fontSize: 18, color: '#bfbfbf'}}>个人信息</Text>
             </View>
         );
     }

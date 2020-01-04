@@ -7,9 +7,11 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 // 首页
 import HomeScreen from '../home/Home';
 
-// 我的
+// 我的  --------------------
 import MyScreen from '../my/My';
 import My_Setting from '../my/setting/Setting';
+import My_Message from '../my/message/Message';
+
 // 订单页面
 import OrderScreen from '../order/Index';
 // 测试详情
@@ -133,11 +135,24 @@ const finnalApp = createStackNavigator(
         },
         DetailScreen2: {
             screen: DetailScreen,
+            navigationOptions: {
+                title: '',
+            },
         },
         // -------------------- 我的 ---------------------
         // 我的设置页面
         My_Setting: {
             screen: My_Setting,
+            navigationOptions: {
+                title: '设置',
+            },
+        },
+        // 我的个人信息页面
+        My_Message: {
+            screen: My_Message,
+            navigationOptions: {
+                title: '个人信息',
+            },
         },
     },
     {
