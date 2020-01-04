@@ -6,8 +6,10 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 // 首页
 import HomeScreen from '../home/Home';
+
 // 我的
 import MyScreen from '../my/My';
+import My_Setting from '../my/setting/Setting';
 // 订单页面
 import OrderScreen from '../order/Index';
 // 测试详情
@@ -40,8 +42,18 @@ const OrderContainer = createStackNavigator(
                 headerShown: false,
             },
         },
-        DetailScreen: {
-            screen: DetailScreen,
+    },
+    {
+        mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
+        headerMode: 'float', // headerMode -
+    },
+);
+
+// 我的页面
+const MyContainer = createStackNavigator(
+    {
+        MyScreen: {
+            screen: MyScreen,
         },
     },
     {
@@ -52,37 +64,36 @@ const OrderContainer = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator(
     {
-        // Home: {
-        //     screen: HomeContainer,
-        //     navigationOptions: {
-        //         title: 'Home',
-        //         tabBarLabel: '首页',
-        //         tabBarIcon: ({focused, tintColor}) => (
-        //             <TabBarItem
-        //                 focused={focused}
-        //                 normalImage={require('../../img/tabbar/tabbar_homepage.png')}
-        //                 selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
-        //             />
-        //         ),
+        //     Home: {
+        //         screen: HomeContainer,
+        //         navigationOptions: {
+        //             title: 'Home',
+        //             tabBarLabel: '首页',
+        //             tabBarIcon: ({focused, tintColor}) => (
+        //                 <TabBarItem
+        //                     focused={focused}
+        //                     normalImage={require('../../img/tabbar/tabbar_homepage.png')}
+        //                     selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
+        //                 />
+        //             ),
+        //         },
         //     },
-        // },
-        Order: {
-            screen: OrderContainer,
-            navigationOptions: {
-                title: 'Order',
-                tabBarLabel: '订单',
-                tabBarIcon: ({focused, tintColor}) => (
-                    <TabBarItem
-                        focused={focused}
-                        normalImage={require('../../img/tabbar/tabbar_order.png')}
-                        selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
-                    />
-                ),
-            },
-        },
+        //     Order: {
+        //         screen: OrderContainer,
+        //         navigationOptions: {
+        //             title: 'Order',
+        //             tabBarLabel: '订单',
+        //             tabBarIcon: ({focused, tintColor}) => (
+        //                 <TabBarItem
+        //                     focused={focused}
+        //                     normalImage={require('../../img/tabbar/tabbar_order.png')}
+        //                     selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
+        //                 />
+        //             ),
+        //         },
+        //     },
         My: {
-            screen: MyScreen,
-            params: {hello: 'world'},
+            screen: MyContainer,
             navigationOptions: {
                 title: 'My',
                 tabBarLabel: '我的',
@@ -97,7 +108,7 @@ const TabNavigator = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'Order', // 第一次加载tab bar时路由的routeName
+        initialRouteName: 'My', // 第一次加载tab bar时路由的routeName
         tabBarOptions: {
             activeTintColor: '#2fc3af', //当前选中的tab bar的文本颜色和图标颜色
             inactiveTintColor: '#666', // 当前未选中的tab bar的文本颜色和图标颜色
@@ -116,10 +127,17 @@ const finnalApp = createStackNavigator(
             screen: TabNavigator,
             navigationOptions: {
                 headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
             },
         },
         DetailScreen2: {
             screen: DetailScreen,
+        },
+        // -------------------- 我的 ---------------------
+        // 我的设置页面
+        My_Setting: {
+            screen: My_Setting,
         },
     },
     {
