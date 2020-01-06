@@ -17,7 +17,7 @@ import OrderScreen from '../order/Index';
 // 测试详情
 import DetailScreen from '../home/Detail';
 // 登录和注册页面
-import Login from '../login/Login';
+import LoginScreen from '../login/Login';
 import TabBarItem from './TabBarItem';
 
 // 首页的页面
@@ -125,6 +125,14 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        LoginScreen: {
+            screen: LoginScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
         HomeScreen: {
             screen: TabNavigator,
             navigationOptions: {

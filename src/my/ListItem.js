@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default class Waller extends React.Component {
     constructor(props) {
@@ -14,17 +13,21 @@ export default class Waller extends React.Component {
     render() {
         let {iconName, text} = this.props;
         return (
-            <View style={styles.my_list_item}>
-                <View style={styles.my_list_item_icon}>
-                    <Icon name={iconName || ''} size={16} color="#79d9c5" />
+            <TouchableOpacity onPress={this.props.onPress}>
+                <View style={styles.my_list_item}>
+                    <View style={styles.my_list_item_icon}>
+                        <Icon name={iconName || ''} size={16} color="#79d9c5" />
+                    </View>
+                    <View style={styles.my_list_item_desc}>
+                        <Text style={{fontSize: 15, color: '#333'}}>
+                            {text}
+                        </Text>
+                    </View>
+                    <View style={styles.my_list_item_icon}>
+                        <Icon name="right" size={16} color="#b1a082" />
+                    </View>
                 </View>
-                <View style={styles.my_list_item_desc}>
-                    <Text style={{fontSize: 15, color: '#333'}}>{text}</Text>
-                </View>
-                <View style={styles.my_list_item_icon}>
-                    <Icon name="right" size={16} color="#b1a082" />
-                </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }

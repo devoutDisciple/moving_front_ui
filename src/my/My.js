@@ -49,6 +49,11 @@ export default class MyScreen extends React.Component {
         this.props.navigation.navigate('My_Setting');
     }
 
+    // 点击登录
+    onLogin() {
+        this.props.navigation.navigate('LoginScreen');
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -56,8 +61,12 @@ export default class MyScreen extends React.Component {
                 <My_Wallert navigation={this.props.navigation} />
                 <View style={{height: 20}} />
                 <ListItem iconName="creditcard" text="我的点评" />
-                <ListItem iconName="creditcard" text="车牌号" />
-                <ListItem iconName="creditcard" text="hello" />
+                <ListItem
+                    iconName="creditcard"
+                    text="登录"
+                    onPress={this.onLogin.bind(this)}
+                />
+                <ListItem iconName="creditcard" text="注册" />
                 <ListItem iconName="creditcard" text="world" />
                 <ListItem iconName="creditcard" text="车牌号" />
                 <ListItem iconName="creditcard" text="hello" />
