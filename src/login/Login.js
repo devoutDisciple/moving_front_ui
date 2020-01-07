@@ -4,69 +4,77 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Dimensions,
-    SafeAreaView,
     ScrollView,
-    StatusBar,
     StyleSheet,
 } from 'react-native';
+import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
-const {width, height} = Dimensions.get('window');
-const baseColor = {
-    fontColor: '#5abb8c',
-    shadowColoe: '#7e7e7e',
-};
+import {baseColor, commonInputParams} from './commonParams';
 
 export default class LoginScreen extends React.Component {
-    // 点击叉号的时候
-    backHome() {
-        this.props.navigation.navigate('Home');
-    }
-    render() {
-        const commonParams = {
-            style: {
-                backgroundColor: '#fff',
-                width: width - 60,
-                marginLeft: 20,
-                borderColor: '#fff',
-                borderBottomColor: '#f7f7f7',
-                borderWidth: 1,
-            },
-            label: '请输入手机号',
-            iconClass: Icon,
-            // 图标的颜色
-            iconColor: baseColor.fontColor,
-            // label的颜色
-            labelStyle: {
-                color: '#cacaca',
-                paddingLeft: 0,
-                marginLeft: -15,
-            },
-            // input里面的字体颜色
-            inputStyle: {color: '#333', paddingTop: 5},
-            labelContainerStyle: {paddingTop: 10, paddingLeft: 0},
-            iconContainerStyle: {paddingTop: 20},
+    constructor(props) {
+        super(props);
+        this.state = {
+            loginBtnDisable: true,
+            checked: false,
         };
+    }
+
+    // 导航到其他页面
+    goOtherPage(num) {
+        // 点击叉号
+        if (num === 1) {
+            this.props.navigation.navigate('Home');
+        }
+        // 点击注册按钮
+        if (num === 2) {
+            this.props.navigation.navigate('ResgisterScreen');
+        }
+        // 点击验证码登录
+        if (num === 3) {
+            this.props.navigation.navigate('SecurityCodeScreen');
+        }
+        // 点击忘记密码
+        if (num === 4) {
+            this.props.navigation.navigate('ResetPasswordScreen');
+        }
+    }
+
+    // 点击登录按钮
+    loginBtnClick() {
+        console.log(123);
+    }
+
+    render() {
+        const {loginBtnDisable} = this.state;
+
         return (
             <ScrollView style={{flex: 1, padding: 10}}>
                 <TouchableOpacity
                     style={{marginVertical: 20}}
-                    onPress={this.backHome.bind(this)}>
+                    onPress={this.goOtherPage.bind(this, 1)}>
                     <Icon name="close" size={22} color="#333" />
                 </TouchableOpacity>
                 <View style={{marginVertical: 20, marginLeft: 20}}>
                     <Text style={{fontSize: 20}}>账号登录</Text>
                 </View>
                 <Kohana
-                    {...commonParams}
+                    {...commonInputParams}
                     iconName="user"
                     label={'请输入手机号'}
-                    useNativeDriver
+                    keyboardType="number-pad"
+                    maxLength={11}
+                    selectionColor={baseColor.fontColor}
                 />
-                <Kohana iconName="lock" {...commonParams} label={'登录密码'} />
+                <Kohana
+                    iconName="lock"
+                    {...commonInputParams}
+                    label={'登录密码'}
+                    secureTextEntry={true}
+                    selectionColor={baseColor.fontColor}
+                    maxLength={20}
+                />
                 <View style={styles.login_desc}>
                     <View style={styles.login_desc_left}>
                         <View style={styles.login_desc_left_account}>
@@ -74,18 +82,43 @@ export default class LoginScreen extends React.Component {
                                 没有账号？
                             </Text>
                         </View>
-                        <View style={styles.login_desc_left_register}>
+                        <TouchableOpacity
+                            onPress={this.goOtherPage.bind(this, 2)}
+                            style={styles.login_desc_left_register}>
                             <Text style={{color: baseColor.fontColor}}>
                                 立即注册
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.login_desc_right}>
+                    <TouchableOpacity
+                        onPress={this.goOtherPage.bind(this, 4)}
+                        style={styles.login_desc_right}>
                         <Text style={{color: baseColor.shadowColoe}}>
                             忘记密码？
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
+                <View style={styles.login_btn}>
+                    <Button
+                        buttonStyle={{
+                            backgroundColor: baseColor.heightColoe,
+                            borderRadius: 30,
+                            height: 60,
+                        }}
+                        disabled={loginBtnDisable}
+                        disabledStyle={{backgroundColor: '#9be3bd'}}
+                        disabledTitleStyle={{color: '#fff'}}
+                        onPress={this.loginBtnClick.bind(this)}
+                        title="登录"
+                    />
+                </View>
+                <TouchableOpacity
+                    onPress={this.goOtherPage.bind(this, 3)}
+                    style={styles.phoneLogin}>
+                    <Text style={{color: baseColor.fontColor}}>
+                        手机验证码登录
+                    </Text>
+                </TouchableOpacity>
             </ScrollView>
         );
     }
@@ -114,5 +147,12 @@ const styles = StyleSheet.create({
     login_desc_right: {
         width: 80,
         justifyContent: 'center',
+    },
+    login_btn: {
+        height: 90,
+        // backgroundColor: 'red',
+    },
+    phoneLogin: {
+        alignItems: 'center',
     },
 });

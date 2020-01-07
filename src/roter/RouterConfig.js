@@ -18,6 +18,9 @@ import OrderScreen from '../order/Index';
 import DetailScreen from '../home/Detail';
 // 登录和注册页面
 import LoginScreen from '../login/Login';
+import ResgisterScreen from '../login/Register';
+import SecurityCodeScreen from '../login/SecurityCode';
+import ResetPasswordScreen from '../login/ResetPassword';
 import TabBarItem from './TabBarItem';
 
 // 首页的页面
@@ -127,6 +130,30 @@ const finnalApp = createStackNavigator(
     {
         LoginScreen: {
             screen: LoginScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        ResgisterScreen: {
+            screen: ResgisterScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        SecurityCodeScreen: {
+            screen: SecurityCodeScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        ResetPasswordScreen: {
+            screen: ResetPasswordScreen,
             navigationOptions: {
                 headerShown: false,
                 headerBackTitle: '返回',

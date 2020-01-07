@@ -12,7 +12,7 @@ import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 
-export default class RegisterScreen extends React.Component {
+export default class ResetPassword extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,8 +32,8 @@ export default class RegisterScreen extends React.Component {
         this.props.navigation.goBack();
     }
 
-    // 点击注册按钮
-    registerBtnClick() {
+    // 获取验证码登录
+    secuityCodeBtnClick() {
         console.log(123);
     }
 
@@ -43,7 +43,6 @@ export default class RegisterScreen extends React.Component {
             timeNumVisible: true,
         });
         this.timer = setInterval(() => {
-            console.log(123);
             this.setState({
                 timeNum: this.state.timeNum - 1,
             });
@@ -60,7 +59,7 @@ export default class RegisterScreen extends React.Component {
                     <Icon name="left" size={22} color="#333" />
                 </TouchableOpacity>
                 <View style={{marginVertical: 20, marginLeft: 20}}>
-                    <Text style={{fontSize: 20}}>注册</Text>
+                    <Text style={{fontSize: 20}}>重置密码</Text>
                 </View>
                 <Kohana
                     {...commonInputParams}
@@ -115,6 +114,14 @@ export default class RegisterScreen extends React.Component {
                     selectionColor={baseColor.fontColor}
                     maxLength={20}
                 />
+                <Kohana
+                    iconName="lock"
+                    {...commonInputParams}
+                    label={'确认密码'}
+                    secureTextEntry={true}
+                    selectionColor={baseColor.fontColor}
+                    maxLength={20}
+                />
                 <View style={styles.login_btn}>
                     <Button
                         buttonStyle={{
@@ -125,8 +132,8 @@ export default class RegisterScreen extends React.Component {
                         disabled={loginBtnDisable}
                         disabledStyle={{backgroundColor: '#9be3bd'}}
                         disabledTitleStyle={{color: '#fff'}}
-                        onPress={this.registerBtnClick.bind(this)}
-                        title="注册并登录"
+                        onPress={this.secuityCodeBtnClick.bind(this)}
+                        title="确定"
                     />
                 </View>
             </ScrollView>
