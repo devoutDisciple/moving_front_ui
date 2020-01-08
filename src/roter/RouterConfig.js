@@ -72,34 +72,34 @@ const MyContainer = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator(
     {
-        Home: {
-            screen: HomeContainer,
-            navigationOptions: {
-                title: 'Home',
-                tabBarLabel: '首页',
-                tabBarIcon: ({focused, tintColor}) => (
-                    <TabBarItem
-                        focused={focused}
-                        normalImage={require('../../img/tabbar/tabbar_homepage.png')}
-                        selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
-                    />
-                ),
-            },
-        },
-        Order: {
-            screen: OrderContainer,
-            navigationOptions: {
-                title: 'Order',
-                tabBarLabel: '订单',
-                tabBarIcon: ({focused, tintColor}) => (
-                    <TabBarItem
-                        focused={focused}
-                        normalImage={require('../../img/tabbar/tabbar_order.png')}
-                        selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
-                    />
-                ),
-            },
-        },
+        // Home: {
+        //     screen: HomeContainer,
+        //     navigationOptions: {
+        //         title: 'Home',
+        //         tabBarLabel: '首页',
+        //         tabBarIcon: ({focused, tintColor}) => (
+        //             <TabBarItem
+        //                 focused={focused}
+        //                 normalImage={require('../../img/tabbar/tabbar_homepage.png')}
+        //                 selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
+        //             />
+        //         ),
+        //     },
+        // },
+        // Order: {
+        //     screen: OrderContainer,
+        //     navigationOptions: {
+        //         title: 'Order',
+        //         tabBarLabel: '订单',
+        //         tabBarIcon: ({focused, tintColor}) => (
+        //             <TabBarItem
+        //                 focused={focused}
+        //                 normalImage={require('../../img/tabbar/tabbar_order.png')}
+        //                 selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
+        //             />
+        //         ),
+        //     },
+        // },
         My: {
             screen: MyContainer,
             navigationOptions: {
@@ -131,6 +131,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        // 注册页面
+        ResgisterScreen: {
+            screen: ResgisterScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -158,15 +167,7 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-        // 注册页面
-        ResgisterScreen: {
-            screen: ResgisterScreen,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
-            },
-        },
+
         // 验证码登录
         SecurityCodeScreen: {
             screen: SecurityCodeScreen,

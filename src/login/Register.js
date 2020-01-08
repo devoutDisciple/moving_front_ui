@@ -6,11 +6,14 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
+    Alert,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
+import request from '../util/request';
+import message from '../util/message';
 
 export default class RegisterScreen extends React.Component {
     constructor(props) {
@@ -19,6 +22,9 @@ export default class RegisterScreen extends React.Component {
             loginBtnDisable: true,
             timeNumVisible: false,
             timeNum: 60,
+            phone: '', // 输入的手机号
+            securityCode: '', // 验证码
+            password: '', // 验证码
         };
     }
 
@@ -32,9 +38,63 @@ export default class RegisterScreen extends React.Component {
         this.props.navigation.goBack();
     }
 
+    // 输入框改变的时候
+    inputChange(key, value) {
+        let params = {};
+        params[key] = value;
+        this.setState(params, () => {
+            let {phone, securityCode, password} = this.state;
+            if (phone && securityCode && password) {
+                this.setState({loginBtnDisable: false});
+            } else {
+                this.setState({loginBtnDisable: true});
+            }
+        });
+    }
+
     // 点击注册按钮
-    registerBtnClick() {
-        console.log(123);
+    async registerBtnClick() {
+        let {phone, securityCode, password} = this.state;
+        // 手机号不通过
+        // if (!/^1[3456789]\d{9}$/.test(phone)) {
+        //     return message.warning('填写错误', '请输入正确的手机号码');
+        // }
+        // if (securityCode.length <= 3) {
+        //     return message.warning('填写错误', '请输入正确的验证码');
+        // }
+        // if (password.length <= 7) {
+        //     return message.warning('填写错误', '密码最少为六位字符');
+        // }
+        console.log(phone, securityCode, password);
+        // let res = await request.post('/register/add', {
+        //     phone,
+        //     securityCode,
+        //     password,
+        // });
+        // console.log(res, 90);
+        //POST方式,IP为本机IP
+        fetch('http://localhost:3001/register/add', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phone,
+                securityCode,
+                password,
+            }),
+        })
+            .then(function(res) {
+                console.log(res, 99);
+                console.log(res.json(), 66);
+            })
+            .catch(function(e) {
+                console.log('fetch fail');
+                Alert.alert('提示', '系统错误', [
+                    {text: '确定', onPress: () => console.log('OK Pressed!')},
+                ]);
+            });
     }
 
     // 点击获取验证码
@@ -66,6 +126,7 @@ export default class RegisterScreen extends React.Component {
                     {...commonInputParams}
                     iconName="user"
                     label={'请输入手机号'}
+                    onChangeText={this.inputChange.bind(this, 'phone')}
                     keyboardType="number-pad"
                     maxLength={11}
                     selectionColor={baseColor.fontColor}
@@ -76,6 +137,10 @@ export default class RegisterScreen extends React.Component {
                             {...commonInputParams}
                             iconName="message1"
                             label={'验证码'}
+                            onChangeText={this.inputChange.bind(
+                                this,
+                                'securityCode',
+                            )}
                             keyboardType="number-pad"
                             maxLength={6}
                             selectionColor={baseColor.fontColor}
@@ -111,6 +176,7 @@ export default class RegisterScreen extends React.Component {
                     iconName="lock"
                     {...commonInputParams}
                     label={'设置密码'}
+                    onChangeText={this.inputChange.bind(this, 'password')}
                     secureTextEntry={true}
                     selectionColor={baseColor.fontColor}
                     maxLength={20}
