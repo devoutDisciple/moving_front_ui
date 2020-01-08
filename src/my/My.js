@@ -46,7 +46,7 @@ export default class MyScreen extends React.Component {
 
     // 点击设置按钮
     setIconClick() {
-        this.props.navigation.navigate('My_Setting');
+        this.props.navigation.navigate('MySetting');
     }
 
     // 点击登录

@@ -11,6 +11,12 @@ export default class Waller extends React.Component {
 
     componentDidMount() {}
 
+    // 点击成为会员
+    beMember() {
+        console.log(111);
+        this.props.navigation.navigate('MemberScreen');
+    }
+
     render() {
         return (
             <View>
@@ -42,6 +48,7 @@ export default class Waller extends React.Component {
                     </View>
                     <View style={styles.my_member_right}>
                         <Button
+                            onPress={this.beMember.bind(this)}
                             icon={
                                 <Icon name="right" size={15} color="#b1a082" />
                             }

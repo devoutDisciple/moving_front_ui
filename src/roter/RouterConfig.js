@@ -9,8 +9,8 @@ import HomeScreen from '../home/Home';
 
 // 我的  --------------------
 import MyScreen from '../my/My';
-import My_Setting from '../my/setting/Setting';
-import My_Message from '../my/message/Message';
+import MySetting from '../my/setting/Setting';
+import MyMessage from '../my/message/Message';
 
 // 订单页面
 import OrderScreen from '../order/Index';
@@ -21,6 +21,9 @@ import LoginScreen from '../login/Login';
 import ResgisterScreen from '../login/Register';
 import SecurityCodeScreen from '../login/SecurityCode';
 import ResetPasswordScreen from '../login/ResetPassword';
+// 会员页面
+import MemberScreen from '../member/Member';
+
 import TabBarItem from './TabBarItem';
 
 // 首页的页面
@@ -128,38 +131,7 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
-        LoginScreen: {
-            screen: LoginScreen,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
-            },
-        },
-        ResgisterScreen: {
-            screen: ResgisterScreen,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
-            },
-        },
-        SecurityCodeScreen: {
-            screen: SecurityCodeScreen,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
-            },
-        },
-        ResetPasswordScreen: {
-            screen: ResetPasswordScreen,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
-            },
-        },
+        // 首页
         HomeScreen: {
             screen: TabNavigator,
             navigationOptions: {
@@ -168,6 +140,52 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+        // 会员页面 MemberScreen
+        MemberScreen: {
+            screen: MemberScreen,
+            navigationOptions: {
+                headerBackTitle: '',
+                title: '成为会员',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        // 登录页面
+        LoginScreen: {
+            screen: LoginScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        // 注册页面
+        ResgisterScreen: {
+            screen: ResgisterScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        // 验证码登录
+        SecurityCodeScreen: {
+            screen: SecurityCodeScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        // 重置密码页面
+        ResetPasswordScreen: {
+            screen: ResetPasswordScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+
         DetailScreen2: {
             screen: DetailScreen,
             navigationOptions: {
@@ -176,15 +194,15 @@ const finnalApp = createStackNavigator(
         },
         // -------------------- 我的 ---------------------
         // 我的设置页面
-        My_Setting: {
-            screen: My_Setting,
+        MySetting: {
+            screen: MySetting,
             navigationOptions: {
                 title: '设置',
             },
         },
         // 我的个人信息页面
-        My_Message: {
-            screen: My_Message,
+        MyMessage: {
+            screen: MyMessage,
             navigationOptions: {
                 title: '个人信息',
             },

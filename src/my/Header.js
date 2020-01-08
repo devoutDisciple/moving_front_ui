@@ -14,7 +14,7 @@ export default class MyScreen extends React.Component {
     // 点击编辑按钮
     editBtnClick() {
         console.log(this.props);
-        this.props.navigation.navigate('My_Message');
+        this.props.navigation.navigate('MyMessage');
     }
 
     render() {
