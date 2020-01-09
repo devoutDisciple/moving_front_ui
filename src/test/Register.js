@@ -72,6 +72,30 @@ export default class RegisterScreen extends React.Component {
             password,
         });
         console.log(res, 90);
+        //POST方式,IP为本机IP
+        // fetch('http://localhost:3001/register/add', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //         phone,
+        //         securityCode,
+        //         password,
+        //     }),
+        // })
+        //     .then(function(response) {
+        //         response.json().then(res => {
+        //             console.log(res, 111);
+        //         });
+        //     })
+        //     .catch(function(e) {
+        //         console.log('fetch fail');
+        //         Alert.alert('提示', '系统错误', [
+        //             {text: '确定', onPress: () => console.log('OK Pressed!')},
+        //         ]);
+        //     });
     }
 
     // 点击获取验证码
