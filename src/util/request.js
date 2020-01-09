@@ -36,7 +36,12 @@ Axios.interceptors.response.use(
             message.warning('提示', '网络异常, 请稍后重试');
             return Promise.reject('系统错误');
         }
-        return Promise.resolve(JSON.parse(res.data));
+        let data = JSON.parse(res.data);
+        // 自定义的错误
+        if (data.code === 500) {
+            message.warning('提示', data.message);
+        }
+        return Promise.resolve(data);
     },
     function(error) {
         // 对响应错误做点什么

@@ -21,6 +21,7 @@ export default class RegisterScreen extends React.Component {
             loginBtnDisable: true,
             timeNumVisible: false,
             timeNum: initTimeNum,
+            username: '', // 用户昵称
             phone: '', // 输入的手机号
             securityCode: '', // 验证码
             password: '', // 验证码
@@ -53,20 +54,24 @@ export default class RegisterScreen extends React.Component {
 
     // 点击注册按钮
     async registerBtnClick() {
-        let {phone, securityCode, password} = this.state;
+        let {phone, securityCode, password, username} = this.state;
+        if (!username) {
+            return message.warning('提示', '请填写昵称');
+        }
         // 手机号不通过
         if (!/^1[3456789]\d{9}$/.test(phone)) {
             return message.warning('提示', '请输入正确的手机号码');
         }
-        if (securityCode.length <= 3) {
+        if (securityCode.length <= 5) {
             return message.warning('提示', '请输入正确的验证码');
         }
         if (password.length <= 7) {
             return message.warning('提示', '密码最少为六位字符');
         }
         let res = await request.post('/register/add', {
+            username,
             phone,
-            securityCode,
+            security_code: securityCode,
             password,
         });
         res = request.handleResult(res, this.props.navigation);
@@ -114,6 +119,15 @@ export default class RegisterScreen extends React.Component {
                 <View style={{marginVertical: 20, marginLeft: 20}}>
                     <Text style={{fontSize: 20}}>注册</Text>
                 </View>
+                <Kohana
+                    {...commonInputParams}
+                    iconName="user"
+                    label={'请输入昵称'}
+                    onChangeText={this.inputChange.bind(this, 'username')}
+                    keyboardType="number-pad"
+                    maxLength={11}
+                    selectionColor={baseColor.fontColor}
+                />
                 <Kohana
                     {...commonInputParams}
                     iconName="user"
