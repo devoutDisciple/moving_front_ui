@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
-    Alert,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
@@ -14,14 +13,14 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 import request from '../util/request';
 import message from '../util/message';
-
+const initTimeNum = 60;
 export default class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             loginBtnDisable: true,
             timeNumVisible: false,
-            timeNum: 60,
+            timeNum: initTimeNum,
             phone: '', // 输入的手机号
             securityCode: '', // 验证码
             password: '', // 验证码
@@ -56,31 +55,47 @@ export default class RegisterScreen extends React.Component {
     async registerBtnClick() {
         let {phone, securityCode, password} = this.state;
         // 手机号不通过
-        // if (!/^1[3456789]\d{9}$/.test(phone)) {
-        //     return message.warning('填写错误', '请输入正确的手机号码');
-        // }
-        // if (securityCode.length <= 3) {
-        //     return message.warning('填写错误', '请输入正确的验证码');
-        // }
-        // if (password.length <= 7) {
-        //     return message.warning('填写错误', '密码最少为六位字符');
-        // }
-        console.log(phone, securityCode, password);
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        if (securityCode.length <= 3) {
+            return message.warning('提示', '请输入正确的验证码');
+        }
+        if (password.length <= 7) {
+            return message.warning('提示', '密码最少为六位字符');
+        }
         let res = await request.post('/register/add', {
             phone,
             securityCode,
             password,
         });
+        res = request.handleResult(res, this.props.navigation);
         console.log(res, 90);
     }
 
     // 点击获取验证码
-    getMessage() {
+    async getMessage() {
+        const {phone} = this.state;
+        // 手机号不通过
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        let res = await request.post('/register/sendMessage', {
+            phoneNum: phone,
+        });
+        console.log(res, 111);
         this.setState({
             timeNumVisible: true,
         });
         this.timer = setInterval(() => {
-            console.log(123);
+            let {timeNum} = this.state;
+            if (timeNum === 1) {
+                this.timer && clearInterval(this.timer);
+                return this.setState({
+                    timeNumVisible: false,
+                    timeNum: initTimeNum,
+                });
+            }
             this.setState({
                 timeNum: this.state.timeNum - 1,
             });

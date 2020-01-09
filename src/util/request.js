@@ -32,20 +32,17 @@ Axios.defaults = Object.assign(Axios.defaults, {
 // 添加响应拦截器
 Axios.interceptors.response.use(
     function(res) {
-        console.log(res);
         if (res.status !== 200) {
-            message.warning('网络出小差了', '请稍后重试');
+            message.warning('提示', '网络异常, 请稍后重试');
             return Promise.reject('系统错误');
         }
-        return Promise.resolve(res.data);
+        return Promise.resolve(JSON.parse(res.data));
     },
     function(error) {
         // 对响应错误做点什么
         if (error.response) {
             // 请求已发出，但服务器响应的状态码不在 2xx 范围内
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            console.log(error.response);
         } else {
             console.info('Error', error.message);
         }
@@ -62,14 +59,10 @@ export default {
                 params: params,
             })
                 .then(res => {
-                    if (res.code === 200) {
-                        resolve(res);
-                    } else {
-                        reject(res);
-                    }
+                    resolve(res);
                 })
                 .catch(err => {
-                    console.info(`服务端出错11: ${err}`);
+                    message.warning('提示', '网络异常, 请稍后重试');
                     reject(err);
                 });
         });
@@ -82,14 +75,10 @@ export default {
                 data: params,
             })
                 .then(res => {
-                    if (res.code === 200) {
-                        resolve(res);
-                    } else {
-                        reject(res);
-                    }
+                    resolve(res);
                 })
                 .catch(err => {
-                    console.info(`服务端出错: ${err}`);
+                    message.warning('提示', '网络异常, 请稍后重试');
                     reject(err);
                 });
         });
@@ -102,14 +91,10 @@ export default {
                 data: params,
             })
                 .then(res => {
-                    if (res.code === 200) {
-                        resolve(res);
-                    } else {
-                        reject(res);
-                    }
+                    resolve(res);
                 })
                 .catch(err => {
-                    console.info(`服务端出错: ${err}`);
+                    message.warning('提示', '网络异常, 请稍后重试');
                     reject(err);
                 });
         });
@@ -122,16 +107,19 @@ export default {
                 data: params,
             })
                 .then(res => {
-                    if (res.code === 200) {
-                        resolve(res);
-                    } else {
-                        reject(res);
-                    }
+                    resolve(res);
                 })
                 .catch(err => {
-                    console.info(`服务端出错: ${err}`);
+                    message.warning('提示', '网络异常, 请稍后重试');
                     reject(err);
                 });
         });
+    },
+    handleResult: (res, navigation) => {
+        // 没有登录
+        if (res.code === 502) {
+            navigation.navigate('SecurityCodeScreen');
+        }
+        return res.data;
     },
 };
