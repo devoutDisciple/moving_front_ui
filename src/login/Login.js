@@ -61,7 +61,7 @@ export default class LoginScreen extends React.Component {
                 </View>
                 <Kohana
                     {...commonInputParams}
-                    iconName="user"
+                    iconName="phone"
                     label={'请输入手机号'}
                     keyboardType="number-pad"
                     maxLength={11}

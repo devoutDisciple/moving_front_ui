@@ -130,7 +130,7 @@ export default class RegisterScreen extends React.Component {
                 />
                 <Kohana
                     {...commonInputParams}
-                    iconName="user"
+                    iconName="phone"
                     label={'请输入手机号'}
                     onChangeText={this.inputChange.bind(this, 'phone')}
                     keyboardType="number-pad"
