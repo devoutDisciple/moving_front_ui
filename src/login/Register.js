@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
+    AsyncStorage,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
@@ -76,6 +77,12 @@ export default class RegisterScreen extends React.Component {
         });
         res = request.handleResult(res, this.props.navigation);
         console.log(res, 90);
+        AsyncStorage.setItem('token', 'hello world', (error, result) => {
+            if (error) {
+                return message.warning('提示', '网络错误，请稍后重试');
+            }
+            this.props.navigation.navigate('Home');
+        });
     }
 
     // 点击获取验证码

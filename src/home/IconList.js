@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    AsyncStorage,
+} from 'react-native';
 
 export default class IconList extends React.Component {
     constructor(props) {
@@ -9,9 +16,20 @@ export default class IconList extends React.Component {
 
     componentDidMount() {}
 
+    // 点击icon
+    iconClick() {
+        AsyncStorage.getItem('token', (error, result) => {
+            console.log(error, 333);
+            console.log(result, 444);
+        });
+    }
+
     renderIcon(soure, text, index) {
         return (
-            <TouchableOpacity key={index} style={styles.home_icon_item}>
+            <TouchableOpacity
+                onPress={this.iconClick.bind(this)}
+                key={index}
+                style={styles.home_icon_item}>
                 <Image style={styles.home_icon_item_img} source={soure} />
                 <Text style={styles.home_icon_item_text}>柜子</Text>
             </TouchableOpacity>
