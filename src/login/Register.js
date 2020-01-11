@@ -75,7 +75,6 @@ export default class RegisterScreen extends React.Component {
             security_code: securityCode,
             password,
         });
-        res = request.handleResult(res, this.props.navigation);
         console.log(res, 90);
         AsyncStorage.setItem('token', 'hello world', (error, result) => {
             if (error) {

@@ -54,6 +54,11 @@ export default class MyScreen extends React.Component {
         this.props.navigation.navigate('LoginScreen');
     }
 
+    // 点击注册
+    onRegister() {
+        this.props.navigation.navigate('ResgisterScreen');
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -66,7 +71,11 @@ export default class MyScreen extends React.Component {
                     text="登录"
                     onPress={this.onLogin.bind(this)}
                 />
-                <ListItem iconName="creditcard" text="注册" />
+                <ListItem
+                    iconName="creditcard"
+                    text="注册"
+                    onPress={this.onRegister.bind(this)}
+                />
                 <ListItem iconName="creditcard" text="world" />
                 <ListItem iconName="creditcard" text="车牌号" />
                 <ListItem iconName="creditcard" text="hello" />
