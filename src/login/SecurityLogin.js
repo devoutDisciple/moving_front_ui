@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
-    Alert,
+    AsyncStorage,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 import request from '../util/request';
 import message from '../util/message';
+import config from '../config/config';
 
 export default class RegisterScreen extends React.Component {
     constructor(props) {
@@ -21,10 +22,9 @@ export default class RegisterScreen extends React.Component {
         this.state = {
             loginBtnDisable: true,
             timeNumVisible: false,
-            timeNum: 60,
+            timeNum: config.sercurity_code_time,
             phone: '', // 输入的手机号
             securityCode: '', // 验证码
-            password: '', // 验证码
         };
     }
 
@@ -38,13 +38,37 @@ export default class RegisterScreen extends React.Component {
         this.props.navigation.goBack();
     }
 
+    // 点击登录
+    async secuityCodeBtnClick() {
+        let {phone, securityCode} = this.state;
+        // 手机号不通过
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        if (securityCode.length <= 5) {
+            return message.warning('提示', '请输入正确的验证码');
+        }
+        let res = await request.post('/login/bySercurityCode', {
+            phone,
+            security_code: securityCode,
+        });
+        if (res && res.code === 200) {
+            AsyncStorage.setItem('token', res.data, (error, result) => {
+                if (error) {
+                    return message.warning('提示', '网络错误，请稍后重试');
+                }
+                this.props.navigation.navigate('Home');
+            });
+        }
+    }
+
     // 输入框改变的时候
     inputChange(key, value) {
         let params = {};
         params[key] = value;
         this.setState(params, () => {
-            let {phone, securityCode, password} = this.state;
-            if (phone && securityCode && password) {
+            let {phone, securityCode} = this.state;
+            if (phone && securityCode) {
                 this.setState({loginBtnDisable: false});
             } else {
                 this.setState({loginBtnDisable: true});
@@ -52,59 +76,29 @@ export default class RegisterScreen extends React.Component {
         });
     }
 
-    // 点击注册按钮
-    async registerBtnClick() {
-        let {phone, securityCode, password} = this.state;
-        // 手机号不通过
-        // if (!/^1[3456789]\d{9}$/.test(phone)) {
-        //     return message.warning('填写错误', '请输入正确的手机号码');
-        // }
-        // if (securityCode.length <= 3) {
-        //     return message.warning('填写错误', '请输入正确的验证码');
-        // }
-        // if (password.length <= 7) {
-        //     return message.warning('填写错误', '密码最少为六位字符');
-        // }
-        console.log(phone, securityCode, password);
-        let res = await request.post('/register/add', {
-            phone,
-            securityCode,
-            password,
-        });
-        console.log(res, 90);
-        //POST方式,IP为本机IP
-        // fetch('http://localhost:3001/register/add', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         phone,
-        //         securityCode,
-        //         password,
-        //     }),
-        // })
-        //     .then(function(response) {
-        //         response.json().then(res => {
-        //             console.log(res, 111);
-        //         });
-        //     })
-        //     .catch(function(e) {
-        //         console.log('fetch fail');
-        //         Alert.alert('提示', '系统错误', [
-        //             {text: '确定', onPress: () => console.log('OK Pressed!')},
-        //         ]);
-        //     });
-    }
-
     // 点击获取验证码
-    getMessage() {
+    async getMessage() {
+        const {phone} = this.state;
+        // 手机号不通过
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        // 请求获得验证码
+        await request.post('/login/sendMessage', {
+            phoneNum: phone,
+        });
         this.setState({
             timeNumVisible: true,
         });
         this.timer = setInterval(() => {
-            console.log(123);
+            let {timeNum} = this.state;
+            if (timeNum === 1) {
+                this.timer && clearInterval(this.timer);
+                return this.setState({
+                    timeNumVisible: false,
+                    timeNum: config.sercurity_code_time,
+                });
+            }
             this.setState({
                 timeNum: this.state.timeNum - 1,
             });
@@ -121,11 +115,11 @@ export default class RegisterScreen extends React.Component {
                     <Icon name="left" size={22} color="#333" />
                 </TouchableOpacity>
                 <View style={{marginVertical: 20, marginLeft: 20}}>
-                    <Text style={{fontSize: 20}}>注册</Text>
+                    <Text style={{fontSize: 20}}>验证码登录</Text>
                 </View>
                 <Kohana
                     {...commonInputParams}
-                    iconName="user"
+                    iconName="phone"
                     label={'请输入手机号'}
                     onChangeText={this.inputChange.bind(this, 'phone')}
                     keyboardType="number-pad"
@@ -173,15 +167,6 @@ export default class RegisterScreen extends React.Component {
                         </TouchableOpacity>
                     )}
                 </View>
-                <Kohana
-                    iconName="lock"
-                    {...commonInputParams}
-                    label={'设置密码'}
-                    onChangeText={this.inputChange.bind(this, 'password')}
-                    secureTextEntry={true}
-                    selectionColor={baseColor.fontColor}
-                    maxLength={20}
-                />
                 <View style={styles.login_btn}>
                     <Button
                         buttonStyle={{
@@ -192,8 +177,8 @@ export default class RegisterScreen extends React.Component {
                         disabled={loginBtnDisable}
                         disabledStyle={{backgroundColor: '#9be3bd'}}
                         disabledTitleStyle={{color: '#fff'}}
-                        onPress={this.registerBtnClick.bind(this)}
-                        title="注册并登录"
+                        onPress={this.secuityCodeBtnClick.bind(this)}
+                        title="登录"
                     />
                 </View>
             </ScrollView>

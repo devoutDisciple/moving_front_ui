@@ -14,14 +14,15 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 import request from '../util/request';
 import message from '../util/message';
-const initTimeNum = 60;
+import config from '../config/config';
+
 export default class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             loginBtnDisable: true,
             timeNumVisible: false,
-            timeNum: initTimeNum,
+            timeNum: config.sercurity_code_time,
             username: '', // 用户昵称
             phone: '', // 输入的手机号
             securityCode: '', // 验证码
@@ -66,7 +67,7 @@ export default class RegisterScreen extends React.Component {
         if (securityCode.length <= 5) {
             return message.warning('提示', '请输入正确的验证码');
         }
-        if (password.length <= 7) {
+        if (password.length <= 5) {
             return message.warning('提示', '密码最少为六位字符');
         }
         let res = await request.post('/register/add', {
@@ -75,13 +76,14 @@ export default class RegisterScreen extends React.Component {
             security_code: securityCode,
             password,
         });
-        console.log(res, 90);
-        AsyncStorage.setItem('token', 'hello world', (error, result) => {
-            if (error) {
-                return message.warning('提示', '网络错误，请稍后重试');
-            }
-            this.props.navigation.navigate('Home');
-        });
+        if (res && res.code === 200) {
+            AsyncStorage.setItem('token', res.data, (error, result) => {
+                if (error) {
+                    return message.warning('提示', '网络错误，请稍后重试');
+                }
+                this.props.navigation.navigate('Home');
+            });
+        }
     }
 
     // 点击获取验证码
@@ -91,10 +93,10 @@ export default class RegisterScreen extends React.Component {
         if (!/^1[3456789]\d{9}$/.test(phone)) {
             return message.warning('提示', '请输入正确的手机号码');
         }
-        let res = await request.post('/register/sendMessage', {
+        // 请求获得验证码
+        await request.post('/register/sendMessage', {
             phoneNum: phone,
         });
-        console.log(res, 111);
         this.setState({
             timeNumVisible: true,
         });
@@ -104,7 +106,7 @@ export default class RegisterScreen extends React.Component {
                 this.timer && clearInterval(this.timer);
                 return this.setState({
                     timeNumVisible: false,
-                    timeNum: initTimeNum,
+                    timeNum: config.sercurity_code_time,
                 });
             }
             this.setState({

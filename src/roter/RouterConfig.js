@@ -19,7 +19,7 @@ import DetailScreen from '../home/Detail';
 // 登录和注册页面
 import LoginScreen from '../login/Login';
 import ResgisterScreen from '../login/Register';
-import SecurityCodeScreen from '../login/SecurityCode';
+import SecurityLoginScreen from '../login/SecurityLogin';
 import ResetPasswordScreen from '../login/ResetPassword';
 // 会员页面
 import MemberScreen from '../member/Member';
@@ -131,6 +131,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        // 登录页面
+        LoginScreen: {
+            screen: LoginScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -158,19 +167,9 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-        // 登录页面
-        LoginScreen: {
-            screen: LoginScreen,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
-            },
-        },
-
         // 验证码登录
-        SecurityCodeScreen: {
-            screen: SecurityCodeScreen,
+        SecurityLoginScreen: {
+            screen: SecurityLoginScreen,
             navigationOptions: {
                 headerShown: false,
                 headerBackTitle: '返回',

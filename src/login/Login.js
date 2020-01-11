@@ -6,18 +6,23 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
+    AsyncStorage,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
+import request from '../util/request';
+import message from '../util/message';
 
 export default class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             loginBtnDisable: true,
-            checked: false,
+            timeNumVisible: false,
+            phone: '', // 输入的手机号
+            password: '', // 验证码
         };
     }
 
@@ -33,7 +38,7 @@ export default class LoginScreen extends React.Component {
         }
         // 点击验证码登录
         if (num === 3) {
-            this.props.navigation.navigate('SecurityCodeScreen');
+            this.props.navigation.navigate('SecurityLoginScreen');
         }
         // 点击忘记密码
         if (num === 4) {
@@ -41,9 +46,43 @@ export default class LoginScreen extends React.Component {
         }
     }
 
+    // 输入框改变的时候
+    inputChange(key, value) {
+        let params = {};
+        params[key] = value;
+        this.setState(params, () => {
+            let {phone, password} = this.state;
+            if (phone && password) {
+                this.setState({loginBtnDisable: false});
+            } else {
+                this.setState({loginBtnDisable: true});
+            }
+        });
+    }
+
     // 点击登录按钮
-    loginBtnClick() {
-        console.log(123);
+    async loginBtnClick() {
+        let {phone, password} = this.state;
+        // 手机号不通过
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        if (password.length <= 5) {
+            return message.warning('提示', '密码最少为六位字符');
+        }
+        console.log(phone, password, 888);
+        let res = await request.post('/login/byPassword', {
+            phone,
+            password,
+        });
+        if (res && res.code === 200) {
+            AsyncStorage.setItem('token', res.data, (error, result) => {
+                if (error) {
+                    return message.warning('提示', '网络错误，请稍后重试');
+                }
+                this.props.navigation.navigate('Home');
+            });
+        }
     }
 
     render() {
@@ -63,6 +102,7 @@ export default class LoginScreen extends React.Component {
                     {...commonInputParams}
                     iconName="phone"
                     label={'请输入手机号'}
+                    onChangeText={this.inputChange.bind(this, 'phone')}
                     keyboardType="number-pad"
                     maxLength={11}
                     selectionColor={baseColor.fontColor}
@@ -71,6 +111,7 @@ export default class LoginScreen extends React.Component {
                     iconName="lock"
                     {...commonInputParams}
                     label={'登录密码'}
+                    onChangeText={this.inputChange.bind(this, 'password')}
                     secureTextEntry={true}
                     selectionColor={baseColor.fontColor}
                     maxLength={20}

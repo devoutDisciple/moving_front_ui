@@ -123,7 +123,7 @@ export default {
     handleResult: (res, navigation) => {
         // 没有登录
         if (res.code === 502) {
-            navigation.navigate('SecurityCodeScreen');
+            navigation.navigate('LoginScreen');
         }
         return res.data;
     },
