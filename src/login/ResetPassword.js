@@ -6,11 +6,15 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
+    AsyncStorage,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
+import request from '../util/request';
+import message from '../util/message';
+import config from '../config/config';
 
 export default class ResetPassword extends React.Component {
     constructor(props) {
@@ -18,7 +22,11 @@ export default class ResetPassword extends React.Component {
         this.state = {
             loginBtnDisable: true,
             timeNumVisible: false,
-            timeNum: 60,
+            timeNum: config.sercurity_code_time,
+            phone: '', // 输入的手机号
+            securityCode: '', // 验证码
+            password: '', // 密码
+            confirmPassword: '', // 确认的密码
         };
     }
 
@@ -32,17 +40,75 @@ export default class ResetPassword extends React.Component {
         this.props.navigation.goBack();
     }
 
-    // 获取验证码登录
-    secuityCodeBtnClick() {
-        console.log(123);
+    // 点击重置密码的时候
+    async secuityCodeBtnClick() {
+        let {phone, securityCode, password, confirmPassword} = this.state;
+        // 手机号不通过
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        if (securityCode.length <= 5) {
+            return message.warning('提示', '请输入正确的验证码');
+        }
+        if (password.length <= 5 || confirmPassword.length <= 5) {
+            return message.warning('提示', '密码最少为六位字符');
+        }
+        if (password !== confirmPassword) {
+            return message.warning('提示', '两次输入密码不一致');
+        }
+        let res = await request.post('/login/resetPassword', {
+            phone,
+            security_code: securityCode,
+            password,
+            confirmPassword,
+        });
+        if (res && res.code === 200) {
+            AsyncStorage.setItem('token', res.data, (error, result) => {
+                if (error) {
+                    return message.warning('提示', '网络错误，请稍后重试');
+                }
+                this.props.navigation.navigate('Home');
+            });
+        }
+    }
+
+    // 输入框改变的时候
+    inputChange(key, value) {
+        let params = {};
+        params[key] = value;
+        this.setState(params, () => {
+            let {phone, securityCode, password} = this.state;
+            if (phone && securityCode && password) {
+                this.setState({loginBtnDisable: false});
+            } else {
+                this.setState({loginBtnDisable: true});
+            }
+        });
     }
 
     // 点击获取验证码
-    getMessage() {
+    async getMessage() {
+        const {phone} = this.state;
+        // 手机号不通过
+        if (!/^1[3456789]\d{9}$/.test(phone)) {
+            return message.warning('提示', '请输入正确的手机号码');
+        }
+        // 请求获得验证码
+        await request.post('/login/sendMessage', {
+            phoneNum: phone,
+        });
         this.setState({
             timeNumVisible: true,
         });
         this.timer = setInterval(() => {
+            let {timeNum} = this.state;
+            if (timeNum === 1) {
+                this.timer && clearInterval(this.timer);
+                return this.setState({
+                    timeNumVisible: false,
+                    timeNum: config.sercurity_code_time,
+                });
+            }
             this.setState({
                 timeNum: this.state.timeNum - 1,
             });
@@ -65,6 +131,7 @@ export default class ResetPassword extends React.Component {
                     {...commonInputParams}
                     iconName="phone"
                     label={'请输入手机号'}
+                    onChangeText={this.inputChange.bind(this, 'phone')}
                     keyboardType="number-pad"
                     maxLength={11}
                     selectionColor={baseColor.fontColor}
@@ -75,6 +142,10 @@ export default class ResetPassword extends React.Component {
                             {...commonInputParams}
                             iconName="message1"
                             label={'验证码'}
+                            onChangeText={this.inputChange.bind(
+                                this,
+                                'securityCode',
+                            )}
                             keyboardType="number-pad"
                             maxLength={6}
                             selectionColor={baseColor.fontColor}
@@ -110,6 +181,7 @@ export default class ResetPassword extends React.Component {
                     iconName="lock"
                     {...commonInputParams}
                     label={'设置密码'}
+                    onChangeText={this.inputChange.bind(this, 'password')}
                     secureTextEntry={true}
                     selectionColor={baseColor.fontColor}
                     maxLength={20}
@@ -118,6 +190,10 @@ export default class ResetPassword extends React.Component {
                     iconName="lock"
                     {...commonInputParams}
                     label={'确认密码'}
+                    onChangeText={this.inputChange.bind(
+                        this,
+                        'confirmPassword',
+                    )}
                     secureTextEntry={true}
                     selectionColor={baseColor.fontColor}
                     maxLength={20}
