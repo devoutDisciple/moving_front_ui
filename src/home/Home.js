@@ -12,6 +12,7 @@ export default class HomeScreen extends React.Component {
     }
 
     static navigationOptions = ({navigation, navigationOptions}) => {
+        // 自定义左右菜单
         return {
             headerTitle: 'moving',
             headerLeft: () => {
