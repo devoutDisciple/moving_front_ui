@@ -4,7 +4,7 @@ import Swiper from './Swiper';
 import IconList from './IconList';
 import Picker from 'react-native-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Text, View, TouchableOpacity, Linking} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {

@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Dimensions, View, Image} from 'react-native';
 import Swiper from 'react-native-swiper';
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export default class SwiperComponent extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export default class SwiperComponent extends Component {
             <View
                 style={{
                     width: width,
-                    height: (width - 20) * 0.4,
+                    height: (width - 20) * 0.5,
                     marginTop: 10,
                 }}>
                 <Swiper

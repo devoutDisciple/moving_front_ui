@@ -131,18 +131,18 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
-        // 登录页面
-        LoginScreen: {
-            screen: LoginScreen,
+        // 首页
+        HomeScreen: {
+            screen: TabNavigator,
             navigationOptions: {
                 headerShown: false,
                 headerBackTitle: '返回',
                 headerBackAllowFontScaling: false,
             },
         },
-        // 首页
-        HomeScreen: {
-            screen: TabNavigator,
+        // 登录页面
+        LoginScreen: {
+            screen: LoginScreen,
             navigationOptions: {
                 headerShown: false,
                 headerBackTitle: '返回',
