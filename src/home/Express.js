@@ -27,6 +27,7 @@ export default class Express extends React.Component {
     // 扫码开门
     openDoorBtnClick() {
         console.log(123);
+        this.props.navigation.navigate('ScanCameraScreen');
     }
 
     render() {

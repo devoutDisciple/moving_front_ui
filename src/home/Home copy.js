@@ -131,7 +131,7 @@ export default class HomeScreen extends React.Component {
                 {/* 图标选项 */}
                 <IconList />
                 {/* 快递柜子 */}
-                <Express navigation={this.props.navigation} />
+                <Express />
             </ScrollView>
         );
     }

@@ -70,10 +70,6 @@ const styles = StyleSheet.create({
         color: '#333',
         lineHeight: 20,
     },
-    order_container: {
-        flex: 1,
-        backgroundColor: '#fafafa',
-    },
     order_item: {
         height: 180,
         margin: 10,

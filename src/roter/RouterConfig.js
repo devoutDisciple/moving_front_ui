@@ -15,7 +15,7 @@ import MyMessage from '../my/message/Message';
 // 订单页面
 import OrderScreen from '../order/Index';
 // 测试详情
-import DetailScreen from '../home/Detail';
+import ScanCameraScreen from '../home/ScanCamera';
 // 登录和注册页面
 import LoginScreen from '../login/Login';
 import ResgisterScreen from '../login/Register';
@@ -32,9 +32,9 @@ const HomeContainer = createStackNavigator(
         HomeScreen: {
             screen: HomeScreen,
         },
-        DetailScreen: {
-            screen: DetailScreen,
-        },
+        // ScanCameraScreen: {
+        //     screen: ScanCameraScreen,
+        // },
     },
     {
         mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
@@ -186,8 +186,9 @@ const finnalApp = createStackNavigator(
             },
         },
 
-        DetailScreen2: {
-            screen: DetailScreen,
+        // 二维码扫描页面
+        ScanCameraScreen: {
+            screen: ScanCameraScreen,
             navigationOptions: {
                 title: '',
             },
