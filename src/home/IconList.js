@@ -31,7 +31,7 @@ export default class IconList extends React.Component {
                 key={index}
                 style={styles.home_icon_item}>
                 <Image style={styles.home_icon_item_img} source={soure} />
-                <Text style={styles.home_icon_item_text}>柜子</Text>
+                <Text style={styles.home_icon_item_text}>{text}</Text>
             </TouchableOpacity>
         );
     }
@@ -40,41 +40,41 @@ export default class IconList extends React.Component {
         const iconList1 = [
             {
                 url: require('../../img/home/icon1.png'),
-                text: '柜子',
+                text: '价格参考',
             },
             {
                 url: require('../../img/home/icon2.png'),
-                text: '自取',
+                text: '上门服务',
             },
             {
                 url: require('../../img/home/icon3.png'),
-                text: '商店',
+                text: '成为会员',
             },
             {
                 url: require('../../img/home/icon4.png'),
-                text: '联系我们',
+                text: '会员充值',
             },
         ];
         const iconList2 = [
             {
                 url: require('../../img/home/icon5.png'),
-                text: 'hello',
+                text: '操作指南',
             },
             {
                 url: require('../../img/home/icon6.png'),
-                text: 'world',
+                text: '积分兑换',
             },
             {
                 url: require('../../img/home/icon7.png'),
-                text: 'what',
+                text: '联系我们',
             },
             {
                 url: require('../../img/home/icon8.png'),
-                text: 'why',
+                text: '更多优惠',
             },
         ];
         return (
-            <View style={{marginTop: 10}}>
+            <View style={styles.icon_container}>
                 <View style={styles.home_icon}>
                     {iconList1.map((item, index) => {
                         return this.renderIcon(item.url, item.text, index);
@@ -92,15 +92,16 @@ export default class IconList extends React.Component {
 
 let iconSize = 45;
 const styles = StyleSheet.create({
+    icon_container: {
+        marginTop: 10,
+    },
     home_icon: {
         height: 80,
-        // backgroundColor: 'red',
         marginHorizontal: 10,
         flexDirection: 'row',
     },
     home_icon_item: {
         flex: 1,
-        // backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',
     },

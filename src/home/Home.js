@@ -1,10 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Swiper from './Swiper';
+import Express from './Express';
 import IconList from './IconList';
 import Picker from 'react-native-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Text, View, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -124,10 +125,14 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <ScrollView style={{flex: 1}}>
+                {/* 轮播图 */}
                 <Swiper />
+                {/* 图标选项 */}
                 <IconList />
-            </View>
+                {/* 快递柜子 */}
+                <Express />
+            </ScrollView>
         );
     }
 }

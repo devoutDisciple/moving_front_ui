@@ -21,12 +21,7 @@ export default class SwiperComponent extends Component {
     render() {
         let {imgUrl} = this.state;
         return (
-            <View
-                style={{
-                    width: width,
-                    height: (width - 20) * 0.5,
-                    marginTop: 10,
-                }}>
+            <View style={styles.swiperContainer}>
                 <Swiper
                     autoplay
                     dotColor="rgba(255,255,255,.3)"
@@ -62,7 +57,8 @@ export default class SwiperComponent extends Component {
 
 const styles = StyleSheet.create({
     swiperContainer: {
-        height: 150,
+        width: width,
+        height: (width - 20) * 0.5,
         marginTop: 10,
     },
     slide: {
