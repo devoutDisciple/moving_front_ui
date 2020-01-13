@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import Empty from './Empty';
 import FooterScreen from './Footer';
 import OrderItem from './OrderItem';
-import Empty from './Empty';
+import {View, FlatList, StyleSheet} from 'react-native';
 
 export default class AllOrder extends React.Component {
     constructor(props) {

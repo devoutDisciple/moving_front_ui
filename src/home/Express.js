@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
 import {Button} from 'react-native-elements';
+import {Text, View, StyleSheet, Image} from 'react-native';
 
 export default class Express extends React.Component {
     constructor(props) {
@@ -26,7 +26,6 @@ export default class Express extends React.Component {
 
     // 扫码开门
     openDoorBtnClick() {
-        console.log(123);
         this.props.navigation.navigate('ScanCameraScreen');
     }
 
