@@ -65,8 +65,8 @@ export default class MyScreen extends React.Component {
                 <My_Header navigation={this.props.navigation} />
                 <My_Wallert navigation={this.props.navigation} />
                 <View style={{height: 20}} />
-                <ListItem iconName="creditcard" text="我的点评" />
-                <ListItem
+                <ListItem iconName="creditcard" text="我的地址" />
+                {/* <ListItem
                     iconName="creditcard"
                     text="登录"
                     onPress={this.onLogin.bind(this)}
@@ -75,12 +75,13 @@ export default class MyScreen extends React.Component {
                     iconName="creditcard"
                     text="注册"
                     onPress={this.onRegister.bind(this)}
-                />
-                <ListItem iconName="creditcard" text="world" />
-                <ListItem iconName="creditcard" text="车牌号" />
-                <ListItem iconName="creditcard" text="hello" />
-                <ListItem iconName="creditcard" text="车牌号" />
-                <ListItem iconName="creditcard" text="hello" />
+                /> */}
+                <ListItem iconName="creditcard" text="钱包管理" />
+                <ListItem iconName="creditcard" text="我的评价" />
+                <ListItem iconName="creditcard" text="帮助中心" />
+                <ListItem iconName="creditcard" text="意见反馈" />
+                <ListItem iconName="creditcard" text="关于我们" />
+                <ListItem iconName="creditcard" text="联系我们" />
             </ScrollView>
         );
     }

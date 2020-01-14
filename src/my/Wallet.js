@@ -30,7 +30,7 @@ export default class Waller extends React.Component {
                     <TouchableOpacity style={styles.my_wallet_chunk}>
                         <Text style={styles.my_wallet_chunk_top}>0</Text>
                         <Text style={styles.my_wallet_chunk_bottom}>
-                            优惠券
+                            我的积分
                         </Text>
                     </TouchableOpacity>
                 </View>

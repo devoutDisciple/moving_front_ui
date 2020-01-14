@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, StyleSheet} from 'react-native';
 
 export default class OrderScreen extends React.Component {
     constructor(props) {
@@ -33,3 +33,11 @@ export default class OrderScreen extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        padding: 10,
+    },
+});

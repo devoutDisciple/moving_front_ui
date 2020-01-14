@@ -32,9 +32,6 @@ const HomeContainer = createStackNavigator(
         HomeScreen: {
             screen: HomeScreen,
         },
-        // ScanCameraScreen: {
-        //     screen: ScanCameraScreen,
-        // },
     },
     {
         mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
@@ -131,7 +128,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
-        // 首页
+        // 会员页面 MemberScreen
+        MemberScreen: {
+            screen: MemberScreen,
+            navigationOptions: {
+                headerShown: false,
+                title: '成为会员',
+            },
+        },
+        // 这是tab页面
         HomeScreen: {
             screen: TabNavigator,
             navigationOptions: {
@@ -158,15 +163,7 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-        // 会员页面 MemberScreen
-        MemberScreen: {
-            screen: MemberScreen,
-            navigationOptions: {
-                headerBackTitle: '',
-                title: '成为会员',
-                headerBackAllowFontScaling: false,
-            },
-        },
+
         // 验证码登录
         SecurityLoginScreen: {
             screen: SecurityLoginScreen,

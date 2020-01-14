@@ -40,19 +40,19 @@ export default class IconList extends React.Component {
         const iconList1 = [
             {
                 url: require('../../img/home/icon1.png'),
-                text: '价格参考',
-            },
-            {
-                url: require('../../img/home/icon2.png'),
-                text: '上门服务',
-            },
-            {
-                url: require('../../img/home/icon3.png'),
                 text: '成为会员',
             },
             {
+                url: require('../../img/home/icon2.png'),
+                text: '上门取衣',
+            },
+            {
+                url: require('../../img/home/icon3.png'),
+                text: '积分兑换',
+            },
+            {
                 url: require('../../img/home/icon4.png'),
-                text: '会员充值',
+                text: '联系我们',
             },
         ];
         const iconList2 = [
@@ -62,15 +62,15 @@ export default class IconList extends React.Component {
             },
             {
                 url: require('../../img/home/icon6.png'),
-                text: '积分兑换',
+                text: '更多',
             },
             {
-                url: require('../../img/home/icon7.png'),
-                text: '联系我们',
+                url: '',
+                text: '',
             },
             {
-                url: require('../../img/home/icon8.png'),
-                text: '更多优惠',
+                url: '',
+                text: '',
             },
         ];
         return (
