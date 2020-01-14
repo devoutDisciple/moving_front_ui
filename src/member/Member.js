@@ -46,25 +46,28 @@ export default class Member extends React.Component {
     render() {
         const {navigation} = this.props;
         let {selectIndex} = this.state;
-        const iconList1 = [
+        const iconList = [
             {
                 url: require('../../img/home/icon1.png'),
-                text: '成为会员',
+                text: '免费配送',
             },
             {
                 url: require('../../img/home/icon2.png'),
                 text: '上门取衣',
             },
             {
-                url: require('../../img/home/icon3.png'),
-                text: '积分兑换',
+                url:
+                    selectIndex === 1
+                        ? require('../../img/home/icon3.png')
+                        : '',
+                text: selectIndex === 1 ? '专属客服' : '',
             },
             {
                 url:
-                    selectIndex === 0
-                        ? require('../../img/home/icon4.png')
-                        : require('../../img/home/icon5.png'),
-                text: '联系我们',
+                    selectIndex === 1
+                        ? require('../../img/home/icon3.png')
+                        : '',
+                text: selectIndex === 1 ? '免费配送' : '',
             },
         ];
         return (
@@ -97,7 +100,7 @@ export default class Member extends React.Component {
                 <ScrollView style={styles.member_content}>
                     <View>
                         <View style={styles.home_icon}>
-                            {iconList1.map((item, index) => {
+                            {iconList.map((item, index) => {
                                 return this.renderIcon(
                                     item.url,
                                     item.text,
