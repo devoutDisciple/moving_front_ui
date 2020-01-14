@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-const {width} = Dimensions.get('window');
 import Swiper from 'react-native-swiper';
 import {StyleSheet, Dimensions, View, Image} from 'react-native';
+
+const {width} = Dimensions.get('window');
 
 export default class SwiperComponent extends Component {
     constructor(props) {
