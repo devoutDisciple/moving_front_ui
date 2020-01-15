@@ -13,6 +13,7 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/AntDesign';
 // import Dialog from '../util/Dialog';
 import CommonHeader from '../component/CommonHeader';
+import IconWithText from '../component/IconWithText';
 
 const {width} = Dimensions.get('window');
 
@@ -32,15 +33,6 @@ export default class Member extends React.Component {
     swiperChange(index) {
         console.log(index);
         this.setState({selectIndex: index});
-    }
-
-    renderIcon(soure, text, index) {
-        return (
-            <View key={index} style={styles.home_icon_item}>
-                <Image style={styles.home_icon_item_img} source={soure} />
-                <Text style={styles.home_icon_item_text}>{text}</Text>
-            </View>
-        );
     }
 
     render() {
@@ -98,15 +90,46 @@ export default class Member extends React.Component {
                     </Swiper>
                 </View>
                 <ScrollView style={styles.member_content}>
-                    <View>
-                        <View style={styles.home_icon}>
-                            {iconList.map((item, index) => {
-                                return this.renderIcon(
-                                    item.url,
-                                    item.text,
-                                    index,
-                                );
-                            })}
+                    <View style={styles.home_icon}>
+                        {iconList.map((item, index) => {
+                            return (
+                                <IconWithText
+                                    source={item.url}
+                                    text={item.text}
+                                    index={index}
+                                />
+                            );
+                        })}
+                    </View>
+                    <View style={styles.member_empty} />
+                    <View style={styles.member_detail}>
+                        <View style={styles.member_detail_title}>
+                            <Text
+                                style={{
+                                    fontSize: 16,
+                                    color: '#fb9dd0',
+                                    fontWeight: 'bold',
+                                }}>
+                                会员权益说明
+                            </Text>
+                        </View>
+                        <View style={styles.member_detail_content}>
+                            <Text style={styles.member_detail_content_text}>
+                                1. 免费配送
+                            </Text>
+                            <Text style={styles.member_detail_content_text}>
+                                2. 上门免费取衣服
+                            </Text>
+                            {selectIndex === 1 && (
+                                <Text style={styles.member_detail_content_text}>
+                                    3. 专属客服
+                                </Text>
+                            )}
+                            {selectIndex === 1 && (
+                                <Text style={styles.member_detail_content_text}>
+                                    4. 免费配送
+                                </Text>
+                            )}
                         </View>
                     </View>
                 </ScrollView>
@@ -115,10 +138,13 @@ export default class Member extends React.Component {
                         <Text style={{marginTop: 5, color: '#fff'}}>
                             超值价 ￥
                         </Text>
-                        <Text style={{fontSize: 25, color: 'red'}}>
+                        <Text style={{fontSize: 25, color: '#ffe4f2'}}>
                             {selectIndex === 0 ? 80 : 90}
                         </Text>
-                        <Text style={{marginTop: 5, color: '#fff'}}> /月</Text>
+                        <Text style={{marginTop: 5, color: '#fff'}}>
+                            {' '}
+                            元 /{' '}
+                        </Text>
                         <Text
                             style={{
                                 marginTop: 5,
@@ -142,17 +168,44 @@ const styles = StyleSheet.create({
     },
     member_content: {
         flex: 1,
-        backgroundColor: 'orange',
+        // backgroundColor: 'orange',
+    },
+    member_empty: {
+        height: 10,
+        backgroundColor: '#f5f6fa',
+    },
+    member_detail: {},
+    member_detail_title: {
+        height: 30,
+        // backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    member_detail_content: {
+        height: 100,
+        margin: 10,
+        shadowColor: 'green',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        shadowOffset: {
+            width: 18,
+            height: 20,
+        },
+    },
+    member_detail_content_text: {
+        fontSize: 14,
+        color: '#f3b3d4',
+        margin: 10,
     },
     member_bottom: {
         height: 100,
-        backgroundColor: 'blue',
+        // backgroundColor: 'blue',
         justifyContent: 'center',
         alignItems: 'center',
     },
     member_bottom_btn: {
         height: 60,
-        width: width * 0.8,
+        width: width - 20,
         backgroundColor: '#fb9dd0',
         borderRadius: 50,
         justifyContent: 'center',

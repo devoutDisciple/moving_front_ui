@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     order_item_left: {
         width: order_item_left_width,
         height: order_item_left_width,
-        backgroundColor: 'blue',
     },
     order_item_left_img: {
         width: order_item_left_width,
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
     order_item_right_adrress: {
         marginTop: 5,
         height: 50,
-        // backgroundColor: 'red',
     },
     order_item_right_goods: {
         flexDirection: 'row',

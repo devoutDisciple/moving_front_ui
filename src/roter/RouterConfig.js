@@ -14,7 +14,7 @@ import MyMessage from '../my/message/Message';
 
 // 订单页面
 import OrderScreen from '../order/Index';
-// 测试详情
+// 二维码页面
 import ScanCameraScreen from '../home/ScanCamera';
 // 登录和注册页面
 import LoginScreen from '../login/Login';
@@ -128,15 +128,7 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
-        // 会员页面 MemberScreen
-        MemberScreen: {
-            screen: MemberScreen,
-            navigationOptions: {
-                headerShown: false,
-                title: '成为会员',
-            },
-        },
-        // 这是tab页面
+        // 首页
         HomeScreen: {
             screen: TabNavigator,
             navigationOptions: {
@@ -163,7 +155,13 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-
+        // 会员页面 MemberScreen
+        MemberScreen: {
+            screen: MemberScreen,
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 验证码登录
         SecurityLoginScreen: {
             screen: SecurityLoginScreen,
@@ -202,7 +200,7 @@ const finnalApp = createStackNavigator(
         MyMessage: {
             screen: MyMessage,
             navigationOptions: {
-                title: '个人信息',
+                headerShown: false,
             },
         },
     },

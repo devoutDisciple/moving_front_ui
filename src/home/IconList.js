@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     AsyncStorage,
 } from 'react-native';
+import IconWithText from '../component/IconWithText';
 
 export default class IconList extends React.Component {
     constructor(props) {
@@ -15,26 +16,6 @@ export default class IconList extends React.Component {
     }
 
     componentDidMount() {}
-
-    // 点击icon
-    iconClick() {
-        AsyncStorage.getItem('token', (error, result) => {
-            console.log(error, 333);
-            console.log(result, 444);
-        });
-    }
-
-    renderIcon(soure, text, index) {
-        return (
-            <TouchableOpacity
-                onPress={this.iconClick.bind(this)}
-                key={index}
-                style={styles.home_icon_item}>
-                <Image style={styles.home_icon_item_img} source={soure} />
-                <Text style={styles.home_icon_item_text}>{text}</Text>
-            </TouchableOpacity>
-        );
-    }
 
     render() {
         const iconList1 = [
@@ -77,12 +58,24 @@ export default class IconList extends React.Component {
             <View style={styles.icon_container}>
                 <View style={styles.home_icon}>
                     {iconList1.map((item, index) => {
-                        return this.renderIcon(item.url, item.text, index);
+                        return (
+                            <IconWithText
+                                source={item.url}
+                                text={item.text}
+                                index={`incon1_${index}`}
+                            />
+                        );
                     })}
                 </View>
                 <View style={styles.home_icon}>
                     {iconList2.map((item, index) => {
-                        return this.renderIcon(item.url, item.text, index);
+                        return (
+                            <IconWithText
+                                source={item.url}
+                                text={item.text}
+                                index={`incon2_${index}`}
+                            />
+                        );
                     })}
                 </View>
             </View>
