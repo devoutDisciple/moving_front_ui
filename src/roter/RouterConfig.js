@@ -128,6 +128,13 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        // 我的个人信息页面
+        MyMessage: {
+            screen: MyMessage,
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -155,13 +162,7 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-        // 会员页面 MemberScreen
-        MemberScreen: {
-            screen: MemberScreen,
-            navigationOptions: {
-                headerShown: false,
-            },
-        },
+
         // 验证码登录
         SecurityLoginScreen: {
             screen: SecurityLoginScreen,
@@ -196,9 +197,10 @@ const finnalApp = createStackNavigator(
                 title: '设置',
             },
         },
-        // 我的个人信息页面
-        MyMessage: {
-            screen: MyMessage,
+
+        // 会员页面 MemberScreen
+        MemberScreen: {
+            screen: MemberScreen,
             navigationOptions: {
                 headerShown: false,
             },

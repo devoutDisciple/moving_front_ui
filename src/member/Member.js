@@ -164,7 +164,6 @@ let iconSize = 45;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 20,
     },
     member_content: {
         flex: 1,
