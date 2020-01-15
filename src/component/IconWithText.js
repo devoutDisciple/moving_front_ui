@@ -23,7 +23,7 @@ export default class IconWithText extends React.Component {
     }
 
     render() {
-        const {source, index, text} = this.props;
+        const {source, text, index} = this.props;
         if (source) {
             return (
                 <TouchableOpacity

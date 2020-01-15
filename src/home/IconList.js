@@ -1,13 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-    Text,
-    View,
-    StyleSheet,
-    Image,
-    TouchableOpacity,
-    AsyncStorage,
-} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import IconWithText from '../component/IconWithText';
 
 export default class IconList extends React.Component {
@@ -60,6 +53,7 @@ export default class IconList extends React.Component {
                     {iconList1.map((item, index) => {
                         return (
                             <IconWithText
+                                key={index}
                                 source={item.url}
                                 text={item.text}
                                 index={`incon1_${index}`}
@@ -71,6 +65,7 @@ export default class IconList extends React.Component {
                     {iconList2.map((item, index) => {
                         return (
                             <IconWithText
+                                key={index}
                                 source={item.url}
                                 text={item.text}
                                 index={`incon2_${index}`}

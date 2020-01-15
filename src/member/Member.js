@@ -94,6 +94,7 @@ export default class Member extends React.Component {
                         {iconList.map((item, index) => {
                             return (
                                 <IconWithText
+                                    key={index}
                                     source={item.url}
                                     text={item.text}
                                     index={index}
