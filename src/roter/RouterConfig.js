@@ -128,6 +128,13 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        // 我的个人信息页面
+        MyMessage: {
+            screen: MyMessage,
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -188,13 +195,6 @@ const finnalApp = createStackNavigator(
             screen: MySetting,
             navigationOptions: {
                 title: '设置',
-            },
-        },
-        // 我的个人信息页面
-        MyMessage: {
-            screen: MyMessage,
-            navigationOptions: {
-                headerShown: false,
             },
         },
 

@@ -7,12 +7,12 @@ import {
     Text,
     TouchableOpacity,
     Alert,
-    TextInput,
 } from 'react-native';
 import MessageItem from './MessageItem';
 import Picker from 'react-native-picker';
+import Toast from 'react-native-root-toast';
 import CommonHeader from '../../component/CommonHeader';
-
+import Loading from '../../component/Loading';
 export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +21,17 @@ export default class SettingScreen extends React.Component {
     componentDidMount() {}
 
     showInputDialog(title) {
+        Toast.show('This is a message', {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+        });
+    }
+
+    testToast() {
         Alert.alert(
             'Alert Title',
             '32423',
@@ -78,9 +89,7 @@ export default class SettingScreen extends React.Component {
                         value={require('../../../img/public/header.jpg')}
                         showIcon
                         isImage
-                        onPress={() => {
-                            console.log(111);
-                        }}
+                        onPress={this.testToast.bind(this)}
                     />
                     <MessageItem
                         label="昵称"
@@ -143,6 +152,7 @@ export default class SettingScreen extends React.Component {
                         }}
                     />
                 </ScrollView>
+                <Loading visible />
             </View>
         );
     }
