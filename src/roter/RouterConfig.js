@@ -11,6 +11,7 @@ import HomeScreen from '../home/Home';
 import MyScreen from '../my/My';
 import MySetting from '../my/setting/Setting';
 import MyMessage from '../my/message/Message';
+import MessageEditScreen from '../my/message/MessageEdit';
 
 // 订单页面
 import OrderScreen from '../order/Index';
@@ -131,6 +132,14 @@ const finnalApp = createStackNavigator(
         // 我的个人信息页面
         MyMessage: {
             screen: MyMessage,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 信息编辑页面
+        MessageEditScreen: {
+            screen: MessageEditScreen,
             navigationOptions: {
                 headerShown: false,
             },
@@ -144,6 +153,7 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+
         // 登录页面
         LoginScreen: {
             screen: LoginScreen,

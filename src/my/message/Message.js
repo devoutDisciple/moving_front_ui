@@ -6,13 +6,11 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
-    Alert,
 } from 'react-native';
 import MessageItem from './MessageItem';
 import Picker from 'react-native-picker';
-import Toast from 'react-native-root-toast';
+import Toast from '../../component/Toast';
 import CommonHeader from '../../component/CommonHeader';
-import Loading from '../../component/Loading';
 export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -21,35 +19,13 @@ export default class SettingScreen extends React.Component {
     componentDidMount() {}
 
     showInputDialog(title) {
-        Toast.show('This is a message', {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.CENTER,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
+        // Toast.show('hello world');
+        this.props.navigation.navigate('MessageEditScreen', {
+            title: '修改昵称',
         });
     }
 
-    testToast() {
-        Alert.alert(
-            'Alert Title',
-            '32423',
-            [
-                {
-                    text: 'Ask me later',
-                    onPress: () => console.log('Ask me later pressed'),
-                },
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-                // {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-        );
-    }
+    testToast() {}
 
     showAgeSelect() {
         let data = [];
@@ -152,7 +128,6 @@ export default class SettingScreen extends React.Component {
                         }}
                     />
                 </ScrollView>
-                <Loading visible />
             </View>
         );
     }
