@@ -59,13 +59,22 @@ export default class MyScreen extends React.Component {
         this.props.navigation.navigate('ResgisterScreen');
     }
 
+    // 点击我的地址
+    onMyAddressClick() {
+        this.props.navigation.navigate('AddressScreen');
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
                 <My_Header navigation={this.props.navigation} />
                 <My_Wallert navigation={this.props.navigation} />
                 <View style={{height: 20}} />
-                <ListItem iconName="creditcard" text="我的地址" />
+                <ListItem
+                    iconName="creditcard"
+                    text="我的地址"
+                    onPress={this.onMyAddressClick.bind(this)}
+                />
                 {/* <ListItem
                     iconName="creditcard"
                     text="登录"

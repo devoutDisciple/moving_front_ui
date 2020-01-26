@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Linking} from 'react-native';
 import IconWithText from '../component/IconWithText';
 
 export default class IconList extends React.Component {
@@ -17,6 +17,16 @@ export default class IconList extends React.Component {
         // 成为会员
         if (data && data.key === 'home_member') {
             navigation.navigate('MemberScreen');
+            // let tel = 'tel:18210619398';
+            // Linking.canOpenURL(tel)
+            //     .then(supported => {
+            //         if (!supported) {
+            //             console.log('Can not handle tel:' + tel);
+            //         } else {
+            //             return Linking.openURL(tel);
+            //         }
+            //     })
+            //     .catch(error => console.log('tel error', error));
         }
     }
 

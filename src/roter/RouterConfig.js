@@ -6,6 +6,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 // 首页
 import HomeScreen from '../home/Home';
+// 上门取衣服
+import ClothingScreen from '../clothing/Clothing';
 
 // 我的  --------------------
 import MyScreen from '../my/My';
@@ -24,6 +26,9 @@ import SecurityLoginScreen from '../login/SecurityLogin';
 import ResetPasswordScreen from '../login/ResetPassword';
 // 会员页面
 import MemberScreen from '../member/Member';
+// 我的地址页面
+import AddressScreen from '../address/Address';
+import AddressEditScreen from '../address/AddressEdit';
 
 import TabBarItem from './TabBarItem';
 
@@ -114,7 +119,7 @@ const TabNavigator = createBottomTabNavigator(
         },
     },
     {
-        initialRouteName: 'My', // 第一次加载tab bar时路由的routeName
+        initialRouteName: 'Home', // 第一次加载tab bar时路由的routeName
         tabBarOptions: {
             activeTintColor: '#2fc3af', //当前选中的tab bar的文本颜色和图标颜色
             inactiveTintColor: '#666', // 当前未选中的tab bar的文本颜色和图标颜色
@@ -138,6 +143,32 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+        // 地址编辑页面
+        AddressEditScreen: {
+            screen: AddressEditScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 收货地址页面
+        AddressScreen: {
+            screen: AddressScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+
+        // 上门取衣服服务
+        ClothingScreen: {
+            screen: ClothingScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+
         // 我的个人信息页面
         MyMessage: {
             screen: MyMessage,

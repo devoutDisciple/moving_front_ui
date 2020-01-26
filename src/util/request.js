@@ -33,7 +33,7 @@ Axios.defaults = Object.assign(Axios.defaults, {
 Axios.interceptors.response.use(
     function(res) {
         if (res.status !== 200) {
-            message.warning('提示', '网络异常, 请稍后重试');
+            message.warning('提示', '网络异常, 请稍后重试1');
             return Promise.reject('系统错误');
         }
         let data = JSON.parse(res.data);
@@ -41,7 +41,7 @@ Axios.interceptors.response.use(
         if (data.code === 500) {
             message.warning('提示', data.message);
         }
-        return Promise.resolve(data);
+        return Promise.resolve(data.data);
     },
     function(error) {
         // 对响应错误做点什么
@@ -67,7 +67,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试');
+                    message.warning('提示', '网络异常, 请稍后重试2');
                     reject(err);
                 });
         });
@@ -83,7 +83,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试');
+                    message.warning('提示', '网络异常, 请稍后重试3');
                     reject(err);
                 });
         });
@@ -99,7 +99,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试');
+                    message.warning('提示', '网络异常, 请稍后重试4');
                     reject(err);
                 });
         });
@@ -115,7 +115,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试');
+                    message.warning('提示', '网络异常, 请稍后重试5');
                     reject(err);
                 });
         });

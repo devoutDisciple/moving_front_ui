@@ -7,26 +7,26 @@ const {width, height} = Dimensions.get('window');
 export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
-        const visible = props.visible || false;
-        this.state = {
-            visible: visible,
-        };
     }
 
     componentDidMount() {}
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Spinner
-                    style={styles.spinner}
-                    isVisible={this.state.visible}
-                    size={50}
-                    type="Bounce"
-                    color="#fb9bcd"
-                />
-            </View>
-        );
+        let {visible} = this.props;
+        if (visible) {
+            return (
+                <View style={styles.container}>
+                    <Spinner
+                        style={styles.spinner}
+                        isVisible={visible || false}
+                        size={50}
+                        type="Bounce"
+                        color="#fb9bcd"
+                    />
+                </View>
+            );
+        }
+        return null;
     }
 }
 

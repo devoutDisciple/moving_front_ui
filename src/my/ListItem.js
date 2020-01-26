@@ -11,9 +11,9 @@ export default class Waller extends React.Component {
     componentDidMount() {}
 
     render() {
-        let {iconName, text} = this.props;
+        let {iconName, text, onPress} = this.props;
         return (
-            <TouchableOpacity onPress={this.props.onPress}>
+            <TouchableOpacity onPress={onPress}>
                 <View style={styles.my_list_item}>
                     <View style={styles.my_list_item_icon}>
                         <Icon name={iconName || ''} size={16} color="#79d9c5" />

@@ -3,13 +3,20 @@ import React from 'react';
 import Swiper from './Swiper';
 import Express from './Express';
 import IconList from './IconList';
+import request from '../util/request';
 import Picker from 'react-native-picker';
+import Loading from '../component/Loading';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loadingVisible: false,
+            shopList: [],
+        };
+        this.locationClick = this.locationClick.bind(this);
     }
 
     static navigationOptions = ({navigation, navigationOptions}) => {
@@ -80,25 +87,40 @@ export default class HomeScreen extends React.Component {
         };
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         const {setParams} = this.props.navigation;
+        // 设置左右按钮的点击功能
         setParams({
             // 左侧按钮点击
             leftIconClick: () => this.locationClick(),
             // 右侧按钮点击
             rightIconClick: () => this.serviceClick(),
         });
+        this.setState({loadingVisible: true});
+        // 获取所有门店列表
+        request
+            .get('/shop/all')
+            .then(res => {
+                this.setState({shopList: res || []});
+            })
+            .finally(() => {
+                this.setState({loadingVisible: false});
+            });
     }
 
     // 位置点击
     locationClick() {
-        let data = [];
-        for (let i = 0; i < 10; i++) {
-            data.push(`广州${i}号洗衣店`);
+        let {shopList} = this.state;
+        console.log(shopList);
+        let pickData = [];
+        if (Array.isArray(shopList)) {
+            shopList.forEach(item => {
+                pickData.push(item.name);
+            });
         }
         Picker.init({
-            pickerData: data,
-            selectedValue: ['广州3号洗衣店'],
+            pickerData: pickData,
+            // selectedValue: ['广州3号洗衣店'],
             pickerConfirmBtnText: '确认',
             pickerCancelBtnText: '取消',
             pickerTitleText: '选择店铺',
@@ -125,15 +147,19 @@ export default class HomeScreen extends React.Component {
 
     render() {
         let {navigation} = this.props;
+        let {loadingVisible} = this.state;
         return (
-            <ScrollView style={{flex: 1}}>
-                {/* 轮播图 */}
-                <Swiper navigation={navigation} />
-                {/* 图标选项 */}
-                <IconList navigation={navigation} />
-                {/* 快递柜子 */}
-                <Express navigation={navigation} />
-            </ScrollView>
+            <View style={{flex: 1}}>
+                <ScrollView style={{flex: 1}}>
+                    {/* 轮播图 */}
+                    <Swiper navigation={navigation} />
+                    {/* 图标选项 */}
+                    <IconList navigation={navigation} />
+                    {/* 快递柜子 */}
+                    <Express navigation={navigation} />
+                </ScrollView>
+                <Loading visible={loadingVisible} />
+            </View>
         );
     }
 }

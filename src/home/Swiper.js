@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
+import request from '../util/request';
 import Swiper from 'react-native-swiper';
 import {StyleSheet, Dimensions, View, Image} from 'react-native';
 
@@ -9,6 +10,7 @@ export default class SwiperComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            swiperList: [],
             imgUrl: [
                 '../../img/lunbo/1.jpg',
                 '../../img/lunbo/2.jpg',
@@ -19,33 +21,33 @@ export default class SwiperComponent extends Component {
         };
     }
 
+    componentDidMount() {
+        // 获取当前门店的轮播图列表
+        request.get('/swiper/getAllById', {id: 1}).then(res => {
+            this.setState({swiperList: res || []});
+        });
+    }
+
     render() {
-        let {imgUrl} = this.state;
+        let {swiperList} = this.state;
         return (
             <View style={styles.swiperContainer}>
                 <Swiper
                     autoplay
                     dotColor="rgba(255,255,255,.3)"
                     activeDotColor="#fff">
-                    {imgUrl &&
-                        imgUrl.length !== 0 &&
-                        imgUrl.map((item, index) => {
-                            if (index % 2 === 0) {
-                                return (
-                                    <View key={index} style={styles.slide}>
-                                        <Image
-                                            style={styles.img}
-                                            source={require('../../img/lunbo/3.jpg')}
-                                            // source={{uri:  'https://facebook.githuby_logo.png',}}
-                                        />
-                                    </View>
-                                );
-                            }
+                    {swiperList &&
+                        swiperList.length !== 0 &&
+                        swiperList.map((item, index) => {
                             return (
                                 <View key={index} style={styles.slide}>
                                     <Image
                                         style={styles.img}
-                                        source={require('../../img/lunbo/4.jpg')}
+                                        source={{
+                                            uri: `http://localhost:3001/${
+                                                item.url
+                                            }`,
+                                        }}
                                     />
                                 </View>
                             );
