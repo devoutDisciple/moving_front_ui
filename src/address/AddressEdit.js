@@ -4,12 +4,13 @@ import {
     Text,
     View,
     StyleSheet,
-    Image,
     ScrollView,
     TouchableOpacity,
 } from 'react-native';
+import {Button} from 'react-native-elements';
 import CommonHeader from '../component/CommonHeader';
 import MessageItem from '../my/message/MessageItem';
+import Dialog from '../component/Dialog';
 
 export default class Member extends React.Component {
     constructor(props) {
@@ -17,17 +18,41 @@ export default class Member extends React.Component {
         this.state = {};
     }
 
+    componentDidMount() {}
+
     // radio选择的时候
     selectRadio(index) {}
 
-    showInputDialog() {}
+    showInputDialog() {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    // 保存的时候
+    onSaveValue() {}
+
+    // 弹框确定的时候
+    onOkDialog() {
+        this.setState({
+            visible: false,
+        });
+    }
+
+    // 弹框取消的时候
+    onCancelDialog() {
+        this.setState({
+            visible: false,
+        });
+    }
 
     render() {
         const {navigation} = this.props;
+        const {visible} = this.state;
         return (
-            <View style={styles.container}>
+            <View style={styles.address_container}>
                 <CommonHeader title="编辑地址" navigation={navigation} />
-                <ScrollView style={styles.content}>
+                <ScrollView style={styles.address_content}>
                     <MessageItem
                         label="姓名"
                         value="张振"
@@ -64,7 +89,24 @@ export default class Member extends React.Component {
                         showIcon
                         onPress={this.showInputDialog.bind(this, '修改地址')}
                     />
+                    <Button
+                        buttonStyle={{
+                            backgroundColor: '#fb9bcd',
+                            borderRadius: 10,
+                            height: 50,
+                            marginTop: 20,
+                        }}
+                        onPress={this.onSaveValue.bind(this)}
+                        title="保存"
+                    />
                 </ScrollView>
+                <Dialog
+                    visible={visible}
+                    title="修改信息"
+                    defalutValue="hello"
+                    onOk={this.onOkDialog.bind(this)}
+                    onCancel={this.onCancelDialog.bind(this)}
+                />
             </View>
         );
     }
@@ -78,10 +120,10 @@ const sex_common = {
     borderRadius: 13,
 };
 const styles = StyleSheet.create({
-    container: {
+    address_container: {
         flex: 1,
     },
-    content: {
+    address_content: {
         flex: 1,
         margin: 10,
     },

@@ -134,6 +134,14 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        // 地址编辑页面
+        AddressEditScreen: {
+            screen: AddressEditScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -143,14 +151,7 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-        // 地址编辑页面
-        AddressEditScreen: {
-            screen: AddressEditScreen,
-            headerBackTitle: '返回',
-            navigationOptions: {
-                headerShown: false,
-            },
-        },
+
         // 收货地址页面
         AddressScreen: {
             screen: AddressScreen,

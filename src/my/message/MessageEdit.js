@@ -1,19 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-    Text,
-    View,
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import {Button} from 'react-native-elements';
 import CommonHeader from '../../component/CommonHeader';
 
 export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.inputRef = React.createRef();
         this.state = {
             value: '',
         };
@@ -22,7 +15,6 @@ export default class SettingScreen extends React.Component {
     componentDidMount() {
         let {navigation} = this.props;
         console.log(navigation.getParam('title'));
-        this.inputRef.current.focus();
     }
 
     onChangeText(text) {
@@ -46,7 +38,6 @@ export default class SettingScreen extends React.Component {
                 />
                 <View style={styles.message_edit_content}>
                     <TextInput
-                        ref={this.inputRef}
                         style={styles.message_edit_input}
                         onChangeText={this.onChangeText.bind(this)}
                         clearButtonMode="always"
