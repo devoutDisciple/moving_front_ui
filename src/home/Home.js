@@ -124,14 +124,15 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
+        let {navigation} = this.props;
         return (
             <ScrollView style={{flex: 1}}>
                 {/* 轮播图 */}
-                <Swiper />
+                <Swiper navigation={navigation} />
                 {/* 图标选项 */}
-                <IconList />
+                <IconList navigation={navigation} />
                 {/* 快递柜子 */}
-                <Express navigation={this.props.navigation} />
+                <Express navigation={navigation} />
             </ScrollView>
         );
     }

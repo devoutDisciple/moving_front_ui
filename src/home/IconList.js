@@ -10,31 +10,47 @@ export default class IconList extends React.Component {
 
     componentDidMount() {}
 
+    // icon点击的时候
+    onIconPress(data) {
+        console.log(data);
+        let {navigation} = this.props;
+        // 成为会员
+        if (data && data.key === 'home_member') {
+            navigation.navigate('MemberScreen');
+        }
+    }
+
     render() {
         const iconList1 = [
             {
+                key: 'home_member',
                 url: require('../../img/home/icon1.png'),
                 text: '成为会员',
             },
             {
+                key: 'home_clothing',
                 url: require('../../img/home/icon2.png'),
                 text: '上门取衣',
             },
             {
+                key: 'home_integral',
                 url: require('../../img/home/icon3.png'),
                 text: '积分兑换',
             },
             {
+                key: 'home_concat',
                 url: require('../../img/home/icon4.png'),
                 text: '联系我们',
             },
         ];
         const iconList2 = [
             {
+                key: 'home_operation',
                 url: require('../../img/home/icon5.png'),
                 text: '操作指南',
             },
             {
+                key: 'home_more',
                 url: require('../../img/home/icon6.png'),
                 text: '更多',
             },
@@ -54,6 +70,7 @@ export default class IconList extends React.Component {
                         return (
                             <IconWithText
                                 key={index}
+                                onPress={this.onIconPress.bind(this, item)}
                                 source={item.url}
                                 text={item.text}
                                 index={`incon1_${index}`}
@@ -66,6 +83,7 @@ export default class IconList extends React.Component {
                         return (
                             <IconWithText
                                 key={index}
+                                onPress={this.onIconPress.bind(this, item)}
                                 source={item.url}
                                 text={item.text}
                                 index={`incon2_${index}`}

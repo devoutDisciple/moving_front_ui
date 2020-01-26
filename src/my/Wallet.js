@@ -13,7 +13,6 @@ export default class Waller extends React.Component {
 
     // 点击成为会员
     beMember() {
-        console.log(111);
         this.props.navigation.navigate('MemberScreen');
     }
 

@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import MessageItem from './MessageItem';
 import Picker from 'react-native-picker';
-import Toast from '../../component/Toast';
 import CommonHeader from '../../component/CommonHeader';
 export default class SettingScreen extends React.Component {
     constructor(props) {
@@ -18,10 +17,11 @@ export default class SettingScreen extends React.Component {
 
     componentDidMount() {}
 
-    showInputDialog(title) {
+    showInputDialog(title, key) {
         // Toast.show('hello world');
         this.props.navigation.navigate('MessageEditScreen', {
-            title: '修改昵称',
+            title: title,
+            key: key,
         });
     }
 
@@ -71,15 +71,13 @@ export default class SettingScreen extends React.Component {
                         label="昵称"
                         value="小张"
                         showIcon
-                        onPress={this.showInputDialog.bind(this)}
+                        onPress={this.showInputDialog.bind(this, '修改昵称')}
                     />
                     <MessageItem
                         label="姓名"
                         value="张振"
                         showIcon
-                        onPress={() => {
-                            console.log(111);
-                        }}
+                        onPress={this.showInputDialog.bind(this, '修改姓名')}
                     />
                     <MessageItem
                         label="性别"
@@ -109,9 +107,7 @@ export default class SettingScreen extends React.Component {
                         label="邮箱"
                         value="1094705507@qq.com"
                         showIcon
-                        onPress={() => {
-                            console.log(111);
-                        }}
+                        onPress={this.showInputDialog.bind(this, '修改邮箱')}
                     />
                     <MessageItem
                         label="会员等级"

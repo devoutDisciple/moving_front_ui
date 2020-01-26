@@ -129,6 +129,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        // 首页
+        HomeScreen: {
+            screen: TabNavigator,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
         // 我的个人信息页面
         MyMessage: {
             screen: MyMessage,
@@ -142,15 +151,6 @@ const finnalApp = createStackNavigator(
             screen: MessageEditScreen,
             navigationOptions: {
                 headerShown: false,
-            },
-        },
-        // 首页
-        HomeScreen: {
-            screen: TabNavigator,
-            navigationOptions: {
-                headerShown: false,
-                headerBackTitle: '返回',
-                headerBackAllowFontScaling: false,
             },
         },
 

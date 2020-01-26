@@ -25,13 +25,8 @@ export default class Member extends React.Component {
         };
     }
 
-    componentDidMount() {
-        console.log(234);
-    }
-
     // swiperChange 选择不同的会员的时候
     swiperChange(index) {
-        console.log(index);
         this.setState({selectIndex: index});
     }
 
@@ -64,7 +59,7 @@ export default class Member extends React.Component {
         ];
         return (
             <View style={styles.container}>
-                <CommonHeader title="会员页面" navigation={navigation} />
+                <CommonHeader title="成为会员" navigation={navigation} />
                 <View style={styles.swiperContainer}>
                     <Swiper
                         autoplay={false}

@@ -37,7 +37,7 @@ export default class SettingScreen extends React.Component {
 
     render() {
         let {value} = this.state;
-        let {title, navigation} = this.props;
+        let {navigation} = this.props;
         return (
             <View style={styles.message_edit_container}>
                 <CommonHeader

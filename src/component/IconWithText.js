@@ -1,33 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-    Text,
-    View,
-    Image,
-    StyleSheet,
-    TouchableOpacity,
-    AsyncStorage,
-} from 'react-native';
+import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default class IconWithText extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    // 点击icon
-    iconClick() {
-        AsyncStorage.getItem('token', (error, result) => {
-            console.log(error, 333);
-            console.log(result, 444);
-        });
-    }
-
     render() {
-        const {source, text, index} = this.props;
+        const {source, text, index, onPress} = this.props;
         if (source) {
             return (
                 <TouchableOpacity
-                    onPress={this.iconClick.bind(this)}
+                    onPress={onPress}
                     key={index}
                     style={styles.home_icon_item}>
                     <Image style={styles.home_icon_item_img} source={source} />

@@ -31,7 +31,7 @@ export default class Member extends React.Component {
                 <TouchableOpacity
                     onPress={this.backIconClick.bind(this)}
                     style={styles.header_back}>
-                    <Icon name="left" size={24} color="#333" />
+                    <Icon name="left" size={20} color="#333" />
                 </TouchableOpacity>
                 <View style={styles.header_title}>
                     <Text style={styles.header_title_text}>{title}</Text>
@@ -44,7 +44,7 @@ export default class Member extends React.Component {
 const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
-        height: 30,
+        height: 40,
         marginTop: 20,
     },
     header_back: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     header_title_text: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#333',
     },
 });
