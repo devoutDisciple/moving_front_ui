@@ -15,13 +15,12 @@ import Dialog from '../component/Dialog';
 export default class Member extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            visible: false,
+        };
     }
 
     componentDidMount() {}
-
-    // radio选择的时候
-    selectRadio(index) {}
 
     showInputDialog() {
         this.setState({

@@ -13,7 +13,6 @@ import ClothingScreen from '../clothing/Clothing';
 import MyScreen from '../my/My';
 import MySetting from '../my/setting/Setting';
 import MyMessage from '../my/message/Message';
-import MessageEditScreen from '../my/message/MessageEdit';
 
 // 订单页面
 import OrderScreen from '../order/Index';
@@ -134,14 +133,6 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
-        // 地址编辑页面
-        AddressEditScreen: {
-            screen: AddressEditScreen,
-            headerBackTitle: '返回',
-            navigationOptions: {
-                headerShown: false,
-            },
-        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -149,6 +140,14 @@ const finnalApp = createStackNavigator(
                 headerShown: false,
                 headerBackTitle: '返回',
                 headerBackAllowFontScaling: false,
+            },
+        },
+        // 地址编辑页面
+        AddressEditScreen: {
+            screen: AddressEditScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
             },
         },
 
@@ -174,13 +173,6 @@ const finnalApp = createStackNavigator(
         MyMessage: {
             screen: MyMessage,
             headerBackTitle: '返回',
-            navigationOptions: {
-                headerShown: false,
-            },
-        },
-        // 信息编辑页面
-        MessageEditScreen: {
-            screen: MessageEditScreen,
             navigationOptions: {
                 headerShown: false,
             },

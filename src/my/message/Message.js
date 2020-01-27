@@ -9,19 +9,38 @@ import {
 } from 'react-native';
 import MessageItem from './MessageItem';
 import Picker from 'react-native-picker';
+import Dialog from '../../component/Dialog';
 import CommonHeader from '../../component/CommonHeader';
 export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            visible: false,
+        };
     }
 
     componentDidMount() {}
 
-    showInputDialog(title, key) {
-        // Toast.show('hello world');
-        this.props.navigation.navigate('MessageEditScreen', {
-            title: title,
-            key: key,
+    showDialog() {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    // 保存的时候
+    onSaveValue() {}
+
+    // 弹框确定的时候
+    onOkDialog() {
+        this.setState({
+            visible: false,
+        });
+    }
+
+    // 弹框取消的时候
+    onCancelDialog() {
+        this.setState({
+            visible: false,
         });
     }
 
@@ -56,6 +75,7 @@ export default class SettingScreen extends React.Component {
 
     render() {
         const {navigation} = this.props;
+        let {visible} = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader title="个人信息" navigation={navigation} />
@@ -69,15 +89,15 @@ export default class SettingScreen extends React.Component {
                     />
                     <MessageItem
                         label="昵称"
-                        value="小张"
+                        value="小张11"
                         showIcon
-                        onPress={this.showInputDialog.bind(this, '修改昵称')}
+                        onPress={this.showDialog.bind(this, '修改昵称')}
                     />
                     <MessageItem
                         label="姓名"
                         value="张振"
                         showIcon
-                        onPress={this.showInputDialog.bind(this, '修改姓名')}
+                        onPress={this.showDialog.bind(this, '修改姓名')}
                     />
                     <MessageItem
                         label="性别"
@@ -107,7 +127,7 @@ export default class SettingScreen extends React.Component {
                         label="邮箱"
                         value="1094705507@qq.com"
                         showIcon
-                        onPress={this.showInputDialog.bind(this, '修改邮箱')}
+                        onPress={this.showDialog.bind(this, '修改邮箱')}
                     />
                     <MessageItem
                         label="会员等级"
@@ -124,6 +144,13 @@ export default class SettingScreen extends React.Component {
                         }}
                     />
                 </ScrollView>
+                <Dialog
+                    visible={visible}
+                    title="修改信息"
+                    defalutValue="hello"
+                    onOk={this.onOkDialog.bind(this)}
+                    onCancel={this.onCancelDialog.bind(this)}
+                />
             </View>
         );
     }
