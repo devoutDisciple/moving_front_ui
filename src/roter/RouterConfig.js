@@ -142,6 +142,14 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+        // 上门取衣服服务
+        ClothingScreen: {
+            screen: ClothingScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 地址编辑页面
         AddressEditScreen: {
             screen: AddressEditScreen,
@@ -154,15 +162,6 @@ const finnalApp = createStackNavigator(
         // 收货地址页面
         AddressScreen: {
             screen: AddressScreen,
-            headerBackTitle: '返回',
-            navigationOptions: {
-                headerShown: false,
-            },
-        },
-
-        // 上门取衣服服务
-        ClothingScreen: {
-            screen: ClothingScreen,
             headerBackTitle: '返回',
             navigationOptions: {
                 headerShown: false,

@@ -6,6 +6,7 @@ import IconList from './IconList';
 import request from '../util/request';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
+import config from '../config/config';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
 
@@ -119,14 +120,9 @@ export default class HomeScreen extends React.Component {
             });
         }
         Picker.init({
+            ...config.pickCommonConfig,
             pickerData: pickData,
             // selectedValue: ['广州3号洗衣店'],
-            pickerConfirmBtnText: '确认',
-            pickerCancelBtnText: '取消',
-            pickerTitleText: '选择店铺',
-            pickerConfirmBtnColor: [84, 185, 116, 1],
-            pickerCancelBtnColor: [196, 199, 206, 1],
-            pickerTitleColor: [84, 185, 116, 1],
             onPickerConfirm: res => {
                 console.log(res);
             },

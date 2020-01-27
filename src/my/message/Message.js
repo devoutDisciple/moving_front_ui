@@ -10,6 +10,7 @@ import {
 import MessageItem from './MessageItem';
 import Picker from 'react-native-picker';
 import Dialog from '../../component/Dialog';
+import config from '../../config/config';
 import CommonHeader from '../../component/CommonHeader';
 export default class SettingScreen extends React.Component {
     constructor(props) {
@@ -52,14 +53,9 @@ export default class SettingScreen extends React.Component {
             data.push(i);
         }
         Picker.init({
+            ...config.pickCommonConfig,
             pickerData: data,
             selectedValue: [25],
-            pickerConfirmBtnText: '确认',
-            pickerCancelBtnText: '取消',
-            pickerTitleText: '',
-            pickerConfirmBtnColor: [251, 156, 206, 1],
-            pickerCancelBtnColor: [196, 199, 206, 1],
-            pickerTitleColor: [251, 156, 206, 1],
             onPickerConfirm: res => {
                 console.log(res);
             },

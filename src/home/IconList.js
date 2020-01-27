@@ -28,6 +28,10 @@ export default class IconList extends React.Component {
             //     })
             //     .catch(error => console.log('tel error', error));
         }
+        // 上门取衣
+        if (data && data.key === 'home_clothing') {
+            navigation.navigate('ClothingScreen');
+        }
     }
 
     render() {
