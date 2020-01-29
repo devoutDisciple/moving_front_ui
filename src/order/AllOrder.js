@@ -25,9 +25,7 @@ export default class AllOrder extends React.Component {
         };
     }
 
-    componentDidMount() {
-        console.log(1);
-    }
+    componentDidMount() {}
 
     // 下拉刷新
     headerRefresh() {

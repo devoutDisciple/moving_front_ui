@@ -1,14 +1,51 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import * as WeChat from 'react-native-wechat';
 
 export default class AllOrder extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount() {
-        console.log(1);
+    componentDidMount() {}
+
+    // 点击去支付
+    async payOrder() {
+        console.log(123);
+        // let hello = await WeChat.openWXApp();
+        let hello = await WeChat.isWXAppInstalled();
+        console.log(hello);
+        // 第三步，调起微信客户端支付
+        WeChat.pay({
+            appId: '32423',
+            partnerId: '4324324',
+            prepayId: '5435435',
+            nonceStr: '5435435435',
+            timeStamp: '4324ffd',
+            package: 'Sign=WXPay',
+            sign: '32432423432',
+        })
+            .then(response => {
+                console.log('支付成功');
+                console.log(response);
+                let errorCode = Number(response.errCode);
+                if (errorCode === 0) {
+                    this.showAlert('支付成功');
+                    // TODO: 这里处理支付成功后的业务逻辑，比如支付成功跳转页面、清空购物车。。。。
+                    // .....
+                } else {
+                    this.showAlert(response.errStr);
+                }
+            })
+            .catch(error => {
+                let errorCode = Number(error.code);
+                if (errorCode === -2) {
+                    this.showAlert('已取消支付');
+                } else {
+                    this.showAlert('支付失败');
+                }
+            });
     }
 
     render() {
@@ -49,6 +86,7 @@ export default class AllOrder extends React.Component {
                     </View>
                     <View style={styles.order_item_right_bottom}>
                         <TouchableOpacity
+                            onPress={this.payOrder.bind(this)}
                             style={styles.order_item_right_bottom_btn}>
                             <Text style={styles.order_pay_font}>去支付</Text>
                         </TouchableOpacity>
