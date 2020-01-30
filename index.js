@@ -2,16 +2,16 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
-import App from './App';
+import {AppRegistry, NativeModules} from 'react-native';
 import {name as appName} from './app.json';
 import 'react-native-gesture-handler';
-import {NativeModules} from 'react-native';
+import App from './App';
+
 console.disableYellowBox = true;
 // GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
-if (__DEV__) {
-    NativeModules.DevSettings.setIsDebuggingRemotely(true);
-}
+// if (__DEV__) {
+//     NativeModules.DevSettings.setIsDebuggingRemotely(true);
+// }
 global.XMLHttpRequest = global.originalXMLHttpRequest
     ? global.originalXMLHttpRequest
     : global.XMLHttpRequest;
