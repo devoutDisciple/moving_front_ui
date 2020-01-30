@@ -1,7 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import CommonHeader from '../component/CommonHeader';
-import {Text, View, StyleSheet} from 'react-native';
+import {
+    Text,
+    View,
+    StyleSheet,
+    ScrollView,
+    Dimensions,
+    Image,
+} from 'react-native';
+import GoodsItem from './GoodsItem';
+
+const {width} = Dimensions.get('window');
 
 export default class Intergral extends React.Component {
     constructor(props) {
@@ -25,7 +35,47 @@ export default class Intergral extends React.Component {
                         </Text>
                     </View>
                 </View>
-                <Text style={{fontSize: 18, color: '#bfbfbf'}}>积分兑换</Text>
+                <View style={styles.intergrals_title}>
+                    <Text>积分兑换</Text>
+                </View>
+                <ScrollView style={styles.intergrals_content}>
+                    <View style={styles.intergrals_content_chunk}>
+                        <GoodsItem
+                            source={require('../../img/lunbo/2.jpg')}
+                            title="新版病毒"
+                            num="220积分"
+                        />
+                        <GoodsItem
+                            source={require('../../img/lunbo/2.jpg')}
+                            title="新版病毒"
+                            num="220积分"
+                        />
+                    </View>
+                    <View style={styles.intergrals_content_chunk}>
+                        <GoodsItem
+                            source={require('../../img/lunbo/2.jpg')}
+                            title="新版病毒"
+                            num="220积分"
+                        />
+                        <GoodsItem
+                            source={require('../../img/lunbo/2.jpg')}
+                            title="新版病毒"
+                            num="220积分"
+                        />
+                    </View>
+                    <View style={styles.intergrals_content_chunk}>
+                        <GoodsItem
+                            source={require('../../img/lunbo/2.jpg')}
+                            title="新版病毒"
+                            num="220积分"
+                        />
+                        <GoodsItem
+                            source={require('../../img/lunbo/2.jpg')}
+                            title="新版病毒"
+                            num="220积分"
+                        />
+                    </View>
+                </ScrollView>
             </View>
         );
     }
@@ -38,7 +88,6 @@ const styles = StyleSheet.create({
     },
     intergrals_show: {
         height: 120,
-        backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -61,5 +110,24 @@ const styles = StyleSheet.create({
         color: '#f3dcea',
         fontWeight: '800',
         marginBottom: 5,
+    },
+    intergrals_title: {
+        marginLeft: 10,
+        height: 30,
+        justifyContent: 'center',
+        paddingLeft: 10,
+        borderLeftWidth: 5,
+        borderLeftColor: '#ffc6e5',
+    },
+    intergrals_content: {
+        flex: 1,
+        marginVertical: 10,
+        marginHorizontal: 2,
+        paddingVertical: 10,
+        borderWidth: 0.5,
+        borderColor: '#e6e6e6',
+    },
+    intergrals_content_chunk: {
+        flexDirection: 'row',
     },
 });
