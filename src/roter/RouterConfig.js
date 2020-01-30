@@ -13,6 +13,7 @@ import ClothingScreen from '../clothing/Clothing';
 import MyScreen from '../my/My';
 import MySetting from '../my/setting/Setting';
 import MyMessage from '../my/message/Message';
+import IntergralScreen from '../integral/Intergral';
 
 // 订单页面
 import OrderScreen from '../order/Index';
@@ -133,6 +134,13 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
+        IntergralScreen: {
+            screen: IntergralScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -142,6 +150,7 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+
         // 上门取衣服服务
         ClothingScreen: {
             screen: ClothingScreen,
