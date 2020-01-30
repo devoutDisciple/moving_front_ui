@@ -32,6 +32,10 @@ export default class IconList extends React.Component {
         if (data && data.key === 'home_clothing') {
             navigation.navigate('ClothingScreen');
         }
+        // 积分兑换
+        if (data && data.key === 'home_integral') {
+            navigation.navigate('IntergralScreen');
+        }
     }
 
     render() {

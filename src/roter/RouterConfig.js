@@ -134,13 +134,6 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
     {
-        IntergralScreen: {
-            screen: IntergralScreen,
-            headerBackTitle: '返回',
-            navigationOptions: {
-                headerShown: false,
-            },
-        },
         // 首页
         HomeScreen: {
             screen: TabNavigator,
@@ -150,7 +143,14 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-
+        // 积分兑换页面
+        IntergralScreen: {
+            screen: IntergralScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
         // 上门取衣服服务
         ClothingScreen: {
             screen: ClothingScreen,
