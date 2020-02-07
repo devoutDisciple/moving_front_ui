@@ -8,7 +8,8 @@ import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
 import config from '../config/config';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import Toast from '../component/Toast';
+import {Text, View, TouchableOpacity, ScrollView, Linking} from 'react-native';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -139,6 +140,17 @@ export default class HomeScreen extends React.Component {
     // 点击客服按钮
     serviceClick() {
         console.log('点击客服按钮');
+        let tel = 'tel:1008611'; // 目标电话
+        Linking.canOpenURL(tel)
+            .then(supported => {
+                if (!supported) {
+                    console.log(supported);
+                    Toast.warning('用户手机号', '110');
+                } else {
+                    return Linking.openURL(tel);
+                }
+            })
+            .catch(error => console.log('tel error', error));
     }
 
     render() {

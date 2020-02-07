@@ -16,7 +16,7 @@ export default class Waller extends React.Component {
             <TouchableOpacity onPress={onPress}>
                 <View style={styles.my_list_item}>
                     <View style={styles.my_list_item_icon}>
-                        <Icon name={iconName || ''} size={16} color="#79d9c5" />
+                        <Icon name={iconName || ''} size={16} color="#fb9dd0" />
                     </View>
                     <View style={styles.my_list_item_desc}>
                         <Text style={{fontSize: 15, color: '#333'}}>

@@ -31,9 +31,14 @@ export default class Express extends React.Component {
         let {expressList} = this.state;
         return (
             <View style={styles.home_express}>
-                <View style={styles.home_express_title}>
+                {/* <View style={styles.home_express_title}>
                     <Text style={styles.home_express_title_text}>
                         moving 收衣柜
+                    </Text>
+                </View> */}
+                <View style={styles.detail_common_title}>
+                    <Text style={{fontSize: 16, color: '#333'}}>
+                        MOVING 收衣柜
                     </Text>
                 </View>
                 {expressList.map((item, index) => {
@@ -80,6 +85,15 @@ export default class Express extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    detail_common_title: {
+        height: 20,
+        marginVertical: 10,
+        justifyContent: 'center',
+        paddingLeft: 10,
+        borderLeftColor: '#fb9dd0',
+        borderLeftWidth: 3,
+        marginBottom: 10,
+    },
     home_express: {
         flex: 1,
         margin: 10,

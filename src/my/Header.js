@@ -44,7 +44,7 @@ export default class MyScreen extends React.Component {
                                     }}
                                     name="edit"
                                     size={14}
-                                    color="#49bb6d"
+                                    color="#fb9dd0"
                                 />
                             </TouchableOpacity>
                         </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         height: 30,
         width: 110,
         paddingHorizontal: 9,
-        backgroundColor: '#49bb6d',
+        backgroundColor: '#fb9dd0',
         marginLeft: 11,
         flexDirection: 'row',
         borderRadius: 20,

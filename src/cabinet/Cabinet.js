@@ -1,15 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {
-    Text,
-    View,
-    ScrollView,
-    StyleSheet,
-    Dimensions,
-    Image,
-} from 'react-native';
-import CommonHeader from '../../component/CommonHeader';
 import CabinetItem from './CabinetItem';
+import CommonHeader from '../component/CommonHeader';
+import {Text, View, ScrollView, StyleSheet, Dimensions} from 'react-native';
+
 const {width} = Dimensions.get('window');
 
 export default class OrderScreen extends React.Component {
@@ -35,22 +29,22 @@ export default class OrderScreen extends React.Component {
                 id: 'little',
                 title: '小格口',
                 desc: '限重一公斤',
-                normalImg: require('../../../img/public/express_little.png'),
-                activeImg: require('../../../img/public/express_little_active.png'),
+                normalImg: require('../../img/public/express_little.png'),
+                activeImg: require('../../img/public/express_little_active.png'),
             },
             {
                 id: 'middle',
                 title: '中格口',
                 desc: '限重三公斤',
-                normalImg: require('../../../img/public/express_middle.png'),
-                activeImg: require('../../../img/public/express_middle_acitve.png'),
+                normalImg: require('../../img/public/express_middle.png'),
+                activeImg: require('../../img/public/express_middle_acitve.png'),
             },
             {
                 id: 'big',
                 title: '大格口',
                 desc: '限重五公斤',
-                normalImg: require('../../../img/public/express_big.png'),
-                activeImg: require('../../../img/public/express_big_active.png'),
+                normalImg: require('../../img/public/express_big.png'),
+                activeImg: require('../../img/public/express_big_active.png'),
             },
         ];
         return (
