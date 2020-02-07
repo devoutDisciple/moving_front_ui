@@ -4,31 +4,43 @@ import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+
 // 首页
 import HomeScreen from '../home/Home';
 // 上门取衣服
 import ClothingScreen from '../clothing/Clothing';
-
-// 我的  --------------------
+// 我的页面
 import MyScreen from '../my/My';
+// 我的设置页面
 import MySetting from '../my/setting/Setting';
+// 我的个人信息页面
 import MyMessage from '../my/message/Message';
+// 积分兑换页面
 import IntergralScreen from '../integral/Intergral';
-
 // 订单页面
 import OrderScreen from '../order/Index';
 // 二维码页面
 import ScanCameraScreen from '../scan/ScanCamera';
-// 登录和注册页面
+// 登录页面
 import LoginScreen from '../login/Login';
+// 注册页面
 import ResgisterScreen from '../login/Register';
+// 验证码登录页面
 import SecurityLoginScreen from '../login/SecurityLogin';
+// 重置密码页面
 import ResetPasswordScreen from '../login/ResetPassword';
 // 会员页面
 import MemberScreen from '../member/Member';
 // 我的地址页面
 import AddressScreen from '../address/Address';
+// 地址编辑页面
 import AddressEditScreen from '../address/AddressEdit';
+// 设置商品金额页面
+import GoodsScreen from '../goods/Goods';
+// 订单详情页面
+import OrderDetailScreen from '../order/detail/Detail';
+// 选择柜子界面
+import CabinetScreen from '../cabinet/Cabinet';
 
 import TabBarItem from './TabBarItem';
 
@@ -143,12 +155,39 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+        // 订单详情页面
+        OrderDetailScreen: {
+            screen: OrderDetailScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
+        // 设置金额页面
+        GoodsScreen: {
+            screen: GoodsScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
         // 积分兑换页面
         IntergralScreen: {
             screen: IntergralScreen,
             headerBackTitle: '返回',
             navigationOptions: {
                 headerShown: false,
+            },
+        },
+        // 选择快递柜子页面
+        CabinetScreen: {
+            screen: CabinetScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
             },
         },
         // 上门取衣服服务

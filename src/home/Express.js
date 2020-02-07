@@ -22,9 +22,9 @@ export default class Express extends React.Component {
 
     componentDidMount() {}
 
-    // 扫码开门
-    openDoorBtnClick() {
-        this.props.navigation.navigate('ScanCameraScreen');
+    // 存放衣物
+    putClothing() {
+        this.props.navigation.navigate('GoodsScreen');
     }
 
     render() {
@@ -63,16 +63,11 @@ export default class Express extends React.Component {
                                             paddingHorizontal: 8,
                                             borderRadius: 6,
                                         }}
-                                        // containerStyle={{
-                                        //     width: 80,
-                                        // }}
                                         titleStyle={{
                                             fontSize: 14,
                                         }}
                                         title="存放衣物"
-                                        onPress={this.openDoorBtnClick.bind(
-                                            this,
-                                        )}
+                                        onPress={this.putClothing.bind(this)}
                                     />
                                 </View>
                             </View>
