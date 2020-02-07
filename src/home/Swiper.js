@@ -2,7 +2,8 @@
 import React, {Component} from 'react';
 import request from '../util/request';
 import Swiper from 'react-native-swiper';
-import {StyleSheet, Dimensions, View, Image} from 'react-native';
+import FastImage from '../component/FastImage';
+import {StyleSheet, Dimensions, View} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
@@ -11,13 +12,6 @@ export default class SwiperComponent extends Component {
         super(props);
         this.state = {
             swiperList: [],
-            imgUrl: [
-                '../../img/lunbo/1.jpg',
-                '../../img/lunbo/2.jpg',
-                '../../img/lunbo/3.jpg',
-                '../../img/lunbo/4.jpg',
-                '../../img/lunbo/5.jpg',
-            ],
         };
     }
 
@@ -41,7 +35,7 @@ export default class SwiperComponent extends Component {
                         swiperList.map((item, index) => {
                             return (
                                 <View key={index} style={styles.slide}>
-                                    <Image
+                                    <FastImage
                                         style={styles.img}
                                         source={{
                                             uri: `http://localhost:3001/${
