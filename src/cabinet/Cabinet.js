@@ -17,7 +17,6 @@ export default class OrderScreen extends React.Component {
     componentDidMount() {}
 
     onPress(id) {
-        console.log(id);
         this.setState({active: id});
     }
 

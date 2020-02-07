@@ -21,7 +21,6 @@ export default class Dialog extends React.Component {
     componentDidMount() {}
 
     onChangeText(value) {
-        console.log(value);
         this.setState({value});
     }
 
