@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, View, FlatList} from 'react-native';
-import Empty from './Empty';
+import Empty from './component/Empty';
 
 export default class OrderScreen extends React.Component {
     constructor(props) {

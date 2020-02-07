@@ -2,6 +2,7 @@
 import React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import * as WeChat from 'react-native-wechat';
+import Toast from '../../component/Toast';
 
 export default class AllOrder extends React.Component {
     constructor(props) {
@@ -12,10 +13,12 @@ export default class AllOrder extends React.Component {
 
     // 点击去支付
     async payOrder() {
-        console.log(123);
         // let hello = await WeChat.openWXApp();
-        let hello = await WeChat.isWXAppInstalled();
-        console.log(hello);
+        let isWXAppInstalled = await WeChat.isWXAppInstalled();
+        console.log(isWXAppInstalled);
+        if (!isWXAppInstalled) {
+            return Toast.warning('未下载微信');
+        }
         // 第三步，调起微信客户端支付
         WeChat.pay({
             appId: '32423',
@@ -27,23 +30,21 @@ export default class AllOrder extends React.Component {
             sign: '32432423432',
         })
             .then(response => {
-                console.log('支付成功');
-                console.log(response);
                 let errorCode = Number(response.errCode);
                 if (errorCode === 0) {
-                    this.showAlert('支付成功');
+                    Toast.success('支付成功');
                     // TODO: 这里处理支付成功后的业务逻辑，比如支付成功跳转页面、清空购物车。。。。
                     // .....
                 } else {
-                    this.showAlert(response.errStr);
+                    Toast.error(response.errStr);
                 }
             })
             .catch(error => {
                 let errorCode = Number(error.code);
                 if (errorCode === -2) {
-                    this.showAlert('已取消支付');
+                    Toast.warning('已取消支付');
                 } else {
-                    this.showAlert('支付失败');
+                    Toast.error('支付失败');
                 }
             });
     }
@@ -169,11 +170,11 @@ const styles = StyleSheet.create({
         width: 60,
         padding: 5,
         borderWidth: 1,
-        borderColor: '#2fc1ae',
+        borderColor: '#fb9dd0',
         alignItems: 'center',
         borderRadius: 5,
     },
     order_pay_font: {
-        color: '#2fc1ae',
+        color: '#fb9dd0',
     },
 });

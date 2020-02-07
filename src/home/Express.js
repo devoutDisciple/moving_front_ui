@@ -20,13 +20,11 @@ export default class Express extends React.Component {
         };
     }
 
-    componentDidMount() {
-        console.log(4);
-    }
+    componentDidMount() {}
 
     // 扫码开门
     openDoorBtnClick() {
-        // this.props.navigation.navigate('');
+        this.props.navigation.navigate('ScanCameraScreen');
     }
 
     render() {
@@ -60,16 +58,18 @@ export default class Express extends React.Component {
                                     }>
                                     <Button
                                         buttonStyle={{
-                                            backgroundColor: 'orange',
-                                            padding: 0,
+                                            backgroundColor: '#fb9dd0',
+                                            paddingVertical: 5,
+                                            paddingHorizontal: 8,
+                                            borderRadius: 6,
                                         }}
-                                        containerStyle={{
-                                            width: 68,
-                                        }}
+                                        // containerStyle={{
+                                        //     width: 80,
+                                        // }}
                                         titleStyle={{
                                             fontSize: 14,
                                         }}
-                                        title="扫码开门"
+                                        title="存放衣物"
                                         onPress={this.openDoorBtnClick.bind(
                                             this,
                                         )}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     },
     home_express_item: {
         height: 120,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderBottomColor: '#cccccc',
         flexDirection: 'row',
         padding: 10,
@@ -120,15 +120,12 @@ const styles = StyleSheet.create({
     home_express_item_right: {
         flex: 1,
         marginLeft: 10,
-        // backgroundColor: 'blue',
     },
     home_express_item_right_title: {
         height: 60,
-        // backgroundColor: 'orange',
     },
     home_express_item_right_bottom: {
         height: 40,
-        // backgroundColor: 'blue',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
     },

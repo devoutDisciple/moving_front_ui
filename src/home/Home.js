@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
                                 style={{width: 20, marginTop: 3}}
                                 name="enviromento"
                                 size={16}
-                                color="#79d9c5"
+                                color="#fb9dd0"
                             />
                             <Text style={{flex: 1, marginTop: 2}}>
                                 太行山洗衣店
@@ -62,7 +62,7 @@ export default class HomeScreen extends React.Component {
                             style={{width: 20, marginTop: 3}}
                             name="aliwangwang-o1"
                             size={16}
-                            color="#333"
+                            color="#fb9dd0"
                         />
                     </TouchableOpacity>
                 );

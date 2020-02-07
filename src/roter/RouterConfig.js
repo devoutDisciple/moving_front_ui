@@ -18,7 +18,7 @@ import IntergralScreen from '../integral/Intergral';
 // 订单页面
 import OrderScreen from '../order/Index';
 // 二维码页面
-import ScanCameraScreen from '../home/ScanCamera';
+import ScanCameraScreen from '../scan/ScanCamera';
 // 登录和注册页面
 import LoginScreen from '../login/Login';
 import ResgisterScreen from '../login/Register';
@@ -121,8 +121,8 @@ const TabNavigator = createBottomTabNavigator(
     {
         initialRouteName: 'Home', // 第一次加载tab bar时路由的routeName
         tabBarOptions: {
-            activeTintColor: '#2fc3af', //当前选中的tab bar的文本颜色和图标颜色
-            inactiveTintColor: '#666', // 当前未选中的tab bar的文本颜色和图标颜色
+            activeTintColor: '#fb9dd0', //当前选中的tab bar的文本颜色和图标颜色
+            inactiveTintColor: '#8a8a8a', // 当前未选中的tab bar的文本颜色和图标颜色
             activeBackgroundColor: '#fff', // 当前选中的tab bar的背景色
             inactiveBackgroundColor: '#fff', //当前未选中的tab bar的背景色
             // labelStyle: {
@@ -228,7 +228,7 @@ const finnalApp = createStackNavigator(
         ScanCameraScreen: {
             screen: ScanCameraScreen,
             navigationOptions: {
-                title: '',
+                title: '扫码开门',
             },
         },
         // -------------------- 我的 ---------------------

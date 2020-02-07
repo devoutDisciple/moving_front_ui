@@ -37,10 +37,11 @@ export default class OrderScreen extends React.Component {
                         marginTop: 20,
                     }}>
                     <ScrollableTabView
-                        tabBarActiveTextColor="#54b974"
+                        tabBarActiveTextColor="#fb9dd0"
                         tabBarInactiveTextColor="#333"
                         tabBarUnderlineStyle={{
-                            backgroundColor: '#54b974',
+                            backgroundColor: '#fb9dd0',
+                            borderWidth: 0,
                             borderRadius: 3,
                         }}
                         initialPage={0}

@@ -26,7 +26,7 @@ export default class OrderScreen extends React.Component {
                         marginTop: 150,
                         marginBottom: 100,
                     }}
-                    source={require('../../img/public/order.png')}
+                    source={require('../../../img/public/order.png')}
                 />
                 <Text style={{fontSize: 18, color: '#bfbfbf'}}>暂无数据</Text>
             </View>

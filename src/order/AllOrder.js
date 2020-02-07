@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Empty from './Empty';
-import FooterScreen from './Footer';
-import OrderItem from './OrderItem';
+import Empty from './component/Empty';
+import FooterScreen from './component/Footer';
+import OrderItem from './component/OrderItem';
 import {View, FlatList, StyleSheet} from 'react-native';
 
 export default class AllOrder extends React.Component {
@@ -31,7 +31,7 @@ export default class AllOrder extends React.Component {
     headerRefresh() {
         this.setState({headerLoading: true});
         let data = [];
-        for (let i = 10; i < 20; i++) {
+        for (let i = 10; i < 13; i++) {
             data.push({id: String(i)});
         }
         this.setState({data: data});
@@ -47,13 +47,16 @@ export default class AllOrder extends React.Component {
         if (footerStatus === 4) {
             return;
         }
-        this.setState({footerStatus: 3});
-        setTimeout(() => {
-            for (let i = 20; i < 30; i++) {
-                data.push({id: String(i)});
-            }
-            this.setState({footerStatus: 4, data});
-        }, 3000);
+        if (footerStatus !== 3) {
+            this.setState({footerStatus: 3}, () => {
+                setTimeout(() => {
+                    for (let i = 100; i < 103; i++) {
+                        data.push({id: String(i)});
+                    }
+                    this.setState({footerStatus: 4, data});
+                }, 3000);
+            });
+        }
     }
 
     render() {
@@ -68,9 +71,10 @@ export default class AllOrder extends React.Component {
                     onEndReached={this.footerRefresh.bind(this)}
                     ListEmptyComponent={<Empty />}
                     ListFooterComponent={<FooterScreen status={footerStatus} />}
-                    renderItem={({item}) => (
+                    renderItem={({item, index}) => (
                         <OrderItem
-                            title="西溪水岸北二门二号丰巢柜子"
+                            key={index}
+                            title={`杭州市丰巢柜子 ${item.id}`}
                             imgUrl={require('../../img/public/3-express.jpg')}
                             address="西溪水岸北二门二号丰巢柜子西溪水岸北二门二号丰巢柜"
                             time="2019-10-28 18:00:00"
