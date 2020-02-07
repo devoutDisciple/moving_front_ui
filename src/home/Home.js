@@ -1,14 +1,16 @@
+/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Swiper from './Swiper';
 import Express from './Express';
 import IconList from './IconList';
 import request from '../util/request';
+import config from '../config/config';
+import Storage from '../util/Storage';
+import Toast from '../component/Toast';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
-import config from '../config/config';
 import Icon from 'react-native-vector-icons/AntDesign';
-import Toast from '../component/Toast';
 import {Text, View, TouchableOpacity, ScrollView, Linking} from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -17,6 +19,8 @@ export default class HomeScreen extends React.Component {
         this.state = {
             loadingVisible: false,
             shopList: [],
+            shopId: 1,
+            swiperList: [],
         };
         this.locationClick = this.locationClick.bind(this);
     }
@@ -44,7 +48,10 @@ export default class HomeScreen extends React.Component {
                                 color="#fb9dd0"
                             />
                             <Text style={{flex: 1, marginTop: 2}}>
-                                太行山洗衣店
+                                {navigation.state.params &&
+                                navigation.state.params.title
+                                    ? navigation.state.params.title
+                                    : ''}
                             </Text>
                         </View>
                     </TouchableOpacity>
@@ -98,23 +105,49 @@ export default class HomeScreen extends React.Component {
             // 右侧按钮点击
             rightIconClick: () => this.serviceClick(),
         });
-        this.setState({loadingVisible: true});
+        await this.setState({loadingVisible: true});
         // 获取所有门店列表
         request
             .get('/shop/all')
-            .then(res => {
-                this.setState({shopList: res || []});
+            .then(async res => {
+                let shop = await Storage.get('shop');
+                // 如果没有缓存过商店
+                if (!shop) {
+                    shop = (res && res[0]) || {};
+                    // 保存设置的商店
+                    await Storage.set('shop', JSON.stringify(shop));
+                }
+                shop = JSON.parse(shop);
+                this.setState({shopList: res || [], shopId: shop.id}, () => {
+                    let {navigation} = this.props;
+                    this.getSwiperList();
+                    navigation.navigate('HomeScreen', {
+                        title: shop.name || '',
+                    });
+                });
             })
             .finally(() => {
                 this.setState({loadingVisible: false});
             });
     }
 
+    async getSwiperList() {
+        let shop = await Storage.get('shop');
+        shop = JSON.parse(shop);
+        // 获取当前门店的轮播图列表
+        let swiperList = await request.get('/swiper/getAllById', {id: shop.id});
+        this.setState({swiperList: swiperList || []});
+    }
+
+    async clear() {
+        await Storage.clear();
+    }
+
     // 位置点击
     locationClick() {
-        let {shopList} = this.state;
-        console.log(shopList);
-        let pickData = [];
+        let {shopList} = this.state,
+            {navigation} = this.props,
+            pickData = [];
         if (Array.isArray(shopList)) {
             shopList.forEach(item => {
                 pickData.push(item.name);
@@ -124,14 +157,21 @@ export default class HomeScreen extends React.Component {
             ...config.pickCommonConfig,
             pickerData: pickData,
             // selectedValue: ['广州3号洗衣店'],
-            onPickerConfirm: res => {
-                console.log(res);
-            },
-            onPickerCancel: res => {
-                console.log(res);
-            },
-            onPickerSelect: res => {
-                console.log(res);
+            onPickerConfirm: async res => {
+                let name = res[0];
+                let selectShop = {};
+                shopList.forEach(item => {
+                    if (name === item.name) {
+                        selectShop = item;
+                    }
+                });
+                this.setState({shopId: selectShop.id}, async () => {
+                    await Storage.set('shop', JSON.stringify(selectShop));
+                    this.getSwiperList();
+                    navigation.navigate('HomeScreen', {
+                        title: name || '',
+                    });
+                });
             },
         });
         Picker.show();
@@ -139,12 +179,10 @@ export default class HomeScreen extends React.Component {
 
     // 点击客服按钮
     serviceClick() {
-        console.log('点击客服按钮');
         let tel = 'tel:1008611'; // 目标电话
         Linking.canOpenURL(tel)
             .then(supported => {
                 if (!supported) {
-                    console.log(supported);
                     Toast.warning('用户手机号', '110');
                 } else {
                     return Linking.openURL(tel);
@@ -155,16 +193,19 @@ export default class HomeScreen extends React.Component {
 
     render() {
         let {navigation} = this.props;
-        let {loadingVisible} = this.state;
+        let {loadingVisible, swiperList} = this.state;
         return (
             <View style={{flex: 1}}>
                 <ScrollView style={{flex: 1}}>
                     {/* 轮播图 */}
-                    <Swiper navigation={navigation} />
+                    <Swiper navigation={navigation} swiperList={swiperList} />
                     {/* 图标选项 */}
                     <IconList navigation={navigation} />
                     {/* 快递柜子 */}
                     <Express navigation={navigation} />
+                    {/* <TouchableOpacity onPress={this.clear.bind(this)}>
+                        <Text>清除缓存</Text>
+                    </TouchableOpacity> */}
                 </ScrollView>
                 <Loading visible={loadingVisible} />
             </View>

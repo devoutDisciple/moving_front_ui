@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import IconWithText from '../component/IconWithText';
 
 export default class IconList extends React.Component {
@@ -11,8 +11,7 @@ export default class IconList extends React.Component {
     componentDidMount() {}
 
     // icon点击的时候
-    onIconPress(data) {
-        console.log(data);
+    async onIconPress(data) {
         let {navigation} = this.props;
         // 成为会员
         if (data && data.key === 'home_member') {

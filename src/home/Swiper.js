@@ -10,20 +10,10 @@ const {width} = Dimensions.get('window');
 export default class SwiperComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            swiperList: [],
-        };
-    }
-
-    componentDidMount() {
-        // 获取当前门店的轮播图列表
-        request.get('/swiper/getAllById', {id: 1}).then(res => {
-            this.setState({swiperList: res || []});
-        });
     }
 
     render() {
-        let {swiperList} = this.state;
+        let {swiperList = []} = this.props;
         return (
             <View style={styles.swiperContainer}>
                 <Swiper
