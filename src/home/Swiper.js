@@ -17,7 +17,7 @@ export default class SwiperComponent extends Component {
         return (
             <View style={styles.swiperContainer}>
                 <Swiper
-                    autoplay
+                    autoplay={false}
                     dotColor="rgba(255,255,255,.3)"
                     activeDotColor="#fff">
                     {swiperList &&

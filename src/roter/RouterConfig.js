@@ -4,6 +4,7 @@ import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Storage from '../util/Storage';
 
 // 首页
 import HomeScreen from '../home/Home';
@@ -127,6 +128,14 @@ const TabNavigator = createBottomTabNavigator(
                         selectedImage={require('../../img/tabbar/tabbar_mine_selected.png')}
                     />
                 ),
+                tabBarOnPress: async ({navigation, defaultHandler}) => {
+                    let user = await Storage.get('user');
+                    if (!user) {
+                        // 去登陆页面
+                        return navigation.navigate('LoginScreen');
+                    }
+                    return navigation.navigate('My');
+                },
             },
         },
     },

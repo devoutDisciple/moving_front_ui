@@ -3,6 +3,8 @@ import React from 'react';
 import My_Header from './Header';
 import My_Wallert from './Wallet';
 import ListItem from './ListItem';
+import Storage from '../util/Storage';
+import Loading from '../component/Loading';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {StyleSheet, TouchableOpacity, ScrollView, View} from 'react-native';
 
@@ -34,10 +36,18 @@ export default class MyScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            loading: false,
+        };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        let user = await Storage.get('user');
+        console.log(user);
+        if (!user) {
+            // 去登陆页面
+            this.props.navigation.navigate('LoginScreen');
+        }
         const {setParams} = this.props.navigation;
         setParams({
             rightIconClick: () => this.setIconClick(),
@@ -66,16 +76,17 @@ export default class MyScreen extends React.Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
-                <My_Header navigation={this.props.navigation} />
-                <My_Wallert navigation={this.props.navigation} />
-                <View style={{height: 20}} />
-                <ListItem
-                    iconName="creditcard"
-                    text="我的地址"
-                    onPress={this.onMyAddressClick.bind(this)}
-                />
-                {/* <ListItem
+            <View style={styles.container}>
+                <ScrollView style={styles.content}>
+                    <My_Header navigation={this.props.navigation} />
+                    <My_Wallert navigation={this.props.navigation} />
+                    <View style={{height: 20}} />
+                    <ListItem
+                        iconName="creditcard"
+                        text="我的地址"
+                        onPress={this.onMyAddressClick.bind(this)}
+                    />
+                    {/* <ListItem
                     iconName="creditcard"
                     text="登录"
                     onPress={this.onLogin.bind(this)}
@@ -85,21 +96,27 @@ export default class MyScreen extends React.Component {
                     text="注册"
                     onPress={this.onRegister.bind(this)}
                 /> */}
-                <ListItem iconName="creditcard" text="钱包管理" />
-                <ListItem iconName="creditcard" text="我的评价" />
-                <ListItem iconName="creditcard" text="帮助中心" />
-                <ListItem iconName="creditcard" text="意见反馈" />
-                <ListItem iconName="creditcard" text="关于我们" />
-                <ListItem iconName="creditcard" text="联系我们" />
-            </ScrollView>
+                    <ListItem iconName="creditcard" text="钱包管理" />
+                    <ListItem iconName="creditcard" text="我的评价" />
+                    <ListItem iconName="creditcard" text="帮助中心" />
+                    <ListItem iconName="creditcard" text="意见反馈" />
+                    <ListItem iconName="creditcard" text="关于我们" />
+                    <ListItem iconName="creditcard" text="联系我们" />
+                </ScrollView>
+                <Loading visible={this.state.loading} />
+            </View>
         );
     }
 }
+
 // 展示头像的view高度
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
         padding: 10,
+    },
+    content: {
+        flex: 1,
     },
 });

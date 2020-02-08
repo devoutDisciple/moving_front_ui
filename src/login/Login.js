@@ -13,7 +13,7 @@ import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 import request from '../util/request';
-import message from '../util/message';
+import message from '../component/Message';
 
 export default class LoginScreen extends React.Component {
     constructor(props) {

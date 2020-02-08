@@ -10,6 +10,7 @@ import Storage from '../util/Storage';
 import Toast from '../component/Toast';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
+import Message from '../component/Message';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Text, View, TouchableOpacity, ScrollView, Linking} from 'react-native';
 
@@ -115,9 +116,8 @@ export default class HomeScreen extends React.Component {
                 if (!shop) {
                     shop = (res && res[0]) || {};
                     // 保存设置的商店
-                    await Storage.set('shop', JSON.stringify(shop));
+                    await Storage.set('shop', shop);
                 }
-                shop = JSON.parse(shop);
                 this.setState({shopList: res || [], shopId: shop.id}, () => {
                     let {navigation} = this.props;
                     this.getSwiperList();
@@ -133,7 +133,6 @@ export default class HomeScreen extends React.Component {
 
     async getSwiperList() {
         let shop = await Storage.get('shop');
-        shop = JSON.parse(shop);
         // 获取当前门店的轮播图列表
         let swiperList = await request.get('/swiper/getAllById', {id: shop.id});
         this.setState({swiperList: swiperList || []});
@@ -166,7 +165,7 @@ export default class HomeScreen extends React.Component {
                     }
                 });
                 this.setState({shopId: selectShop.id}, async () => {
-                    await Storage.set('shop', JSON.stringify(selectShop));
+                    await Storage.set('shop', selectShop);
                     this.getSwiperList();
                     navigation.navigate('HomeScreen', {
                         title: name || '',
@@ -178,12 +177,13 @@ export default class HomeScreen extends React.Component {
     }
 
     // 点击客服按钮
-    serviceClick() {
-        let tel = 'tel:1008611'; // 目标电话
+    async serviceClick() {
+        let shop = await Storage.get('shop');
+        let tel = `tel:${shop.phone}`; // 目标电话
         Linking.canOpenURL(tel)
             .then(supported => {
                 if (!supported) {
-                    Toast.warning('用户手机号', '110');
+                    Message.warning('商家电话', shop.phone);
                 } else {
                     return Linking.openURL(tel);
                 }

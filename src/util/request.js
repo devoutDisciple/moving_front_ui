@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import message from './message';
+import message from '../component/Toast';
 import config from '../config/config';
 
 Axios.defaults = Object.assign(Axios.defaults, {
@@ -33,13 +33,13 @@ Axios.defaults = Object.assign(Axios.defaults, {
 Axios.interceptors.response.use(
     function(res) {
         if (res.status !== 200) {
-            message.warning('提示', '网络异常, 请稍后重试1');
+            message.warning('网络异常, 请稍后重试1');
             return Promise.reject('系统错误');
         }
         let data = JSON.parse(res.data);
         // 自定义的错误
         if (data.code === 500) {
-            message.warning('提示', data.message);
+            message.warning(data.message);
         }
         return Promise.resolve(data.data);
     },
@@ -67,7 +67,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试2');
+                    message.warning('网络异常, 请稍后重试2');
                     reject(err);
                 });
         });
@@ -83,7 +83,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试3');
+                    message.warning('网络异常, 请稍后重试3');
                     reject(err);
                 });
         });
@@ -99,7 +99,7 @@ export default {
                     resolve(res);
                 })
                 .catch(err => {
-                    message.warning('提示', '网络异常, 请稍后重试4');
+                    message.warning('网络异常, 请稍后重试4');
                     reject(err);
                 });
         });

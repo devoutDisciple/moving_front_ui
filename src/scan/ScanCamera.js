@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-console */
 import React from 'react';
-import message from '../util/message';
+import message from '../component/Message';
 import {RNCamera} from 'react-native-camera';
 import CommonHeader from '../component/CommonHeader';
 import {StyleSheet, Text, View, Easing, Animated} from 'react-native';

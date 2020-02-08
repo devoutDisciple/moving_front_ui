@@ -13,8 +13,8 @@ import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 import request from '../util/request';
-import message from '../util/message';
 import config from '../config/config';
+import message from '../component/Message';
 
 export default class RegisterScreen extends React.Component {
     constructor(props) {
