@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import request from '../util/request';
 import Swiper from 'react-native-swiper';
+import Config from '../config/config';
 import FastImage from '../component/FastImage';
 import {StyleSheet, Dimensions, View} from 'react-native';
 
@@ -28,7 +28,7 @@ export default class SwiperComponent extends Component {
                                     <FastImage
                                         style={styles.img}
                                         source={{
-                                            uri: `http://localhost:3001/${
+                                            uri: `${Config.lunboUrl}/${
                                                 item.url
                                             }`,
                                         }}

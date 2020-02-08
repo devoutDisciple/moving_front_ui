@@ -1,5 +1,6 @@
 export default {
-    baseUrl: 'http://localhost:3001/',
+    baseUrl: 'https://www.moving.com',
+    lunboUrl: 'https://www.moving.com/lunbo',
     sercurity_code_time: 60, //验证码的过期时间
     pickCommonConfig: {
         pickerConfirmBtnText: '确认',
