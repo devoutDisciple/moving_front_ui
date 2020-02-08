@@ -135,6 +135,7 @@ export default class MyScreen extends React.Component {
                     onPress={this.onRegister.bind(this)}
                 /> */}
                     <ListItem iconName="creditcard" text="钱包管理" />
+                    <ListItem iconName="creditcard" text="积分兑换" />
                     <ListItem iconName="creditcard" text="我的评价" />
                     <ListItem iconName="creditcard" text="帮助中心" />
                     <ListItem iconName="creditcard" text="意见反馈" />

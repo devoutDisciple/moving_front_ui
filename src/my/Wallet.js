@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         fontWeight: '800',
     },
     my_wallet_chunk_bottom: {
-        color: '#bfbfbf',
+        color: '#8a8a8a',
     },
     my_member: {
         backgroundColor: '#3c3e57',
