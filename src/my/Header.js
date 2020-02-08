@@ -20,7 +20,13 @@ export default class MyScreen extends React.Component {
 
     render() {
         let {user} = this.props;
-        console.log(user, 111);
+        let member = '普通用户';
+        if (user.member === '1') {
+            member = '普通用户';
+        }
+        if (user.member === '2') {
+            member = 'VIP尊贵用户';
+        }
         return (
             <View style={styles.my_header}>
                 <View style={styles.my_header_img_container}>
@@ -54,7 +60,12 @@ export default class MyScreen extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <View style={styles.my_header_message_member}>
+                    <View
+                        style={
+                            user.member === '1'
+                                ? styles.my_header_message_member_normal
+                                : styles.my_header_message_member_member
+                        }>
                         <View style={styles.my_header_message_member_icon}>
                             <Image
                                 style={{width: 20, height: 20}}
@@ -62,7 +73,7 @@ export default class MyScreen extends React.Component {
                             />
                         </View>
                         <View style={styles.my_header_message_member_text}>
-                            <Text style={{color: '#fff'}}>普通用户</Text>
+                            <Text style={{color: '#fff'}}>{member}</Text>
                         </View>
                     </View>
                 </View>
@@ -109,9 +120,18 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         justifyContent: 'center',
     },
-    my_header_message_member: {
+    my_header_message_member_normal: {
         height: 30,
         width: 110,
+        paddingHorizontal: 9,
+        backgroundColor: '#bfbfbf',
+        marginLeft: 11,
+        flexDirection: 'row',
+        borderRadius: 20,
+    },
+    my_header_message_member_member: {
+        height: 30,
+        width: 130,
         paddingHorizontal: 9,
         backgroundColor: '#fb9dd0',
         marginLeft: 11,

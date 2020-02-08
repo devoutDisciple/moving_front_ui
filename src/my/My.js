@@ -4,9 +4,16 @@ import React from 'react';
 import My_Header from './Header';
 import My_Wallert from './Wallet';
 import ListItem from './ListItem';
+import Request from '../util/request';
 import Storage from '../util/Storage';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {StyleSheet, TouchableOpacity, ScrollView, View} from 'react-native';
+import {
+    StyleSheet,
+    TouchableOpacity,
+    ScrollView,
+    View,
+    RefreshControl,
+} from 'react-native';
 
 export default class MyScreen extends React.Component {
     static navigationOptions = ({navigation, navigationOptions}) => {
@@ -38,6 +45,7 @@ export default class MyScreen extends React.Component {
         super(props);
         this.state = {
             user: {},
+            loading: false,
         };
     }
 
@@ -47,14 +55,30 @@ export default class MyScreen extends React.Component {
         setParams({
             rightIconClick: () => this.setIconClick(),
         });
+
+        // 获取用户信息
+        await this.getUserInfo();
+    }
+
+    // 获取用户信息
+    async getUserInfo() {
+        this.setState({loading: true});
+        // 获取用户token值
+        let token = await Storage.getString('token');
+        let res = await Request.get('/user/getUserByToken', {token});
+        let user = res.data || '';
+        await Storage.set('user', user);
         // 获取本地存储的用户信息
-        let user = await Storage.get('user');
-        console.log(user);
         if (!user) {
             // 去登陆页面
             this.props.navigation.navigate('LoginScreen');
         }
-        this.setState({user: user});
+        this.setState({user: user, loading: false});
+    }
+
+    // 下拉刷新的时候
+    async refreshing() {
+        await this.getUserInfo();
     }
 
     // 点击设置按钮
@@ -78,12 +102,22 @@ export default class MyScreen extends React.Component {
     }
 
     render() {
-        let {user} = this.state;
+        let {user, loading} = this.state;
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.content}>
+                <ScrollView
+                    style={styles.content}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={loading}
+                            onRefresh={this.refreshing.bind(this)}
+                        />
+                    }>
                     <My_Header navigation={this.props.navigation} user={user} />
-                    <My_Wallert navigation={this.props.navigation} />
+                    <My_Wallert
+                        navigation={this.props.navigation}
+                        user={user}
+                    />
                     <View style={{height: 20}} />
                     <ListItem
                         iconName="creditcard"

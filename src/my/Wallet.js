@@ -17,17 +17,22 @@ export default class Waller extends React.Component {
     }
 
     render() {
+        let {user} = this.props;
         return (
             <View>
                 <View style={styles.my_wallet}>
                     <TouchableOpacity style={styles.my_wallet_chunk}>
-                        <Text style={styles.my_wallet_chunk_top}>3000</Text>
+                        <Text style={styles.my_wallet_chunk_top}>
+                            {user.balance}
+                        </Text>
                         <Text style={styles.my_wallet_chunk_bottom}>
                             我的余额
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.my_wallet_chunk}>
-                        <Text style={styles.my_wallet_chunk_top}>0</Text>
+                        <Text style={styles.my_wallet_chunk_top}>
+                            {user.integral}
+                        </Text>
                         <Text style={styles.my_wallet_chunk_bottom}>
                             我的积分
                         </Text>
@@ -85,6 +90,8 @@ const styles = StyleSheet.create({
         maxWidth: 129,
         maxHeight: 20,
         marginVertical: 10,
+        color: '#fb9dd0',
+        fontWeight: '800',
     },
     my_wallet_chunk_bottom: {
         color: '#bfbfbf',
