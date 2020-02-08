@@ -28,7 +28,7 @@ export default class SwiperComponent extends Component {
                                     <FastImage
                                         style={styles.img}
                                         source={{
-                                            uri: `${Config.lunboUrl}/${
+                                            uri: `${Config.baseUrl}/${
                                                 item.url
                                             }`,
                                         }}

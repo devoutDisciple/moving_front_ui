@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import IconWithText from '../component/IconWithText';
+import Storage from '../util/Storage';
 
 export default class IconList extends React.Component {
     constructor(props) {
@@ -34,6 +35,19 @@ export default class IconList extends React.Component {
         // 积分兑换
         if (data && data.key === 'home_integral') {
             navigation.navigate('IntergralScreen');
+        }
+
+        // 获取所有的存储的key
+        if (data && data.key === 'aaa') {
+            let keys = await Storage.getAllKeys();
+            let res = await Storage.multiGet(keys);
+            console.log('storage是: ', res);
+        }
+
+        // 清除所有的keys
+        if (data && data.key === 'bbb') {
+            await Storage.clear();
+            console.log('清除成功');
         }
     }
 
@@ -72,12 +86,14 @@ export default class IconList extends React.Component {
                 text: '更多',
             },
             {
-                url: '',
-                text: '',
+                key: 'aaa',
+                url: require('../../img/home/icon6.png'),
+                text: '获取',
             },
             {
-                url: '',
-                text: '',
+                key: 'bbb',
+                url: require('../../img/home/icon6.png'),
+                text: '清除',
             },
         ];
         return (

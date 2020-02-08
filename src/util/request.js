@@ -41,7 +41,7 @@ Axios.interceptors.response.use(
         if (data.code === 500) {
             message.warning(data.message);
         }
-        return Promise.resolve(data.data);
+        return Promise.resolve(data);
     },
     function(error) {
         // 对响应错误做点什么

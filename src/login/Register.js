@@ -67,8 +67,8 @@ export default class RegisterScreen extends React.Component {
         if (securityCode.length <= 5) {
             return message.warning('提示', '请输入正确的验证码');
         }
-        if (password.length <= 5) {
-            return message.warning('提示', '密码最少为六位字符');
+        if (password.length <= 5 || password.length > 11) {
+            return message.warning('提示', '密码请输入6-12个字符以内');
         }
         let res = await request.post('/register/add', {
             username,

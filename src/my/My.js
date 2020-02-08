@@ -1,10 +1,10 @@
+/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import My_Header from './Header';
 import My_Wallert from './Wallet';
 import ListItem from './ListItem';
 import Storage from '../util/Storage';
-import Loading from '../component/Loading';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {StyleSheet, TouchableOpacity, ScrollView, View} from 'react-native';
 
@@ -37,21 +37,24 @@ export default class MyScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
+            user: {},
         };
     }
 
     async componentDidMount() {
+        // 增加设置按钮点击功能
+        const {setParams} = this.props.navigation;
+        setParams({
+            rightIconClick: () => this.setIconClick(),
+        });
+        // 获取本地存储的用户信息
         let user = await Storage.get('user');
         console.log(user);
         if (!user) {
             // 去登陆页面
             this.props.navigation.navigate('LoginScreen');
         }
-        const {setParams} = this.props.navigation;
-        setParams({
-            rightIconClick: () => this.setIconClick(),
-        });
+        this.setState({user: user});
     }
 
     // 点击设置按钮
@@ -75,10 +78,11 @@ export default class MyScreen extends React.Component {
     }
 
     render() {
+        let {user} = this.state;
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.content}>
-                    <My_Header navigation={this.props.navigation} />
+                    <My_Header navigation={this.props.navigation} user={user} />
                     <My_Wallert navigation={this.props.navigation} />
                     <View style={{height: 20}} />
                     <ListItem
@@ -103,7 +107,6 @@ export default class MyScreen extends React.Component {
                     <ListItem iconName="creditcard" text="关于我们" />
                     <ListItem iconName="creditcard" text="联系我们" />
                 </ScrollView>
-                <Loading visible={this.state.loading} />
             </View>
         );
     }

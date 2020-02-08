@@ -111,14 +111,15 @@ export default class HomeScreen extends React.Component {
         request
             .get('/shop/all')
             .then(async res => {
+                let data = res.data;
                 let shop = await Storage.get('shop');
                 // 如果没有缓存过商店
                 if (!shop) {
-                    shop = (res && res[0]) || {};
+                    shop = (data && data[0]) || {};
                     // 保存设置的商店
                     await Storage.set('shop', shop);
                 }
-                this.setState({shopList: res || [], shopId: shop.id}, () => {
+                this.setState({shopList: data || [], shopId: shop.id}, () => {
                     let {navigation} = this.props;
                     this.getSwiperList();
                     navigation.navigate('HomeScreen', {
@@ -134,8 +135,8 @@ export default class HomeScreen extends React.Component {
     async getSwiperList() {
         let shop = await Storage.get('shop');
         // 获取当前门店的轮播图列表
-        let swiperList = await request.get('/swiper/getAllById', {id: shop.id});
-        this.setState({swiperList: swiperList || []});
+        let res = await request.get('/swiper/getAllById', {id: shop.id});
+        this.setState({swiperList: res.data || []});
     }
 
     async clear() {

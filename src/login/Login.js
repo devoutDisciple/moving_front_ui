@@ -6,12 +6,12 @@ import {
     TouchableOpacity,
     ScrollView,
     StyleSheet,
-    AsyncStorage,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
+import Storage from '../util/Storage';
 import request from '../util/request';
 import message from '../component/Message';
 
@@ -67,21 +67,17 @@ export default class LoginScreen extends React.Component {
         if (!/^1[3456789]\d{9}$/.test(phone)) {
             return message.warning('提示', '请输入正确的手机号码');
         }
-        if (password.length <= 5) {
-            return message.warning('提示', '密码最少为六位字符');
+        if (password.length <= 5 || password.length > 11) {
+            return message.warning('提示', '密码请输入6-12个字符以内');
         }
-        console.log(phone, password, 888);
         let res = await request.post('/login/byPassword', {
             phone,
             password,
         });
         if (res && res.code === 200) {
-            AsyncStorage.setItem('token', res.data, (error, result) => {
-                if (error) {
-                    return message.warning('提示', '网络错误，请稍后重试');
-                }
-                this.props.navigation.navigate('Home');
-            });
+            await Storage.setString('token', res.data ? res.data.token : '');
+            await Storage.set('user', res.data);
+            this.props.navigation.navigate('Home');
         }
     }
 

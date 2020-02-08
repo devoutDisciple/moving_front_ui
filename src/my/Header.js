@@ -1,6 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FastImage from '../component/FastImage';
+import Config from '../config/config';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 export default class MyScreen extends React.Component {
@@ -13,17 +15,20 @@ export default class MyScreen extends React.Component {
 
     // 点击编辑按钮
     editBtnClick() {
-        console.log(this.props);
         this.props.navigation.navigate('MyMessage');
     }
 
     render() {
+        let {user} = this.props;
+        console.log(user, 111);
         return (
             <View style={styles.my_header}>
                 <View style={styles.my_header_img_container}>
-                    <Image
+                    <FastImage
                         style={styles.my_header_image}
-                        source={require('../../img/public/header.jpg')}
+                        source={{
+                            uri: `${Config.baseUrl}/${user.photo}`,
+                        }}
                     />
                 </View>
                 <View style={styles.my_header_message}>
@@ -31,7 +36,7 @@ export default class MyScreen extends React.Component {
                         <View style={styles.my_header_message_name_left}>
                             <Text
                                 style={styles.my_header_message_name_left_text}>
-                                张振
+                                {user.nickname || user.phone}
                             </Text>
                         </View>
                         <View style={styles.my_header_message_name_right}>
