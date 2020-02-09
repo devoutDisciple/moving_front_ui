@@ -26,7 +26,7 @@ export default class MyScreen extends React.Component {
                             navigation.state.params.rightIconClick()
                         }>
                         <Icon
-                            style={{width: 20, marginTop: 3, marginRight: 3}}
+                            style={{width: 20, marginTop: 3, marginRight: 10}}
                             name="setting"
                             size={20}
                             color="#333"
@@ -86,19 +86,37 @@ export default class MyScreen extends React.Component {
         this.props.navigation.navigate('MySetting');
     }
 
-    // 点击登录
-    onLogin() {
-        this.props.navigation.navigate('LoginScreen');
-    }
-
-    // 点击注册
-    onRegister() {
-        this.props.navigation.navigate('ResgisterScreen');
-    }
-
-    // 点击我的地址
-    onMyAddressClick() {
-        this.props.navigation.navigate('AddressScreen');
+    // 点击listItem的时候
+    onPressListItem(key) {
+        const {navigation} = this.props;
+        // 点击我的地址
+        if (key === 'address') {
+            return navigation.navigate('AddressScreen');
+        }
+        // 点击积分兑换的时候
+        if (key === 'intergral') {
+            return navigation.navigate('IntergralScreen');
+        }
+        // 点击余额充值
+        if (key === 'account') {
+            return navigation.navigate('AddressScreen');
+        }
+        // 点击消费记录
+        if (key === 'shopping') {
+            return navigation.navigate('AddressScreen');
+        }
+        // 点击意见反馈
+        if (key === 'suggestion') {
+            return navigation.navigate('AddressScreen');
+        }
+        // 点击关于我们
+        if (key === 'aboutUs') {
+            return navigation.navigate('AddressScreen');
+        }
+        // 点击联系我们
+        if (key === 'concatUs') {
+            return navigation.navigate('AddressScreen');
+        }
     }
 
     render() {
@@ -118,29 +136,42 @@ export default class MyScreen extends React.Component {
                         navigation={this.props.navigation}
                         user={user}
                     />
-                    <View style={{height: 20}} />
+                    <View style={{height: 10}} />
+                    <ListItem
+                        iconName="enviromento"
+                        text="我的地址"
+                        onPress={this.onPressListItem.bind(this, 'address')}
+                    />
+                    <ListItem
+                        iconName="staro"
+                        text="积分兑换"
+                        onPress={this.onPressListItem.bind(this, 'intergral')}
+                    />
                     <ListItem
                         iconName="creditcard"
-                        text="我的地址"
-                        onPress={this.onMyAddressClick.bind(this)}
+                        text="余额充值"
+                        onPress={this.onPressListItem.bind(this, 'account')}
                     />
-                    {/* <ListItem
-                    iconName="creditcard"
-                    text="登录"
-                    onPress={this.onLogin.bind(this)}
-                />
-                <ListItem
-                    iconName="creditcard"
-                    text="注册"
-                    onPress={this.onRegister.bind(this)}
-                /> */}
-                    <ListItem iconName="creditcard" text="钱包管理" />
-                    <ListItem iconName="creditcard" text="积分兑换" />
-                    <ListItem iconName="creditcard" text="我的评价" />
-                    <ListItem iconName="creditcard" text="帮助中心" />
-                    <ListItem iconName="creditcard" text="意见反馈" />
-                    <ListItem iconName="creditcard" text="关于我们" />
-                    <ListItem iconName="creditcard" text="联系我们" />
+                    <ListItem
+                        iconName="linechart"
+                        text="消费记录"
+                        onPress={this.onPressListItem.bind(this, 'shopping')}
+                    />
+                    <ListItem
+                        iconName="notification"
+                        text="意见反馈"
+                        onPress={this.onPressListItem.bind(this, 'suggestion')}
+                    />
+                    <ListItem
+                        iconName="team"
+                        text="关于我们"
+                        onPress={this.onPressListItem.bind(this, 'aboutUs')}
+                    />
+                    <ListItem
+                        iconName="message1"
+                        text="联系我们"
+                        onPress={this.onPressListItem.bind(this, 'concatUs')}
+                    />
                 </ScrollView>
             </View>
         );

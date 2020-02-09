@@ -56,6 +56,7 @@ export default class SettingScreen extends React.Component {
                             text="重置密码"
                             onPress={this.onPress.bind(this, 'resetPassword')}
                             withBorder
+                            bigText
                         />
                         {/* <ListItem
                             text="清空缓存"
@@ -68,9 +69,11 @@ export default class SettingScreen extends React.Component {
                             onPress={this.onPress.bind(this, 'about')}
                             withBorder
                             otherText="1.0.0"
+                            bigText
                         />
                         <ListItem
                             text="隐私政策"
+                            bigText
                             onPress={this.onPress.bind(this, 'privacy')}
                         />
                     </View>
@@ -79,6 +82,7 @@ export default class SettingScreen extends React.Component {
                     <View style={styles.content_chunk}>
                         <ListItem
                             text="永久注销账号"
+                            bigText
                             onPress={this.onPress.bind(this, 'logout')}
                         />
                     </View>

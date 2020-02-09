@@ -11,7 +11,14 @@ export default class Waller extends React.Component {
     componentDidMount() {}
 
     render() {
-        let {iconName, text, onPress, withBorder, otherText} = this.props;
+        let {
+            iconName,
+            text,
+            onPress,
+            withBorder,
+            otherText,
+            bigText,
+        } = this.props;
         return (
             <TouchableOpacity onPress={onPress}>
                 <View
@@ -22,11 +29,16 @@ export default class Waller extends React.Component {
                     }>
                     {iconName ? (
                         <View style={styles.my_list_item_icon}>
-                            <Icon name={iconName} size={16} color="#fb9dd0" />
+                            <Icon name={iconName} size={22} color="#fb9dd0" />
                         </View>
                     ) : null}
                     <View style={styles.my_list_item_desc}>
-                        <Text style={{fontSize: 16, color: '#3f3f3f'}}>
+                        <Text
+                            style={
+                                bigText
+                                    ? styles.my_list_item_desc_text_other
+                                    : styles.my_list_item_desc_text
+                            }>
                             {text}
                         </Text>
                     </View>
@@ -62,13 +74,23 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
     },
     my_list_item_icon: {
-        width: 18,
+        marginLeft: 5,
+        paddingTop: 2,
+        width: 25,
         justifyContent: 'center',
     },
     my_list_item_desc: {
         flex: 1,
         marginLeft: 10,
         justifyContent: 'center',
+    },
+    my_list_item_desc_text: {
+        fontSize: 14,
+        color: '#3f3f3f',
+    },
+    my_list_item_desc_text_other: {
+        fontSize: 16,
+        color: '#3f3f3f',
     },
     my_list_item_other: {
         width: 70,

@@ -69,7 +69,7 @@ export default class HomeScreen extends React.Component {
                         }>
                         <Icon
                             style={{width: 20, marginTop: 3}}
-                            name="aliwangwang-o1"
+                            name="customerservice"
                             size={16}
                             color="#fb9dd0"
                         />
