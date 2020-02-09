@@ -61,4 +61,11 @@ export default {
             console.log(e);
         }
     },
+    multiRemove: async keys => {
+        try {
+            await AsyncStorage.multiRemove(keys);
+        } catch (e) {
+            console.log(e);
+        }
+    },
 };

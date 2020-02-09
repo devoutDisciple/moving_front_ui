@@ -54,11 +54,11 @@ const styles = StyleSheet.create({
     },
     header_title: {
         flex: 1,
-        paddingLeft: width / 2 - 100,
+        paddingLeft: width / 2 - 70,
         justifyContent: 'center',
     },
     header_title_text: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#333',
     },
 });

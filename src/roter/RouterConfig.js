@@ -114,6 +114,14 @@ const TabNavigator = createBottomTabNavigator(
                         selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
                     />
                 ),
+                tabBarOnPress: async ({navigation, defaultHandler}) => {
+                    let user = await Storage.get('user');
+                    if (!user) {
+                        // 去登陆页面
+                        return navigation.navigate('LoginScreen');
+                    }
+                    return navigation.navigate('Order');
+                },
             },
         },
         My: {
@@ -285,6 +293,7 @@ const finnalApp = createStackNavigator(
             screen: MySetting,
             navigationOptions: {
                 title: '设置',
+                headerShown: false,
             },
         },
 
