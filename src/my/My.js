@@ -99,11 +99,11 @@ export default class MyScreen extends React.Component {
         }
         // 点击余额充值
         if (key === 'account') {
-            return navigation.navigate('AddressScreen');
+            return navigation.navigate('ReChargeScreen');
         }
         // 点击消费记录
         if (key === 'shopping') {
-            return navigation.navigate('AddressScreen');
+            return navigation.navigate('ShopRecordScreen');
         }
         // 点击意见反馈
         if (key === 'suggestion') {

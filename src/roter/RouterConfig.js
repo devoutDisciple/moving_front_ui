@@ -42,6 +42,10 @@ import GoodsScreen from '../goods/Goods';
 import OrderDetailScreen from '../order/detail/Detail';
 // 选择柜子界面
 import CabinetScreen from '../cabinet/Cabinet';
+// 消费记录页面
+import ShopRecordScreen from '../shopRecord/ShopRecord';
+// 充值页面
+import ReChargeScreen from '../Recharge/ReCharge';
 
 import TabBarItem from './TabBarItem';
 
@@ -193,6 +197,22 @@ const finnalApp = createStackNavigator(
         // 积分兑换页面
         IntergralScreen: {
             screen: IntergralScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 消费记录页面 ShopRecordScreen
+        ShopRecordScreen: {
+            screen: ShopRecordScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 充值页面 ReChargeScreen
+        ReChargeScreen: {
+            screen: ReChargeScreen,
             headerBackTitle: '返回',
             navigationOptions: {
                 headerShown: false,

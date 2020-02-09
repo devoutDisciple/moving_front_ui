@@ -45,7 +45,7 @@ export default class Intergral extends React.Component {
     }
 }
 
-let itemWidth = (width - 22) / 2;
+let itemWidth = (width - 23) / 2;
 const styles = StyleSheet.create({
     intergrals_content_item: {
         width: itemWidth,

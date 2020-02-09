@@ -1,8 +1,10 @@
+/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import GoodsItem from './GoodsItem';
 import Loading from '../component/Loading';
 import Request from '../util/Request';
+import Storage from '../util/Storage';
 import CommonHeader from '../component/CommonHeader';
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 
@@ -11,16 +13,24 @@ export default class Intergral extends React.Component {
         super(props);
         this.state = {
             loadingVisible: false,
+            integral: '0',
         };
     }
 
-    componentDidMount() {
-        console.log(111);
+    async componentDidMount() {
+        await this.setState({loadingVisible: true});
+        // 获取用户token值
+        let token = await Storage.getString('token');
+        console.log(token);
+        let res = await Request.get('/user/getUserByToken', {token});
+        let user = res.data || '';
+        let integral = user.integral || '0';
+        this.setState({integral: integral, loadingVisible: false});
     }
 
     render() {
         const {navigation} = this.props;
-        let {loadingVisible} = this.state;
+        let {loadingVisible, integral} = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader title="积分兑换" navigation={navigation} />
@@ -30,7 +40,7 @@ export default class Intergral extends React.Component {
                             可用积分
                         </Text>
                         <Text style={styles.intergrals_show_content_num}>
-                            999
+                            {integral}
                         </Text>
                     </View>
                 </View>
@@ -74,6 +84,7 @@ export default class Intergral extends React.Component {
                             num="220积分"
                         />
                     </View>
+                    <View style={{height: 20}} />
                 </ScrollView>
                 <Loading visible={loadingVisible} />
             </View>
@@ -124,8 +135,6 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         marginHorizontal: 2,
         paddingVertical: 10,
-        borderWidth: 0.5,
-        borderColor: '#e6e6e6',
     },
     intergrals_content_chunk: {
         flexDirection: 'row',

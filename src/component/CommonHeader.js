@@ -26,6 +26,8 @@ export default class Member extends React.Component {
 
     render() {
         const {title} = this.props;
+        const num = title.length;
+        console.log(num, 111);
         return (
             <View style={styles.header}>
                 <TouchableOpacity
@@ -33,7 +35,12 @@ export default class Member extends React.Component {
                     style={styles.header_back}>
                     <Icon name="left" size={20} color="#333" />
                 </TouchableOpacity>
-                <View style={styles.header_title}>
+                <View
+                    style={
+                        num === 2
+                            ? styles.header_title_two_text
+                            : styles.header_title_four_text
+                    }>
                     <Text style={styles.header_title_text}>{title}</Text>
                 </View>
             </View>
@@ -52,9 +59,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 4,
     },
-    header_title: {
+    header_title_two_text: {
         flex: 1,
-        paddingLeft: width / 2 - 70,
+        paddingLeft: width / 2 - 66,
+        justifyContent: 'center',
+    },
+    header_title_four_text: {
+        flex: 1,
+        paddingLeft: width / 2 - 81,
         justifyContent: 'center',
     },
     header_title_text: {
