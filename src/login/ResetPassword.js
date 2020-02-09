@@ -8,7 +8,7 @@ import {
     StyleSheet,
     AsyncStorage,
 } from 'react-native';
-import request from '../util/request';
+import Request from '../util/Request';
 import config from '../config/config';
 import message from '../component/Message';
 import {Button} from 'react-native-elements';
@@ -61,7 +61,7 @@ export default class ResetPassword extends React.Component {
         if (password !== confirmPassword) {
             return message.warning('提示', '两次输入密码不一致');
         }
-        let res = await request.post('/login/resetPassword', {
+        let res = await Request.post('/login/resetPassword', {
             phone,
             security_code: securityCode,
             password,
@@ -99,7 +99,7 @@ export default class ResetPassword extends React.Component {
             return message.warning('提示', '请输入正确的手机号码');
         }
         // 请求获得验证码
-        await request.post('/login/sendMessage', {
+        await Request.post('/login/sendMessage', {
             phoneNum: phone,
         });
         this.setState({

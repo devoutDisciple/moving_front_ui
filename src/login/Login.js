@@ -12,7 +12,7 @@ import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
 import Storage from '../util/Storage';
-import request from '../util/request';
+import Request from '../util/Request';
 import message from '../component/Message';
 
 export default class LoginScreen extends React.Component {
@@ -70,7 +70,7 @@ export default class LoginScreen extends React.Component {
         if (password.length <= 5 || password.length > 11) {
             return message.warning('提示', '密码请输入6-12个字符以内');
         }
-        let res = await request.post('/login/byPassword', {
+        let res = await Request.post('/login/byPassword', {
             phone,
             password,
         });

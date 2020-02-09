@@ -8,7 +8,7 @@ import {
     StyleSheet,
     AsyncStorage,
 } from 'react-native';
-import request from '../util/request';
+import Request from '../util/Request';
 import config from '../config/config';
 import message from '../component/Message';
 import {Button} from 'react-native-elements';
@@ -48,7 +48,7 @@ export default class RegisterScreen extends React.Component {
         if (securityCode.length <= 5) {
             return message.warning('提示', '请输入正确的验证码');
         }
-        let res = await request.post('/login/bySercurityCode', {
+        let res = await Request.post('/login/bySercurityCode', {
             phone,
             security_code: securityCode,
         });
@@ -84,7 +84,7 @@ export default class RegisterScreen extends React.Component {
             return message.warning('提示', '请输入正确的手机号码');
         }
         // 请求获得验证码
-        await request.post('/login/sendMessage', {
+        await Request.post('/login/sendMessage', {
             phoneNum: phone,
         });
         this.setState({

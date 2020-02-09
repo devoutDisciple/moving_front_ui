@@ -12,7 +12,7 @@ import {Button} from 'react-native-elements';
 import {Kohana} from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {baseColor, commonInputParams} from './commonParams';
-import request from '../util/request';
+import Request from '../util/Request';
 import config from '../config/config';
 import message from '../component/Message';
 
@@ -70,7 +70,7 @@ export default class RegisterScreen extends React.Component {
         if (password.length <= 5 || password.length > 11) {
             return message.warning('提示', '密码请输入6-12个字符以内');
         }
-        let res = await request.post('/register/add', {
+        let res = await Request.post('/register/add', {
             username,
             phone,
             security_code: securityCode,
@@ -94,7 +94,7 @@ export default class RegisterScreen extends React.Component {
             return message.warning('提示', '请输入正确的手机号码');
         }
         // 请求获得验证码
-        await request.post('/register/sendMessage', {
+        await Request.post('/register/sendMessage', {
             phoneNum: phone,
         });
         this.setState({

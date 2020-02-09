@@ -4,10 +4,9 @@ import React from 'react';
 import Swiper from './Swiper';
 import Express from './Express';
 import IconList from './IconList';
-import request from '../util/request';
+import Request from '../util/Request';
 import config from '../config/config';
 import Storage from '../util/Storage';
-import Toast from '../component/Toast';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
@@ -108,8 +107,7 @@ export default class HomeScreen extends React.Component {
         });
         await this.setState({loadingVisible: true});
         // 获取所有门店列表
-        request
-            .get('/shop/all')
+        Request.get('/shop/all')
             .then(async res => {
                 let data = res.data;
                 let shop = await Storage.get('shop');
@@ -135,7 +133,7 @@ export default class HomeScreen extends React.Component {
     async getSwiperList() {
         let shop = await Storage.get('shop');
         // 获取当前门店的轮播图列表
-        let res = await request.get('/swiper/getAllById', {id: shop.id});
+        let res = await Request.get('/swiper/getAllById', {id: shop.id});
         this.setState({swiperList: res.data || []});
     }
 

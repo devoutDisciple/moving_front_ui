@@ -1,27 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import CommonHeader from '../component/CommonHeader';
-import {
-    Text,
-    View,
-    StyleSheet,
-    ScrollView,
-    Dimensions,
-    Image,
-} from 'react-native';
 import GoodsItem from './GoodsItem';
-
-const {width} = Dimensions.get('window');
+import Loading from '../component/Loading';
+import Request from '../util/Request';
+import CommonHeader from '../component/CommonHeader';
+import {Text, View, StyleSheet, ScrollView} from 'react-native';
 
 export default class Intergral extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loadingVisible: false,
+        };
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        console.log(111);
+    }
 
     render() {
         const {navigation} = this.props;
+        let {loadingVisible} = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader title="积分兑换" navigation={navigation} />
@@ -76,6 +75,7 @@ export default class Intergral extends React.Component {
                         />
                     </View>
                 </ScrollView>
+                <Loading visible={loadingVisible} />
             </View>
         );
     }
