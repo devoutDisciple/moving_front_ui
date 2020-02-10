@@ -48,6 +48,8 @@ import ShopRecordScreen from '../shopRecord/ShopRecord';
 import ReChargeScreen from '../Recharge/ReCharge';
 // 意见和反馈页面
 import SuggestionScreen from '../suggestion/Suggestion';
+// 联系我们页面
+import ConcatUsScreen from '../concatUs/ConcatUs';
 
 import TabBarItem from './TabBarItem';
 
@@ -194,6 +196,14 @@ const finnalApp = createStackNavigator(
                 headerShown: false,
                 headerBackTitle: '返回',
                 headerBackAllowFontScaling: false,
+            },
+        },
+        // 联系我们页面
+        ConcatUsScreen: {
+            screen: ConcatUsScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
             },
         },
         // 积分兑换页面

@@ -109,13 +109,13 @@ export default class MyScreen extends React.Component {
         if (key === 'suggestion') {
             return navigation.navigate('SuggestionScreen');
         }
-        // 点击关于我们
+        // 点击moving简介
         if (key === 'aboutUs') {
-            return navigation.navigate('AddressScreen');
+            return navigation.navigate('ConcatUsScreen');
         }
         // 点击联系我们
         if (key === 'concatUs') {
-            return navigation.navigate('AddressScreen');
+            return navigation.navigate('ConcatUsScreen');
         }
     }
 
@@ -164,7 +164,7 @@ export default class MyScreen extends React.Component {
                     />
                     <ListItem
                         iconName="team"
-                        text="关于我们"
+                        text="moving简介"
                         onPress={this.onPressListItem.bind(this, 'aboutUs')}
                     />
                     <ListItem
