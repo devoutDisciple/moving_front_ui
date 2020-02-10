@@ -2,6 +2,7 @@
 import React from 'react';
 import CabinetItem from './CabinetItem';
 import CommonHeader from '../component/CommonHeader';
+import CommonSylte from '../style/common';
 import {Text, View, ScrollView, StyleSheet, Dimensions} from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -110,14 +111,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
     },
-    detail_common_title: {
-        height: 20,
-        justifyContent: 'center',
-        paddingLeft: 10,
-        borderLeftColor: '#fb9dd0',
-        borderLeftWidth: 3,
-        marginBottom: 10,
-    },
+    detail_common_title: CommonSylte.detail_common_title,
     cabinet_item: {
         padding: 10,
         borderWidth: 0.5,

@@ -46,6 +46,8 @@ import CabinetScreen from '../cabinet/Cabinet';
 import ShopRecordScreen from '../shopRecord/ShopRecord';
 // 充值页面
 import ReChargeScreen from '../Recharge/ReCharge';
+// 意见和反馈页面
+import SuggestionScreen from '../suggestion/Suggestion';
 
 import TabBarItem from './TabBarItem';
 
@@ -197,6 +199,14 @@ const finnalApp = createStackNavigator(
         // 积分兑换页面
         IntergralScreen: {
             screen: IntergralScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 意见和反馈页面
+        SuggestionScreen: {
+            screen: SuggestionScreen,
             headerBackTitle: '返回',
             navigationOptions: {
                 headerShown: false,

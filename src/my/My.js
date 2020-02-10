@@ -107,7 +107,7 @@ export default class MyScreen extends React.Component {
         }
         // 点击意见反馈
         if (key === 'suggestion') {
-            return navigation.navigate('AddressScreen');
+            return navigation.navigate('SuggestionScreen');
         }
         // 点击关于我们
         if (key === 'aboutUs') {

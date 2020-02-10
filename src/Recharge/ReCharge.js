@@ -4,6 +4,7 @@ import PayItem from './PayItem';
 import MoneyItem from './MoneyItem';
 import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
+import CommonStyle from '../style/common';
 import {Text, View, StyleSheet, ScrollView, Dimensions} from 'react-native';
 const {width} = Dimensions.get('window');
 
@@ -111,15 +112,7 @@ const styles = StyleSheet.create({
         width: width - 20,
         height: 0.4 * width,
     },
-    detail_common_title: {
-        height: 20,
-        marginVertical: 10,
-        justifyContent: 'center',
-        paddingLeft: 10,
-        borderLeftColor: '#fb9dd0',
-        borderLeftWidth: 3,
-        marginBottom: 10,
-    },
+    detail_common_title: CommonStyle.detail_common_title,
     content_account: {
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -133,7 +126,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 10,
-        borderRadius: 10,
+        borderRadius: 50,
     },
     bottom_btn_text: {
         fontSize: 18,

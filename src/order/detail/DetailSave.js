@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import CommonSylte from '../../style/common';
 import {Text, View, StyleSheet} from 'react-native';
 
 export default class OrderScreen extends React.Component {
@@ -63,14 +64,7 @@ export default class OrderScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    detail_common_title: {
-        height: 20,
-        justifyContent: 'center',
-        paddingLeft: 10,
-        borderLeftColor: '#fb9dd0',
-        borderLeftWidth: 3,
-        marginBottom: 10,
-    },
+    detail_common_title: CommonSylte.detail_common_title,
     detail_send: {
         backgroundColor: '#fff',
         marginVertical: 10,
