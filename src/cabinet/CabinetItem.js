@@ -55,7 +55,7 @@ export default class OrderScreen extends React.Component {
                         {desc}
                     </Text>
                 </View>
-                {active ? (
+                {active && (
                     <View style={styles.cabinet_item_content_chunk_icon}>
                         <Icon
                             style={
@@ -66,7 +66,7 @@ export default class OrderScreen extends React.Component {
                             color="#fb9dd0"
                         />
                     </View>
-                ) : null}
+                )}
             </TouchableOpacity>
         );
     }

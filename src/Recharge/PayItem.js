@@ -11,47 +11,37 @@ export default class Waller extends React.Component {
     componentDidMount() {}
 
     render() {
-        let {
-            iconName,
-            text,
-            onPress,
-            withBorder,
-            otherText,
-            bigText,
-        } = this.props;
+        let {iconName, text, onPress, iconColor, active} = this.props;
         return (
             <TouchableOpacity onPress={onPress}>
-                <View
-                    style={
-                        withBorder
-                            ? styles.my_list_item_with_border
-                            : styles.my_list_item
-                    }>
+                <View style={styles.my_list_item}>
                     {iconName && (
                         <View style={styles.my_list_item_icon}>
-                            <Icon name={iconName} size={22} color="#fb9dd0" />
+                            <Icon
+                                name={iconName}
+                                size={22}
+                                color={iconColor || '#fb9dd0'}
+                            />
                         </View>
                     )}
                     <View style={styles.my_list_item_desc}>
-                        <Text
-                            style={
-                                bigText
-                                    ? styles.my_list_item_desc_text_other
-                                    : styles.my_list_item_desc_text
-                            }>
+                        <Text style={styles.my_list_item_desc_text}>
                             {text}
                         </Text>
                     </View>
-                    {otherText && (
-                        <View style={styles.my_list_item_other}>
-                            <Text style={{fontSize: 13, color: '#434343'}}>
-                                {otherText}
-                            </Text>
+                    {active ? (
+                        <View style={styles.my_list_item_icon}>
+                            <Icon
+                                name="checkcircleo"
+                                size={20}
+                                color="#fb9dd0"
+                            />
+                        </View>
+                    ) : (
+                        <View style={styles.my_list_item_empty}>
+                            <View style={styles.my_list_item_empty_circle} />
                         </View>
                     )}
-                    <View style={styles.my_list_item_icon}>
-                        <Icon name="right" size={16} color="#b1a082" />
-                    </View>
                 </View>
             </TouchableOpacity>
         );
@@ -73,11 +63,24 @@ const styles = StyleSheet.create({
         borderBottomColor: '#dbdbdb',
         borderBottomWidth: 0.5,
     },
+    my_list_item_empty: {
+        width: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    my_list_item_empty_circle: {
+        height: 20,
+        width: 20,
+        borderWidth: 1,
+        borderColor: '#bfbfbf',
+        borderRadius: 18,
+    },
     my_list_item_icon: {
         marginLeft: 5,
         paddingTop: 2,
         width: 25,
         justifyContent: 'center',
+        alignItems: 'center',
     },
     my_list_item_desc: {
         flex: 1,
@@ -85,10 +88,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     my_list_item_desc_text: {
-        fontSize: 14,
-        color: '#3f3f3f',
-    },
-    my_list_item_desc_text_other: {
         fontSize: 16,
         color: '#3f3f3f',
     },
