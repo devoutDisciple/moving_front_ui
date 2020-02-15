@@ -1,13 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Storage from '../../util/Storage';
+import Toast from '../../component/Toast';
+import Loading from '../../component/Loading';
 import ListItem from '../../component/ListItem';
 import CommonHeader from '../../component/CommonHeader';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 
 export default class SettingScreen extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loadingVisible: false,
+        };
     }
 
     componentDidMount() {}
@@ -23,17 +28,36 @@ export default class SettingScreen extends React.Component {
         //     let data = await Storage.getString('cache');
         //     return navigation.navigate('ResetPasswordScreen');
         // }
-        // 关于本软件
+        // 检查更新
         if (key === 'about') {
-            return navigation.navigate('ResetPasswordScreen');
+            this.setState({loadingVisible: true});
+            setTimeout(() => {
+                this.setState({loadingVisible: false});
+                Toast.success('已经是最新版本');
+            }, 2000);
         }
         // 隐私政策
         if (key === 'privacy') {
-            return navigation.navigate('ResetPasswordScreen');
+            return navigation.navigate('PrivacyScreen');
         }
         // 永久注销账号
         if (key === 'logout') {
-            return navigation.navigate('ResetPasswordScreen');
+            Alert.alert(
+                '提示',
+                '注销后将不可恢复',
+                [
+                    {
+                        text: '取消',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                    },
+                    {
+                        text: '确定',
+                        onPress: () => Toast.warning('暂不支持永久注销'),
+                    },
+                ],
+                {cancelable: false},
+            );
         }
     }
 
@@ -46,6 +70,7 @@ export default class SettingScreen extends React.Component {
 
     render() {
         const {navigation} = this.props;
+        let {loadingVisible} = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader title="设置" navigation={navigation} />
@@ -77,7 +102,6 @@ export default class SettingScreen extends React.Component {
                             onPress={this.onPress.bind(this, 'privacy')}
                         />
                     </View>
-
                     <View style={styles.empty} />
                     <View style={styles.content_chunk}>
                         <ListItem
@@ -94,6 +118,7 @@ export default class SettingScreen extends React.Component {
                         <Text style={styles.logout_text}>退出登录</Text>
                     </TouchableOpacity>
                 </View>
+                <Loading visible={loadingVisible} />
             </View>
         );
     }

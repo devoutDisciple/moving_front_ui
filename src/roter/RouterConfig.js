@@ -52,6 +52,8 @@ import SuggestionScreen from '../suggestion/Suggestion';
 import ConcatUsScreen from '../concatUs/ConcatUs';
 // 关于我们页面
 import AboutUsScreen from '../aboutUs/AboutUs';
+// 隐私政策页面
+import PrivacyScreen from '../privacy/Privacy';
 
 import TabBarItem from './TabBarItem';
 
@@ -211,6 +213,14 @@ const finnalApp = createStackNavigator(
         // 关于我们页面 AboutUsScreen
         AboutUsScreen: {
             screen: AboutUsScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 隐私政策页面 PrivacyScreen
+        PrivacyScreen: {
+            screen: PrivacyScreen,
             headerBackTitle: '返回',
             navigationOptions: {
                 headerShown: false,
