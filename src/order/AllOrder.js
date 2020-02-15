@@ -60,6 +60,7 @@ export default class AllOrder extends React.Component {
     }
 
     render() {
+        let {navigation} = this.props;
         let {data, headerLoading, footerStatus} = this.state;
         return (
             <View style={styles.order_container}>
@@ -74,6 +75,8 @@ export default class AllOrder extends React.Component {
                     renderItem={({item, index}) => (
                         <OrderItem
                             key={index}
+                            id={item.id}
+                            navigation={navigation}
                             title={`杭州市丰巢柜子 ${item.id}`}
                             imgUrl={require('../../img/public/3-express.jpg')}
                             address="西溪水岸北二门二号丰巢柜子西溪水岸北二门二号丰巢柜"

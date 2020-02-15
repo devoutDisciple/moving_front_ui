@@ -11,7 +11,11 @@ export default class OrderScreen extends React.Component {
         super(props);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        const {navigation} = this.props;
+        let id = navigation.getParam('id');
+        console.log(id, 222);
+    }
 
     render() {
         const {navigation} = this.props;

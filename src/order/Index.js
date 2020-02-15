@@ -28,6 +28,7 @@ export default class OrderScreen extends React.Component {
     }
 
     render() {
+        const {navigation} = this.props;
         let {currentPageIndex} = this.state;
         return (
             <View style={{flex: 1}}>
@@ -55,10 +56,16 @@ export default class OrderScreen extends React.Component {
                         <Text style={{height: 0}} tabLabel="待点评" />
                     </ScrollableTabView>
                 </View>
-                {currentPageIndex === 1 && <Allorder />}
-                {currentPageIndex === 2 && <WatingOrder />}
-                {currentPageIndex === 3 && <ProcessOrder />}
-                {currentPageIndex === 4 && <EvaluateOrder />}
+                {currentPageIndex === 1 && <Allorder navigation={navigation} />}
+                {currentPageIndex === 2 && (
+                    <WatingOrder navigation={navigation} />
+                )}
+                {currentPageIndex === 3 && (
+                    <ProcessOrder navigation={navigation} />
+                )}
+                {currentPageIndex === 4 && (
+                    <EvaluateOrder navigation={navigation} />
+                )}
             </View>
         );
     }

@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    TouchableHighlight,
+} from 'react-native';
 import * as WeChat from 'react-native-wechat';
 import Toast from '../../component/Toast';
 
@@ -15,7 +22,6 @@ export default class AllOrder extends React.Component {
     async payOrder() {
         // let hello = await WeChat.openWXApp();
         let isWXAppInstalled = await WeChat.isWXAppInstalled();
-        console.log(isWXAppInstalled);
         if (!isWXAppInstalled) {
             return Toast.warning('未下载微信');
         }
@@ -49,8 +55,17 @@ export default class AllOrder extends React.Component {
             });
     }
 
+    // 点击查看详情页面
+    onSearchDetail(id) {
+        const {navigation} = this.props;
+        navigation.navigate('OrderDetailScreen', {
+            id: id,
+            hello: 'world',
+        });
+    }
+
     render() {
-        const {title, imgUrl, time, address, goods, money} = this.props;
+        const {id, title, imgUrl, time, address, goods, money} = this.props;
         return (
             <View style={styles.order_item}>
                 <View style={styles.order_item_left}>
@@ -70,21 +85,26 @@ export default class AllOrder extends React.Component {
                             {time}
                         </Text>
                     </View>
-                    <View style={styles.order_item_right_adrress}>
-                        <Text style={styles.font_desc_style}>
-                            取货地点：{address}
-                        </Text>
-                    </View>
-                    <View style={styles.order_item_right_goods}>
-                        <View style={styles.order_item_right_goods_left}>
-                            <Text style={styles.font_desc_style}>{goods}</Text>
-                        </View>
-                        <View style={styles.order_item_right_goods_right}>
+                    <TouchableOpacity
+                        onPress={this.onSearchDetail.bind(this, id)}>
+                        <View style={styles.order_item_right_adrress}>
                             <Text style={styles.font_desc_style}>
-                                ￥ {money}
+                                取货地点：{address}
                             </Text>
                         </View>
-                    </View>
+                        <View style={styles.order_item_right_goods}>
+                            <View style={styles.order_item_right_goods_left}>
+                                <Text style={styles.font_desc_style}>
+                                    {goods}
+                                </Text>
+                            </View>
+                            <View style={styles.order_item_right_goods_right}>
+                                <Text style={styles.font_desc_style}>
+                                    ￥ {money}
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.order_item_right_bottom}>
                         <TouchableOpacity
                             onPress={this.payOrder.bind(this)}
