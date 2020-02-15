@@ -26,6 +26,10 @@ export default class IconList extends React.Component {
         if (data && data.key === 'home_integral') {
             navigation.navigate('IntergralScreen');
         }
+        // 联系我们
+        if (data && data.key === 'home_concat') {
+            navigation.navigate('ConcatUsScreen');
+        }
 
         // 获取所有的存储的key
         if (data && data.key === 'aaa') {
