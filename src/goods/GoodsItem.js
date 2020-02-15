@@ -50,7 +50,6 @@ export default class Goods extends React.Component {
                                 color="#fb9dd0"
                             />
                         </TouchableOpacity>
-
                         <Text
                             style={
                                 styles.content_clothing_item_money_right_num
@@ -115,7 +114,8 @@ const styles = StyleSheet.create({
     },
     content_clothing_item_money_right_num: {
         fontSize: 18,
-        marginTop: -3,
+        marginTop: -2,
+        color: '#fb9dd0',
     },
     content_clothing_item_money_text: {
         fontSize: 14,

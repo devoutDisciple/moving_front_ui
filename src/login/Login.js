@@ -115,7 +115,7 @@ export default class LoginScreen extends React.Component {
                 <View style={styles.login_desc}>
                     <View style={styles.login_desc_left}>
                         <View style={styles.login_desc_left_account}>
-                            <Text style={{color: baseColor.shadowColoe}}>
+                            <Text style={{color: baseColor.shadowColor}}>
                                 没有账号？
                             </Text>
                         </View>
@@ -130,7 +130,7 @@ export default class LoginScreen extends React.Component {
                     <TouchableOpacity
                         onPress={this.goOtherPage.bind(this, 4)}
                         style={styles.login_desc_right}>
-                        <Text style={{color: baseColor.shadowColoe}}>
+                        <Text style={{color: baseColor.shadowColor}}>
                             忘记密码？
                         </Text>
                     </TouchableOpacity>
@@ -138,12 +138,14 @@ export default class LoginScreen extends React.Component {
                 <View style={styles.login_btn}>
                     <Button
                         buttonStyle={{
-                            backgroundColor: baseColor.heightColoe,
+                            backgroundColor: baseColor.heightColor,
                             borderRadius: 30,
                             height: 60,
                         }}
                         disabled={loginBtnDisable}
-                        disabledStyle={{backgroundColor: '#9be3bd'}}
+                        disabledStyle={{
+                            backgroundColor: baseColor.disableColor,
+                        }}
                         disabledTitleStyle={{color: '#fff'}}
                         onPress={this.loginBtnClick.bind(this)}
                         title="登录"

@@ -3,9 +3,10 @@ import Icon from 'react-native-vector-icons/AntDesign';
 const {width} = Dimensions.get('window');
 
 export const baseColor = {
-    fontColor: '#5abb8c',
-    shadowColoe: '#7e7e7e',
-    heightColoe: '#4fba6a',
+    fontColor: '#fb9dd0',
+    shadowColor: '#7e7e7e',
+    heightColor: '#fb9dd0',
+    disableColor: '#fbc9e4',
 };
 
 export const commonInputParams = {

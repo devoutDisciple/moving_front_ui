@@ -17,7 +17,7 @@ export default class Goods extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [1],
+            data: [1, 2, 3, 4],
             value: '0',
         };
     }
@@ -71,14 +71,15 @@ export default class Goods extends React.Component {
                     </View>
                     <View style={styles.content_input}>
                         <TextInput
-                            style={styles.message_edit_input}
+                            style={styles.message_desc_input}
                             onChangeText={this.onChangeText.bind(this)}
                             autoComplete="off"
                             selectionColor="#fb9bcd"
                             keyboardType="numeric"
-                            maxLength={12}
-                            placeholder="请输入"
+                            maxLength={100}
+                            placeholder="请输入备注信息"
                             placeholderTextColor="#bfbfbf"
+                            multiline
                         />
                     </View>
                 </ScrollView>
@@ -104,7 +105,15 @@ export default class Goods extends React.Component {
         );
     }
 }
-
+const inputCommonStyle = {
+    width: width - 20,
+    fontSize: 16,
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    borderColor: '#cdcdcd',
+    borderWidth: 0.5,
+    borderRadius: 5,
+};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -133,13 +142,11 @@ const styles = StyleSheet.create({
     },
     message_edit_input: {
         height: 40,
-        width: width - 20,
-        fontSize: 16,
-        backgroundColor: '#fff',
-        paddingHorizontal: 10,
-        borderColor: '#cdcdcd',
-        borderWidth: 0.5,
-        borderRadius: 5,
+        ...inputCommonStyle,
+    },
+    message_desc_input: {
+        height: 100,
+        ...inputCommonStyle,
     },
     content_input: {
         marginVertical: 20,
@@ -147,13 +154,14 @@ const styles = StyleSheet.create({
     footer: {
         height: 50,
         flexDirection: 'row',
+        borderTopColor: '#fb9dd0',
+        borderTopWidth: 0.5,
     },
     footer_left: {
         flex: 1,
         paddingLeft: 10,
         justifyContent: 'center',
-        // alignItems: 'flex-start',
-        backgroundColor: '#fbc2dd',
+        backgroundColor: '#fff',
         flexDirection: 'row',
     },
     footer_left_content: {
@@ -162,7 +170,7 @@ const styles = StyleSheet.create({
     },
     footer_left_content_text: {
         fontSize: 14,
-        color: '#fff',
+        color: '#333',
     },
     footer_right_content: {
         flex: 1,
@@ -170,7 +178,7 @@ const styles = StyleSheet.create({
     },
     footer_right_content_text: {
         fontSize: 28,
-        color: '#ff4343',
+        color: '#fb9dd0',
         fontWeight: '600',
         marginTop: -5,
     },

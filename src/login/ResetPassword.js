@@ -206,12 +206,14 @@ export default class ResetPassword extends React.Component {
                 <View style={styles.login_btn}>
                     <Button
                         buttonStyle={{
-                            backgroundColor: baseColor.heightColoe,
+                            backgroundColor: baseColor.heightColor,
                             borderRadius: 30,
                             height: 60,
                         }}
                         disabled={loginBtnDisable}
-                        disabledStyle={{backgroundColor: '#9be3bd'}}
+                        disabledStyle={{
+                            backgroundColor: baseColor.disableColor,
+                        }}
                         disabledTitleStyle={{color: '#fff'}}
                         onPress={this.secuityCodeBtnClick.bind(this)}
                         title="确定"

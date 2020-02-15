@@ -111,7 +111,7 @@ export default class MyScreen extends React.Component {
         }
         // 点击moving简介
         if (key === 'aboutUs') {
-            return navigation.navigate('ConcatUsScreen');
+            return navigation.navigate('AboutUsScreen');
         }
         // 点击联系我们
         if (key === 'concatUs') {

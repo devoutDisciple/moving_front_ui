@@ -50,6 +50,8 @@ import ReChargeScreen from '../Recharge/ReCharge';
 import SuggestionScreen from '../suggestion/Suggestion';
 // 联系我们页面
 import ConcatUsScreen from '../concatUs/ConcatUs';
+// 关于我们页面
+import AboutUsScreen from '../aboutUs/AboutUs';
 
 import TabBarItem from './TabBarItem';
 
@@ -201,6 +203,14 @@ const finnalApp = createStackNavigator(
         // 联系我们页面
         ConcatUsScreen: {
             screen: ConcatUsScreen,
+            headerBackTitle: '返回',
+            navigationOptions: {
+                headerShown: false,
+            },
+        },
+        // 关于我们页面 AboutUsScreen
+        AboutUsScreen: {
+            screen: AboutUsScreen,
             headerBackTitle: '返回',
             navigationOptions: {
                 headerShown: false,
