@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import GoodsItem from './GoodsItem';
 import CommonHeader from '../component/CommonHeader';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const {width} = Dimensions.get('window');
 
@@ -25,6 +26,11 @@ export default class Goods extends React.Component {
     componentDidMount() {}
 
     onChangeText() {}
+
+    // 点击确定的时候
+    onSureClothing() {
+        this.props.navigation.navigate('CabinetScreen');
+    }
 
     render() {
         const {navigation} = this.props;
@@ -97,9 +103,11 @@ export default class Goods extends React.Component {
                             </Text>
                         </View>
                     </View>
-                    <View style={styles.footer_right}>
+                    <TouchableOpacity
+                        style={styles.footer_right}
+                        onPress={this.onSureClothing.bind(this)}>
                         <Text style={styles.footer_right_text}>确定</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -184,6 +192,7 @@ const styles = StyleSheet.create({
     },
     footer_right: {
         width: 100,
+        height: '100%',
         backgroundColor: '#fb9dd0',
         justifyContent: 'center',
         alignItems: 'center',

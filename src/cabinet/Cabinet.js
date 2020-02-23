@@ -49,7 +49,7 @@ export default class OrderScreen extends React.Component {
         ];
         return (
             <View style={{flex: 1}}>
-                <CommonHeader title="选择快递柜" navigation={navigation} />
+                <CommonHeader title="选择柜口" navigation={navigation} />
                 <ScrollView style={styles.cabinet}>
                     <View style={styles.cabinet_item}>
                         <View style={styles.detail_common_title}>
