@@ -3,6 +3,9 @@ import React, {Component} from 'react';
 import Swiper from 'react-native-swiper';
 import Config from '../config/config';
 import FastImage from '../component/FastImage';
+import Request from '../util/Request';
+import Storage from '../util/Storage';
+
 import {StyleSheet, Dimensions, View} from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -10,14 +13,28 @@ const {width} = Dimensions.get('window');
 export default class SwiperComponent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            swiperList: [],
+        };
+    }
+
+    async componentDidMount() {
+        await this.getSwiperList();
+    }
+
+    async getSwiperList() {
+        let shop = await Storage.get('shop');
+        // 获取当前门店的轮播图列表
+        let res = await Request.get('/swiper/getAllById', {id: shop.id});
+        this.setState({swiperList: res.data || []});
     }
 
     render() {
-        let {swiperList = []} = this.props;
+        let {swiperList = []} = this.state;
         return (
             <View style={styles.swiperContainer}>
                 <Swiper
-                    autoplay={false}
+                    autoplay={true}
                     dotColor="rgba(255,255,255,.3)"
                     activeDotColor="#fff">
                     {swiperList &&

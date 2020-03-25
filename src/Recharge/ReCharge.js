@@ -5,7 +5,15 @@ import MoneyItem from './MoneyItem';
 import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
 import CommonStyle from '../style/common';
-import {Text, View, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import Toast from '../component/Toast';
+import {
+    Text,
+    View,
+    StyleSheet,
+    ScrollView,
+    Dimensions,
+    TouchableOpacity,
+} from 'react-native';
 const {width} = Dimensions.get('window');
 
 export default class ReCharge extends React.Component {
@@ -27,6 +35,11 @@ export default class ReCharge extends React.Component {
     // 支付方式改变
     payWayChange(key) {
         this.setState({payWay: key});
+    }
+
+    // 确认充值
+    onSurePay() {
+        Toast.error('请先安装支付宝或微信');
     }
 
     render() {
@@ -90,9 +103,11 @@ export default class ReCharge extends React.Component {
                         active={payWay === 'wechat'}
                     />
                 </ScrollView>
-                <View style={styles.bottom_btn}>
+                <TouchableOpacity
+                    style={styles.bottom_btn}
+                    onPress={this.onSurePay.bind(this)}>
                     <Text style={styles.bottom_btn_text}>确认支付</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }

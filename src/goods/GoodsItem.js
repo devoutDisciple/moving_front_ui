@@ -21,7 +21,7 @@ export default class Goods extends React.Component {
     componentDidMount() {}
 
     render() {
-        const {source, name, num, price} = this.props;
+        const {id, source, name, num, price} = this.props;
         return (
             <View style={styles.content_clothing_item}>
                 <Image
@@ -40,7 +40,8 @@ export default class Goods extends React.Component {
                         </Text>
                     </View>
                     <View style={styles.content_clothing_item_money_right}>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.props.onSubCloth(id)}>
                             <Icon
                                 style={
                                     styles.content_clothing_item_money_right_icon
@@ -56,7 +57,8 @@ export default class Goods extends React.Component {
                             }>
                             {num}
                         </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.props.onAddCloth(id)}>
                             <Icon
                                 style={
                                     styles.content_clothing_item_money_right_icon
@@ -88,7 +90,6 @@ const styles = StyleSheet.create({
     },
     content_clothing_item_title: {
         justifyContent: 'center',
-        // paddingLeft: 5,
         margin: 5,
     },
     content_clothing_item_title_text: {

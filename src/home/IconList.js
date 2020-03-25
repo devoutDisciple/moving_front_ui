@@ -30,6 +30,10 @@ export default class IconList extends React.Component {
         if (data && data.key === 'home_concat') {
             navigation.navigate('ConcatUsScreen');
         }
+        // 充值
+        if (data && data.key === 'home_recharge') {
+            navigation.navigate('ReChargeScreen');
+        }
 
         // 获取所有的存储的key
         if (data && data.key === 'aaa') {
@@ -63,9 +67,9 @@ export default class IconList extends React.Component {
                 text: '积分兑换',
             },
             {
-                key: 'home_concat',
-                url: require('../../img/home/icon4.png'),
-                text: '联系我们',
+                key: 'home_recharge',
+                url: require('../../img/home/icon6.png'),
+                text: '充值',
             },
         ];
         const iconList2 = [
@@ -75,9 +79,9 @@ export default class IconList extends React.Component {
                 text: '操作指南',
             },
             {
-                key: 'home_more',
-                url: require('../../img/home/icon6.png'),
-                text: '更多',
+                key: 'home_concat',
+                url: require('../../img/home/icon4.png'),
+                text: '联系我们',
             },
             {
                 key: 'aaa',

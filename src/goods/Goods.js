@@ -18,8 +18,38 @@ export default class Goods extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [1, 2, 3, 4],
+            data: [
+                {
+                    id: 1,
+                    url: require('../../img/lunbo/10.jpg'),
+                    name: '裙子1',
+                    price: 10,
+                    num: 0,
+                },
+                {
+                    id: 2,
+                    url: require('../../img/lunbo/13.jpg'),
+                    name: '裙子2',
+                    price: 20,
+                    num: 0,
+                },
+                {
+                    id: 3,
+                    url: require('../../img/lunbo/8.jpg'),
+                    name: '裙子3',
+                    price: 30,
+                    num: 0,
+                },
+                {
+                    id: 4,
+                    url: require('../../img/lunbo/9.jpg'),
+                    name: '裙子4',
+                    price: 40,
+                    num: 0,
+                },
+            ],
             value: '0',
+            totalPrice: 0,
         };
     }
 
@@ -32,9 +62,38 @@ export default class Goods extends React.Component {
         this.props.navigation.navigate('CabinetScreen');
     }
 
+    // 减少衣物
+    onSubCloth(id) {
+        let {data} = this.state;
+        let goods = data.filter(item => item.id === id)[0];
+        if (goods.num < 1) {
+            return;
+        }
+        goods.num--;
+        this.setState({data}, () => this.onCountPrice());
+    }
+
+    // 增加衣物
+    onAddCloth(id) {
+        let {data} = this.state;
+        let goods = data.filter(item => item.id === id)[0];
+        goods.num++;
+        this.setState({data}, () => this.onCountPrice());
+    }
+
+    // 结算价格
+    onCountPrice() {
+        let data = this.state.data;
+        let totalPrice = 0;
+        data.map(item => {
+            totalPrice += Number(item.price * item.num);
+        });
+        this.setState({totalPrice});
+    }
+
     render() {
         const {navigation} = this.props;
-        let {data} = this.state;
+        let {data, totalPrice} = this.state;
         return (
             <View style={styles.container}>
                 <CommonHeader title="设置订单金额" navigation={navigation} />
@@ -48,15 +107,18 @@ export default class Goods extends React.Component {
                                 return (
                                     <GoodsItem
                                         key={index}
-                                        num={8}
-                                        price={36}
-                                        name="羽绒服"
-                                        source={require('../../img/lunbo/3.jpg')}
+                                        id={item.id}
+                                        num={item.num}
+                                        name={item.name}
+                                        source={item.url}
+                                        price={item.price}
+                                        onSubCloth={this.onSubCloth.bind(this)}
+                                        onAddCloth={this.onAddCloth.bind(this)}
                                     />
                                 );
                             })}
                     </View>
-                    <View style={styles.content_title}>
+                    {/* <View style={styles.content_title}>
                         <Text>运费设置</Text>
                     </View>
                     <View style={styles.content_input}>
@@ -71,7 +133,7 @@ export default class Goods extends React.Component {
                             placeholder="请输入"
                             placeholderTextColor="#bfbfbf"
                         />
-                    </View>
+                    </View> */}
                     <View style={styles.content_title}>
                         <Text>备注信息</Text>
                     </View>
@@ -93,13 +155,12 @@ export default class Goods extends React.Component {
                     <View style={styles.footer_left}>
                         <View style={styles.footer_left_content}>
                             <Text style={styles.footer_left_content_text}>
-                                总金额： ￥
+                                支付定金: ￥
                             </Text>
                         </View>
-
                         <View style={styles.footer_right_content}>
                             <Text style={styles.footer_right_content_text}>
-                                288
+                                10
                             </Text>
                         </View>
                     </View>
@@ -173,7 +234,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     footer_left_content: {
-        width: 85,
+        width: 82,
         justifyContent: 'center',
     },
     footer_left_content_text: {
