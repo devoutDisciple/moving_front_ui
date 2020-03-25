@@ -7,9 +7,7 @@ export default class OrderScreen extends React.Component {
         super(props);
     }
 
-    componentDidMount() {
-        console.log(4);
-    }
+    componentDidMount() {}
 
     render() {
         return (

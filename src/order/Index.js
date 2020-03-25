@@ -21,7 +21,6 @@ export default class OrderScreen extends React.Component {
 
     // 改变tab的时候
     changeTab(data) {
-        console.log(data);
         this.setState({
             currentPageIndex: data.i + 1,
         });
