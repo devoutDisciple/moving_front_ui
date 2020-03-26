@@ -3,7 +3,15 @@ import React from 'react';
 import CabinetItem from './CabinetItem';
 import CommonHeader from '../component/CommonHeader';
 import CommonSylte from '../style/common';
-import {Text, View, ScrollView, StyleSheet, Dimensions} from 'react-native';
+import Toast from '../component/Toast';
+import {
+    Text,
+    View,
+    ScrollView,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity,
+} from 'react-native';
 
 const {width} = Dimensions.get('window');
 
@@ -19,6 +27,11 @@ export default class OrderScreen extends React.Component {
 
     onPress(id) {
         this.setState({active: id});
+    }
+
+    // 打开柜子
+    onOpenCabinet() {
+        Toast.warning('网络错误');
     }
 
     render() {
@@ -41,6 +54,29 @@ export default class OrderScreen extends React.Component {
             },
             {
                 id: 'big',
+                title: '大格口',
+                desc: '限重五公斤',
+                normalImg: require('../../img/public/express_big.png'),
+                activeImg: require('../../img/public/express_big_active.png'),
+            },
+        ];
+        const expressList2 = [
+            {
+                id: 'little1',
+                title: '小格口',
+                desc: '限重一公斤',
+                normalImg: require('../../img/public/express_little.png'),
+                activeImg: require('../../img/public/express_little_active.png'),
+            },
+            {
+                id: 'middle2',
+                title: '中格口',
+                desc: '限重三公斤',
+                normalImg: require('../../img/public/express_middle.png'),
+                activeImg: require('../../img/public/express_middle_acitve.png'),
+            },
+            {
+                id: 'big3',
                 title: '大格口',
                 desc: '限重五公斤',
                 normalImg: require('../../img/public/express_big.png'),
@@ -77,7 +113,7 @@ export default class OrderScreen extends React.Component {
                             <Text>幸福家园北门二号柜</Text>
                         </View>
                         <View style={styles.cabinet_item_content}>
-                            {expressList.map((item, index) => {
+                            {expressList2.map((item, index) => {
                                 return (
                                     <CabinetItem
                                         key={index}
@@ -94,11 +130,13 @@ export default class OrderScreen extends React.Component {
                         </View>
                     </View>
                 </ScrollView>
-                <View style={styles.cabinet_item_bottom}>
+                <TouchableOpacity
+                    style={styles.cabinet_item_bottom}
+                    onPress={this.onOpenCabinet.bind(this)}>
                     <Text style={styles.cabinet_item_bottom_text}>
                         打开柜子
                     </Text>
-                </View>
+                </TouchableOpacity>
             </View>
         );
     }

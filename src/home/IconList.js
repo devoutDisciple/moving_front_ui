@@ -53,34 +53,34 @@ export default class IconList extends React.Component {
         const iconList1 = [
             {
                 key: 'home_member',
-                url: require('../../img/home/icon1.png'),
+                url: require('../../img/home/hello.png'),
                 text: '成为会员',
             },
             {
                 key: 'home_clothing',
-                url: require('../../img/home/icon2.png'),
+                url: require('../../img/home/service.png'),
                 text: '上门取衣',
             },
             {
                 key: 'home_integral',
-                url: require('../../img/home/icon3.png'),
+                url: require('../../img/home/jifen.png'),
                 text: '积分兑换',
             },
             {
                 key: 'home_recharge',
-                url: require('../../img/home/icon6.png'),
+                url: require('../../img/home/chongzhi.png'),
                 text: '充值',
             },
         ];
         const iconList2 = [
             {
                 key: 'home_operation',
-                url: require('../../img/home/icon5.png'),
+                url: require('../../img/home/caozuo.png'),
                 text: '操作指南',
             },
             {
                 key: 'home_concat',
-                url: require('../../img/home/icon4.png'),
+                url: require('../../img/home/lianxi.png'),
                 text: '联系我们',
             },
             {
