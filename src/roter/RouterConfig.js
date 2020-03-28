@@ -54,6 +54,8 @@ import ConcatUsScreen from '../concatUs/ConcatUs';
 import AboutUsScreen from '../aboutUs/AboutUs';
 // 隐私政策页面
 import PrivacyScreen from '../privacy/Privacy';
+// 支付订单页面
+import PayOrderScreen from '../payOrder/PayOrder';
 
 import TabBarItem from './TabBarItem';
 
@@ -184,6 +186,15 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
+        // 支付方式页面
+        PayOrderScreen: {
+            screen: PayOrderScreen,
+            navigationOptions: {
+                headerShown: false,
+                headerBackTitle: '返回',
+                headerBackAllowFontScaling: false,
+            },
+        },
         // 订单详情页面
         OrderDetailScreen: {
             screen: OrderDetailScreen,
@@ -283,7 +294,6 @@ const finnalApp = createStackNavigator(
                 headerShown: false,
             },
         },
-
         // 收货地址页面
         AddressScreen: {
             screen: AddressScreen,
@@ -292,7 +302,6 @@ const finnalApp = createStackNavigator(
                 headerShown: false,
             },
         },
-
         // 我的个人信息页面
         MyMessage: {
             screen: MyMessage,
@@ -301,7 +310,6 @@ const finnalApp = createStackNavigator(
                 headerShown: false,
             },
         },
-
         // 登录页面
         LoginScreen: {
             screen: LoginScreen,
@@ -320,7 +328,6 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-
         // 验证码登录
         SecurityLoginScreen: {
             screen: SecurityLoginScreen,
@@ -339,7 +346,6 @@ const finnalApp = createStackNavigator(
                 headerBackAllowFontScaling: false,
             },
         },
-
         // 二维码扫描页面
         ScanCameraScreen: {
             screen: ScanCameraScreen,

@@ -7,6 +7,7 @@ import {
     ScrollView,
     TextInput,
     Dimensions,
+    Alert,
 } from 'react-native';
 import GoodsItem from './GoodsItem';
 import CommonHeader from '../component/CommonHeader';
@@ -21,34 +22,29 @@ export default class Goods extends React.Component {
             data: [
                 {
                     id: 1,
-                    url: require('../../img/lunbo/10.jpg'),
                     name: '裙子1',
                     price: 10,
                     num: 0,
                 },
                 {
                     id: 2,
-                    url: require('../../img/lunbo/13.jpg'),
                     name: '裙子2',
                     price: 20,
                     num: 0,
                 },
                 {
                     id: 3,
-                    url: require('../../img/lunbo/8.jpg'),
                     name: '裙子3',
                     price: 30,
                     num: 0,
                 },
                 {
                     id: 4,
-                    url: require('../../img/lunbo/9.jpg'),
                     name: '裙子4',
                     price: 40,
                     num: 0,
                 },
             ],
-            value: '0',
             totalPrice: 0,
         };
     }
@@ -59,7 +55,19 @@ export default class Goods extends React.Component {
 
     // 点击确定的时候
     onSureClothing() {
-        this.props.navigation.navigate('CabinetScreen');
+        Alert.alert(
+            '提示',
+            '该价格仅供参考,最终价格由店员确认',
+            [
+                {
+                    text: '确定',
+                    onPress: () => {
+                        this.props.navigation.navigate('CabinetScreen');
+                    },
+                },
+            ],
+            {cancelable: false},
+        );
     }
 
     // 减少衣物
@@ -99,7 +107,7 @@ export default class Goods extends React.Component {
                 <CommonHeader title="设置订单金额" navigation={navigation} />
                 <ScrollView style={styles.content}>
                     <View style={styles.content_title}>
-                        <Text>衣物结算</Text>
+                        <Text>洗衣费用价格计算（仅供参考）</Text>
                     </View>
                     <View style={styles.content_clothing}>
                         {data &&
@@ -118,22 +126,6 @@ export default class Goods extends React.Component {
                                 );
                             })}
                     </View>
-                    {/* <View style={styles.content_title}>
-                        <Text>运费设置</Text>
-                    </View>
-                    <View style={styles.content_input}>
-                        <TextInput
-                            style={styles.message_edit_input}
-                            onChangeText={this.onChangeText.bind(this)}
-                            defaultValue={this.state.value}
-                            autoComplete="off"
-                            selectionColor="#fb9bcd"
-                            keyboardType="numeric"
-                            maxLength={12}
-                            placeholder="请输入"
-                            placeholderTextColor="#bfbfbf"
-                        />
-                    </View> */}
                     <View style={styles.content_title}>
                         <Text>备注信息</Text>
                     </View>
@@ -145,7 +137,7 @@ export default class Goods extends React.Component {
                             selectionColor="#fb9bcd"
                             keyboardType="numeric"
                             maxLength={100}
-                            placeholder="请输入备注信息"
+                            placeholder="moving洗衣店为您尽心服务!"
                             placeholderTextColor="#bfbfbf"
                             multiline
                         />
@@ -155,12 +147,12 @@ export default class Goods extends React.Component {
                     <View style={styles.footer_left}>
                         <View style={styles.footer_left_content}>
                             <Text style={styles.footer_left_content_text}>
-                                支付定金: ￥
+                                预计所需: ￥
                             </Text>
                         </View>
                         <View style={styles.footer_right_content}>
                             <Text style={styles.footer_right_content_text}>
-                                10
+                                {totalPrice}
                             </Text>
                         </View>
                     </View>
@@ -174,15 +166,7 @@ export default class Goods extends React.Component {
         );
     }
 }
-const inputCommonStyle = {
-    width: width - 20,
-    fontSize: 16,
-    backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    borderColor: '#cdcdcd',
-    borderWidth: 0.5,
-    borderRadius: 5,
-};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -201,21 +185,17 @@ const styles = StyleSheet.create({
         borderLeftWidth: 3,
     },
     content_clothing: {
-        marginTop: 10,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        borderColor: '#dbdbdb',
-        borderLeftWidth: 0.5,
-        borderTopWidth: 0.5,
         marginBottom: 20,
-    },
-    message_edit_input: {
-        height: 40,
-        ...inputCommonStyle,
     },
     message_desc_input: {
         height: 100,
-        ...inputCommonStyle,
+        width: width - 20,
+        fontSize: 16,
+        backgroundColor: '#fff',
+        paddingHorizontal: 10,
+        borderColor: '#cdcdcd',
+        borderWidth: 0.5,
+        borderRadius: 5,
     },
     content_input: {
         marginVertical: 20,

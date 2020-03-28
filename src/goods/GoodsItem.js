@@ -21,105 +21,74 @@ export default class Goods extends React.Component {
     componentDidMount() {}
 
     render() {
-        const {id, source, name, num, price} = this.props;
+        const {id, name, num, price} = this.props;
         return (
-            <View style={styles.content_clothing_item}>
-                <Image
-                    style={styles.content_clothing_item_img}
-                    source={source}
-                />
-                <View style={styles.content_clothing_item_title}>
-                    <Text style={styles.content_clothing_item_title_text}>
-                        {name}
+            <View style={styles.goodsItem}>
+                <View style={styles.goodsItem_name}>
+                    <Text style={styles.goodsItem_name_text}>{name}</Text>
+                    <Text style={styles.goodsItem_price_text}>
+                        清洗价格：18
                     </Text>
                 </View>
-                <View style={styles.content_clothing_item_money}>
-                    <View style={styles.content_clothing_item_money_left}>
-                        <Text style={styles.content_clothing_item_money_text}>
-                            ￥ {price}
-                        </Text>
-                    </View>
-                    <View style={styles.content_clothing_item_money_right}>
-                        <TouchableOpacity
-                            onPress={() => this.props.onSubCloth(id)}>
-                            <Icon
-                                style={
-                                    styles.content_clothing_item_money_right_icon
-                                }
-                                name="minuscircleo"
-                                size={18}
-                                color="#fb9dd0"
-                            />
-                        </TouchableOpacity>
-                        <Text
-                            style={
-                                styles.content_clothing_item_money_right_num
-                            }>
+                <View style={styles.goodsItem_count}>
+                    <TouchableOpacity
+                        style={styles.goodsItem_count_icon}
+                        onPress={() => this.props.onSubCloth(id)}>
+                        <Icon name="minuscircleo" size={18} color="#fb9dd0" />
+                    </TouchableOpacity>
+                    <View style={styles.goodsItem_count_num}>
+                        <Text style={styles.goodsItem_count_num_text}>
                             {num}
                         </Text>
-                        <TouchableOpacity
-                            onPress={() => this.props.onAddCloth(id)}>
-                            <Icon
-                                style={
-                                    styles.content_clothing_item_money_right_icon
-                                }
-                                name="pluscircleo"
-                                size={18}
-                                color="#fb9dd0"
-                            />
-                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity
+                        style={styles.goodsItem_count_icon}
+                        onPress={() => this.props.onAddCloth(id)}>
+                        <Icon name="pluscircleo" size={18} color="#fb9dd0" />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
     }
 }
-let clothingItemWidth = (width - 20) / 2 - 1;
+
 const styles = StyleSheet.create({
-    content_clothing_item: {
-        height: clothingItemWidth + 50,
-        width: clothingItemWidth,
-        borderWidth: 0.5,
-        borderColor: '#dbdbdb',
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-    },
-    content_clothing_item_img: {
-        width: clothingItemWidth,
-        height: clothingItemWidth,
-    },
-    content_clothing_item_title: {
-        justifyContent: 'center',
-        margin: 5,
-    },
-    content_clothing_item_title_text: {
-        fontSize: 12,
-        color: '#333',
-    },
-    content_clothing_item_money: {
-        height: 20,
-        justifyContent: 'center',
-        paddingHorizontal: 5,
+    goodsItem: {
         flexDirection: 'row',
+        height: 70,
+        borderBottomColor: '#dbdbdb',
+        borderBottomWidth: 0.5,
     },
-    content_clothing_item_money_left: {
+    goodsItem_name: {
         flex: 1,
+        justifyContent: 'center',
     },
-    content_clothing_item_money_right: {
-        width: 85,
+    goodsItem_name_text: {
+        fontSize: 16,
+        color: '#707070',
+    },
+    goodsItem_price_text: {
+        fontSize: 12,
+        marginTop: 5,
+        color: '#bfbfbf',
+    },
+    goodsItem_count: {
+        width: 100,
         flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    content_clothing_item_money_right_icon: {
-        width: 18,
+    goodsItem_count_icon: {
+        width: 20,
         marginHorizontal: 8,
     },
-    content_clothing_item_money_right_num: {
-        fontSize: 18,
-        marginTop: -2,
-        color: '#fb9dd0',
+    goodsItem_count_num: {
+        flex: 1,
+        alignItems: 'center',
     },
-    content_clothing_item_money_text: {
-        fontSize: 14,
-        color: '#8a8a8a',
+    goodsItem_count_num_text: {
+        fontSize: 20,
+        color: '#fb9dd0',
+        marginTop: -3,
     },
 });

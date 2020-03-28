@@ -60,29 +60,6 @@ export default class OrderScreen extends React.Component {
                 activeImg: require('../../img/public/express_big_active.png'),
             },
         ];
-        const expressList2 = [
-            {
-                id: 'little1',
-                title: '小格口',
-                desc: '限重一公斤',
-                normalImg: require('../../img/public/express_little.png'),
-                activeImg: require('../../img/public/express_little_active.png'),
-            },
-            {
-                id: 'middle2',
-                title: '中格口',
-                desc: '限重三公斤',
-                normalImg: require('../../img/public/express_middle.png'),
-                activeImg: require('../../img/public/express_middle_acitve.png'),
-            },
-            {
-                id: 'big3',
-                title: '大格口',
-                desc: '限重五公斤',
-                normalImg: require('../../img/public/express_big.png'),
-                activeImg: require('../../img/public/express_big_active.png'),
-            },
-        ];
         return (
             <View style={{flex: 1}}>
                 <CommonHeader title="选择柜口" navigation={navigation} />
@@ -108,26 +85,14 @@ export default class OrderScreen extends React.Component {
                             })}
                         </View>
                     </View>
-                    <View style={styles.cabinet_item}>
-                        <View style={styles.detail_common_title}>
-                            <Text>幸福家园北门二号柜</Text>
-                        </View>
-                        <View style={styles.cabinet_item_content}>
-                            {expressList2.map((item, index) => {
-                                return (
-                                    <CabinetItem
-                                        key={index}
-                                        id={item.id}
-                                        onPress={this.onPress.bind(this)}
-                                        title={item.title}
-                                        active={active === item.id}
-                                        source={item.normalImg}
-                                        acitveSource={item.activeImg}
-                                        desc={item.desc}
-                                    />
-                                );
-                            })}
-                        </View>
+                    <View style={styles.cabinet_tip}>
+                        <Text style={styles.cabinet_tip_text}>
+                            Tip: 柜子可免费存放三天,超出时间将收取费用
+                        </Text>
+                        <Text style={styles.cabinet_tip_text}>
+                            收到取衣通知后,请尽快取回您的衣物
+                        </Text>
+                        <Text style={styles.cabinet_tip_text}>谢谢配合!</Text>
                     </View>
                 </ScrollView>
                 <TouchableOpacity
@@ -170,5 +135,14 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20,
         fontWeight: '800',
+    },
+    cabinet_tip: {
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cabinet_tip_text: {
+        fontSize: 12,
+        color: '#8a8a8a',
     },
 });

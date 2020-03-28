@@ -45,7 +45,7 @@ export default class Intergral extends React.Component {
                     </View>
                 </View>
                 <View style={styles.intergrals_title}>
-                    <Text>积分兑换</Text>
+                    <Text>可兑换商品</Text>
                 </View>
                 <ScrollView style={styles.intergrals_content}>
                     <View style={styles.intergrals_content_chunk}>

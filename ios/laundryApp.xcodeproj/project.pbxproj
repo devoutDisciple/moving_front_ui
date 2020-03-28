@@ -913,7 +913,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moving.dry.clear;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moving.dry.cleaner;
 				PRODUCT_NAME = laundryApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -933,7 +933,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.moving.dry.clear;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moving.dry.cleaner;
 				PRODUCT_NAME = laundryApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -30,6 +30,11 @@ export default class Member extends React.Component {
         this.setState({selectIndex: index});
     }
 
+    // 去支付
+    payOrder() {
+        this.props.navigation.navigate('PayOrderScreen');
+    }
+
     render() {
         const {navigation} = this.props;
         let {selectIndex} = this.state;
@@ -130,7 +135,9 @@ export default class Member extends React.Component {
                     </View>
                 </ScrollView>
                 <View style={styles.member_bottom}>
-                    <TouchableOpacity style={styles.member_bottom_btn}>
+                    <TouchableOpacity
+                        onPress={this.payOrder.bind(this)}
+                        style={styles.member_bottom_btn}>
                         <Text style={{marginTop: 5, color: '#fff'}}>
                             超值价 ￥
                         </Text>

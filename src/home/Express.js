@@ -65,8 +65,8 @@ export default class Express extends React.Component {
                                     <Button
                                         buttonStyle={{
                                             backgroundColor: '#fb9dd0',
-                                            paddingVertical: 5,
-                                            paddingHorizontal: 8,
+                                            paddingVertical: 7,
+                                            paddingHorizontal: 10,
                                             borderRadius: 6,
                                         }}
                                         titleStyle={{

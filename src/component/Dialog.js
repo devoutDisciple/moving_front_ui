@@ -46,7 +46,6 @@ export default class Dialog extends React.Component {
                                 onChangeText={this.onChangeText.bind(this)}
                                 defaultValue={this.state.value}
                                 selectionColor="#fb9bcd"
-                                // keyboardType="default"
                                 maxLength={12}
                                 placeholder="请输入"
                                 placeholderTextColor="#bfbfbf"
@@ -104,11 +103,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         // backgroundColor: 'red',
+        marginTop: -10,
     },
     message_edit_input: {
         height: 40,
         width: width * 0.75,
-        fontSize: 16,
+        fontSize: 14,
         backgroundColor: '#fff',
         paddingHorizontal: 10,
         borderColor: '#cdcdcd',
