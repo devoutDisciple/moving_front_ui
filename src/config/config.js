@@ -12,4 +12,5 @@ export default {
         pickerCancelBtnColor: [196, 199, 206, 1],
         pickerTitleColor: [251, 156, 206, 1],
     },
+    mapKey_IOS: 'c0ec8c9c3924a698ca4e89099a2bed27',
 };
