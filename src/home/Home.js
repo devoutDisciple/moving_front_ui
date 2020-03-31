@@ -19,7 +19,7 @@ export default class HomeScreen extends React.Component {
 		this.state = {
 			loadingVisible: false,
 			shopList: [],
-			shopId: 1,
+			shopid: '',
 		};
 		this.locationClick = this.locationClick.bind(this);
 	}
@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
 	static navigationOptions = ({ navigation, navigationOptions }) => {
 		// 自定义左右菜单
 		return {
-			headerTitle: 'moving',
+			headerTitle: 'Moving',
 			headerLeft: () => {
 				return (
 					<TouchableOpacity onPress={() => navigation.state.params.leftIconClick()}>
@@ -100,7 +100,7 @@ export default class HomeScreen extends React.Component {
 					// 保存设置的商店
 					await Storage.set('shop', shop);
 				}
-				this.setState({ shopList: data || [], shopId: shop.id }, () => {
+				this.setState({ shopList: data || [], shopid: shop.id }, () => {
 					let { navigation } = this.props;
 					navigation.navigate('HomeScreen', {
 						title: shop.name || '',
@@ -138,7 +138,7 @@ export default class HomeScreen extends React.Component {
 						selectShop = item;
 					}
 				});
-				this.setState({ shopId: selectShop.id }, async () => {
+				this.setState({ shopid: selectShop.id }, async () => {
 					await Storage.set('shop', selectShop);
 					navigation.navigate('HomeScreen', {
 						title: name || '',
@@ -152,6 +152,7 @@ export default class HomeScreen extends React.Component {
 	// 点击客服按钮
 	async serviceClick() {
 		let shop = await Storage.get('shop');
+		console.log(shop, 11);
 		let tel = `tel:${shop.phone}`; // 目标电话
 		Linking.canOpenURL(tel)
 			.then(supported => {
@@ -166,16 +167,16 @@ export default class HomeScreen extends React.Component {
 
 	render() {
 		let { navigation } = this.props;
-		let { loadingVisible } = this.state;
+		let { loadingVisible, shopid } = this.state;
 		return (
 			<View style={{ flex: 1 }}>
 				<ScrollView style={{ flex: 1 }}>
 					{/* 轮播图 */}
-					<Swiper navigation={navigation} />
+					<Swiper navigation={navigation} shopid={shopid} />
 					{/* 图标选项 */}
 					<IconList navigation={navigation} />
 					{/* 快递柜子 */}
-					<Express navigation={navigation} />
+					<Express navigation={navigation} shopid={shopid} />
 					{/* <TouchableOpacity onPress={this.clear.bind(this)}>
                         <Text>清除缓存</Text>
                     </TouchableOpacity> */}

@@ -3,6 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import IconWithText from '../component/IconWithText';
 import Storage from '../util/Storage';
+import config from '../config/config';
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
 export default class IconList extends React.Component {
@@ -13,8 +14,8 @@ export default class IconList extends React.Component {
 	async componentDidMount() {
 		// 使用自己申请的高德 App Key 进行初始化
 		await init({
-			ios: 'c0ec8c9c3924a698ca4e89099a2bed27',
-			android: '2f9deb208364c088f3154ca2ee5a7bf3',
+			ios: config.map_key_IOS,
+			android: config.map_key_android,
 		});
 		Geolocation.getCurrentPosition(({ coords }) => {
 			console.log(coords);

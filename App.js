@@ -13,7 +13,7 @@ import * as WeChat from 'react-native-wechat';
 WeChat.registerApp('zhangzhen941025@icloud.com');
 
 export default class App extends React.Component {
-    render() {
-        return <RouterConfig />;
-    }
+	render() {
+		return <RouterConfig />;
+	}
 }
