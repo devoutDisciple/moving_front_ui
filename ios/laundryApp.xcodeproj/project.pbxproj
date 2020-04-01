@@ -95,6 +95,11 @@
 		C11F75D223A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C11F75D323A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C11F75D423A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
+		C1A78D2324350FCD003C01FE /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2224350FCD003C01FE /* libWeChatSDK.a */; };
+		C1A78D2524350FDB003C01FE /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2424350FDB003C01FE /* libc++.tbd */; };
+		C1A78D2724350FEE003C01FE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2624350FEE003C01FE /* libz.tbd */; };
+		C1A78D2924350FF8003C01FE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2824350FF8003C01FE /* libsqlite3.tbd */; };
+		C1A78D2A24351004003C01FE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D1A24350C37003C01FE /* CoreTelephony.framework */; };
 		C1F7698A242F579D00420968 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F76989242F579D00420968 /* AMapFoundationKit.framework */; };
 		C1F7698C242F57B500420968 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F7698B242F57B500420968 /* AMapLocationKit.framework */; };
 		C47DDA7972DC4C15A7843AE7 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 070799362A5D44ADB5E24AC1 /* FontAwesome5_Solid.ttf */; };
@@ -171,6 +176,15 @@
 		C11F759223A15703007090FA /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C11F759323A15703007090FA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		C11F759423A15703007090FA /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		C1A78D1824350C1A003C01FE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C1A78D1A24350C37003C01FE /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		C1A78D1C24350CD5003C01FE /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		C1A78D1E24350CE5003C01FE /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		C1A78D2024350CF2003C01FE /* libz.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.tbd; path = usr/lib/libz.1.tbd; sourceTree = SDKROOT; };
+		C1A78D2224350FCD003C01FE /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = laundryApp/thirdpart/wechat/libWeChatSDK.a; sourceTree = "<group>"; };
+		C1A78D2424350FDB003C01FE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C1A78D2624350FEE003C01FE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C1A78D2824350FF8003C01FE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C1F76989242F579D00420968 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
 		C1F7698B242F57B500420968 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		C37AF49885A0E9A731B57EB8 /* Pods-laundryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp.release.xcconfig"; path = "Target Support Files/Pods-laundryApp/Pods-laundryApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -198,6 +212,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1A78D2A24351004003C01FE /* CoreTelephony.framework in Frameworks */,
+				C1A78D2924350FF8003C01FE /* libsqlite3.tbd in Frameworks */,
+				C1A78D2724350FEE003C01FE /* libz.tbd in Frameworks */,
+				C1A78D2524350FDB003C01FE /* libc++.tbd in Frameworks */,
+				C1A78D2324350FCD003C01FE /* libWeChatSDK.a in Frameworks */,
 				C1F7698C242F57B500420968 /* AMapLocationKit.framework in Frameworks */,
 				C1F7698A242F579D00420968 /* AMapFoundationKit.framework in Frameworks */,
 				E18AB2D1D945AB4595AC0EB2 /* libPods-laundryApp.a in Frameworks */,
@@ -258,6 +277,15 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1A78D2824350FF8003C01FE /* libsqlite3.tbd */,
+				C1A78D2624350FEE003C01FE /* libz.tbd */,
+				C1A78D2424350FDB003C01FE /* libc++.tbd */,
+				C1A78D2224350FCD003C01FE /* libWeChatSDK.a */,
+				C1A78D2024350CF2003C01FE /* libz.1.tbd */,
+				C1A78D1E24350CE5003C01FE /* libc++.1.tbd */,
+				C1A78D1C24350CD5003C01FE /* libsqlite3.0.tbd */,
+				C1A78D1A24350C37003C01FE /* CoreTelephony.framework */,
+				C1A78D1824350C1A003C01FE /* SystemConfiguration.framework */,
 				C1F7698B242F57B500420968 /* AMapLocationKit.framework */,
 				C1F76989242F579D00420968 /* AMapFoundationKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
@@ -922,6 +950,10 @@
 				);
 				INFOPLIST_FILE = laundryApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -946,6 +978,10 @@
 				);
 				INFOPLIST_FILE = laundryApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

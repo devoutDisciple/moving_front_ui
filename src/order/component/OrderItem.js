@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import Request from '../../util/Request';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import * as WeChat from 'react-native-wechat';
 import Toast from '../../component/Toast';
 
@@ -13,21 +14,24 @@ export default class AllOrder extends React.Component {
 
 	// 点击去支付
 	async payOrder() {
-		// let hello = await WeChat.openWXApp();
+		console.log(111);
 		let isWXAppInstalled = await WeChat.isWXAppInstalled();
 		if (!isWXAppInstalled) {
 			return Toast.warning('未下载微信');
 		}
+		let result = await Request.post('/pay/payOrder');
+		let data = result.data;
+		let params = {
+			partnerId: '1582660231', // 商家向财付通申请的商家ID
+			prepayId: data.prepay_id, // 预支付订单ID
+			nonceStr: data.nonce_str[0], // 随机串
+			timeStamp: new Date().getTime(), // 时间戳
+			package: 'com.moving.dry.clear', // 商家根据财付通文档填写的数据和签名
+			sign: data.sign[0], // 商家根据微信开放平台文档对数据做的签名
+		};
+		console.log(params, 222);
 		// 第三步，调起微信客户端支付
-		WeChat.pay({
-			appId: '32423',
-			partnerId: '4324324',
-			prepayId: '5435435',
-			nonceStr: '5435435435',
-			timeStamp: '4324ffd',
-			package: 'Sign=WXPay',
-			sign: '32432423432',
-		})
+		WeChat.pay(params)
 			.then(response => {
 				let errorCode = Number(response.errCode);
 				if (errorCode === 0) {

@@ -109,7 +109,10 @@ export default class MyScreen extends React.Component {
 		let { user, loading } = this.state;
 		return (
 			<View style={styles.container}>
-				<ScrollView style={styles.content} refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}>
+				<ScrollView
+					style={styles.content}
+					refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}
+				>
 					<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
 					<My_Wallert navigation={this.props.navigation} user={user} />
 					<View style={{ height: 10 }} />
