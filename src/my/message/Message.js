@@ -6,9 +6,12 @@ import Config from '../../config/config';
 import Request from '../../util/Request';
 import Storage from '../../util/Storage';
 import Picker from 'react-native-picker';
+import Toast from '../../component/Toast';
 import Dialog from '../../component/Dialog';
+import FileterStatus from '../../util/FilterStatus';
 import ImagePicker from 'react-native-image-crop-picker';
 import CommonHeader from '../../component/CommonHeader';
+
 export default class SettingScreen extends React.Component {
 	constructor(props) {
 		super(props);
@@ -16,6 +19,9 @@ export default class SettingScreen extends React.Component {
 			visible: false,
 			loading: false,
 			user: {},
+			defalutValue: '',
+			title: '',
+			changeKey: '',
 		};
 	}
 
@@ -37,27 +43,40 @@ export default class SettingScreen extends React.Component {
 		this.setState({ user: user, loading: false });
 	}
 
-	showDialog() {
-		this.setState({
-			visible: true,
+	// 弹框确定的时候
+	onOkDialog(key, value) {
+		console.log(key, value, 111);
+		this.setState({ visible: false });
+		this.onSaveValue(key, value);
+	}
+
+	// 年龄选择
+	showAgeSelect() {
+		let data = [];
+		for (let i = 18; i < 100; i++) {
+			data.push(i);
+		}
+		Picker.init({
+			...Config.pickCommonConfig,
+			pickerData: data,
+			selectedValue: [25],
+			onPickerConfirm: res => {
+				this.onSaveValue('age', res[0]);
+			},
 		});
+		Picker.show();
 	}
 
 	// 保存的时候
-	onSaveValue() {}
-
-	// 弹框确定的时候
-	onOkDialog() {
-		this.setState({
-			visible: false,
-		});
-	}
-
-	// 弹框取消的时候
-	onCancelDialog() {
-		this.setState({
-			visible: false,
-		});
+	async onSaveValue(key, value) {
+		// 获取用户token值
+		let token = await Storage.getString('token');
+		let params = { token, key, value };
+		let result = await Request.post('/user/update', params);
+		if (result.data === 'success') {
+			Toast.success('修改成功');
+			this.getUserInfo();
+		}
 	}
 
 	// 用户上传头像
@@ -69,79 +88,82 @@ export default class SettingScreen extends React.Component {
 			cropperCircleOverlay: true,
 			includeBase64: true,
 		}).then(async response => {
-			console.log(response);
 			// 获取用户token值
 			let token = await Storage.getString('token'),
 				data = { img: response.data, token };
-			await Request.post('/user/addPhoto', data);
-			this.props.getUserInfo();
+			let result = await Request.post('/user/addPhoto', data);
+			if (result.data === 'success') {
+				Toast.success('头像修改成功');
+				this.getUserInfo();
+			}
 		});
-	}
-
-	showAgeSelect() {
-		let data = [];
-		for (let i = 18; i < 100; i++) {
-			data.push(i);
-		}
-		Picker.init({
-			...Config.pickCommonConfig,
-			pickerData: data,
-			selectedValue: [25],
-			onPickerConfirm: res => {
-				console.log(res);
-			},
-			onPickerCancel: res => {
-				console.log(res);
-			},
-			onPickerSelect: res => {
-				console.log(res);
-			},
-		});
-		Picker.show();
 	}
 
 	render() {
-		const { navigation } = this.props;
-		let { visible, loading, user } = this.state;
+		const { navigation } = this.props,
+			{ visible, loading, user, changeKey, title, defalutValue } = this.state;
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="个人信息" navigation={navigation} />
 				<ScrollView style={styles.setting_content} refreshing={loading}>
 					<MessageItem label="头像" value={user.photo} showIcon isImage onPress={this.selectPhoto.bind(this)} />
-					<MessageItem label="昵称" value={user.nickname} showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
-					<MessageItem label="姓名" value={user.username} showIcon onPress={this.showDialog.bind(this, '修改姓名')} />
+					<MessageItem
+						showIcon
+						label="昵称"
+						value={user.nickname}
+						onPress={() => {
+							this.setState({ changeKey: 'nickname', title: '修改昵称', defalutValue: user.nickname }, () => {
+								this.setState({ visible: true });
+							});
+						}}
+					/>
+					<MessageItem
+						showIcon
+						label="姓名"
+						value={user.username}
+						onPress={() => {
+							this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: user.username }, () => {
+								this.setState({ visible: true });
+							});
+						}}
+					/>
 					<MessageItem
 						label="性别"
 						value={
 							<View style={styles.sex_container}>
-								<TouchableOpacity>
-									<Text style={styles.sex_item_active}>男</Text>
+								<TouchableOpacity onPress={this.onSaveValue.bind(this, 'sex', 1)}>
+									<Text style={user.sex === 1 ? styles.sex_item_active : styles.sex_item_normal}>男</Text>
 								</TouchableOpacity>
-								<TouchableOpacity>
-									<Text style={styles.sex_item_normal}>女</Text>
+								<TouchableOpacity onPress={this.onSaveValue.bind(this, 'sex', 2)}>
+									<Text style={user.sex === 2 ? styles.sex_item_active : styles.sex_item_normal}>女</Text>
 								</TouchableOpacity>
 							</View>
 						}
 						isSwitch
 					/>
-					<MessageItem label="年龄" value="25" showIcon onPress={this.showAgeSelect.bind(this)} />
-					<MessageItem label="邮箱" value="1094705507@qq.com" showIcon onPress={this.showDialog.bind(this, '修改邮箱')} />
+					<MessageItem label="年龄" value={user.age} showIcon onPress={this.showAgeSelect.bind(this)} />
 					<MessageItem
-						label="会员等级"
-						value="普通用户"
+						showIcon
+						label="邮箱"
+						value={user.email}
 						onPress={() => {
-							console.log(111);
+							this.setState({ changeKey: 'email', title: '修改邮箱', defalutValue: user.email }, () => {
+								this.setState({ visible: true });
+							});
 						}}
 					/>
-					<MessageItem
-						label="登录账号"
-						value={user.phone}
-						onPress={() => {
-							console.log(111);
-						}}
-					/>
+					<MessageItem label="会员等级" value={FileterStatus.filterMemberStatus(user.member)} onPress={() => {}} />
+					<MessageItem label="登录账号" value={user.phone} onPress={() => {}} />
 				</ScrollView>
-				<Dialog visible={visible} title="修改信息" defalutValue="hello" onOk={this.onOkDialog.bind(this)} onCancel={this.onCancelDialog.bind(this)} />
+				{visible && (
+					<Dialog
+						title={title}
+						changeKey={changeKey}
+						defalutValue={defalutValue}
+						onOk={this.onOkDialog.bind(this)}
+						onCancel={() => this.setState({ visible: false })}
+					/>
+				)}
 			</View>
 		);
 	}

@@ -2,7 +2,7 @@
 import React from 'react';
 import FastImage from '../../component/FastImage';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class SettingScreen extends React.Component {
 	constructor(props) {

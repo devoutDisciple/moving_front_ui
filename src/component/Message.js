@@ -1,16 +1,16 @@
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
 
 export default {
-    warning: (title, message) => {
-        Alert.alert(
-            title,
-            message,
-            [
-                {
-                    text: '确定',
-                },
-            ],
-            {cancelable: false},
-        );
-    },
+	warning: (title, message) => {
+		Alert.alert(
+			title,
+			message,
+			[
+				{
+					text: '确定',
+				},
+			],
+			{ cancelable: false },
+		);
+	},
 };
