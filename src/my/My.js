@@ -110,7 +110,7 @@ export default class MyScreen extends React.Component {
 		return (
 			<View style={styles.container}>
 				<ScrollView style={styles.content} refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}>
-					<My_Header navigation={this.props.navigation} user={user} />
+					<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
 					<My_Wallert navigation={this.props.navigation} user={user} />
 					<View style={{ height: 10 }} />
 					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />

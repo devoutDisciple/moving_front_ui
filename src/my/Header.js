@@ -1,10 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
 import FastImage from '../component/FastImage';
-import Config from '../config/config';
-// import request from '../util/Request';
-// import ImagePicker from 'react-native-image-crop-picker';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 export default class MyScreen extends React.Component {
@@ -18,14 +15,18 @@ export default class MyScreen extends React.Component {
 	// 点击编辑按钮
 	editBtnClick() {
 		// ImagePicker.openPicker({
-		// 	width: 80,
-		// 	height: 80,
+		// 	width: 200,
+		// 	height: 200,
 		// 	cropping: true,
+		// 	cropperCircleOverlay: true,
 		// 	includeBase64: true,
-		// }).then(response => {
+		// }).then(async response => {
 		// 	console.log(response);
-		// 	let data = { img: response.data };
-		// 	request.post('http://localhost:3002/swiper/testAdd', data);
+		// 	// 获取用户token值
+		// 	let token = await Storage.getString('token'),
+		// 		data = { img: response.data, token };
+		// 	await Request.post('/user/addPhoto', data);
+		// 	this.props.getUserInfo();
 		// });
 		this.props.navigation.navigate('MyMessage');
 	}
@@ -45,7 +46,7 @@ export default class MyScreen extends React.Component {
 					<FastImage
 						style={styles.my_header_image}
 						source={{
-							uri: `${Config.baseUrl}/${user.photo}`,
+							uri: user.photo,
 						}}
 					/>
 				</View>
