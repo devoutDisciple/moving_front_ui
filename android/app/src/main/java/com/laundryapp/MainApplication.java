@@ -1,4 +1,4 @@
-package com.laundryapp;
+package com.moving.dry.cleaner;
 
 import android.app.Application;
 import android.content.Context;

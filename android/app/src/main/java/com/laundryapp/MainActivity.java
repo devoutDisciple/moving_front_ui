@@ -1,4 +1,4 @@
-package com.laundryapp;
+package com.moving.dry.cleaner;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

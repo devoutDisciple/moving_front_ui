@@ -11,7 +11,6 @@
 		0DADA218E04D4F9F8EF8A6C3 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E13C2A3081FA45EC88B936E8 /* Zocial.ttf */; };
 		12E1EAA348384CFD8FA6FC42 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D287A8B510584A7AB74EC8C8 /* Foundation.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1556D410E6AD45DF84B9DCE9 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB99B5EA7C544C379962525B /* MaterialCommunityIcons.ttf */; };
@@ -100,6 +99,7 @@
 		C1A78D2724350FEE003C01FE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2624350FEE003C01FE /* libz.tbd */; };
 		C1A78D2924350FF8003C01FE /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2824350FF8003C01FE /* libsqlite3.tbd */; };
 		C1A78D2A24351004003C01FE /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D1A24350C37003C01FE /* CoreTelephony.framework */; };
+		C1A78D2E2435C412003C01FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		C1F7698A242F579D00420968 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F76989242F579D00420968 /* AMapFoundationKit.framework */; };
 		C1F7698C242F57B500420968 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F7698B242F57B500420968 /* AMapLocationKit.framework */; };
 		C47DDA7972DC4C15A7843AE7 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 070799362A5D44ADB5E24AC1 /* FontAwesome5_Solid.ttf */; };
@@ -570,10 +570,10 @@
 				C11F75D123A15704007090FA /* MaterialIcons.ttf in Resources */,
 				C11F75B923A15704007090FA /* FontAwesome5_Solid.ttf in Resources */,
 				C11F75A923A15704007090FA /* MaterialCommunityIcons.ttf in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				584A7326418C4A5682D7782E /* AntDesign.ttf in Resources */,
 				7C125B649FA04FFC92F8A51A /* Entypo.ttf in Resources */,
 				6D76DE92CE704CB39B9B09A3 /* EvilIcons.ttf in Resources */,
+				C1A78D2E2435C412003C01FE /* LaunchScreen.xib in Resources */,
 				B45F5C06941C409792EE28AC /* Feather.ttf in Resources */,
 				5D15B17A610F4227A8246C80 /* FontAwesome.ttf in Resources */,
 				91EEC0181EAA4C20A1298312 /* FontAwesome5_Brands.ttf in Resources */,

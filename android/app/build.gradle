@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.laundryapp"
+        applicationId "com.moving.dry.cleaner"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
