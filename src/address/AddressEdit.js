@@ -1,44 +1,88 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
-import CommonHeader from '../component/CommonHeader';
-import MessageItem from '../my/message/MessageItem';
+import config from '../config/config';
+import Request from '../util/Request';
 import Dialog from '../component/Dialog';
+import Picker from 'react-native-picker';
+import { Button } from 'react-native-elements';
+import MessageItem from '../my/message/MessageItem';
+import CommonHeader from '../component/CommonHeader';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 export default class Member extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			user: {},
+			pickData: [],
 			visible: false,
 			title: '',
-			defalutValue: '',
 			changeKey: '',
+			defalutValue: '',
 		};
+		this.filterArea = this.filterArea.bind(this);
 	}
 
-	componentDidMount() {}
+	async componentDidMount() {
+		await this.onSearchArea();
+	}
 
-	showInputDialog() {
-		this.setState({ visible: true });
+	// 查询所有配送区域
+	async onSearchArea() {
+		let result = await Request.get('/area/getAll');
+		let areas = result.data || [];
+		let pickData = await this.filterArea(areas, [], 0);
+		this.setState({ pickData });
+	}
+
+	async onShowPicker() {
+		let { pickData } = this.state;
+		Picker.init({
+			...config.pickCommonConfig,
+			pickerData: pickData,
+			onPickerConfirm: async res => {
+				let area = res.join(' ');
+				let { user } = this.state;
+				user.area = area;
+				this.setState({ user });
+			},
+		});
+		Picker.show();
+	}
+
+	// 筛选区域条件
+	filterArea(area, arr, parentid) {
+		let obj = {},
+			flag = 0;
+		area.map(item => {
+			if ((item.level === 1 || item.level === 2) && item.parentid === parentid) {
+				let tempObj = {};
+				flag = 0;
+				tempObj[item.name] = [];
+				this.filterArea(area, tempObj[item.name], item.id);
+				arr.push(tempObj);
+			}
+			if (item.level === 3 && item.parentid === parentid) {
+				arr.push(item.name);
+			}
+		});
+		flag === 1 && arr.push(obj);
+		return arr;
 	}
 
 	// 保存的时候
 	onSaveValue() {}
 
 	// 弹框确定的时候
-	onOkDialog() {
-		this.setState({ visible: false });
-	}
-
-	// 弹框取消的时候
-	onCancelDialog() {
-		this.setState({ visible: false });
+	onOkDialog(key, value) {
+		let { user } = this.state;
+		user[key] = value;
+		this.setState({ visible: false, user });
 	}
 
 	render() {
 		const { navigation } = this.props,
-			{ visible, title, defalutValue } = this.state;
+			{ visible, title, defalutValue, changeKey, user } = this.state;
 		return (
 			<View style={styles.address_container}>
 				<CommonHeader title="编辑地址" navigation={navigation} />
@@ -46,9 +90,9 @@ export default class Member extends React.Component {
 					<MessageItem
 						showIcon
 						label="姓名"
-						value="张振"
+						value={user.username}
 						onPress={() => {
-							this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: '张振' }, () => {
+							this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: user.username }, () => {
 								this.setState({ visible: true });
 							});
 						}}
@@ -67,13 +111,35 @@ export default class Member extends React.Component {
 						}
 						isSwitch
 					/>
-					<MessageItem label="手机号" value="18210619398" showIcon onPress={this.showInputDialog.bind(this)} />
 					<MessageItem
-						label="送货地址"
-						value="西溪水岸花苑2333号"
 						showIcon
-						onPress={this.showInputDialog.bind(this, '修改地址')}
+						label="手机号"
+						value={user.phone}
+						onPress={() =>
+							this.setState({ changeKey: 'phone', title: '修改手机号', defalutValue: user.phone }, () => {
+								this.setState({ visible: true });
+							})
+						}
 					/>
+					<MessageItem label="所在区域" value={user.area} showIcon onPress={this.onShowPicker.bind(this)} />
+					<MessageItem
+						showIcon
+						label="街道/小区"
+						value={user.street}
+						onPress={() =>
+							this.setState({ changeKey: 'street', title: '修改具体位置', defalutValue: user.street }, () => {
+								this.setState({ visible: true });
+							})
+						}
+					/>
+					{user.area && (
+						<View style={styles.address_desc}>
+							<Text style={styles.address_desc_title}>收货地址为：</Text>
+							<Text style={styles.address_desc_street}>
+								{user.area} {user.street}
+							</Text>
+						</View>
+					)}
 					<Button
 						buttonStyle={{
 							backgroundColor: '#fb9bcd',
@@ -88,9 +154,10 @@ export default class Member extends React.Component {
 				{visible && (
 					<Dialog
 						title={title}
+						changeKey={changeKey}
 						defalutValue={defalutValue}
 						onOk={this.onOkDialog.bind(this)}
-						onCancel={this.onCancelDialog.bind(this)}
+						onCancel={() => this.setState({ visible: false })}
 					/>
 				)}
 			</View>
@@ -125,5 +192,19 @@ const styles = StyleSheet.create({
 		...sex_common,
 		borderColor: '#e5e5e5',
 		color: '#333',
+	},
+	address_desc: {
+		marginTop: 17,
+		marginHorizontal: 10,
+		flexDirection: 'row',
+	},
+	address_desc_title: {
+		width: 86,
+		marginTop: 1,
+		color: '#bfbfbf',
+	},
+	address_desc_street: {
+		flex: 1,
+		color: '#bfbfbf',
 	},
 });
