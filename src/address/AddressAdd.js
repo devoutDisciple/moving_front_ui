@@ -2,19 +2,22 @@
 import React from 'react';
 import config from '../config/config';
 import Request from '../util/Request';
+import Storage from '../util/Storage';
+import Toast from '../component/Toast';
 import Dialog from '../component/Dialog';
 import Picker from 'react-native-picker';
 import { Button } from 'react-native-elements';
 import MessageItem from '../my/message/MessageItem';
 import CommonHeader from '../component/CommonHeader';
-import Toast from '../component/Toast';
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 export default class Member extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			address: {},
+			address: {
+				sex: 1,
+			},
 			pickData: [],
 			visible: false,
 			title: '',
@@ -25,17 +28,7 @@ export default class Member extends React.Component {
 	}
 
 	async componentDidMount() {
-		await this.onSearchAddress();
 		await this.onSearchArea();
-	}
-
-	// 查询改地址
-	async onSearchAddress() {
-		let { navigation } = this.props,
-			id = navigation.state.params.id;
-		let result = await Request.get('/address/getAddressById', { id });
-		let address = result.data || {};
-		this.setState({ address });
 	}
 
 	// 查询所有配送区域
@@ -95,12 +88,34 @@ export default class Member extends React.Component {
 		this.setState({ address });
 	}
 
+	filterNull(obj, keys) {
+		let flag = true;
+		keys.forEach(item => {
+			console.log(!obj[item], obj[item]);
+			if (!obj[item]) {
+				flag = false;
+			}
+		});
+		return flag;
+	}
+
 	// 保存的时候
 	async onSaveValue() {
 		let { address } = this.state;
-		let result = await Request.post('/address/update', address);
+		let flag = this.filterNull(address, ['username', 'phone', 'area', 'street']);
+		if (!flag) {
+			return Toast.warning('请填写完整');
+		}
+		// 手机号不通过
+		if (!/^1[3456789]\d{9}$/.test(address.phone)) {
+			return Toast.warning('请输入正确的手机号码');
+		}
+		let user = await Storage.get('user');
+		address.userid = user.id;
+		address.is_defalut = 2;
+		let result = await Request.post('/address/add', address);
 		if (result.data === 'success') {
-			Toast.success('修改成功');
+			Toast.success('保存成功');
 			let { navigation } = this.props;
 			navigation.navigate('MyAddressScreen', {
 				flash: true,

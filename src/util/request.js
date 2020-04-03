@@ -39,7 +39,7 @@ Axios.interceptors.response.use(
 		let data = JSON.parse(res.data);
 		// 自定义的错误
 		if (data.code === 500) {
-			message.warning(data.message || "'网络异常, 请稍后重试11");
+			message.warning(data.message || "'网络异常, 请稍后重试1");
 		}
 		return Promise.resolve(data);
 	},

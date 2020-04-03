@@ -33,9 +33,11 @@ import ResetPasswordScreen from '../login/ResetPassword';
 // 会员页面
 import MemberScreen from '../member/Member';
 // 我的地址页面
-import AddressScreen from '../address/Address';
+import MyAddressScreen from '../address/Address';
 // 地址编辑页面
 import AddressEditScreen from '../address/AddressEdit';
+// 新增地址页面
+import AddressAddScreen from '../address/AddressAdd';
 // 设置商品金额页面
 import GoodsScreen from '../goods/Goods';
 // 订单详情页面
@@ -194,6 +196,14 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
+		// 新增地址页面
+		AddressAddScreen: {
+			screen: AddressAddScreen,
+			headerBackTitle: '返回',
+			navigationOptions: {
+				headerShown: false,
+			},
+		},
 		// 支付方式页面
 		PayOrderScreen: {
 			screen: PayOrderScreen,
@@ -296,8 +306,8 @@ const finnalApp = createStackNavigator(
 		},
 
 		// 收货地址页面
-		AddressScreen: {
-			screen: AddressScreen,
+		MyAddressScreen: {
+			screen: MyAddressScreen,
 			headerBackTitle: '返回',
 			navigationOptions: {
 				headerShown: false,

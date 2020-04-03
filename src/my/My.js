@@ -77,7 +77,7 @@ export default class MyScreen extends React.Component {
 		const { navigation } = this.props;
 		// 点击我的地址
 		if (key === 'address') {
-			return navigation.navigate('AddressScreen');
+			return navigation.navigate('MyAddressScreen');
 		}
 		// 点击积分兑换的时候
 		if (key === 'intergral') {
