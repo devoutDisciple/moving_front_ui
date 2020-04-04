@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import FastImage from '../component/FastImage';
+import config from '../config/config';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class MyScreen extends React.Component {
 	constructor(props) {
@@ -40,13 +41,14 @@ export default class MyScreen extends React.Component {
 		if (user.member === '2') {
 			member = 'VIP尊贵用户';
 		}
+		console.log(`${config.baseUrl}/${user.photo}}`);
 		return (
 			<View style={styles.my_header}>
 				<View style={styles.my_header_img_container}>
 					<FastImage
 						style={styles.my_header_image}
 						source={{
-							uri: user.photo,
+							uri: `${config.baseUrl}/${user.photo}`,
 						}}
 					/>
 				</View>
@@ -71,7 +73,7 @@ export default class MyScreen extends React.Component {
 					</View>
 					<View style={user.member === '1' ? styles.my_header_message_member_normal : styles.my_header_message_member_member}>
 						<View style={styles.my_header_message_member_icon}>
-							<Image style={{ width: 20, height: 20 }} source={require('../../img/public/member.png')} />
+							<FastImage style={{ width: 20, height: 20 }} source={require('../../img/public/member.png')} />
 						</View>
 						<View style={styles.my_header_message_member_text}>
 							<Text style={{ color: '#fff' }}>{member}</Text>

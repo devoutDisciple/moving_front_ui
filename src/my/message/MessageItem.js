@@ -2,6 +2,7 @@
 import React from 'react';
 import FastImage from '../../component/FastImage';
 import Icon from 'react-native-vector-icons/AntDesign';
+import config from '../../config/config';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class SettingScreen extends React.Component {
@@ -20,7 +21,7 @@ export default class SettingScreen extends React.Component {
 				</View>
 				{isImage ? (
 					<View style={styles.setting_content_item_center}>
-						<FastImage style={styles.setting_content_item_center_img} source={{ uri: value }} />
+						<FastImage style={styles.setting_content_item_center_img} source={{ uri: `${config.baseUrl}/${value}` }} />
 					</View>
 				) : isSwitch ? (
 					<View style={styles.setting_content_item_center}>{value}</View>

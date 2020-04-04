@@ -128,7 +128,7 @@ export default class Member extends React.Component {
 			{ visible, title, defalutValue, changeKey, address } = this.state;
 		return (
 			<View style={styles.address_container}>
-				<CommonHeader title="编辑地址" navigation={navigation} />
+				<CommonHeader title="新增收货地址" navigation={navigation} />
 				<ScrollView style={styles.address_content}>
 					<MessageItem
 						showIcon
