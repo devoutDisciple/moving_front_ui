@@ -46,8 +46,9 @@ export default class Express extends React.Component {
 				<View style={styles.detail_common_title}>
 					<Text style={{ fontSize: 16, color: '#333' }}>MOVING 收衣柜</Text>
 				</View>
-				{cabinetList && cabinetList.length != 0 ? (
+				{cabinetList && cabinetList.length !== 0 ? (
 					cabinetList.map((item, index) => {
+						console.log(`${config.baseUrl}/${item.url}`);
 						return (
 							<View style={styles.home_express_item} key={index}>
 								<View style={styles.home_express_item_left}>

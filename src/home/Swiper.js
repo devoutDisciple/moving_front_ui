@@ -41,7 +41,7 @@ export default class SwiperComponent extends Component {
 		return (
 			<View style={styles.swiperContainer}>
 				{swiperList && swiperList.length !== 0 ? (
-					<Swiper autoplay={true} dotColor="rgba(255,255,255,.3)" activeDotColor="#fff">
+					<Swiper removeClippedSubviews={false} autoplay={true} dotColor="rgba(255,255,255,.3)" activeDotColor="#fff">
 						{swiperList.map((item, index) => {
 							return (
 								<View key={index} style={styles.slide}>
