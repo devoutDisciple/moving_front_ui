@@ -1,9 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert, TouchableOpacity } from 'react-native';
 import GoodsItem from './GoodsItem';
 import CommonHeader from '../component/CommonHeader';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import storageUtil from '../util/Storage';
+import Toast from '../component/Toast';
+import Request from '../util/Request';
 
 const { width } = Dimensions.get('window');
 
@@ -11,37 +13,25 @@ export default class Goods extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [
-				{
-					id: 1,
-					name: '裙子1',
-					price: 10,
-					num: 0,
-				},
-				{
-					id: 2,
-					name: '裙子2',
-					price: 20,
-					num: 0,
-				},
-				{
-					id: 3,
-					name: '裙子3',
-					price: 30,
-					num: 0,
-				},
-				{
-					id: 4,
-					name: '裙子4',
-					price: 40,
-					num: 0,
-				},
-			],
+			data: [],
 			totalPrice: 0,
 		};
 	}
 
-	componentDidMount() {}
+	async componentDidMount() {
+		let shop = await storageUtil.get('shop');
+		if (!shop) {
+			this.props.navigation.navigate('LoginScreen');
+			return Toast.warning('请登录!');
+		}
+		Request.get('/clothing/getByShopid', { shopid: shop.id }).then(res => {
+			let data = res.data || [];
+			if (Array.isArray(data) && data.length !== 0) {
+				data.forEach(item => (item.num = 0));
+			}
+			this.setState({ data: data || [] });
+		});
+	}
 
 	onChangeText() {}
 

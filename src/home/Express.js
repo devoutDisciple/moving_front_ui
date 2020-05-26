@@ -6,6 +6,8 @@ import CommonSylte from '../style/common';
 import { Button } from 'react-native-elements';
 import { Text, View, StyleSheet } from 'react-native';
 import config from '../config/config';
+import storageUtil from '../util/Storage';
+import Toast from '../component/Toast';
 
 export default class Express extends React.Component {
 	constructor(props) {
@@ -35,8 +37,14 @@ export default class Express extends React.Component {
 	}
 
 	// 存放衣物
-	putClothing() {
-		this.props.navigation.navigate('GoodsScreen');
+	async putClothing() {
+		let shop = await storageUtil.get('shop'),
+			{ navigate } = this.props.navigation;
+		if (!shop) {
+			navigate('LoginScreen');
+			return Toast.warning('请先登录!');
+		}
+		navigate('GoodsScreen');
 	}
 
 	render() {

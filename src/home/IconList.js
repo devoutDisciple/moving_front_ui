@@ -96,13 +96,13 @@ export default class IconList extends React.Component {
 			},
 			{
 				key: 'aaa',
-				// url: require('../../img/home/icon6.png'),
-				// text: '获取',
+				url: require('../../img/home/icon6.png'),
+				text: '获取',
 			},
 			{
 				key: 'bbb',
-				// url: require('../../img/home/icon6.png'),
-				// text: '清除',
+				url: require('../../img/home/icon6.png'),
+				text: '清除',
 			},
 		];
 		return (
