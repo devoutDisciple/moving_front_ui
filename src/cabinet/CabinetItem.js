@@ -10,10 +10,8 @@ export default class OrderScreen extends React.Component {
 		super(props);
 	}
 
-	componentDidMount() {}
-
 	render() {
-		let { source, acitveSource, title, desc, active, id } = this.props;
+		let { source, acitveSource, title, desc, active, id, boxDetail } = this.props;
 		return (
 			<TouchableOpacity
 				onPress={this.props.onPress.bind(this, id)}
@@ -34,6 +32,11 @@ export default class OrderScreen extends React.Component {
 						{desc}
 					</Text>
 				</View>
+				<View style={styles.cabinet_item_content_chunk_desc_box}>
+					<Text style={active ? styles.cabinet_item_content_chunk_desc_text_active : styles.cabinet_item_content_chunk_desc_text}>
+						可用格口: {boxDetail[id].empty}
+					</Text>
+				</View>
 				{active && (
 					<View style={styles.cabinet_item_content_chunk_icon}>
 						<Icon style={styles.content_clothing_item_money_right_icon} name="checkcircleo" size={24} color="#fb9dd0" />
@@ -44,10 +47,11 @@ export default class OrderScreen extends React.Component {
 	}
 }
 
-let itemHeight = (width - 60) / 3;
+let itemWidth = (width - 60) / 3;
+let itemHeight = (width - 60) / 3 + 20;
 const styles = StyleSheet.create({
 	cabinet_item_content_chunk: {
-		width: itemHeight,
+		width: itemWidth,
 		height: itemHeight,
 		marginRight: 10,
 		position: 'relative',
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
 	cabinet_item_content_chunk_active: {
 		borderWidth: 0.5,
 		borderColor: '#fb9dd0',
-		width: itemHeight,
+		width: itemWidth,
 		height: itemHeight,
 		marginRight: 10,
 		position: 'relative',
@@ -76,7 +80,7 @@ const styles = StyleSheet.create({
 	},
 	cabinet_item_content_chunk_title: {
 		justifyContent: 'center',
-		minHeight: itemHeight / 4,
+		minHeight: itemHeight / 4 - 10,
 		alignItems: 'center',
 	},
 	cabinet_item_content_chunk_title_text: {
@@ -90,8 +94,14 @@ const styles = StyleSheet.create({
 		color: '#fb9dd0',
 	},
 	cabinet_item_content_chunk_desc: {
+		marginTop: 5,
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	cabinet_item_content_chunk_desc_box: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		marginTop: 5,
 	},
 	cabinet_item_content_chunk_desc_text: {
 		fontSize: 12,

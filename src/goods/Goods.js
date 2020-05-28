@@ -15,6 +15,8 @@ export default class Goods extends React.Component {
 		this.state = {
 			data: [],
 			totalPrice: 0,
+			remark: '',
+			boxid: '',
 		};
 	}
 
@@ -24,19 +26,20 @@ export default class Goods extends React.Component {
 			this.props.navigation.navigate('LoginScreen');
 			return Toast.warning('请登录!');
 		}
+		let { navigation } = this.props;
+		let boxid = navigation.getParam('boxid', '');
 		Request.get('/clothing/getByShopid', { shopid: shop.id }).then(res => {
 			let data = res.data || [];
 			if (Array.isArray(data) && data.length !== 0) {
 				data.forEach(item => (item.num = 0));
 			}
-			this.setState({ data: data || [] });
+			this.setState({ data: data || [], boxid });
 		});
 	}
 
-	onChangeText() {}
-
 	// 点击确定的时候
 	onSureClothing() {
+		let { remark = '', totalPrice = 0, boxid } = this.state;
 		Alert.alert(
 			'提示',
 			'该价格仅供参考,最终价格由店员确认',
@@ -44,7 +47,11 @@ export default class Goods extends React.Component {
 				{
 					text: '确定',
 					onPress: () => {
-						this.props.navigation.navigate('CabinetScreen');
+						this.props.navigation.navigate('CabinetScreen', {
+							remark: remark,
+							totalPrice: totalPrice,
+							boxid,
+						});
 					},
 				},
 			],
@@ -113,15 +120,15 @@ export default class Goods extends React.Component {
 					</View>
 					<View style={styles.content_input}>
 						<TextInput
-							style={styles.message_desc_input}
-							onChangeText={this.onChangeText.bind(this)}
-							autoComplete="off"
-							selectionColor="#fb9bcd"
-							keyboardType="default"
-							maxLength={100}
-							placeholder="moving洗衣店为您尽心服务!"
-							placeholderTextColor="#bfbfbf"
 							multiline
+							maxLength={100}
+							autoComplete="off"
+							keyboardType="default"
+							selectionColor="#fb9bcd"
+							placeholderTextColor="#bfbfbf"
+							style={styles.message_desc_input}
+							placeholder="moving洗衣店为您尽心服务!"
+							onChangeText={value => this.setState({ remark: value })}
 						/>
 					</View>
 				</ScrollView>

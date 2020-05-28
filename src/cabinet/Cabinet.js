@@ -1,10 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import CabinetItem from './CabinetItem';
-import CommonHeader from '../component/CommonHeader';
-import CommonSylte from '../style/common';
+import Request from '../util/Request';
 import Toast from '../component/Toast';
+import CabinetItem from './CabinetItem';
+import CommonSylte from '../style/common';
+import CommonHeader from '../component/CommonHeader';
 import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import Loading from '../component/Loading';
 
 const { width } = Dimensions.get('window');
 
@@ -12,11 +14,84 @@ export default class OrderScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			active: 'little',
+			active: 'smallBox',
+			loadingVisible: false,
+			boxDetail: {
+				smallBox: {
+					empty: 0,
+					used: 0,
+				},
+				middleBox: {
+					empty: 0,
+					used: 0,
+				},
+				bigBox: {
+					empty: 0,
+					used: 0,
+				},
+			},
+			expressList: [
+				{
+					id: 'smallBox',
+					title: '小格口',
+					desc: '限重一公斤',
+					normalImg: require('../../img/public/express_little.png'),
+					activeImg: require('../../img/public/express_little_active.png'),
+				},
+				{
+					id: 'middleBox',
+					title: '中格口',
+					desc: '限重三公斤',
+					normalImg: require('../../img/public/express_middle.png'),
+					activeImg: require('../../img/public/express_middle_acitve.png'),
+				},
+				{
+					id: 'bigBox',
+					title: '大格口',
+					desc: '限重五公斤',
+					normalImg: require('../../img/public/express_big.png'),
+					activeImg: require('../../img/public/express_big_active.png'),
+				},
+			],
 		};
+		this.getParams = this.getParams.bind(this);
 	}
 
-	componentDidMount() {}
+	async componentDidMount() {
+		await this.getState();
+	}
+
+	getParams() {
+		let { navigation } = this.props;
+		console.log(navigation);
+		let boxid = navigation.getParam('boxid', ''),
+			remark = navigation.getParam('remark', ''),
+			totalPrice = navigation.getParam('totalPrice', '');
+		return { boxid, remark, totalPrice };
+	}
+
+	getState() {
+		let params = this.getParams();
+		Request.get('/cabinet/getStateById', { boxid: params.boxid }).then(res => {
+			console.log(res, 111);
+			this.setState({
+				boxDetail: res.data || {
+					smallBox: {
+						empty: 0,
+						used: 0,
+					},
+					middleBox: {
+						empty: 0,
+						used: 0,
+					},
+					bigBox: {
+						empty: 0,
+						used: 0,
+					},
+				},
+			});
+		});
+	}
 
 	onPress(id) {
 		this.setState({ active: id });
@@ -24,35 +99,22 @@ export default class OrderScreen extends React.Component {
 
 	// 打开柜子
 	onOpenCabinet() {
-		Toast.warning('网络错误');
+		let detail = this.getParams();
+		this.setState({ loadingVisible: true }, () => {
+			Request.post('/cabinet/open', { boxid: detail.boxid, type: this.state.active })
+				.then(res => {
+					if (res.data === 'success') {
+						return Toast.success('柜子已打开, 请存放衣物!');
+					}
+					Toast.warning('网络错误');
+				})
+				.finally(() => this.setState({ loadingVisible: false }));
+		});
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { active } = this.state;
-		const expressList = [
-			{
-				id: 'little',
-				title: '小格口',
-				desc: '限重一公斤',
-				normalImg: require('../../img/public/express_little.png'),
-				activeImg: require('../../img/public/express_little_active.png'),
-			},
-			{
-				id: 'middle',
-				title: '中格口',
-				desc: '限重三公斤',
-				normalImg: require('../../img/public/express_middle.png'),
-				activeImg: require('../../img/public/express_middle_acitve.png'),
-			},
-			{
-				id: 'big',
-				title: '大格口',
-				desc: '限重五公斤',
-				normalImg: require('../../img/public/express_big.png'),
-				activeImg: require('../../img/public/express_big_active.png'),
-			},
-		];
+		let { active, expressList, boxDetail, loadingVisible } = this.state;
 		return (
 			<View style={{ flex: 1 }}>
 				<CommonHeader title="选择柜口" navigation={navigation} />
@@ -67,6 +129,7 @@ export default class OrderScreen extends React.Component {
 									<CabinetItem
 										key={index}
 										id={item.id}
+										boxDetail={boxDetail}
 										onPress={this.onPress.bind(this)}
 										title={item.title}
 										active={active === item.id}
@@ -87,12 +150,13 @@ export default class OrderScreen extends React.Component {
 				<TouchableOpacity style={styles.cabinet_item_bottom} onPress={this.onOpenCabinet.bind(this)}>
 					<Text style={styles.cabinet_item_bottom_text}>打开柜子</Text>
 				</TouchableOpacity>
+				<Loading visible={loadingVisible} />
 			</View>
 		);
 	}
 }
 
-let itemHeight = (width - 60) / 3;
+let itemHeight = (width - 60) / 3 + 20;
 const styles = StyleSheet.create({
 	cabinet: {
 		flex: 1,

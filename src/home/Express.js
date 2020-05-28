@@ -37,14 +37,15 @@ export default class Express extends React.Component {
 	}
 
 	// 存放衣物
-	async putClothing() {
+	async putClothing(boxDetail) {
+		let boxid = boxDetail.boxid;
 		let shop = await storageUtil.get('shop'),
 			{ navigate } = this.props.navigation;
 		if (!shop) {
 			navigate('LoginScreen');
 			return Toast.warning('请先登录!');
 		}
-		navigate('GoodsScreen');
+		navigate('GoodsScreen', { boxid });
 	}
 
 	render() {
@@ -56,7 +57,6 @@ export default class Express extends React.Component {
 				</View>
 				{cabinetList && cabinetList.length !== 0 ? (
 					cabinetList.map((item, index) => {
-						console.log(`${config.baseUrl}/${item.url}`);
 						return (
 							<View style={styles.home_express_item} key={index}>
 								<View style={styles.home_express_item_left}>
@@ -82,7 +82,7 @@ export default class Express extends React.Component {
 											}}
 											titleStyle={{ fontSize: 14 }}
 											title="存放衣物"
-											onPress={this.putClothing.bind(this)}
+											onPress={this.putClothing.bind(this, item)}
 										/>
 									</View>
 								</View>

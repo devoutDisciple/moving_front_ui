@@ -45,7 +45,6 @@ export default class SettingScreen extends React.Component {
 
 	// 弹框确定的时候
 	onOkDialog(key, value) {
-		console.log(key, value, 111);
 		this.setState({ visible: false });
 		this.onSaveValue(key, value);
 	}
