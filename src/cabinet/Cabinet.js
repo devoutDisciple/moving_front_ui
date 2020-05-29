@@ -7,6 +7,9 @@ import CommonSylte from '../style/common';
 import CommonHeader from '../component/CommonHeader';
 import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Loading from '../component/Loading';
+import storageUtil from '../util/Storage';
+import Message from '../component/Message';
+import { INIT_BOX_STATE, EXPRESS_LIST } from './const';
 
 const { width } = Dimensions.get('window');
 
@@ -16,79 +19,40 @@ export default class OrderScreen extends React.Component {
 		this.state = {
 			active: 'smallBox',
 			loadingVisible: false,
-			boxDetail: {
-				smallBox: {
-					empty: 0,
-					used: 0,
-				},
-				middleBox: {
-					empty: 0,
-					used: 0,
-				},
-				bigBox: {
-					empty: 0,
-					used: 0,
-				},
-			},
-			expressList: [
-				{
-					id: 'smallBox',
-					title: '小格口',
-					desc: '限重一公斤',
-					normalImg: require('../../img/public/express_little.png'),
-					activeImg: require('../../img/public/express_little_active.png'),
-				},
-				{
-					id: 'middleBox',
-					title: '中格口',
-					desc: '限重三公斤',
-					normalImg: require('../../img/public/express_middle.png'),
-					activeImg: require('../../img/public/express_middle_acitve.png'),
-				},
-				{
-					id: 'bigBox',
-					title: '大格口',
-					desc: '限重五公斤',
-					normalImg: require('../../img/public/express_big.png'),
-					activeImg: require('../../img/public/express_big_active.png'),
-				},
-			],
+			boxDetail: INIT_BOX_STATE.INIT_BOX_STATE,
+			expressList: EXPRESS_LIST,
 		};
 		this.getParams = this.getParams.bind(this);
+		this.addOrder = this.addOrder.bind(this);
+		this.getState = this.getState.bind(this);
 	}
 
 	async componentDidMount() {
+		console.log(this.props.navigation, 888);
 		await this.getState();
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.getParams);
+		window.removeEventListener('scroll', this.addOrder);
+		window.removeEventListener('scroll', this.getState);
 	}
 
 	getParams() {
 		let { navigation } = this.props;
-		console.log(navigation);
 		let boxid = navigation.getParam('boxid', ''),
+			goods = navigation.getParam('goods', ''),
 			remark = navigation.getParam('remark', ''),
+			cabinetId = navigation.getParam('cabinetId', ''),
 			totalPrice = navigation.getParam('totalPrice', '');
-		return { boxid, remark, totalPrice };
+		return { goods, boxid, remark, totalPrice, cabinetId };
 	}
 
 	getState() {
 		let params = this.getParams();
 		Request.get('/cabinet/getStateById', { boxid: params.boxid }).then(res => {
-			console.log(res, 111);
 			this.setState({
-				boxDetail: res.data || {
-					smallBox: {
-						empty: 0,
-						used: 0,
-					},
-					middleBox: {
-						empty: 0,
-						used: 0,
-					},
-					bigBox: {
-						empty: 0,
-						used: 0,
-					},
-				},
+				boxDetail: res.data || INIT_BOX_STATE.INIT_BOX_STATE,
 			});
 		});
 	}
@@ -103,13 +67,37 @@ export default class OrderScreen extends React.Component {
 		this.setState({ loadingVisible: true }, () => {
 			Request.post('/cabinet/open', { boxid: detail.boxid, type: this.state.active })
 				.then(res => {
-					if (res.data === 'success') {
+					if (res.code === 200) {
+						let { boxid, cellid } = res.data;
+						this.addOrder(boxid, cellid);
 						return Toast.success('柜子已打开, 请存放衣物!');
 					}
 					Toast.warning('网络错误');
 				})
 				.finally(() => this.setState({ loadingVisible: false }));
 		});
+	}
+
+	async addOrder(boxid, cellid) {
+		let params = this.getParams();
+		let shop = await storageUtil.get('shop'),
+			user = await storageUtil.get('user');
+		let shopid = shop.id,
+			userid = user.id;
+		let result = await Request.post('/order/add', {
+			shopid,
+			userid,
+			goods: JSON.stringify(params.goods || []),
+			money: params.totalPrice,
+			desc: params.remark,
+			status: 1,
+			cabinetId: params.cabinetId,
+			boxid,
+			cellid,
+		});
+		if (result.data === 'success') {
+			Message.warning('订单已生成', '祝您生活愉快');
+		}
 	}
 
 	render() {

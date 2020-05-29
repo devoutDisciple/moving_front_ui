@@ -17,6 +17,7 @@ export default class Goods extends React.Component {
 			totalPrice: 0,
 			remark: '',
 			boxid: '',
+			cabinetId: '',
 		};
 	}
 
@@ -27,19 +28,21 @@ export default class Goods extends React.Component {
 			return Toast.warning('请登录!');
 		}
 		let { navigation } = this.props;
-		let boxid = navigation.getParam('boxid', '');
+		let boxid = navigation.getParam('boxid', ''),
+			cabinetId = navigation.getParam('cabinetId', '');
 		Request.get('/clothing/getByShopid', { shopid: shop.id }).then(res => {
 			let data = res.data || [];
 			if (Array.isArray(data) && data.length !== 0) {
 				data.forEach(item => (item.num = 0));
 			}
-			this.setState({ data: data || [], boxid });
+			this.setState({ data: data || [], boxid, cabinetId });
 		});
 	}
 
 	// 点击确定的时候
 	onSureClothing() {
-		let { remark = '', totalPrice = 0, boxid } = this.state;
+		let { remark = '', totalPrice = 0, data, boxid, cabinetId } = this.state;
+		let selectGoods = data.filter(item => item.num !== 0);
 		Alert.alert(
 			'提示',
 			'该价格仅供参考,最终价格由店员确认',
@@ -48,9 +51,11 @@ export default class Goods extends React.Component {
 					text: '确定',
 					onPress: () => {
 						this.props.navigation.navigate('CabinetScreen', {
-							remark: remark,
-							totalPrice: totalPrice,
 							boxid,
+							cabinetId,
+							remark: remark,
+							goods: selectGoods,
+							totalPrice: totalPrice,
 						});
 					},
 				},

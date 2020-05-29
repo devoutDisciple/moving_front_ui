@@ -4,6 +4,7 @@ import Request from '../../util/Request';
 import config from '../../config/config';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import * as WeChat from 'react-native-wechat';
+import Config from '../../config/config';
 import Toast from '../../component/Toast';
 
 export default class AllOrder extends React.Component {
@@ -70,8 +71,8 @@ export default class AllOrder extends React.Component {
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					<Image style={styles.order_item_left_img} source={imgUrl} />
-					{/* <Image style={{ width: 50, height: 50 }} source={{ uri: 'https://facebook.github.io/react-native/img/tiny_logo.png' }} /> */}
+					{/* <Image style={styles.order_item_left_img} source={imgUrl} /> */}
+					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/${imgUrl}` }} />
 					{/* <Image style={{ width: 50, height: 50 }} source={{ uri: 'http://i.imgur.com/UePbdph.jpg' }} /> */}
 				</View>
 				<View style={styles.order_item_right}>
@@ -88,7 +89,7 @@ export default class AllOrder extends React.Component {
 					</View>
 					<TouchableOpacity onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>取货地点：{address}</Text>
+							<Text style={styles.font_desc_style}>存取地址：{address}</Text>
 						</View>
 						<View style={styles.order_item_right_goods}>
 							<View style={styles.order_item_right_goods_left}>
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
 		lineHeight: 20,
 	},
 	order_item: {
-		height: 180,
+		minHeight: 150,
 		margin: 10,
 		marginBottom: 0,
 		backgroundColor: '#fff',
@@ -160,8 +161,8 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 	},
 	order_item_right_adrress: {
-		marginTop: 5,
-		height: 50,
+		marginTop: 8,
+		minHeight: 24,
 	},
 	order_item_right_goods: {
 		flexDirection: 'row',
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-end',
 	},
 	order_item_right_bottom: {
-		height: 50,
+		height: 40,
 		justifyContent: 'flex-end',
 		alignItems: 'flex-end',
 	},

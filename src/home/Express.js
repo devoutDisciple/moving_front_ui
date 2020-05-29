@@ -38,14 +38,16 @@ export default class Express extends React.Component {
 
 	// 存放衣物
 	async putClothing(boxDetail) {
-		let boxid = boxDetail.boxid;
+		console.log(boxDetail, 88);
+		let boxid = boxDetail.boxid,
+			cabinetId = boxDetail.id;
 		let shop = await storageUtil.get('shop'),
 			{ navigate } = this.props.navigation;
 		if (!shop) {
 			navigate('LoginScreen');
 			return Toast.warning('请先登录!');
 		}
-		navigate('GoodsScreen', { boxid });
+		navigate('GoodsScreen', { boxid, cabinetId });
 	}
 
 	render() {
