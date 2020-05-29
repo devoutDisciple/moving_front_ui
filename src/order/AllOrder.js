@@ -98,6 +98,7 @@ export default class AllOrder extends React.Component {
 								address={item.cabinetAdderss}
 								time={item.create_time}
 								money={item.money}
+								status={item.status}
 								goods={`${firstName} 等 ${totalThings} 件衣物`}
 							/>
 						);

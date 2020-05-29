@@ -6,6 +6,7 @@ import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import * as WeChat from 'react-native-wechat';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
+import FilterStatus from '../../util/FilterStatus';
 
 export default class AllOrder extends React.Component {
 	constructor(props) {
@@ -67,13 +68,11 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		const { id, title, imgUrl, time, address, goods, money } = this.props;
+		const { id, title, imgUrl, time, address, goods, money, status } = this.props;
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					{/* <Image style={styles.order_item_left_img} source={imgUrl} /> */}
 					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/${imgUrl}` }} />
-					{/* <Image style={{ width: 50, height: 50 }} source={{ uri: 'http://i.imgur.com/UePbdph.jpg' }} /> */}
 				</View>
 				<View style={styles.order_item_right}>
 					<View style={styles.order_item_right_title}>
@@ -81,7 +80,7 @@ export default class AllOrder extends React.Component {
 							<Text style={styles.font_title_style}>{title}</Text>
 						</View>
 						<View style={styles.order_item_right_title_right}>
-							<Text style={styles.font_title_style}>待支付</Text>
+							<Text style={styles.font_title_style}>{FilterStatus.filterOrderStatus(status)}</Text>
 						</View>
 					</View>
 					<View style={styles.order_item_right_time}>

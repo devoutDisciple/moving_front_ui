@@ -17,4 +17,28 @@ export default {
 		}
 		return data;
 	},
+	// 订单
+	filterOrderStatus: function(status) {
+		let data = '';
+		switch (Number(status)) {
+			case 1:
+				data = '待取货';
+				break;
+			case 2:
+				data = '清洗中';
+				break;
+			case 3:
+				data = '待付款';
+				break;
+			case 4:
+				data = '待取货';
+				break;
+			case 5:
+				data = '已完成';
+				break;
+			default:
+				data = '待取货';
+		}
+		return data;
+	},
 };
