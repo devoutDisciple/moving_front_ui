@@ -1,4 +1,6 @@
 export default {
+	currentVersion: '1.0.0',
+
 	// 线上环境
 	// baseUrl: 'http://www.bws666.com:3001',
 	// lunboUrl: 'http://localhost:3001',

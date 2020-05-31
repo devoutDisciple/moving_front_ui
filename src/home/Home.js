@@ -20,6 +20,7 @@ export default class HomeScreen extends React.Component {
 			loadingVisible: false,
 			shopList: [],
 			shopid: '',
+			version: '1.0.0',
 		};
 		this.locationClick = this.locationClick.bind(this);
 	}
@@ -88,7 +89,28 @@ export default class HomeScreen extends React.Component {
 			// 右侧按钮点击
 			rightIconClick: () => this.serviceClick(),
 		});
-		await this.setState({ loadingVisible: true });
+		await this.getAllShop();
+		await this.getVersion();
+	}
+
+	// 获取当前版本
+	async getVersion() {
+		let { version } = this.state;
+		let res = await Request.get('/version/getCurrentVersion');
+		let versionDetail = res.data;
+		if (version !== config.currentVersion) {
+			if (versionDetail.force === 1) {
+				return Message.forceUpdateVersion('更新', '发现新版本, 请更新');
+			}
+			if (versionDetail.force === 2) {
+				return Message.softUpdate('更新', '发现新版本, 请更新');
+			}
+		}
+	}
+
+	// 获取所有商店
+	async getAllShop() {
+		this.setState({ loadingVisible: true });
 		// 获取所有门店列表
 		Request.get('/shop/all')
 			.then(async res => {

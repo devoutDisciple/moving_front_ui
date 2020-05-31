@@ -69,7 +69,7 @@ export default class OrderScreen extends React.Component {
 				.then(res => {
 					if (res.code === 200) {
 						let { boxid, cellid } = res.data;
-						this.addOrder(boxid, cellid);
+						// this.addOrder(boxid, cellid);
 						return Toast.success('柜子已打开, 请存放衣物!');
 					}
 					Toast.warning('网络错误');
