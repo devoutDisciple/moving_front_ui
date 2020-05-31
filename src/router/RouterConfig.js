@@ -179,6 +179,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 选择快递柜子页面
+		CabinetScreen: {
+			screen: CabinetScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,
@@ -287,15 +296,7 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
-		// 选择快递柜子页面
-		CabinetScreen: {
-			screen: CabinetScreen,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
+
 		// 上门取衣服服务
 		ClothingScreen: {
 			screen: ClothingScreen,

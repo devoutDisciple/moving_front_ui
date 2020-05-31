@@ -38,7 +38,6 @@ export default class Express extends React.Component {
 
 	// 存放衣物
 	async putClothing(boxDetail) {
-		console.log(boxDetail, 88);
 		let boxid = boxDetail.boxid,
 			cabinetId = boxDetail.id;
 		let shop = await storageUtil.get('shop'),

@@ -1,18 +1,24 @@
 export const INIT_BOX_STATE = {
-	INIT_BOX_STATE: {
-		smallBox: {
+	INIT_BOX_STATE: [
+		{
+			id: 'smallBox',
+			title: '叠柜',
+			desc: '限重一公斤',
+			normalImg: require('../../img/public/express_little.png'),
+			activeImg: require('../../img/public/express_little_active.png'),
 			empty: 0,
 			used: 0,
 		},
-		middleBox: {
+		{
+			id: 'middleBox',
+			title: '挂柜',
+			desc: '限重三公斤',
+			normalImg: require('../../img/public/express_middle.png'),
+			activeImg: require('../../img/public/express_middle_acitve.png'),
 			empty: 0,
 			used: 0,
 		},
-		bigBox: {
-			empty: 0,
-			used: 0,
-		},
-	},
+	],
 };
 
 export const EXPRESS_LIST = [

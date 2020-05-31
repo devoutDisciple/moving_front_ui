@@ -9,7 +9,7 @@ import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from
 import Loading from '../component/Loading';
 import storageUtil from '../util/Storage';
 import Message from '../component/Message';
-import { INIT_BOX_STATE, EXPRESS_LIST } from './const';
+import { INIT_BOX_STATE } from './const';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +20,6 @@ export default class OrderScreen extends React.Component {
 			active: 'smallBox',
 			loadingVisible: false,
 			boxDetail: INIT_BOX_STATE.INIT_BOX_STATE,
-			expressList: EXPRESS_LIST,
 		};
 		this.getParams = this.getParams.bind(this);
 		this.addOrder = this.addOrder.bind(this);
@@ -28,7 +27,6 @@ export default class OrderScreen extends React.Component {
 	}
 
 	async componentDidMount() {
-		console.log(this.props.navigation, 888);
 		await this.getState();
 	}
 
@@ -50,9 +48,15 @@ export default class OrderScreen extends React.Component {
 
 	getState() {
 		let params = this.getParams();
-		Request.get('/cabinet/getStateById', { boxid: params.boxid }).then(res => {
+		Request.get('/cabinet/getStateById', { cabinetId: params.cabinetId || 8 }).then(res => {
+			let data = res.data;
+			let boxState = INIT_BOX_STATE.INIT_BOX_STATE;
+			boxState[0].used = data && data.samllBox ? data.samllBox.used : 0;
+			boxState[0].empty = data && data.samllBox ? data.samllBox.empty : 0;
+			boxState[1].used = data && data.bigBox ? data.bigBox.used : 0;
+			boxState[1].empty = data && data.bigBox ? data.bigBox.empty : 0;
 			this.setState({
-				boxDetail: res.data || INIT_BOX_STATE.INIT_BOX_STATE,
+				boxDetail: boxState,
 			});
 		});
 	}
@@ -112,19 +116,9 @@ export default class OrderScreen extends React.Component {
 							<Text>幸福家园北门一号柜</Text>
 						</View>
 						<View style={styles.cabinet_item_content}>
-							{expressList.map((item, index) => {
+							{boxDetail.map((item, index) => {
 								return (
-									<CabinetItem
-										key={index}
-										id={item.id}
-										boxDetail={boxDetail}
-										onPress={this.onPress.bind(this)}
-										title={item.title}
-										active={active === item.id}
-										source={item.normalImg}
-										acitveSource={item.activeImg}
-										desc={item.desc}
-									/>
+									<CabinetItem key={index} detail={item} active={active === item.id} onPress={this.onPress.bind(this)} />
 								);
 							})}
 						</View>
@@ -144,7 +138,7 @@ export default class OrderScreen extends React.Component {
 	}
 }
 
-let itemHeight = (width - 60) / 3 + 20;
+let itemHeight = (width - 60) / 2 + 20;
 const styles = StyleSheet.create({
 	cabinet: {
 		flex: 1,

@@ -11,30 +11,31 @@ export default class OrderScreen extends React.Component {
 	}
 
 	render() {
-		let { source, acitveSource, title, desc, active, id, boxDetail } = this.props;
+		let { active, detail } = this.props;
+		console.log(detail, 999);
 		return (
 			<TouchableOpacity
-				onPress={this.props.onPress.bind(this, id)}
+				onPress={this.props.onPress.bind(this, detail.id)}
 				style={active ? styles.cabinet_item_content_chunk_active : styles.cabinet_item_content_chunk}
 			>
 				<View style={styles.cabinet_item_content_chunk_img_content}>
-					<Image style={styles.cabinet_item_content_chunk_img} source={active ? acitveSource : source} />
+					<Image style={styles.cabinet_item_content_chunk_img} source={active ? detail.activeImg : detail.normalImg} />
 				</View>
 				<View style={styles.cabinet_item_content_chunk_title}>
 					<Text
 						style={active ? styles.cabinet_item_content_chunk_title_text_active : styles.cabinet_item_content_chunk_title_text}
 					>
-						{title}
+						{detail.title}
 					</Text>
 				</View>
 				<View style={styles.cabinet_item_content_chunk_desc}>
 					<Text style={active ? styles.cabinet_item_content_chunk_desc_text_active : styles.cabinet_item_content_chunk_desc_text}>
-						{desc}
+						{detail.desc}
 					</Text>
 				</View>
 				<View style={styles.cabinet_item_content_chunk_desc_box}>
 					<Text style={active ? styles.cabinet_item_content_chunk_desc_text_active : styles.cabinet_item_content_chunk_desc_text}>
-						可用格口: {boxDetail[id].empty}
+						可用格口: {detail.empty}
 					</Text>
 				</View>
 				{active && (
@@ -47,8 +48,8 @@ export default class OrderScreen extends React.Component {
 	}
 }
 
-let itemWidth = (width - 60) / 3;
-let itemHeight = (width - 60) / 3 + 20;
+let itemWidth = (width - 60) / 2;
+let itemHeight = (width - 60) / 2 + 20;
 const styles = StyleSheet.create({
 	cabinet_item_content_chunk: {
 		width: itemWidth,
