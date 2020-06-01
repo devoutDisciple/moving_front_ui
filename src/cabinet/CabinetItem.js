@@ -12,7 +12,6 @@ export default class OrderScreen extends React.Component {
 
 	render() {
 		let { active, detail } = this.props;
-		console.log(detail, 999);
 		return (
 			<TouchableOpacity
 				onPress={this.props.onPress.bind(this, detail.id)}

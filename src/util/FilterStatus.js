@@ -22,7 +22,7 @@ export default {
 		let data = '';
 		switch (Number(status)) {
 			case 1:
-				data = '待取货';
+				data = '待店员取货';
 				break;
 			case 2:
 				data = '清洗中';

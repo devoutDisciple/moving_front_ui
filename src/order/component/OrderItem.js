@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	order_item_right_title_right: {
-		width: 50,
+		width: 72,
 		alignItems: 'flex-end',
 	},
 	order_item_right_time: {

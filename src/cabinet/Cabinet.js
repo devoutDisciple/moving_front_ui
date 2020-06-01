@@ -68,12 +68,16 @@ export default class OrderScreen extends React.Component {
 	// 打开柜子
 	onOpenCabinet() {
 		let detail = this.getParams();
+		let boxid = detail.boxid,
+			type = this.state.active,
+			cabinetId = detail.cabinetId;
+		console.log(cabinetId, boxid, type, 111);
 		this.setState({ loadingVisible: true }, () => {
-			Request.post('/cabinet/open', { boxid: detail.boxid, type: this.state.active })
+			Request.post('/cabinet/open', { cabinetId, boxid, type })
 				.then(res => {
 					if (res.code === 200) {
-						let { boxid, cellid } = res.data;
-						// this.addOrder(boxid, cellid);
+						let { cellid } = res.data;
+						this.addOrder(detail.boxid, cellid);
 						return Toast.success('柜子已打开, 请存放衣物!');
 					}
 					Toast.warning('网络错误');
@@ -84,6 +88,7 @@ export default class OrderScreen extends React.Component {
 
 	async addOrder(boxid, cellid) {
 		let params = this.getParams();
+		console.log(params, 222);
 		let shop = await storageUtil.get('shop'),
 			user = await storageUtil.get('user');
 		let shopid = shop.id,
@@ -106,7 +111,7 @@ export default class OrderScreen extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let { active, expressList, boxDetail, loadingVisible } = this.state;
+		let { active, boxDetail, loadingVisible } = this.state;
 		return (
 			<View style={{ flex: 1 }}>
 				<CommonHeader title="选择柜口" navigation={navigation} />

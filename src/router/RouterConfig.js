@@ -179,18 +179,18 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
-		// 选择快递柜子页面
-		CabinetScreen: {
-			screen: CabinetScreen,
+		// 首页
+		HomeScreen: {
+			screen: TabNavigator,
 			navigationOptions: {
 				headerShown: false,
 				headerBackTitle: '返回',
 				headerBackAllowFontScaling: false,
 			},
 		},
-		// 首页
-		HomeScreen: {
-			screen: TabNavigator,
+		// 选择快递柜子页面
+		CabinetScreen: {
+			screen: CabinetScreen,
 			navigationOptions: {
 				headerShown: false,
 				headerBackTitle: '返回',
