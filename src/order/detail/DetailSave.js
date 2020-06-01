@@ -54,10 +54,12 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		marginVertical: 10,
 		padding: 10,
+		marginBottom: 20,
 	},
 	detail_send_content_item: {
 		flexDirection: 'row',
 		marginBottom: 10,
+		marginLeft: 20,
 	},
 	detail_send_content_item_label: {
 		width: 80,
