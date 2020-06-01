@@ -106,6 +106,7 @@ export default class OrderScreen extends React.Component {
 		});
 		if (result.data === 'success') {
 			Message.warning('订单已生成', '祝您生活愉快');
+			this.getState();
 		}
 	}
 

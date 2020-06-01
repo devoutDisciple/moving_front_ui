@@ -11,6 +11,7 @@ export default class OrderScreen extends React.Component {
 	componentDidMount() {}
 
 	render() {
+		let { orderDetail } = this.props;
 		return (
 			<View style={styles.detail_send}>
 				<View style={styles.detail_common_title}>
@@ -19,7 +20,7 @@ export default class OrderScreen extends React.Component {
 				<View style={styles.detail_send_content}>
 					<View style={styles.detail_send_content_item}>
 						<Text style={styles.detail_send_content_item_label}>存货时间: </Text>
-						<Text style={styles.detail_send_content_item_text}>2020-04-05 20:18:32</Text>
+						<Text style={styles.detail_send_content_item_text}>{orderDetail.create_time}</Text>
 					</View>
 					<View style={styles.detail_send_content_item}>
 						<Text style={styles.detail_send_content_item_label}>存货地点: </Text>

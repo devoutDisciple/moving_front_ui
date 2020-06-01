@@ -14,7 +14,7 @@ export default class ReCharge extends React.Component {
 		super(props);
 		this.state = {
 			activeMoney: 1,
-			payWay: 'alipay',
+			payWay: 'wechat',
 		};
 	}
 
@@ -47,27 +47,28 @@ export default class ReCharge extends React.Component {
 						<Text style={{ fontSize: 14, color: '#333' }}>余额充值</Text>
 					</View>
 					<View style={styles.content_account}>
-						<MoneyItem money={1000} discount={200} active={activeMoney === 1} onPress={this.onPressChargeItem.bind(this, 1)} />
-						<MoneyItem money={500} discount={80} active={activeMoney === 2} onPress={this.onPressChargeItem.bind(this, 2)} />
-						<MoneyItem money={200} discount={20} active={activeMoney === 3} onPress={this.onPressChargeItem.bind(this, 3)} />
-						<MoneyItem money={100} active={activeMoney === 4} onPress={this.onPressChargeItem.bind(this, 4)} />
+						{/* 1000 400 */}
+						<MoneyItem money={1000} discount={400} active={activeMoney === 1} onPress={this.onPressChargeItem.bind(this, 1)} />
+						<MoneyItem money={600} discount={200} active={activeMoney === 2} onPress={this.onPressChargeItem.bind(this, 2)} />
+						<MoneyItem money={500} discount={150} active={activeMoney === 3} onPress={this.onPressChargeItem.bind(this, 3)} />
+						<MoneyItem money={200} discount={20} active={activeMoney === 4} onPress={this.onPressChargeItem.bind(this, 4)} />
 					</View>
 					<View style={styles.detail_common_title}>
 						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
 					</View>
-					<PayItem
-						iconName="alipay-circle"
-						onPress={this.payWayChange.bind(this, 'alipay')}
-						iconColor="#208ee9"
-						text="支付宝支付"
-						active={payWay === 'alipay'}
-					/>
 					<PayItem
 						iconName="wechat"
 						onPress={this.payWayChange.bind(this, 'wechat')}
 						iconColor="#89e04c"
 						text="微信支付"
 						active={payWay === 'wechat'}
+					/>
+					<PayItem
+						iconName="alipay-circle"
+						onPress={this.payWayChange.bind(this, 'alipay')}
+						iconColor="#208ee9"
+						text="支付宝支付"
+						active={payWay === 'alipay'}
 					/>
 				</ScrollView>
 				<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>
