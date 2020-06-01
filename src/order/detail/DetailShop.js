@@ -15,32 +15,24 @@ export default class OrderScreen extends React.Component {
 		return (
 			<View style={styles.detail_send}>
 				<View style={styles.detail_common_title}>
-					<Text>收货信息</Text>
+					<Text>店铺信息</Text>
 				</View>
 				<View style={styles.detail_send_content}>
 					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>存货时间: </Text>
-						<Text style={styles.detail_send_content_item_text}>{orderDetail.create_time}</Text>
+						<Text style={styles.detail_send_content_item_label}>店铺名称: </Text>
+						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopName}</Text>
 					</View>
 					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>存货地点: </Text>
-						<Text style={styles.detail_send_content_item_text}>
-							{orderDetail.cabinetAddress} {orderDetail.cellid}格口
-						</Text>
+						<Text style={styles.detail_send_content_item_label}>联系人: </Text>
+						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopManager}</Text>
 					</View>
 					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>收件人: </Text>
-						<Text style={styles.detail_send_content_item_text}>{address.username}</Text>
+						<Text style={styles.detail_send_content_item_label}>联系电话: </Text>
+						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopPhone}</Text>
 					</View>
 					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>收件人电话: </Text>
-						<Text style={styles.detail_send_content_item_text}>{address.phone}</Text>
-					</View>
-					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>收件人地址: </Text>
-						<Text style={styles.detail_send_content_item_text}>
-							{address.area} {address.street}
-						</Text>
+						<Text style={styles.detail_send_content_item_label}>店铺地址: </Text>
+						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopAddress}</Text>
 					</View>
 				</View>
 			</View>
