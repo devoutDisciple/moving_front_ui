@@ -179,6 +179,14 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 积分兑换页面
+		IntergralScreen: {
+			screen: IntergralScreen,
+			headerBackTitle: '返回',
+			navigationOptions: {
+				headerShown: false,
+			},
+		},
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,
@@ -264,14 +272,7 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
-		// 积分兑换页面
-		IntergralScreen: {
-			screen: IntergralScreen,
-			headerBackTitle: '返回',
-			navigationOptions: {
-				headerShown: false,
-			},
-		},
+
 		// 意见和反馈页面
 		SuggestionScreen: {
 			screen: SuggestionScreen,

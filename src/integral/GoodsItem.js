@@ -2,7 +2,11 @@
 import React from 'react';
 import FastImage from '../component/FastImage';
 import config from '../config/config';
-import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import Request from '../util/Request';
+import StorageUtil from '../util/Storage';
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
+import Message from '../component/Message';
+import Toast from '../component/Toast';
 
 const { width } = Dimensions.get('window');
 
@@ -12,9 +16,42 @@ export default class Intergral extends React.Component {
 	}
 
 	// 购买商品
-	onBuyGoods() {
+	async onBuyGoods() {
 		let { data } = this.props;
-		console.log(data, 111);
+		let shop = await StorageUtil.get('shop');
+		let user = await StorageUtil.get('user');
+		Alert.alert(
+			`是否确认兑换 ${data.name} ？`,
+			`该次兑换将消耗 ${data.intergral} 积分`,
+			[
+				{
+					text: '确认兑换',
+					onPress: async () => {
+						try {
+							let address = await Request.get('/address/getUserDefaultAddress', { userid: user.id });
+							if (!address.data) {
+								return Toast.warning('请填写收货地址');
+							}
+							let result = await Request.post('/intergral_record/add', {
+								userid: user.id,
+								shopid: shop.id,
+								goodsId: data.id,
+								intergral: data.intergral,
+								address: JSON.stringify(address.data || {}),
+							});
+							if (result.data === 'success') {
+								this.props.onSearch();
+								Message.warning('兑换成功', '请在兑换记录中查看详细信息');
+							}
+						} catch (error) {}
+					},
+				},
+				{
+					text: '取消',
+				},
+			],
+			{ cancelable: false },
+		);
 	}
 
 	render() {

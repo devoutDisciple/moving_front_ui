@@ -45,7 +45,7 @@ export default class Intergral extends React.Component {
 		if (!id) {
 			return;
 		}
-		let res = await Request.get('/intergral/getAllById', { id });
+		let res = await Request.get('/intergral_goods/getAllById', { id });
 		let goods = res.data || [];
 		this.setState({ goods, loadingVisible: false });
 	}
@@ -69,7 +69,7 @@ export default class Intergral extends React.Component {
 					{goods && goods.length !== 0 ? (
 						<View style={styles.intergrals_content_chunk}>
 							{goods.map(item => {
-								return <GoodsItem key={item.id} data={item || {}} />;
+								return <GoodsItem key={item.id} data={item || {}} onSearch={this.getUserIntergral.bind(this)} />;
 							})}
 						</View>
 					) : (
