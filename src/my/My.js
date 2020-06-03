@@ -80,8 +80,12 @@ export default class MyScreen extends React.Component {
 			return navigation.navigate('MyAddressScreen');
 		}
 		// 点击积分兑换的时候
-		if (key === 'intergral') {
+		if (key === 'intergralGoods') {
 			return navigation.navigate('IntergralScreen');
+		}
+		// 点击积分兑换记录的时候
+		if (key === 'intergralRecord') {
+			return navigation.navigate('IntergralRecordScreen');
 		}
 		// 点击余额充值
 		if (key === 'account') {
@@ -117,7 +121,8 @@ export default class MyScreen extends React.Component {
 					<My_Wallert navigation={this.props.navigation} user={user} />
 					<View style={{ height: 10 }} />
 					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
-					<ListItem iconName="staro" text="积分兑换" onPress={this.onPressListItem.bind(this, 'intergral')} />
+					<ListItem iconName="staro" text="积分兑换" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
+					<ListItem iconName="staro" text="积分兑换记录" onPress={this.onPressListItem.bind(this, 'intergralRecord')} />
 					<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
 					<ListItem iconName="linechart" text="消费记录" onPress={this.onPressListItem.bind(this, 'shopping')} />
 					<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />

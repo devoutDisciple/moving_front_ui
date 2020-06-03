@@ -18,6 +18,8 @@ import MySetting from '../my/setting/Setting';
 import MyMessage from '../my/message/Message';
 // 积分兑换页面
 import IntergralScreen from '../integral/Intergral';
+// 积分兑换记录页面
+import IntergralRecordScreen from '../intergralRecord/IntergralRecord';
 // 订单页面
 import OrderScreen from '../order/Index';
 // 二维码页面
@@ -179,6 +181,23 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 首页
+		HomeScreen: {
+			screen: TabNavigator,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
+		// 积分兑换记录页面
+		IntergralRecordScreen: {
+			screen: IntergralRecordScreen,
+			headerBackTitle: '返回',
+			navigationOptions: {
+				headerShown: false,
+			},
+		},
 		// 积分兑换页面
 		IntergralScreen: {
 			screen: IntergralScreen,
@@ -187,13 +206,12 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
-		// 首页
-		HomeScreen: {
-			screen: TabNavigator,
+		// 积分兑换记录页面
+		IntergralRecordScreen: {
+			screen: IntergralRecordScreen,
+			headerBackTitle: '返回',
 			navigationOptions: {
 				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
 			},
 		},
 		// 选择快递柜子页面
