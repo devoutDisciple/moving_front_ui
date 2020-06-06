@@ -11,6 +11,7 @@ import FilterStatus from '../../util/FilterStatus';
 export default class AllOrder extends React.Component {
 	constructor(props) {
 		super(props);
+		this.renderBtn = this.renderBtn.bind(this);
 	}
 
 	componentDidMount() {}
@@ -63,12 +64,42 @@ export default class AllOrder extends React.Component {
 		const { navigation } = this.props;
 		navigation.navigate('OrderDetailScreen', {
 			id: id,
-			hello: 'world',
 		});
+	}
+
+	renderBtn() {
+		let actionBtn = [];
+		let { status } = this.props;
+		const payBtn = (
+			<TouchableOpacity key="payBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
+				<Text style={styles.order_pay_font}>去支付</Text>
+			</TouchableOpacity>
+		);
+		const connectBtn = (
+			<TouchableOpacity key="connectBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
+				<Text style={styles.order_pay_font}>联系我们</Text>
+			</TouchableOpacity>
+		);
+		const openBoxBtn = (
+			<TouchableOpacity key="openBoxBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
+				<Text style={styles.order_pay_font}>打开柜子</Text>
+			</TouchableOpacity>
+		);
+		if (status === 1 || status === 2 || status === 5) {
+			actionBtn = [connectBtn];
+		}
+		if (status === 3) {
+			actionBtn = [payBtn, connectBtn];
+		}
+		if (status === 4) {
+			actionBtn = [openBoxBtn, connectBtn];
+		}
+		return actionBtn;
 	}
 
 	render() {
 		const { id, title, imgUrl, time, address, goods, money, status } = this.props;
+
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
@@ -99,11 +130,7 @@ export default class AllOrder extends React.Component {
 							</View>
 						</View>
 					</TouchableOpacity>
-					<View style={styles.order_item_right_bottom}>
-						<TouchableOpacity onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
-							<Text style={styles.order_pay_font}>去支付</Text>
-						</TouchableOpacity>
-					</View>
+					<View style={styles.order_item_right_bottom}>{this.renderBtn()}</View>
 				</View>
 			</View>
 		);
@@ -175,16 +202,17 @@ const styles = StyleSheet.create({
 	},
 	order_item_right_bottom: {
 		height: 40,
+		flexDirection: 'row',
 		justifyContent: 'flex-end',
 		alignItems: 'flex-end',
 	},
 	order_item_right_bottom_btn: {
-		width: 60,
 		padding: 5,
 		borderWidth: 1,
 		borderColor: '#fb9dd0',
 		alignItems: 'center',
 		borderRadius: 5,
+		marginHorizontal: 5,
 	},
 	order_pay_font: {
 		color: '#fb9dd0',

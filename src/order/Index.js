@@ -12,8 +12,6 @@ export default class OrderScreen extends React.Component {
 		};
 	}
 
-	componentDidMount() {}
-
 	// 改变tab的时候
 	changeTab(data) {
 		this.setState({

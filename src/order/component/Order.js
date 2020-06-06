@@ -68,7 +68,7 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		let { navigation } = this.props;
-		let { data, headerLoading, footerStatus, loadingVisible } = this.state;
+		let { data, headerLoading, footerStatus, loadingVisible, type } = this.state;
 		return (
 			<View style={styles.order_container}>
 				<FlatList
@@ -91,15 +91,16 @@ export default class AllOrder extends React.Component {
 						}
 						return (
 							<OrderItem
-								key={String(item.id)}
+								type={type}
 								id={item.id}
-								navigation={navigation}
-								title={item.shopName}
-								imgUrl={item.cabinetUrl}
-								address={item.cabinetAdderss}
-								time={item.create_time}
 								money={item.money}
 								status={item.status}
+								key={String(item.id)}
+								title={item.shopName}
+								time={item.create_time}
+								navigation={navigation}
+								imgUrl={item.cabinetUrl}
+								address={item.cabinetAdderss}
 								goods={`${firstName} 等 ${totalThings} 件衣物`}
 							/>
 						);
