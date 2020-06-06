@@ -2,10 +2,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import Allorder from './AllOrder';
-import WatingOrder from './WatingOrder';
-import ProcessOrder from './ProcessOrder';
-import EvaluateOrder from './EvaluateOrder';
+import Order from './component/Order';
 
 export default class OrderScreen extends React.Component {
 	constructor(props) {
@@ -48,15 +45,15 @@ export default class OrderScreen extends React.Component {
 						renderTabBar={() => <DefaultTabBar containerWidth={100} />}
 					>
 						<Text style={{ height: 0 }} tabLabel="全部" />
-						<Text style={{ height: 0 }} tabLabel="待支付" />
-						<Text style={{ height: 0 }} tabLabel="进行中" />
-						<Text style={{ height: 0 }} tabLabel="待点评" />
+						<Text style={{ height: 0 }} tabLabel="清洗中" />
+						<Text style={{ height: 0 }} tabLabel="待取货" />
+						<Text style={{ height: 0 }} tabLabel="已完成" />
 					</ScrollableTabView>
 				</View>
-				{currentPageIndex === 1 && <Allorder navigation={navigation} />}
-				{currentPageIndex === 2 && <WatingOrder navigation={navigation} />}
-				{currentPageIndex === 3 && <ProcessOrder navigation={navigation} />}
-				{currentPageIndex === 4 && <EvaluateOrder navigation={navigation} />}
+				{currentPageIndex === 1 && <Order navigation={navigation} type="all" />}
+				{currentPageIndex === 2 && <Order navigation={navigation} type="cleaning" />}
+				{currentPageIndex === 3 && <Order navigation={navigation} type="receiving" />}
+				{currentPageIndex === 4 && <Order navigation={navigation} type="finished" />}
 			</View>
 		);
 	}

@@ -1,19 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Empty from './component/Empty';
-import FooterScreen from './component/Footer';
-import OrderItem from './component/OrderItem';
+import Empty from './Empty';
+import FooterScreen from './Footer';
+import OrderItem from './OrderItem';
 import { View, FlatList, StyleSheet } from 'react-native';
-import Request from '../util/Request';
-import storageUtil from '../util/Storage';
-import Loading from '../component/Loading';
+import Request from '../../util/Request';
+import storageUtil from '../../util/Storage';
+import Loading from '../../component/Loading';
 
 export default class AllOrder extends React.Component {
 	constructor(props) {
 		super(props);
+		let { type } = props;
 		this.state = {
 			data: [],
 			current: 1,
+			type: type,
 			pagesize: 10,
 			headerLoading: false, // 头部的loading是否显示
 			loadingVisible: false,
@@ -34,11 +36,10 @@ export default class AllOrder extends React.Component {
 		show && (await this.setState({ loadingVisible: true }));
 		let user = await storageUtil.get('user');
 		let userid = user.id,
-			{ current, pagesize } = this.state;
-		let result = await Request.get('/order/getOrderByPage', { current, pagesize, userid });
+			{ current, pagesize, type } = this.state;
+		let result = await Request.get('/order/getOrderByPage', { current, pagesize, userid, type });
 		let data = result.data || [];
 		show && (await this.setState({ loadingVisible: false }));
-		console.log(data, 111);
 		return data;
 	}
 
