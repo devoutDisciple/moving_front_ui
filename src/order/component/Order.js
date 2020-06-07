@@ -93,6 +93,7 @@ export default class AllOrder extends React.Component {
 							<OrderItem
 								type={type}
 								id={item.id}
+								detail={item}
 								money={item.money}
 								status={item.status}
 								key={String(item.id)}

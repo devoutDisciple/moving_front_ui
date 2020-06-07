@@ -2,11 +2,12 @@
 import React from 'react';
 import Request from '../../util/Request';
 import config from '../../config/config';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import * as WeChat from 'react-native-wechat';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
+import Message from '../../component/Message';
+import * as WeChat from 'react-native-wechat';
 import FilterStatus from '../../util/FilterStatus';
+import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
 export default class AllOrder extends React.Component {
 	constructor(props) {
@@ -59,6 +60,24 @@ export default class AllOrder extends React.Component {
 		}
 	}
 
+	// 联系我们
+	async onConnectUs() {
+		let shopid = this.props.detail.shopid;
+		let shop = await Request.get('/shop/getShopById', { shopid });
+		let phone = shop && shop.data ? shop.data.phone : '18210619398';
+		let tel = `tel:${phone}`; // 目标电话
+		Linking.canOpenURL(tel)
+			.then(supported => {
+				if (!supported) {
+					Message.warning('商家电话', '18210619398');
+				} else {
+					return Linking.openURL(tel);
+				}
+			})
+			.catch(error => console.log('tel error', error));
+		console.log(shop, 22);
+	}
+
 	// 点击查看详情页面
 	onSearchDetail(id) {
 		const { navigation } = this.props;
@@ -76,7 +95,7 @@ export default class AllOrder extends React.Component {
 			</TouchableOpacity>
 		);
 		const connectBtn = (
-			<TouchableOpacity key="connectBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
+			<TouchableOpacity key="connectBtn" onPress={this.onConnectUs.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>联系我们</Text>
 			</TouchableOpacity>
 		);

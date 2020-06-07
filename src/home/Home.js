@@ -174,7 +174,6 @@ export default class HomeScreen extends React.Component {
 	// 点击客服按钮
 	async serviceClick() {
 		let shop = await Storage.get('shop');
-		console.log(shop, 11);
 		let tel = `tel:${shop.phone}`; // 目标电话
 		Linking.canOpenURL(tel)
 			.then(supported => {
