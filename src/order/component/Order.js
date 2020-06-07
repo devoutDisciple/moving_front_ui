@@ -102,6 +102,7 @@ export default class AllOrder extends React.Component {
 								navigation={navigation}
 								imgUrl={item.cabinetUrl}
 								address={item.cabinetAdderss}
+								onSearch={this.headerRefresh.bind(this)}
 								goods={`${firstName} 等 ${totalThings} 件衣物`}
 							/>
 						);

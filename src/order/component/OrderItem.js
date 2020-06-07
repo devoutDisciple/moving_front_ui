@@ -60,6 +60,18 @@ export default class AllOrder extends React.Component {
 		}
 	}
 
+	// 打开柜子
+	async onOpenCabinet() {
+		console.log(this.props);
+		let { id } = this.props;
+		let result = await Request.post('/order/openCellById', { orderId: id });
+		if (result.data === 'success') {
+			Message.warning('柜门已打开', '请取出衣物，随手关门，谢谢！');
+			return this.props.onSearch();
+		}
+		return Message.warning('网络错误', '请稍后重试！');
+	}
+
 	// 联系我们
 	async onConnectUs() {
 		let shopid = this.props.detail.shopid;
@@ -100,7 +112,7 @@ export default class AllOrder extends React.Component {
 			</TouchableOpacity>
 		);
 		const openBoxBtn = (
-			<TouchableOpacity key="openBoxBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
+			<TouchableOpacity key="openBoxBtn" onPress={this.onOpenCabinet.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>打开柜子</Text>
 			</TouchableOpacity>
 		);

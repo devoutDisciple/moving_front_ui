@@ -46,6 +46,7 @@ export default class OrderScreen extends React.Component {
 		return { goods, boxid, remark, totalPrice, cabinetId };
 	}
 
+	// 获取格子的可用状态
 	getState() {
 		let params = this.getParams();
 		Request.get('/cabinet/getStateById', { cabinetId: params.cabinetId || 8 }).then(res => {
@@ -61,6 +62,7 @@ export default class OrderScreen extends React.Component {
 		});
 	}
 
+	// 切换格口
 	onPress(id) {
 		this.setState({ active: id });
 	}
@@ -71,9 +73,8 @@ export default class OrderScreen extends React.Component {
 		let boxid = detail.boxid,
 			type = this.state.active,
 			cabinetId = detail.cabinetId;
-		console.log(cabinetId, boxid, type, 111);
 		this.setState({ loadingVisible: true }, () => {
-			Request.post('/cabinet/open', { cabinetId, boxid, type })
+			Request.post('/cabinet/openCellSave', { cabinetId, boxid, type })
 				.then(res => {
 					if (res.code === 200) {
 						let { cellid } = res.data;
@@ -86,9 +87,9 @@ export default class OrderScreen extends React.Component {
 		});
 	}
 
+	// 增加订单
 	async addOrder(boxid, cellid) {
 		let params = this.getParams();
-		console.log(params, 222);
 		let shop = await storageUtil.get('shop'),
 			user = await storageUtil.get('user');
 		let shopid = shop.id,
