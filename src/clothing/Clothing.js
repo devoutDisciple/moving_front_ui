@@ -103,6 +103,7 @@ export default class Member extends React.Component {
 					<Dialog
 						visible={dialogVisible}
 						title="修改信息"
+						changeKey="world"
 						defalutValue="hello"
 						onOk={this.onOkDialog.bind(this)}
 						onCancel={this.onCancelDialog.bind(this)}

@@ -4,11 +4,15 @@ import { View, StyleSheet } from 'react-native';
 import IconWithText from '../component/IconWithText';
 import Storage from '../util/Storage';
 import config from '../config/config';
+
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
 export default class IconList extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			num: 1,
+		};
 	}
 
 	async componentDidMount() {
@@ -48,6 +52,7 @@ export default class IconList extends React.Component {
 
 		// 获取所有的存储的key
 		if (data && data.key === 'aaa') {
+			this.setState({ num: this.state.num + 1 });
 			let keys = await Storage.getAllKeys();
 			let res = await Storage.multiGet(keys);
 			console.log('storage是: ', res);
@@ -55,6 +60,7 @@ export default class IconList extends React.Component {
 
 		// 清除所有的keys
 		if (data && data.key === 'bbb') {
+			this.setState({ num: this.state.num + 1 });
 			await Storage.clear();
 			console.log('清除成功');
 		}

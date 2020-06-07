@@ -11,6 +11,7 @@ import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
 import Icon from 'react-native-vector-icons/AntDesign';
+
 import { Text, View, TouchableOpacity, ScrollView, Linking } from 'react-native';
 
 export default class HomeScreen extends React.Component {

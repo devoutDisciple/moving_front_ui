@@ -5,6 +5,7 @@ const { width, height } = Dimensions.get('window');
 
 export default class Dialog extends React.Component {
 	constructor(props) {
+		super(props);
 		this.state = {
 			value: props.defalutValue || '',
 			changeKey: props.changeKey || '',
@@ -20,6 +21,7 @@ export default class Dialog extends React.Component {
 	render() {
 		let { title } = this.props,
 			{ changeKey, value } = this.state;
+		console.log(changeKey, value);
 		return (
 			<View style={styles.container}>
 				<View style={styles.content}>
@@ -38,7 +40,7 @@ export default class Dialog extends React.Component {
 						<TextInput
 							style={styles.message_edit_input}
 							onChangeText={this.onChangeText.bind(this)}
-							defaultValue={this.state.value}
+							defaultValue={value}
 							selectionColor="#fb9bcd"
 							maxLength={20}
 							placeholder="请输入"
