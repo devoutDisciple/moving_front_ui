@@ -15,6 +15,9 @@ export default class Member extends React.Component {
 
 	// 点击返回图标
 	backIconClick() {
+		if (this.props.back) {
+			return this.props.back();
+		}
 		this.props.navigation.goBack();
 	}
 

@@ -1,6 +1,8 @@
 import I18n from 'react-native-i18n';
-import en from './en';
 import zh from './zh';
+import en from './en';
+
+I18n.defaultLocale = 'zh';
 
 I18n.fallbacks = true;
 

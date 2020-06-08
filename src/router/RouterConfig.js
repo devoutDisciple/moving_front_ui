@@ -206,14 +206,6 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
-		// 积分兑换记录页面
-		IntergralRecordScreen: {
-			screen: IntergralRecordScreen,
-			headerBackTitle: '返回',
-			navigationOptions: {
-				headerShown: false,
-			},
-		},
 		// 选择快递柜子页面
 		CabinetScreen: {
 			screen: CabinetScreen,

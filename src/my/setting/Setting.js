@@ -44,12 +44,6 @@ export default class SettingScreen extends React.Component {
 						this.setState({ num: this.state.num + 1 });
 					}
 				},
-				onPickerCancel: res => {
-					console.log(res, 2222);
-				},
-				onPickerSelect: res => {
-					console.log(res, 333);
-				},
 			});
 			Picker.show();
 		}
@@ -93,12 +87,19 @@ export default class SettingScreen extends React.Component {
 		return navigation.navigate('Home');
 	}
 
+	// 返回主页
+	goBackHome() {
+		const { navigation } = this.props;
+		navigation.navigate('HomeScreen', { num: Math.random() * 1000 });
+	}
+
 	render() {
 		const { navigation } = this.props;
 		let { loadingVisible } = this.state;
 		return (
 			<View style={styles.container}>
-				<CommonHeader title="设置" navigation={navigation} />
+				<CommonHeader title="设置" navigation={navigation} back={this.goBackHome.bind(this)} />
+				{/* <CommonHeader title="设置" navigation={navigation} /> */}
 				<View style={styles.content}>
 					<View style={styles.empty} />
 					<View style={styles.content_chunk}>

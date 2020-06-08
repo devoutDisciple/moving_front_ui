@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import IconWithText from '../component/IconWithText';
 import Storage from '../util/Storage';
 import config from '../config/config';
+import I18n from '../language/I18n';
 
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
@@ -71,7 +72,7 @@ export default class IconList extends React.Component {
 			{
 				key: 'home_member',
 				url: require('../../img/home/hello.png'),
-				text: '成为会员',
+				text: I18n.t('home.member'),
 			},
 			{
 				key: 'home_clothing',
@@ -81,24 +82,24 @@ export default class IconList extends React.Component {
 			{
 				key: 'home_integral',
 				url: require('../../img/home/jifen.png'),
-				text: '积分兑换',
+				text: I18n.t('home.intergral'),
 			},
 			{
 				key: 'home_recharge',
 				url: require('../../img/home/chongzhi.png'),
-				text: '充值',
+				text: I18n.t('home.recharge'),
 			},
 		];
 		const iconList2 = [
 			{
 				key: 'home_operation',
 				url: require('../../img/home/caozuo.png'),
-				text: '操作指南',
+				text: I18n.t('home.operation'),
 			},
 			{
 				key: 'home_concat',
 				url: require('../../img/home/lianxi.png'),
-				text: '联系我们',
+				text: I18n.t('home.contact'),
 			},
 			{
 				key: 'aaa',

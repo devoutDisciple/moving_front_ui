@@ -81,7 +81,12 @@ export default class HomeScreen extends React.Component {
 		};
 	};
 
+	componentWillReceiveProps() {
+		console.log(456);
+	}
+
 	async componentDidMount() {
+		console.log(123);
 		const { setParams } = this.props.navigation;
 		// 设置左右按钮的点击功能
 		setParams({
