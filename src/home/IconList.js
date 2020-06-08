@@ -104,12 +104,12 @@ export default class IconList extends React.Component {
 			{
 				key: 'aaa',
 				url: require('../../img/home/icon6.png'),
-				text: '获取',
+				text: '邀请用户',
 			},
 			{
 				key: 'bbb',
 				url: require('../../img/home/icon6.png'),
-				text: '清除',
+				text: '协议',
 			},
 		];
 		return (
