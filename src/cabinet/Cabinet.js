@@ -78,10 +78,9 @@ export default class OrderScreen extends React.Component {
 				.then(res => {
 					if (res.code === 200) {
 						let { cellid } = res.data;
-						this.addOrder(detail.boxid, cellid);
-						return Toast.success('柜子已打开, 请存放衣物!');
+						return this.addOrder(detail.boxid, cellid);
+						// return Toast.success('柜子已打开, 请存放衣物!');
 					}
-					Toast.warning('网络错误');
 				})
 				.finally(() => this.setState({ loadingVisible: false }));
 		});
@@ -105,8 +104,9 @@ export default class OrderScreen extends React.Component {
 			boxid,
 			cellid,
 		});
+		console.log(params.goods, 999);
 		if (result.data === 'success') {
-			Message.warning('订单已生成', '祝您生活愉快');
+			Message.warning('柜子已打开, 请存放衣物!', '订单已生成,祝您生活愉快');
 			this.getState();
 		}
 	}
