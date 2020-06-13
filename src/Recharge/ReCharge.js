@@ -6,6 +6,7 @@ import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
 import CommonStyle from '../style/common';
 import Toast from '../component/Toast';
+import config from '../config/config';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -13,7 +14,7 @@ export default class ReCharge extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeMoney: 1,
+			activeMoney: 0,
 			payWay: 'wechat',
 		};
 	}
@@ -32,7 +33,12 @@ export default class ReCharge extends React.Component {
 
 	// 确认充值
 	onSurePay() {
-		Toast.error('请先安装支付宝或微信');
+		// Toast.error('请先安装支付宝或微信');
+		const { navigation } = this.props,
+			{ activeMoney, payWay } = this.state;
+		let currentPay = config.PAY_MONEY_FOR_BALANCE[activeMoney];
+		console.log(currentPay, 45678);
+		navigation.navigate('PayOrderScreen', { money: currentPay.pay, given: currentPay.given, type: 'recharge' });
 	}
 
 	render() {
@@ -47,11 +53,17 @@ export default class ReCharge extends React.Component {
 						<Text style={{ fontSize: 14, color: '#333' }}>余额充值</Text>
 					</View>
 					<View style={styles.content_account}>
-						{/* 1000 400 */}
-						<MoneyItem money={1000} discount={400} active={activeMoney === 1} onPress={this.onPressChargeItem.bind(this, 1)} />
-						<MoneyItem money={600} discount={200} active={activeMoney === 2} onPress={this.onPressChargeItem.bind(this, 2)} />
-						<MoneyItem money={500} discount={150} active={activeMoney === 3} onPress={this.onPressChargeItem.bind(this, 3)} />
-						<MoneyItem money={200} discount={20} active={activeMoney === 4} onPress={this.onPressChargeItem.bind(this, 4)} />
+						{config.PAY_MONEY_FOR_BALANCE.map((item, index) => {
+							return (
+								<MoneyItem
+									key={index}
+									money={item.pay}
+									discount={item.given}
+									active={activeMoney === index}
+									onPress={this.onPressChargeItem.bind(this, index)}
+								/>
+							);
+						})}
 					</View>
 					<View style={styles.detail_common_title}>
 						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
@@ -72,7 +84,7 @@ export default class ReCharge extends React.Component {
 					/>
 				</ScrollView>
 				<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>
-					<Text style={styles.bottom_btn_text}>确认支付</Text>
+					<Text style={styles.bottom_btn_text}>去支付</Text>
 				</TouchableOpacity>
 			</View>
 		);

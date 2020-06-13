@@ -116,7 +116,7 @@ export default class OrderScreen extends React.Component {
 		let { active, boxDetail, loadingVisible } = this.state;
 		return (
 			<View style={{ flex: 1 }}>
-				<CommonHeader title="选择柜口" navigation={navigation} />
+				<CommonHeader title="选择柜口" navigation={navigation} back={() => navigation.navigate('HomeScreen')} />
 				<ScrollView style={styles.cabinet}>
 					<View style={styles.cabinet_item}>
 						<View style={styles.detail_common_title}>

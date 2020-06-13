@@ -17,6 +17,8 @@ export default class PayOrderScreen extends React.Component {
 			payWay: 'alipay',
 			user: {},
 			money: 80,
+			type: 'loading...', //默认成为会员
+			given: 0, // 余额充值的时候赠送的
 		};
 	}
 
@@ -28,11 +30,17 @@ export default class PayOrderScreen extends React.Component {
 	async getUser() {
 		const { navigation } = this.props;
 		let money = navigation.getParam('money');
+		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值
+		let given = 0;
+		if (type === 'recharge') {
+			given = navigation.getParam('given');
+		}
 		// 获取用户token值
 		let token = await StorageUtil.getString('token');
+		console.log(token, 3333);
 		let res = await Request.get('/user/getUserByToken', { token });
 		let user = res.data;
-		this.setState({ user: user, money: money });
+		this.setState({ user: user, money, type, given });
 	}
 
 	// 支付方式改变
@@ -40,8 +48,26 @@ export default class PayOrderScreen extends React.Component {
 		this.setState({ payWay: key });
 	}
 
-	// 确认充值
-	async onSurePay() {
+	// 余额充值
+	async onRecharge() {
+		try {
+			let { money, given } = this.state;
+			// 获取用户token值
+			let token = await StorageUtil.getString('token');
+			let res = await PayUtil.payMoneyByWeChat(money, 'Moving余额充值');
+			if (res === 'success') {
+				let result = await Request.post('/user/recharge', { token: token, money, given });
+				if (result) {
+					return Toast.success('恭喜您充值成功');
+				}
+			}
+		} catch (error) {
+			Toast.warning(error);
+		}
+	}
+
+	// 成为会员
+	async onBeMember() {
 		try {
 			let { money } = this.state;
 			// 获取用户token值
@@ -58,9 +84,31 @@ export default class PayOrderScreen extends React.Component {
 		}
 	}
 
+	// 确认支付
+	async onSurePay() {
+		let { type } = this.state;
+		// 成为会员
+		if (type === 'beMember') {
+			return await this.onBeMember();
+		}
+		// 余额充值
+		if (type === 'recharge') {
+			return await this.onRecharge();
+		}
+	}
+
 	render() {
 		const { navigation } = this.props;
-		let { payWay, user, money } = this.state;
+		let { payWay, user, money, type, given } = this.state;
+		let showType = 'loading....';
+		switch (type) {
+			case 'beMember':
+				showType = '成为会员';
+				break;
+			case 'recharge':
+				showType = `余额充值 充 ${money} 送 ${given}`;
+				break;
+		}
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="支付" navigation={navigation} />
@@ -72,8 +120,9 @@ export default class PayOrderScreen extends React.Component {
 					<View style={styles.money}>
 						<Text style={styles.money_num}>￥ {money}</Text>
 						{/* <Text style={styles.money_order}>订单编号: 328443973823897493</Text> */}
+						<Text style={styles.money_order}>{showType}</Text>
 						<Text style={styles.money_order}>
-							充值名称: {user.username} 手机号: {user.phone}
+							用户名称: {user.username} 手机号: {user.phone}
 						</Text>
 					</View>
 					<View style={styles.detail_common_title}>

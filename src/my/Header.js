@@ -20,11 +20,12 @@ export default class MyScreen extends React.Component {
 
 	render() {
 		let { user } = this.props;
+		console.log(user, 99);
 		let member = '普通用户';
-		if (user.member === '1') {
+		if (Number(user.member) === 1) {
 			member = '普通用户';
 		}
-		if (user.member === '2') {
+		if (Number(user.member) === 2) {
 			member = 'VIP尊贵用户';
 		}
 		console.log(`${config.baseUrl}/${user.photo}}`);

@@ -47,27 +47,33 @@ export default class IconList extends React.Component {
 	// icon点击的时候
 	async onIconPress(data) {
 		let { navigation } = this.props;
+
+		// moving商城
+		if (data && data.key === 'home_integral') {
+			await this.judgeMember();
+			navigation.navigate('IntergralScreen');
+		}
+
 		// 成为会员
 		if (data && data.key === 'home_member') {
-			let res = await this.judgeMember();
-			console.log(res, 111);
-			navigation.navigate('MemberScreen', { userid: res.id });
+			await this.judgeMember();
+			navigation.navigate('MemberScreen');
 		}
 		// 上门取衣
 		if (data && data.key === 'home_clothing') {
+			await this.judgeMember();
 			navigation.navigate('ClothingScreen');
 		}
-		// 积分兑换
-		if (data && data.key === 'home_integral') {
-			navigation.navigate('IntergralScreen');
+
+		// 充值
+		if (data && data.key === 'home_recharge') {
+			await this.judgeMember();
+			navigation.navigate('ReChargeScreen');
 		}
+
 		// 联系我们
 		if (data && data.key === 'home_concat') {
 			navigation.navigate('ConcatUsScreen');
-		}
-		// 充值
-		if (data && data.key === 'home_recharge') {
-			navigation.navigate('ReChargeScreen');
 		}
 
 		// 获取所有的存储的key
@@ -89,6 +95,11 @@ export default class IconList extends React.Component {
 	render() {
 		const iconList1 = [
 			{
+				key: 'home_integral',
+				url: require('../../img/home/jifen.png'),
+				text: 'Moving商城',
+			},
+			{
 				key: 'home_member',
 				url: require('../../img/home/hello.png'),
 				text: I18n.t('home.member'),
@@ -98,11 +109,7 @@ export default class IconList extends React.Component {
 				url: require('../../img/home/service.png'),
 				text: '上门取衣',
 			},
-			{
-				key: 'home_integral',
-				url: require('../../img/home/jifen.png'),
-				text: 'Moving商城',
-			},
+
 			{
 				key: 'home_recharge',
 				url: require('../../img/home/chongzhi.png'),
