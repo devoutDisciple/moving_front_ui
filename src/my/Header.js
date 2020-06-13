@@ -15,20 +15,6 @@ export default class MyScreen extends React.Component {
 
 	// 点击编辑按钮
 	editBtnClick() {
-		// ImagePicker.openPicker({
-		// 	width: 200,
-		// 	height: 200,
-		// 	cropping: true,
-		// 	cropperCircleOverlay: true,
-		// 	includeBase64: true,
-		// }).then(async response => {
-		// 	console.log(response);
-		// 	// 获取用户token值
-		// 	let token = await Storage.getString('token'),
-		// 		data = { img: response.data, token };
-		// 	await Request.post('/user/addPhoto', data);
-		// 	this.props.getUserInfo();
-		// });
 		this.props.navigation.navigate('MyMessage');
 	}
 

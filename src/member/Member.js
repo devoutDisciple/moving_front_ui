@@ -24,7 +24,11 @@ export default class Member extends React.Component {
 
 	// 去支付
 	payOrder() {
-		this.props.navigation.navigate('PayOrderScreen');
+		let { navigation } = this.props,
+			{ selectIndex } = this.state;
+		let userid = navigation.getParam('userid');
+		let money = selectIndex === 1 ? 90 : 80;
+		this.props.navigation.navigate('PayOrderScreen', { userid, money });
 	}
 
 	render() {

@@ -20,10 +20,10 @@ export default class AllOrder extends React.Component {
 	// 点击去支付
 	async payOrder() {
 		try {
-			// let isWXAppInstalled = await WeChat.isWXAppInstalled();
-			// if (!isWXAppInstalled) {
-			// 	return Toast.warning('未下载微信');
-			// }
+			let isWXAppInstalled = await WeChat.isWXAppInstalled();
+			if (!isWXAppInstalled) {
+				return Toast.warning('未下载微信');
+			}
 			let result = await Request.post('/pay/payOrder');
 			let data = result.data;
 			let params = {

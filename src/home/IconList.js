@@ -2,10 +2,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import IconWithText from '../component/IconWithText';
-import Storage from '../util/Storage';
+import StorageUtil from '../util/Storage';
 import config from '../config/config';
+import Toast from '../component/Toast';
 import I18n from '../language/I18n';
-
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
 export default class IconList extends React.Component {
@@ -27,12 +27,31 @@ export default class IconList extends React.Component {
 		});
 	}
 
+	// 判断是不是会员
+	async judgeMember() {
+		return new Promise(async (resolve, reject) => {
+			let { navigation } = this.props;
+			let user = await StorageUtil.get('user');
+			// 如果用户没有登录
+			if (!user) {
+				reject();
+				Toast.warning('请先登录!');
+				return setTimeout(() => {
+					navigation.navigate('LoginScreen');
+				}, 2000);
+			}
+			resolve(user);
+		});
+	}
+
 	// icon点击的时候
 	async onIconPress(data) {
 		let { navigation } = this.props;
 		// 成为会员
 		if (data && data.key === 'home_member') {
-			navigation.navigate('MemberScreen');
+			let res = await this.judgeMember();
+			console.log(res, 111);
+			navigation.navigate('MemberScreen', { userid: res.id });
 		}
 		// 上门取衣
 		if (data && data.key === 'home_clothing') {
@@ -54,15 +73,15 @@ export default class IconList extends React.Component {
 		// 获取所有的存储的key
 		if (data && data.key === 'aaa') {
 			this.setState({ num: this.state.num + 1 });
-			let keys = await Storage.getAllKeys();
-			let res = await Storage.multiGet(keys);
-			console.log('storage是: ', res);
+			let keys = await StorageUtil.getAllKeys();
+			let res = await StorageUtil.multiGet(keys);
+			console.log('StorageUtil: ', res);
 		}
 
 		// 清除所有的keys
 		if (data && data.key === 'bbb') {
 			this.setState({ num: this.state.num + 1 });
-			await Storage.clear();
+			await StorageUtil.clear();
 			console.log('清除成功');
 		}
 	}
@@ -82,7 +101,7 @@ export default class IconList extends React.Component {
 			{
 				key: 'home_integral',
 				url: require('../../img/home/jifen.png'),
-				text: I18n.t('home.intergral'),
+				text: 'Moving商城',
 			},
 			{
 				key: 'home_recharge',
