@@ -20,11 +20,17 @@ export default class AllOrder extends React.Component {
 	// 点击去支付
 	async payOrder() {
 		try {
+			// 判断店员是否确认
+			let { is_sure } = this.props.detail;
+			if (Number(is_sure) !== 2) {
+				return Toast.warning('订单金额待店员确认，请稍后');
+			}
+			let { id } = this.props.detail;
 			let isWXAppInstalled = await WeChat.isWXAppInstalled();
 			if (!isWXAppInstalled) {
 				return Toast.warning('未下载微信');
 			}
-			let result = await Request.post('/pay/payOrder');
+			let result = await Request.post('/pay/payOrder', { total_fee: 10 });
 			let data = result.data;
 			let params = {
 				partnerId: config.partnerId, // 商家向财付通申请的商家ID
@@ -36,12 +42,16 @@ export default class AllOrder extends React.Component {
 			};
 			// 第三步，调起微信客户端支付
 			WeChat.pay(params)
-				.then(response => {
+				.then(async response => {
 					let errorCode = Number(response.errCode);
 					if (errorCode === 0) {
 						Toast.success('支付成功');
 						// TODO: 这里处理支付成功后的业务逻辑，比如支付成功跳转页面、清空购物车。。。。
-						// .....
+						// 更改订单状态
+						let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
+						if (orderStatus === 'success') {
+							this.props.onSearch();
+						}
 					} else {
 						Toast.error(response.errStr);
 					}
@@ -62,8 +72,7 @@ export default class AllOrder extends React.Component {
 
 	// 打开柜子
 	async onOpenCabinet() {
-		console.log(this.props);
-		let { id } = this.props;
+		let { id } = this.props.detail;
 		let result = await Request.post('/order/openCellById', { orderId: id });
 		if (result.data === 'success') {
 			Message.warning('柜门已打开', '请取出衣物，随手关门，谢谢！');
@@ -74,7 +83,7 @@ export default class AllOrder extends React.Component {
 
 	// 联系我们
 	async onConnectUs() {
-		let shopid = this.props.detail.shopid;
+		let { shopid } = this.props.detail;
 		let shop = await Request.get('/shop/getShopById', { shopid });
 		let phone = shop && shop.data ? shop.data.phone : '18210619398';
 		let tel = `tel:${phone}`; // 目标电话
@@ -87,7 +96,6 @@ export default class AllOrder extends React.Component {
 				}
 			})
 			.catch(error => console.log('tel error', error));
-		console.log(shop, 22);
 	}
 
 	// 点击查看详情页面
@@ -100,7 +108,7 @@ export default class AllOrder extends React.Component {
 
 	renderBtn() {
 		let actionBtn = [];
-		let { status } = this.props;
+		let { status } = this.props.detail;
 		const payBtn = (
 			<TouchableOpacity key="payBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>去支付</Text>
@@ -129,28 +137,29 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		const { id, title, imgUrl, time, address, goods, money, status } = this.props;
+		const { goods } = this.props;
+		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, money, status } = this.props.detail;
 
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/${imgUrl}` }} />
+					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/${cabinetUrl}` }} />
 				</View>
 				<View style={styles.order_item_right}>
 					<View style={styles.order_item_right_title}>
 						<View style={styles.order_item_right_title_left}>
-							<Text style={styles.font_title_style}>{title}</Text>
+							<Text style={styles.font_title_style}>{shopName}</Text>
 						</View>
 						<View style={styles.order_item_right_title_right}>
 							<Text style={styles.font_title_style}>{FilterStatus.filterOrderStatus(status)}</Text>
 						</View>
 					</View>
 					<View style={styles.order_item_right_time}>
-						<Text style={{ fontSize: 10, color: '#333' }}>{time}</Text>
+						<Text style={{ fontSize: 10, color: '#333' }}>{create_time}</Text>
 					</View>
 					<TouchableOpacity onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>存取地址：{address}</Text>
+							<Text style={styles.font_desc_style}>存取地址：{cabinetAdderss}</Text>
 						</View>
 						<View style={styles.order_item_right_goods}>
 							<View style={styles.order_item_right_goods_left}>

@@ -14,10 +14,10 @@ export default class PayOrderScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			payWay: 'alipay',
-			user: {},
-			money: 80,
-			type: 'loading...', //默认成为会员
+			payWay: 'wechat', // 默认微信支付
+			user: {}, // 用户信息
+			money: 80, // 默认80
+			type: 'loading...', // beMember - 成为会员 recharge - 余额充值 order -订单支付
 			given: 0, // 余额充值的时候赠送的
 		};
 	}
@@ -30,14 +30,13 @@ export default class PayOrderScreen extends React.Component {
 	async getUser() {
 		const { navigation } = this.props;
 		let money = navigation.getParam('money');
-		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值
+		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付
 		let given = 0;
 		if (type === 'recharge') {
 			given = navigation.getParam('given');
 		}
 		// 获取用户token值
 		let token = await StorageUtil.getString('token');
-		console.log(token, 3333);
 		let res = await Request.get('/user/getUserByToken', { token });
 		let user = res.data;
 		this.setState({ user: user, money, type, given });
@@ -46,6 +45,19 @@ export default class PayOrderScreen extends React.Component {
 	// 支付方式改变
 	payWayChange(key) {
 		this.setState({ payWay: key });
+	}
+
+	// 确认支付
+	async onSurePay() {
+		let { type } = this.state;
+		// 成为会员
+		if (type === 'beMember') {
+			return await this.onBeMember();
+		}
+		// 余额充值
+		if (type === 'recharge') {
+			return await this.onRecharge();
+		}
 	}
 
 	// 余额充值
@@ -84,19 +96,6 @@ export default class PayOrderScreen extends React.Component {
 		}
 	}
 
-	// 确认支付
-	async onSurePay() {
-		let { type } = this.state;
-		// 成为会员
-		if (type === 'beMember') {
-			return await this.onBeMember();
-		}
-		// 余额充值
-		if (type === 'recharge') {
-			return await this.onRecharge();
-		}
-	}
-
 	render() {
 		const { navigation } = this.props;
 		let { payWay, user, money, type, given } = this.state;
@@ -129,18 +128,18 @@ export default class PayOrderScreen extends React.Component {
 						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
 					</View>
 					<PayItem
-						iconName="alipay-circle"
-						onPress={this.payWayChange.bind(this, 'alipay')}
-						iconColor="#208ee9"
-						text="支付宝支付"
-						active={payWay === 'alipay'}
-					/>
-					<PayItem
 						iconName="wechat"
 						onPress={this.payWayChange.bind(this, 'wechat')}
 						iconColor="#89e04c"
 						text="微信支付"
 						active={payWay === 'wechat'}
+					/>
+					<PayItem
+						iconName="alipay-circle"
+						onPress={this.payWayChange.bind(this, 'alipay')}
+						iconColor="#208ee9"
+						text="支付宝支付"
+						active={payWay === 'alipay'}
 					/>
 				</ScrollView>
 				<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>

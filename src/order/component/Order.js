@@ -47,7 +47,7 @@ export default class AllOrder extends React.Component {
 	headerRefresh() {
 		this.setState({ headerLoading: true, current: 1 }, async () => {
 			let orders = await this.onSearchOrder(false);
-			this.setState({ headerLoading: false, data: orders, footerStatus: 2 });
+			this.setState({ headerLoading: false, data: orders, footerStatus: 2, current: 1 });
 		});
 	}
 
@@ -92,16 +92,9 @@ export default class AllOrder extends React.Component {
 						return (
 							<OrderItem
 								type={type}
-								id={item.id}
 								detail={item}
-								money={item.money}
-								status={item.status}
 								key={String(item.id)}
-								title={item.shopName}
-								time={item.create_time}
 								navigation={navigation}
-								imgUrl={item.cabinetUrl}
-								address={item.cabinetAdderss}
 								onSearch={this.headerRefresh.bind(this)}
 								goods={`${firstName} 等 ${totalThings} 件衣物`}
 							/>
