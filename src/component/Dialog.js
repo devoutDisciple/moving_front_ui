@@ -19,7 +19,7 @@ export default class Dialog extends React.Component {
 	}
 
 	render() {
-		let { title } = this.props,
+		let { title, placeHolder } = this.props,
 			{ changeKey, value } = this.state;
 		return (
 			<View style={styles.container}>
@@ -37,13 +37,13 @@ export default class Dialog extends React.Component {
 					</View>
 					<View style={styles.content_desc}>
 						<TextInput
-							style={styles.message_edit_input}
-							onChangeText={this.onChangeText.bind(this)}
+							maxLength={20}
 							defaultValue={value}
 							selectionColor="#fb9bcd"
-							maxLength={20}
-							placeholder="请输入"
 							placeholderTextColor="#bfbfbf"
+							style={styles.message_edit_input}
+							placeholder={placeHolder || '请输入'}
+							onChangeText={this.onChangeText.bind(this)}
 						/>
 					</View>
 					<View style={styles.content_footer}>
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
 		marginTop: -10,
 	},
 	message_edit_input: {
-		height: 40,
-		width: width * 0.75,
+		height: 35,
+		width: width * 0.7,
 		fontSize: 14,
 		backgroundColor: '#fff',
 		paddingHorizontal: 10,

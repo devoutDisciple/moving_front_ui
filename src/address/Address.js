@@ -18,7 +18,9 @@ export default class Member extends React.Component {
 		await this.onSearchAddress();
 	}
 
+	// 当参数含有flash的时候会进行刷新
 	async componentWillReceiveProps(nextProps) {
+		console.log(nextProps.navigation, 898989);
 		if (nextProps && nextProps.navigation && nextProps.navigation.state.params.flash) {
 			await this.onSearchAddress();
 		}
@@ -36,9 +38,10 @@ export default class Member extends React.Component {
 	// radio选择的时候
 	async selectRadio(index) {
 		let { addressList } = this.state,
-			address = addressList[index];
-		address.is_defalut = address.is_defalut === 1 ? 2 : 1;
-		let result = await Request.post('/address/update', address);
+			currentDefalutAddress = addressList[index];
+		let preDefalutAddressList = addressList.filter(item => item.is_defalut === 2);
+		let preDefaultAddress = preDefalutAddressList[0] || {};
+		let result = await Request.post('/address/changeDefalut', { preId: preDefaultAddress.id, currentId: currentDefalutAddress.id });
 		if (result.data === 'success') {
 			Toast.success('默认地址修改成功');
 			this.onSearchAddress();

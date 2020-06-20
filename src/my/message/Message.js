@@ -9,6 +9,7 @@ import Picker from 'react-native-picker';
 import Toast from '../../component/Toast';
 import Dialog from '../../component/Dialog';
 import FileterStatus from '../../util/FilterStatus';
+import Loading from '../../component/Loading';
 import ImagePicker from 'react-native-image-crop-picker';
 import CommonHeader from '../../component/CommonHeader';
 
@@ -17,11 +18,11 @@ export default class SettingScreen extends React.Component {
 		super(props);
 		this.state = {
 			visible: false,
-			loading: false,
 			user: {},
 			defalutValue: '',
 			title: '',
 			changeKey: '',
+			loadingVisible: false,
 		};
 	}
 
@@ -31,7 +32,7 @@ export default class SettingScreen extends React.Component {
 
 	// 获取用户信息
 	async getUserInfo() {
-		this.setState({ loading: true });
+		this.setState({ loadingVisible: true });
 		// 获取用户id的值
 		let currentUser = await Storage.get('user');
 		let userid = currentUser.id;
@@ -41,7 +42,7 @@ export default class SettingScreen extends React.Component {
 			// 去登陆页面
 			this.props.navigation.navigate('LoginScreen');
 		}
-		this.setState({ user: user, loading: false });
+		this.setState({ user: user, loadingVisible: false });
 	}
 
 	// 弹框确定的时候
@@ -70,10 +71,9 @@ export default class SettingScreen extends React.Component {
 	// 保存的时候
 	async onSaveValue(key, value) {
 		// 获取用户token值
-		let token = await Storage.getString('token');
-		let params = { token, key, value };
+		let params = { key, value };
 		let user = await Storage.get('user');
-		console.log(user);
+		params.userid = user.id;
 		let result = await Request.post('/user/update', params);
 		if (result.data === 'success') {
 			Toast.success('修改成功');
@@ -103,11 +103,11 @@ export default class SettingScreen extends React.Component {
 
 	render() {
 		const { navigation } = this.props,
-			{ visible, loading, user, changeKey, title, defalutValue } = this.state;
+			{ visible, user, changeKey, title, defalutValue, loadingVisible } = this.state;
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="个人信息" navigation={navigation} />
-				<ScrollView style={styles.setting_content} refreshing={loading}>
+				<ScrollView style={styles.setting_content}>
 					<MessageItem label="头像" value={user.photo} showIcon isImage onPress={this.selectPhoto.bind(this)} />
 					<MessageItem
 						showIcon
@@ -166,6 +166,7 @@ export default class SettingScreen extends React.Component {
 						onCancel={() => this.setState({ visible: false })}
 					/>
 				)}
+				<Loading visible={loadingVisible} />
 			</View>
 		);
 	}

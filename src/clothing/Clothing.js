@@ -1,30 +1,123 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Toast from '../component/Toast';
+import moment from 'moment';
+import Config from '../config/config';
 import config from '../config/config';
+import Toast from '../component/Toast';
 import Dialog from '../component/Dialog';
 import Picker from 'react-native-picker';
+import RequestUtil from '../util/Request';
 import Loading from '../component/Loading';
+import { getDayHours } from '../util/Util';
 // import Toast from 'react-native-root-toast';
 import CommonHeader from '../component/CommonHeader';
 import MessageItem from '../my/message/MessageItem';
 
+const timeFormat = 'YYYY-MM-DD';
 export default class Member extends React.Component {
 	constructor(props) {
 		super(props);
+		let tomorrow = moment()
+			.add(1, 'days')
+			.format(timeFormat);
 		this.state = {
 			loadingVisible: false,
 			dialogVisible: false,
+			addressList: [],
+			changeKey: '',
+			defalutValue: '',
+			placeHolder: '',
+
+			selectDay: `${tomorrow}(明天)`,
+			selectTime: '09:00',
+			selectAddress: '',
+			username: '',
+			phone: '',
+			house: '',
+			desc: '',
 		};
 	}
 
-	showDialog() {
-		this.setState({ dialogVisible: true });
+	async componentDidMount() {
+		await this.onSearchArea();
 	}
 
-	onOkDialog() {
-		this.setState({ dialogVisible: false });
+	// 查询该商店的配送区域
+	async onSearchArea() {
+		let result = await RequestUtil.get('/area/getAll');
+		let areas = result.data || [];
+		let addressList = await this.filterArea(areas, [], 0);
+		this.setState({ addressList: addressList });
+	}
+
+	// 筛选区域条件
+	filterArea(area, arr, parentid) {
+		let obj = {},
+			flag = 0;
+		area.map(item => {
+			if ((item.level === 1 || item.level === 2) && item.parentid === parentid) {
+				let tempObj = {};
+				flag = 0;
+				tempObj[item.name] = [];
+				this.filterArea(area, tempObj[item.name], item.id);
+				arr.push(tempObj);
+			}
+			if (item.level === 3 && item.parentid === parentid) {
+				arr.push(item.name);
+			}
+		});
+		flag === 1 && arr.push(obj);
+		return arr;
+	}
+
+	// 选择时间
+	showTimeSelect() {
+		let pickData = [],
+			hourList = getDayHours(),
+			{ selectDay, selectTime } = this.state;
+		let today = moment().format(timeFormat);
+		let tomorrow = moment()
+			.add(1, 'days')
+			.format(timeFormat);
+		let twoTomorrow = moment()
+			.add(2, 'days')
+			.format(timeFormat);
+		pickData = [[`${today}(今天)`, `${tomorrow}(明天)`, `${twoTomorrow}(后天)`], hourList];
+		Picker.init({
+			...Config.pickCommonConfig,
+			pickerData: pickData,
+			selectedValue: [selectDay, selectTime],
+			onPickerConfirm: res => {
+				let day = res[0],
+					hour = res[1];
+				console.log(day, hour, 789);
+				this.setState({ selectDay: day, selectTime: hour });
+			},
+		});
+		Picker.show();
+	}
+
+	// 点击选择地址
+	onSelectAddress() {
+		let { addressList } = this.state;
+		Picker.init({
+			...config.pickCommonConfig,
+			pickerData: addressList,
+			onPickerConfirm: async res => {
+				let area = res.join(' ');
+				console.log(area);
+				this.setState({ selectAddress: area });
+			},
+		});
+		Picker.show();
+	}
+
+	// 弹框确定的时候
+	onOkDialog(key, value) {
+		let params = {};
+		params[key] = value;
+		this.setState(Object.assign(params, { dialogVisible: false }));
 	}
 
 	onCancelDialog() {
@@ -51,7 +144,12 @@ export default class Member extends React.Component {
 
 	// 确认订单
 	onSureOrder() {
+		let { selectDay, selectTime, selectAddress, username, phone, house, desc } = this.state;
+		if (!selectAddress || !username || !phone || !house) {
+			return Toast.warning('请完善预约信息');
+		}
 		this.setState({ loadingVisible: true });
+
 		setTimeout(() => {
 			this.setState({ loadingVisible: false });
 			Toast.success('下单成功, 正在等待商店接单');
@@ -60,18 +158,71 @@ export default class Member extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let { loadingVisible, dialogVisible } = this.state;
+		let {
+			loadingVisible,
+			dialogVisible,
+			changeKey,
+			defalutValue,
+			title,
+			selectDay,
+			selectTime,
+			selectAddress,
+			username,
+			phone,
+			house,
+			placeHolder,
+			desc,
+		} = this.state;
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="预约上门取衣" navigation={navigation} />
 				<ScrollView style={styles.content}>
-					<MessageItem label="店铺" value="北京店" showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
-					<MessageItem label="预约时间" value="2020-02-14 20:20" showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
-					<MessageItem label="取货地址" value="广州市" showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
-					<MessageItem label="联系人" value="张振" showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
-					<MessageItem label="联系方式" value="18210619398" showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
-					<MessageItem label="物品数量" value="2" showIcon onPress={this.showDialog.bind(this, '修改昵称')} />
+					<MessageItem label="预约时间" value={`${selectDay} ${selectTime}`} showIcon onPress={this.showTimeSelect.bind(this)} />
+					<MessageItem
+						label="联系人"
+						value={username || '请输入'}
+						showIcon
+						onPress={() => {
+							this.setState({ changeKey: 'username', title: '联系人', defalutValue: '', placeHolder: '' }, () => {
+								this.setState({ dialogVisible: true });
+							});
+						}}
+					/>
+					<MessageItem
+						label="手机号"
+						value={phone || '请输入'}
+						showIcon
+						onPress={() => {
+							this.setState({ changeKey: 'phone', title: '手机号', defalutValue: '', placeHolder: '' }, () => {
+								this.setState({ dialogVisible: true });
+							});
+						}}
+					/>
 					<MessageItem label="物品重量" value="3 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} />
+					<MessageItem label="取货地址" value={selectAddress || '请选择'} showIcon onPress={this.onSelectAddress.bind(this)} />
+					<MessageItem
+						showIcon
+						label="小区地址"
+						value={house || '请输入'}
+						onPress={() => {
+							this.setState(
+								{ changeKey: 'house', title: '小区地址', defalutValue: '', placeHolder: '请输入xx小区xx幢' },
+								() => {
+									this.setState({ dialogVisible: true });
+								},
+							);
+						}}
+					/>
+					<MessageItem
+						showIcon
+						label="备注"
+						value={desc || '请输入'}
+						onPress={() => {
+							this.setState({ changeKey: 'desc', title: '备注', defalutValue: '', placeHolder: '' }, () => {
+								this.setState({ dialogVisible: true });
+							});
+						}}
+					/>
 				</ScrollView>
 				<TouchableOpacity onPress={this.onSureOrder.bind(this)} style={styles.bottom}>
 					<Text
@@ -88,9 +239,10 @@ export default class Member extends React.Component {
 				{dialogVisible && (
 					<Dialog
 						visible={dialogVisible}
-						title="修改信息"
-						changeKey="world"
-						defalutValue="hello"
+						title={title}
+						changeKey={changeKey}
+						placeHolder={placeHolder}
+						defalutValue={defalutValue}
 						onOk={this.onOkDialog.bind(this)}
 						onCancel={this.onCancelDialog.bind(this)}
 					/>

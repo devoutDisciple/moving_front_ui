@@ -112,7 +112,7 @@ export default class Member extends React.Component {
 		}
 		let user = await Storage.get('user');
 		address.userid = user.id;
-		address.is_defalut = 2;
+		address.is_defalut = 1;
 		let result = await Request.post('/address/add', address);
 		if (result.data === 'success') {
 			Toast.success('保存成功');
