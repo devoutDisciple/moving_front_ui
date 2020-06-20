@@ -21,7 +21,6 @@ export default class Dialog extends React.Component {
 	render() {
 		let { title } = this.props,
 			{ changeKey, value } = this.state;
-		console.log(changeKey, value);
 		return (
 			<View style={styles.container}>
 				<View style={styles.content}>

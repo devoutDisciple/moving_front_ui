@@ -49,9 +49,10 @@ export default class MyScreen extends React.Component {
 	// 获取用户信息
 	async getUserInfo() {
 		this.setState({ loading: true });
-		// 获取用户token值
-		let token = await Storage.getString('token');
-		let res = await Request.get('/user/getUserByToken', { token });
+		// 获取用户id的值
+		let currentUser = await Storage.get('user');
+		let userid = currentUser.id;
+		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data || '';
 		await Storage.set('user', user);
 		// 获取本地存储的用户信息

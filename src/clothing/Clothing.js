@@ -84,20 +84,6 @@ export default class Member extends React.Component {
 						确认订单
 					</Text>
 				</TouchableOpacity>
-				{/* <View style={styles.footer}>
-                    <View style={styles.footer_left}>
-                        <Text style={styles.footer_left_text}>
-                            订单价格：￥123
-                        </Text>
-                    </View>
-                    <TouchableOpacity
-                        onPress={this.onSureOrder.bind(this)}
-                        style={styles.footer_right}>
-                        <Text style={{color: '#fff', fontSize: 16}}>
-                            确认支付
-                        </Text>
-                    </TouchableOpacity>
-                </View> */}
 				<Loading visible={loadingVisible} />
 				{dialogVisible && (
 					<Dialog

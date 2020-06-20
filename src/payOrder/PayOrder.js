@@ -35,9 +35,10 @@ export default class PayOrderScreen extends React.Component {
 		if (type === 'recharge') {
 			given = navigation.getParam('given');
 		}
-		// 获取用户token值
-		let token = await StorageUtil.getString('token');
-		let res = await Request.get('/user/getUserByToken', { token });
+		// 获取用户id的值
+		let currentUser = await StorageUtil.get('user');
+		let userid = currentUser.id;
+		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data;
 		this.setState({ user: user, money, type, given });
 	}

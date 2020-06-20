@@ -28,9 +28,10 @@ export default class Intergral extends React.Component {
 	// 获取用户积分
 	async getUserIntergral() {
 		await this.setState({ loadingVisible: true });
-		// 获取用户token值
-		let token = await Storage.getString('token');
-		let res = await Request.get('/user/getUserByToken', { token });
+		// 获取用户id的值
+		let currentUser = await Storage.get('user');
+		let userid = currentUser.id;
+		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data || {};
 		let integral = user.integral || '0';
 		this.setState({ integral: integral, loadingVisible: false });
@@ -39,7 +40,6 @@ export default class Intergral extends React.Component {
 	// 获取商店积分商品
 	async getShopGoods() {
 		await this.setState({ loadingVisible: true });
-		// 获取用户token值
 		let shop = await Storage.get('shop');
 		let id = shop.id || '';
 		if (!id) {

@@ -295,7 +295,7 @@ DEPENDENCIES:
   - Picker (from `../node_modules/react-native-picker`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
-  - RCTWeChat (from `../node_modules/react-native-wechat`)
+  - RCTWeChat (from `../node_modules/react-native-wechat-lib`)
   - React (from `../node_modules/react-native/`)
   - React-Core (from `../node_modules/react-native/`)
   - React-Core/DevSupport (from `../node_modules/react-native/`)
@@ -359,7 +359,7 @@ EXTERNAL SOURCES:
   RCTTypeSafety:
     :path: "../node_modules/react-native/Libraries/TypeSafety"
   RCTWeChat:
-    :path: "../node_modules/react-native-wechat"
+    :path: "../node_modules/react-native-wechat-lib"
   React:
     :path: "../node_modules/react-native/"
   React-Core:
@@ -436,7 +436,7 @@ SPEC CHECKSUMS:
   Picker: 37554355aef82a532ea95b71b6eeba66bc86182b
   RCTRequired: f3b3fb6f4723e8e52facb229d0c75fdc76773849
   RCTTypeSafety: 2ec60de6abb1db050b56ecc4b60188026078fd10
-  RCTWeChat: edb02d76aaf9b2e698e515e3c57bf143a290d9d7
+  RCTWeChat: 21edc74a8d759566d226e6fa12e7ea5ac6bf2129
   React: 10e0130b57e55a7cd8c3dee37c1261102ce295f4
   React-Core: 636212410772d05f3a1eb79d965df2962ca1c70b
   React-CoreModules: 6f70d5e41919289c582f88c9ad9923fe5c87400a

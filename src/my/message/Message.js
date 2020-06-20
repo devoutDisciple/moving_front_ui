@@ -32,9 +32,10 @@ export default class SettingScreen extends React.Component {
 	// 获取用户信息
 	async getUserInfo() {
 		this.setState({ loading: true });
-		// 获取用户token值
-		let token = await Storage.getString('token');
-		let res = await Request.get('/user/getUserByToken', { token });
+		// 获取用户id的值
+		let currentUser = await Storage.get('user');
+		let userid = currentUser.id;
+		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data || '';
 		if (!user) {
 			// 去登陆页面
@@ -71,6 +72,8 @@ export default class SettingScreen extends React.Component {
 		// 获取用户token值
 		let token = await Storage.getString('token');
 		let params = { token, key, value };
+		let user = await Storage.get('user');
+		console.log(user);
 		let result = await Request.post('/user/update', params);
 		if (result.data === 'success') {
 			Toast.success('修改成功');

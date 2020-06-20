@@ -25,7 +25,7 @@ export default class AllOrder extends React.Component {
 			if (Number(is_sure) !== 2) {
 				return Toast.warning('订单金额待店员确认，请稍后');
 			}
-			let result = await PayUtil.payMoneyByWeChat(this.props.detail.money, '购买moving会员');
+			let result = await PayUtil.payMoneyByWeChat(this.props.detail.money, '支付洗衣费用');
 			if (result === 'success') {
 				Toast.success('支付成功');
 				try {
