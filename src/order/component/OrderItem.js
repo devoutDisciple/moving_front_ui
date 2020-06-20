@@ -1,11 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Request from '../../util/Request';
-import config from '../../config/config';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
 import Message from '../../component/Message';
-import * as WeChat from 'react-native-wechat';
+import PayUtil from '../../util/PayUtil';
 import FilterStatus from '../../util/FilterStatus';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
@@ -13,6 +12,7 @@ export default class AllOrder extends React.Component {
 	constructor(props) {
 		super(props);
 		this.renderBtn = this.renderBtn.bind(this);
+		this.updateOrderStatus = this.updateOrderStatus.bind(this);
 	}
 
 	componentDidMount() {}
@@ -21,53 +21,36 @@ export default class AllOrder extends React.Component {
 	async payOrder() {
 		try {
 			// 判断店员是否确认
-			let { is_sure } = this.props.detail;
+			let { is_sure, id } = this.props.detail;
 			if (Number(is_sure) !== 2) {
 				return Toast.warning('订单金额待店员确认，请稍后');
 			}
-			let { id } = this.props.detail;
-			let isWXAppInstalled = await WeChat.isWXAppInstalled();
-			if (!isWXAppInstalled) {
-				return Toast.warning('未下载微信');
-			}
-			let result = await Request.post('/pay/payOrder', { total_fee: 10 });
-			let data = result.data;
-			let params = {
-				partnerId: config.partnerId, // 商家向财付通申请的商家ID
-				prepayId: data.prepay_id, // 预支付订单ID
-				nonceStr: data.nonce_str[0], // 随机串
-				timeStamp: new Date().getTime(), // 时间戳
-				package: config.package, // 商家根据财付通文档填写的数据和签名
-				sign: data.sign[0], // 商家根据微信开放平台文档对数据做的签名
-			};
-			// 第三步，调起微信客户端支付
-			WeChat.pay(params)
-				.then(async response => {
-					let errorCode = Number(response.errCode);
-					if (errorCode === 0) {
-						Toast.success('支付成功');
-						// TODO: 这里处理支付成功后的业务逻辑，比如支付成功跳转页面、清空购物车。。。。
-						// 更改订单状态
+			let result = await PayUtil.payMoneyByWeChat(this.props.detail.money, '购买moving会员');
+			if (result === 'success') {
+				Toast.success('支付成功');
+				try {
+					setTimeout(async () => {
 						let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-						if (orderStatus === 'success') {
-							this.props.onSearch();
+						if (orderStatus.data === 'success') {
+							return this.props.onSearch();
 						}
-					} else {
-						Toast.error(response.errStr);
-					}
-				})
-				.catch(error => {
+					}, 500);
+				} catch (error) {
 					console.log(error);
-					let errorCode = Number(error.code);
-					if (errorCode === -2) {
-						Toast.warning('已取消支付');
-					} else {
-						Toast.error('支付失败');
-					}
-				});
+				}
+			}
 		} catch (error) {
-			return Toast.warning('系统开小差了，请稍后重试');
+			return Toast.warning(error || '系统错误');
 		}
+	}
+
+	async updateOrderStatus() {
+		let { id } = this.props.detail;
+		let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
+		if (orderStatus.data === 'success') {
+			return this.props.onSearch();
+		}
+		return;
 	}
 
 	// 打开柜子

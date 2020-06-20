@@ -1,5 +1,4 @@
-import * as WeChat from 'react-native-wechat';
-import Toast from '../component/Toast';
+import * as WeChat from 'react-native-wechat-lib';
 import Request from './Request';
 import config from '../config/config';
 

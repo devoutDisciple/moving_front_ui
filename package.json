@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator iPhone 8",
+    "ios": "react-native run-ios --simulator iPhone 7",
     "iphone": "react-native run-ios --simulator iPhone 11",
     "start": "react-native start",
     "test": "jest",
     "postinstall": "jetifier -r",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output release_ios/main.jsbundle --assets-dest release_ios/"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
@@ -17,7 +18,7 @@
     "axios": "^0.19.0",
     "react": "16.9.0",
     "react-native": "0.61.4",
-    "react-native-amap-geolocation": "^1.0.4",
+    "react-native-amap-geolocation": "^1.1.0",
     "react-native-camera": "^3.17.0",
     "react-native-device-info": "^5.6.1",
     "react-native-elements": "^1.2.7",
@@ -35,6 +36,7 @@
     "react-native-textinput-effects": "^0.5.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-wechat": "^1.9.12",
+    "react-native-wechat-lib": "^1.1.19",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3",
     "react-navigation-tabs": "^2.6.0"
