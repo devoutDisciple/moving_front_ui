@@ -10,6 +10,8 @@ import Picker from 'react-native-picker';
 import RequestUtil from '../util/Request';
 import Loading from '../component/Loading';
 import { getDayHours } from '../util/Util';
+import StorageUtil from '../util/Storage';
+import message from '../component/Message';
 // import Toast from 'react-native-root-toast';
 import CommonHeader from '../component/CommonHeader';
 import MessageItem from '../my/message/MessageItem';
@@ -143,17 +145,33 @@ export default class Member extends React.Component {
 	}
 
 	// 确认订单
-	onSureOrder() {
+	async onSureOrder() {
+		let shop = await StorageUtil.get('shop');
+		let user = await StorageUtil.get('user');
 		let { selectDay, selectTime, selectAddress, username, phone, house, desc } = this.state;
 		if (!selectAddress || !username || !phone || !house) {
 			return Toast.warning('请完善预约信息');
 		}
+		// 手机号不通过
+		if (!/^1[3456789]\d{9}$/.test(phone)) {
+			return message.warning('提示', '请输入正确的手机号码');
+		}
+		let day = selectDay.split('(')[0];
+		let params = {
+			userid: user.id,
+			shopid: shop.id,
+			home_time: `${day} ${selectTime}:00`,
+			home_address: `${selectAddress} ${house}`,
+			home_username: username,
+			home_phone: phone,
+			desc,
+		};
 		this.setState({ loadingVisible: true });
-
-		setTimeout(() => {
+		let result = await RequestUtil.post('/order/addByHome', params);
+		if (result.data === 'success') {
 			this.setState({ loadingVisible: false });
-			Toast.success('下单成功, 正在等待商店接单');
-		}, 1000);
+			Toast.success('下单成功,祝您生活愉快');
+		}
 	}
 
 	render() {

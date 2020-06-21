@@ -170,7 +170,6 @@ export default class IconList extends React.Component {
 	}
 }
 
-let iconSize = 45;
 const styles = StyleSheet.create({
 	icon_container: {
 		marginTop: 10,
@@ -184,10 +183,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	},
-	home_icon_item_img: {
-		height: iconSize,
-		width: iconSize,
 	},
 	home_icon_item_text: {
 		marginTop: 10,

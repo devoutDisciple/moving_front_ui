@@ -69,7 +69,14 @@ export default class Intergral extends React.Component {
 					{goods && goods.length !== 0 ? (
 						<View style={styles.intergrals_content_chunk}>
 							{goods.map(item => {
-								return <GoodsItem key={item.id} data={item || {}} onSearch={this.getUserIntergral.bind(this)} />;
+								return (
+									<GoodsItem
+										key={item.id}
+										data={item || {}}
+										navigation={navigation}
+										onSearch={this.getUserIntergral.bind(this)}
+									/>
+								);
 							})}
 						</View>
 					) : (

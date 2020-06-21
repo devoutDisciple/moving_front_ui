@@ -1,13 +1,14 @@
 import { Alert } from 'react-native';
 
 export default {
-	warning: (title, message) => {
+	warning: (title, message, callBack) => {
 		Alert.alert(
 			title,
 			message,
 			[
 				{
 					text: '确定',
+					onPress: callBack ? callBack : () => {},
 				},
 			],
 			{ cancelable: false },

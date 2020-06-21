@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, View, ScrollView, StyleSheet, Image } from 'react-native';
 import CommonHeader from '../../component/CommonHeader';
 import DetailSave from './DetailSave';
-import DetailSend from './DetailSend';
+// import DetailSend from './DetailSend';
 import DetailShop from './DetailShop';
 import Detailgoods from './DetailGoods';
 import Request from '../../util/Request';

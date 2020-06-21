@@ -1,7 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Storage from '../util/Storage';
 import Request from '../util/Request';
+import StorageUtil from '../util/Storage';
+import RequestUtil from '../util/Request';
+import Loading from '../component/Loading';
+import Message from '../component/Message';
 import CommonHeader from '../component/CommonHeader';
 import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Toast from '../component/Toast';
@@ -11,6 +14,7 @@ export default class Member extends React.Component {
 		super(props);
 		this.state = {
 			addressList: [],
+			loading: false,
 		};
 	}
 
@@ -28,11 +32,12 @@ export default class Member extends React.Component {
 
 	// 查找用户地址
 	async onSearchAddress() {
-		let user = await Storage.get('user');
+		this.setState({ loading: true });
+		let user = await StorageUtil.get('user');
 		let userid = user.id;
 		let result = await Request.get('/address/getAllByUserid', { userid });
 		let addressList = result.data || [];
-		this.setState({ addressList });
+		this.setState({ addressList, loading: false });
 	}
 
 	// radio选择的时候
@@ -43,8 +48,37 @@ export default class Member extends React.Component {
 		let preDefaultAddress = preDefalutAddressList[0] || {};
 		let result = await Request.post('/address/changeDefalut', { preId: preDefaultAddress.id, currentId: currentDefalutAddress.id });
 		if (result.data === 'success') {
-			Toast.success('默认地址修改成功');
+			Toast.success('地址修改成功');
 			this.onSearchAddress();
+		}
+	}
+
+	// 确认积分兑换地址
+	async onSureIntergralOrder() {
+		let shop = await StorageUtil.get('shop');
+		let user = await StorageUtil.get('user');
+		let { addressList } = this.state;
+		let defalutAddress = addressList.filter(item => item.is_defalut === 2)[0];
+		if (!defalutAddress) {
+			return Toast.warning('请选择默认收货地址');
+		}
+		let { navigation } = this.props;
+		let goods = navigation.getParam('goods');
+		this.setState({ loading: true });
+		let result = await RequestUtil.post('/order/addByIntergral', {
+			userid: user.id,
+			shopid: shop.id,
+			intergral_address: `${defalutAddress.area} ${defalutAddress.street}`,
+			intergral_phone: defalutAddress.phone,
+			intergral_username: defalutAddress.username,
+			intergral_num: goods.intergral,
+			goods: JSON.stringify(goods),
+		});
+		if (result.data === 'success') {
+			this.setState({ loading: false });
+			Message.warning('兑换成功', '稍后为您安排送货', () => {
+				this.props.navigation.navigate('HomeScreen');
+			});
 		}
 	}
 
@@ -64,7 +98,9 @@ export default class Member extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let { addressList } = this.state;
+		console.log(navigation, 5678);
+		let type = navigation.getParam('type');
+		let { addressList, loading } = this.state;
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="我的收货地址" navigation={navigation} />
@@ -99,9 +135,17 @@ export default class Member extends React.Component {
 						);
 					})}
 				</ScrollView>
-				<TouchableOpacity onPress={this.onAddAddress.bind(this)} style={styles.add_address_btn}>
-					<Text style={styles.add_address_btn_text}>新增地址</Text>
-				</TouchableOpacity>
+				{type === 'intergral' ? (
+					<TouchableOpacity onPress={this.onSureIntergralOrder.bind(this)} style={styles.add_address_btn}>
+						<Text style={styles.add_address_btn_text}>确认</Text>
+					</TouchableOpacity>
+				) : (
+					<TouchableOpacity onPress={this.onAddAddress.bind(this)} style={styles.add_address_btn}>
+						<Text style={styles.add_address_btn_text}>新增地址</Text>
+					</TouchableOpacity>
+				)}
+
+				<Loading visible={loading} />
 			</View>
 		);
 	}

@@ -18,8 +18,6 @@ export default class Intergral extends React.Component {
 	// 购买商品
 	async onBuyGoods() {
 		let { data } = this.props;
-		let shop = await StorageUtil.get('shop');
-		let user = await StorageUtil.get('user');
 		Alert.alert(
 			`是否确认兑换 ${data.name} ？`,
 			`该次兑换将消耗 ${data.intergral} 积分`,
@@ -28,21 +26,7 @@ export default class Intergral extends React.Component {
 					text: '确认兑换',
 					onPress: async () => {
 						try {
-							let address = await Request.get('/address/getUserDefaultAddress', { userid: user.id });
-							if (!address.data) {
-								return Toast.warning('请填写收货地址');
-							}
-							let result = await Request.post('/intergral_record/add', {
-								userid: user.id,
-								shopid: shop.id,
-								goodsId: data.id,
-								intergral: data.intergral,
-								address: JSON.stringify(address.data || {}),
-							});
-							if (result.data === 'success') {
-								this.props.onSearch();
-								Message.warning('兑换成功', '请在兑换记录中查看详细信息');
-							}
+							this.props.navigation.navigate('MyAddressScreen', { type: 'intergral', goods: data });
 						} catch (error) {}
 					},
 				},

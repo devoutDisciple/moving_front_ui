@@ -2,7 +2,9 @@
 import React from 'react';
 import Empty from './Empty';
 import FooterScreen from './Footer';
-import OrderItem from './OrderItem';
+import OrderItemByHome from './OrderItemByHome';
+import OrderItemByCabinet from './OrderItemByCabinet';
+import OrderItemByIntergral from './OrderItemByIntergral';
 import { View, FlatList, StyleSheet } from 'react-native';
 import Request from '../../util/Request';
 import storageUtil from '../../util/Storage';
@@ -15,7 +17,7 @@ export default class AllOrder extends React.Component {
 		this.state = {
 			data: [],
 			current: 1,
-			type: type,
+			type: type, // all-全部 cleaning-清洗中 receiving-待取货 finished-已完成
 			pagesize: 10,
 			headerLoading: false, // 头部的loading是否显示
 			loadingVisible: false,
@@ -38,6 +40,7 @@ export default class AllOrder extends React.Component {
 		let userid = user.id,
 			{ current, pagesize, type } = this.state;
 		let result = await Request.get('/order/getOrderByPage', { current, pagesize, userid, type });
+		console.log(result, 999);
 		let data = result.data || [];
 		show && (await this.setState({ loadingVisible: false }));
 		return data;
@@ -81,24 +84,48 @@ export default class AllOrder extends React.Component {
 					keyExtractor={(item, index) => String(item.id)}
 					ListFooterComponent={<FooterScreen status={footerStatus} />}
 					renderItem={({ item, index }) => {
-						let goods = JSON.parse(item.goods || []);
-						let firstName = goods[0] ? goods[0].name : '--';
-						let totalThings = 0;
-						if (goods.length !== 0) {
-							goods.forEach(good => {
-								totalThings += Number(good.num);
-							});
+						// 通过快递柜下单
+						if (item.order_type === 1) {
+							let goods = JSON.parse(item.goods || []);
+							let firstName = goods[0] ? goods[0].name : '--';
+							let totalThings = 0;
+							if (goods.length !== 0) {
+								goods.forEach(good => {
+									totalThings += Number(good.num);
+								});
+							}
+							return (
+								<OrderItemByCabinet
+									detail={item}
+									key={String(item.id)}
+									navigation={navigation}
+									onSearch={this.headerRefresh.bind(this)}
+									goods={`${firstName} 等 ${totalThings} 件衣物`}
+								/>
+							);
 						}
-						return (
-							<OrderItem
-								type={type}
-								detail={item}
-								key={String(item.id)}
-								navigation={navigation}
-								onSearch={this.headerRefresh.bind(this)}
-								goods={`${firstName} 等 ${totalThings} 件衣物`}
-							/>
-						);
+						// 预约上门取衣
+						if (item.order_type === 2) {
+							return (
+								<OrderItemByHome
+									detail={item}
+									key={String(item.id)}
+									navigation={navigation}
+									onSearch={this.headerRefresh.bind(this)}
+								/>
+							);
+						}
+						// 积分兑换
+						if (item.order_type === 3) {
+							return (
+								<OrderItemByIntergral
+									detail={item}
+									key={String(item.id)}
+									navigation={navigation}
+									onSearch={this.headerRefresh.bind(this)}
+								/>
+							);
+						}
 					}}
 				/>
 				<Loading visible={loadingVisible} />

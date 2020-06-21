@@ -36,6 +36,12 @@ export default {
 			case 5:
 				data = '已完成';
 				break;
+			case 6:
+				data = '预约成功';
+				break;
+			case 7:
+				data = '积分兑换';
+				break;
 			default:
 				data = '待取货';
 		}

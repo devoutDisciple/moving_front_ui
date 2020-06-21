@@ -107,7 +107,7 @@ export default class AllOrder extends React.Component {
 				<Text style={styles.order_pay_font}>打开柜子</Text>
 			</TouchableOpacity>
 		);
-		if (status === 1 || status === 2 || status === 5) {
+		if (status === 1 || status === 2 || status === 5 || status === 6) {
 			actionBtn = [connectBtn];
 		}
 		if (status === 3) {
@@ -120,13 +120,12 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		const { goods } = this.props;
-		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, money, status } = this.props.detail;
-
+		const { id, shopName, create_time, home_address, status, home_username, home_phone, home_time } = this.props.detail;
+		console.log(`${Config.baseUrl}/logo_square.jpg`);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/${cabinetUrl}` }} />
+					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/logo_square.jpg` }} />
 				</View>
 				<View style={styles.order_item_right}>
 					<View style={styles.order_item_right_title}>
@@ -142,21 +141,19 @@ export default class AllOrder extends React.Component {
 					</View>
 					<TouchableOpacity onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>存取地址：{cabinetAdderss}</Text>
-						</View>
-						<View style={styles.order_item_right_goods}>
-							<View style={styles.order_item_right_goods_left}>
-								<Text style={styles.font_desc_style}>{goods}</Text>
-							</View>
-							<View style={styles.order_item_right_goods_right}>
-								<Text style={styles.font_desc_style}>￥ {money}</Text>
-							</View>
+							<Text style={styles.font_desc_style}>预约地址：{home_address}</Text>
 						</View>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>订单链路：MOVING洗衣柜下单</Text>
+							<Text style={styles.font_desc_style}>预约人：{home_username}</Text>
 						</View>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>取货方式：MOVING洗衣柜取货</Text>
+							<Text style={styles.font_desc_style}>联系方式：{home_phone}</Text>
+						</View>
+						<View style={styles.order_item_right_adrress}>
+							<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
+						</View>
+						<View style={styles.order_item_right_adrress}>
+							<Text style={styles.font_desc_style}>订单方式：预约上门取衣</Text>
 						</View>
 					</TouchableOpacity>
 					<View style={styles.order_item_right_bottom}>{this.renderBtn()}</View>
