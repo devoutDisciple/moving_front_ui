@@ -119,22 +119,22 @@ export default class IconList extends React.Component {
 			{
 				key: 'home_operation',
 				url: require('../../img/home/caozuo.png'),
-				text: I18n.t('home.operation'),
+				text: '操作指南',
 			},
 			{
 				key: 'home_concat',
 				url: require('../../img/home/lianxi.png'),
-				text: I18n.t('home.contact'),
+				text: '关于我们',
 			},
 			{
 				key: 'aaa',
-				url: require('../../img/home/icon6.png'),
-				text: '邀请用户',
+				// url: require('../../img/home/icon6.png'),
+				// text: '邀请用户',
 			},
 			{
 				key: 'bbb',
-				url: require('../../img/home/icon6.png'),
-				text: '协议',
+				// url: require('../../img/home/icon6.png'),
+				// text: '协议',
 			},
 		];
 		return (

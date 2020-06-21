@@ -98,8 +98,12 @@ export default class Member extends React.Component {
 							</Text>
 						</View>
 						<View style={styles.member_detail_content}>
-							<Text style={styles.member_detail_content_text}>1. 免费配送</Text>
-							<Text style={styles.member_detail_content_text}>2. 上门免费取衣服</Text>
+							<Text style={styles.member_detail_content_text}>
+								&emsp;CLEANERS洗衣店将引用5G智慧时代推出“线上洗衣”实现智慧管理，无接触收送衣服。更贴近消费者，让消费者更舒心，更方便。
+							</Text>
+							<Text style={styles.member_detail_content_text}>
+								&emsp;CLEANERS洗衣店将引用5G智慧时代推出“线上洗衣”实现智慧管理，无接触收送衣服。更贴近消费者，让消费者更舒心，更方便。
+							</Text>
 							{selectIndex === 1 && <Text style={styles.member_detail_content_text}>3. 专属客服</Text>}
 							{selectIndex === 1 && <Text style={styles.member_detail_content_text}>4. 免费配送</Text>}
 						</View>
@@ -158,9 +162,10 @@ const styles = StyleSheet.create({
 		},
 	},
 	member_detail_content_text: {
-		fontSize: 14,
-		color: '#f3b3d4',
-		margin: 10,
+		fontSize: 13,
+		lineHeight: 18,
+		color: '#8a8a8a',
+		marginBottom: 10,
 	},
 	member_bottom: {
 		height: 100,
