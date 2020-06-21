@@ -81,9 +81,7 @@ export default class HomeScreen extends React.Component {
 		};
 	};
 
-	componentWillReceiveProps() {
-		console.log(456);
-	}
+	componentWillReceiveProps() {}
 
 	async componentDidMount() {
 		console.log(123);

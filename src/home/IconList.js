@@ -95,6 +95,11 @@ export default class IconList extends React.Component {
 	render() {
 		const iconList1 = [
 			{
+				key: 'home_clothing',
+				url: require('../../img/home/service.png'),
+				text: '上门取衣',
+			},
+			{
 				key: 'home_integral',
 				url: require('../../img/home/jifen.png'),
 				text: 'Moving商城',
@@ -104,12 +109,6 @@ export default class IconList extends React.Component {
 				url: require('../../img/home/hello.png'),
 				text: I18n.t('home.member'),
 			},
-			{
-				key: 'home_clothing',
-				url: require('../../img/home/service.png'),
-				text: '上门取衣',
-			},
-
 			{
 				key: 'home_recharge',
 				url: require('../../img/home/chongzhi.png'),

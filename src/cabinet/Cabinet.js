@@ -93,7 +93,7 @@ export default class OrderScreen extends React.Component {
 			user = await storageUtil.get('user');
 		let shopid = shop.id,
 			userid = user.id;
-		let result = await Request.post('/order/add', {
+		let result = await Request.post('/order/addByCabinet', {
 			shopid,
 			userid,
 			goods: JSON.stringify(params.goods || []),
@@ -103,8 +103,8 @@ export default class OrderScreen extends React.Component {
 			cabinetId: params.cabinetId,
 			boxid,
 			cellid,
+			order_type: 1, // 通过柜子送货
 		});
-		console.log(params.goods, 999);
 		if (result.data === 'success') {
 			Message.warning('柜子已打开, 请存放衣物!', '订单已生成,祝您生活愉快');
 			this.getState();
