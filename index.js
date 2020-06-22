@@ -5,9 +5,10 @@
 import { AppRegistry } from 'react-native';
 import { name as appName } from './app.json';
 import 'react-native-gesture-handler';
-import App from './App';
 import * as WeChat from 'react-native-wechat-lib';
-WeChat.registerApp('wxcf235c09083c777a', 'universalLink'); // appid
+import App from './App';
+
+WeChat.registerApp('wxcf235c09083c777a', 'https://applinks:www.example.com/'); // appid
 
 console.disableYellowBox = true;
 // GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;

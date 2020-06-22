@@ -121,7 +121,6 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		const { id, shopName, create_time, home_address, status, home_username, home_phone, home_time } = this.props.detail;
-		console.log(`${Config.baseUrl}/logo_square.jpg`);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>

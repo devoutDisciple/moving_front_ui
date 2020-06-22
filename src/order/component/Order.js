@@ -40,7 +40,6 @@ export default class AllOrder extends React.Component {
 		let userid = user.id,
 			{ current, pagesize, type } = this.state;
 		let result = await Request.get('/order/getOrderByPage', { current, pagesize, userid, type });
-		console.log(result, 999);
 		let data = result.data || [];
 		show && (await this.setState({ loadingVisible: false }));
 		return data;

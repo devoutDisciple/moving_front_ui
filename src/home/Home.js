@@ -29,7 +29,7 @@ export default class HomeScreen extends React.Component {
 	static navigationOptions = ({ navigation, navigationOptions }) => {
 		// 自定义左右菜单
 		return {
-			headerTitle: 'Moving',
+			headerTitle: 'MOVING洗衣',
 			headerLeft: () => {
 				return (
 					<TouchableOpacity onPress={() => navigation.state.params.leftIconClick()}>
