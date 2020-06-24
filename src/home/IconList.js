@@ -71,7 +71,7 @@ export default class IconList extends React.Component {
 			navigation.navigate('ReChargeScreen', { type: 'recharge' });
 		}
 
-		// 联系我们
+		// 关于我们
 		if (data && data.key === 'home_concat') {
 			navigation.navigate('ConcatUsScreen');
 		}
@@ -117,24 +117,24 @@ export default class IconList extends React.Component {
 		];
 		const iconList2 = [
 			{
-				key: 'home_operation',
-				url: require('../../img/home/caozuo.png'),
-				text: '操作指南',
-			},
-			{
 				key: 'home_concat',
 				url: require('../../img/home/lianxi.png'),
 				text: '关于我们',
 			},
 			{
+				key: 'home_operation',
+				// url: require('../../img/home/caozuo.png'),
+				// text: '操作指南',
+			},
+			{
 				key: 'aaa',
-				url: require('../../img/home/icon6.png'),
-				text: '邀请用户',
+				// url: require('../../img/home/icon6.png'),
+				// text: '邀请用户',
 			},
 			{
 				key: 'bbb',
-				url: require('../../img/home/icon6.png'),
-				text: '协议',
+				// url: require('../../img/home/icon6.png'),
+				// text: '协议',
 			},
 		];
 		return (

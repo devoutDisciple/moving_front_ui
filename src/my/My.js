@@ -100,9 +100,9 @@ export default class MyScreen extends React.Component {
 		if (key === 'suggestion') {
 			return navigation.navigate('SuggestionScreen');
 		}
-		// 点击moving简介
+		// 点击关于我们
 		if (key === 'aboutUs') {
-			return navigation.navigate('AboutUsScreen');
+			return navigation.navigate('ConcatUsScreen');
 		}
 		// 点击联系我们
 		if (key === 'concatUs') {
@@ -123,12 +123,12 @@ export default class MyScreen extends React.Component {
 					<View style={{ height: 10 }} />
 					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
 					<ListItem iconName="staro" text="Moving商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
-					<ListItem iconName="staro" text="购买记录" onPress={this.onPressListItem.bind(this, 'intergralRecord')} />
+					{/* <ListItem iconName="staro" text="购买记录" onPress={this.onPressListItem.bind(this, 'intergralRecord')} /> */}
 					<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
-					<ListItem iconName="linechart" text="消费记录" onPress={this.onPressListItem.bind(this, 'shopping')} />
+					{/* <ListItem iconName="linechart" text="消费记录" onPress={this.onPressListItem.bind(this, 'shopping')} /> */}
 					<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
-					<ListItem iconName="team" text="moving简介" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
-					<ListItem iconName="message1" text="联系我们" onPress={this.onPressListItem.bind(this, 'concatUs')} />
+					<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
+					{/* <ListItem iconName="message1" text="联系我们" onPress={this.onPressListItem.bind(this, 'concatUs')} /> */}
 				</ScrollView>
 			</View>
 		);

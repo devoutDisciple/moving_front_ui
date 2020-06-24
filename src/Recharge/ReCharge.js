@@ -11,6 +11,7 @@ import PayUtil from '../util/PayUtil';
 import Request from '../util/Request';
 import StorageUtil from '../util/Storage';
 import Alipay from '../util/Alipay';
+import * as WeChat from 'react-native-wechat-lib';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -19,11 +20,21 @@ export default class ReCharge extends React.Component {
 		super(props);
 		this.state = {
 			activeMoney: 0,
-			payWay: 'wechat',
+			payWay: 'alipay',
+			wechatVisible: false,
 		};
 	}
 
-	componentDidMount() {}
+	async componentDidMount() {
+		await this.onJudgeWechat();
+	}
+
+	async onJudgeWechat() {
+		let isWXAppInstalled = await WeChat.isWXAppInstalled();
+		if (isWXAppInstalled) {
+			this.setState({ wechatVisible: true });
+		}
+	}
 
 	// 支付金额改变
 	onPressChargeItem(key) {
@@ -59,7 +70,7 @@ export default class ReCharge extends React.Component {
 		}
 		// 支付宝支付
 		if (payWay === 'alipay') {
-			let res = await Request.post('/pay/payByOrderAlipay', { desc: 'moving会员', money: currentPay.pay, type: type });
+			let res = await Request.post('/pay/payByOrderAlipay', { desc: 'MOVING会员', money: currentPay.pay, type: type });
 			Alipay.pay(res.data)
 				.then(data => {
 					console.log('成功');
@@ -92,7 +103,7 @@ export default class ReCharge extends React.Component {
 		let { navigation } = this.props,
 			// member-会员
 			type = navigation.getParam('type'),
-			{ activeMoney, payWay } = this.state,
+			{ activeMoney, payWay, wechatVisible } = this.state,
 			flag = type === 'member';
 		return (
 			<View style={styles.container}>
@@ -118,13 +129,16 @@ export default class ReCharge extends React.Component {
 					<View style={styles.detail_common_title}>
 						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
 					</View>
-					<PayItem
-						iconName="wechat"
-						onPress={this.payWayChange.bind(this, 'wechat')}
-						iconColor="#89e04c"
-						text="微信支付"
-						active={payWay === 'wechat'}
-					/>
+					{wechatVisible && (
+						<PayItem
+							iconName="wechat"
+							onPress={this.payWayChange.bind(this, 'wechat')}
+							iconColor="#89e04c"
+							text="微信支付"
+							active={payWay === 'wechat'}
+						/>
+					)}
+
 					<PayItem
 						iconName="alipay-circle"
 						onPress={this.payWayChange.bind(this, 'alipay')}

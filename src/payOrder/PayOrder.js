@@ -6,7 +6,9 @@ import CommonStyle from '../style/common';
 import CommonHeader from '../component/CommonHeader';
 import Request from '../util/Request';
 import PayUtil from '../util/PayUtil';
+import Alipay from '../util/Alipay';
 import StorageUtil from '../util/Storage';
+import * as WeChat from 'react-native-wechat-lib';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -14,16 +16,25 @@ export default class PayOrderScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			payWay: 'wechat', // 默认微信支付
+			payWay: 'alipay', // 默认微信支付
 			user: {}, // 用户信息
-			money: 80, // 默认80
+			money: 0.0, // 默认80
 			type: 'loading...', // beMember - 成为会员 recharge - 余额充值 order -订单支付
 			given: 0, // 余额充值的时候赠送的
+			wechatVisible: false,
 		};
 	}
 
 	async componentDidMount() {
 		await this.getUser();
+		await this.onJudgeWechat();
+	}
+
+	async onJudgeWechat() {
+		let isWXAppInstalled = await WeChat.isWXAppInstalled();
+		if (isWXAppInstalled) {
+			this.setState({ wechatVisible: true });
+		}
 	}
 
 	// 获取用户
@@ -31,16 +42,12 @@ export default class PayOrderScreen extends React.Component {
 		const { navigation } = this.props;
 		let money = navigation.getParam('money');
 		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付
-		let given = 0;
-		if (type === 'recharge') {
-			given = navigation.getParam('given');
-		}
 		// 获取用户id的值
 		let currentUser = await StorageUtil.get('user');
 		let userid = currentUser.id;
 		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data;
-		this.setState({ user: user, money, type, given });
+		this.setState({ user: user, money, type });
 	}
 
 	// 支付方式改变
@@ -48,70 +55,45 @@ export default class PayOrderScreen extends React.Component {
 		this.setState({ payWay: key });
 	}
 
-	// 确认支付
-	async onSurePay() {
-		let { type } = this.state;
-		// 成为会员
-		if (type === 'beMember') {
-			return await this.onBeMember();
-		}
-		// 余额充值
-		if (type === 'recharge') {
-			return await this.onRecharge();
-		}
-	}
-
-	// 余额充值
-	async onRecharge() {
-		try {
-			let { money, given } = this.state;
-			// 获取用户token值
-			let token = await StorageUtil.getString('token');
-			let res = await PayUtil.payMoneyByWeChat(money, 'Moving余额充值');
-			if (res === 'success') {
-				let result = await Request.post('/user/recharge', { token: token, money, given });
-				if (result) {
-					return Toast.success('恭喜您充值成功');
+	// 订单支付
+	async payOrder() {
+		let { payWay, money } = this.state;
+		const { navigation } = this.props;
+		let orderid = navigation.getParam('orderid');
+		if (payWay === 'wechat') {
+			try {
+				// 获取用户token值
+				let res = await PayUtil.payMoneyByWeChat(money, 'MOVING洗衣费用结算');
+				if (res === 'success') {
+					Toast.success('支付完成');
+					try {
+						setTimeout(async () => {
+							let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: orderid, status: 4 });
+							if (orderStatus.data === 'success') {
+								return navigation.navigate('HomeScreen');
+							}
+						}, 500);
+					} catch (error) {
+						console.log(error);
+					}
 				}
+			} catch (error) {
+				Toast.warning(error);
 			}
-		} catch (error) {
-			Toast.warning(error);
 		}
-	}
-
-	// 成为会员
-	async onBeMember() {
-		try {
-			let { money } = this.state;
-			// 获取用户token值
-			let token = await StorageUtil.getString('token');
-			let res = await PayUtil.payMoneyByWeChat(money, 'Moving洗衣金卡会员');
-			if (res === 'success') {
-				let result = await Request.post('/user/beMember', { token: token, level: 2 });
-				if (result) {
-					return Toast.success('恭喜您已成为Moving尊贵会员');
-				}
-			}
-		} catch (error) {
-			Toast.warning(error);
+		if (payWay === 'alipay') {
+			let res = await Request.post('/pay/payByOrderAlipay', { desc: 'MOVING洗衣费用结算', money: money, type: 'order' });
+			await Alipay.pay(res.data);
+			return navigation.navigate('HomeScreen');
 		}
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { payWay, user, money, type, given } = this.state;
-		let showType = 'loading....';
-		switch (type) {
-			case 'beMember':
-				showType = '成为会员';
-				break;
-			case 'recharge':
-				showType = `余额充值 充 ${money} 送 ${given}`;
-				break;
-		}
+		let { payWay, user, money, wechatVisible } = this.state;
 		return (
 			<View style={styles.container}>
-				<CommonHeader title="支付" navigation={navigation} />
+				<CommonHeader title="洗衣费用支付" navigation={navigation} />
 				<ScrollView style={styles.content}>
 					{/* <FastImage
                         style={styles.content_logo}
@@ -120,7 +102,7 @@ export default class PayOrderScreen extends React.Component {
 					<View style={styles.money}>
 						<Text style={styles.money_num}>￥ {money}</Text>
 						{/* <Text style={styles.money_order}>订单编号: 328443973823897493</Text> */}
-						<Text style={styles.money_order}>{showType}</Text>
+						<Text style={styles.money_order}>订单支付</Text>
 						<Text style={styles.money_order}>
 							用户名称: {user.username} 手机号: {user.phone}
 						</Text>
@@ -128,13 +110,16 @@ export default class PayOrderScreen extends React.Component {
 					<View style={styles.detail_common_title}>
 						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
 					</View>
-					<PayItem
-						iconName="wechat"
-						onPress={this.payWayChange.bind(this, 'wechat')}
-						iconColor="#89e04c"
-						text="微信支付"
-						active={payWay === 'wechat'}
-					/>
+					{wechatVisible && (
+						<PayItem
+							iconName="wechat"
+							onPress={this.payWayChange.bind(this, 'wechat')}
+							iconColor="#89e04c"
+							text="微信支付"
+							active={payWay === 'wechat'}
+						/>
+					)}
+
 					<PayItem
 						iconName="alipay-circle"
 						onPress={this.payWayChange.bind(this, 'alipay')}
@@ -143,7 +128,7 @@ export default class PayOrderScreen extends React.Component {
 						active={payWay === 'alipay'}
 					/>
 				</ScrollView>
-				<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>
+				<TouchableOpacity style={styles.bottom_btn} onPress={this.payOrder.bind(this)}>
 					<Text style={styles.bottom_btn_text}>确认支付</Text>
 				</TouchableOpacity>
 			</View>

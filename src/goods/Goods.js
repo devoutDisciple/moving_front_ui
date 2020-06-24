@@ -133,7 +133,7 @@ export default class Goods extends React.Component {
 							selectionColor="#fb9bcd"
 							placeholderTextColor="#bfbfbf"
 							style={styles.message_desc_input}
-							placeholder="moving洗衣店为您尽心服务!"
+							placeholder="MOVING洗衣店为您尽心服务!"
 							onChangeText={value => this.setState({ remark: value })}
 						/>
 					</View>
