@@ -43,6 +43,20 @@
   return  YES;
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+  // NOTE: ------  对alipays:相关的scheme处理 -------
+  // NOTE: 若遇到支付宝相关scheme，则跳转到本地支付宝App
+  NSString* reqUrl = request.URL.absoluteString;
+  if ([reqUrl hasPrefix:@"alipays://"] || [reqUrl hasPrefix:@"alipay://"]) {
+    // NOTE: 跳转支付宝App
+    NSString *strUrl = [reqUrl stringByReplacingOccurrencesOfString:@"alipays" withString:@"2021001169609094"];//这里面的xxx是你在iOS原生配置的urlScheme，用来返回你的app的一个标志
+    NSURL *urls =[NSURL URLWithString:strUrl];
+    [[UIApplication sharedApplication]openURL:urls];
+  }
+  return YES;
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];

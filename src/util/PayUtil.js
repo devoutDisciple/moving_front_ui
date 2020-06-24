@@ -11,7 +11,7 @@ export default {
 				if (!isWXAppInstalled) {
 					return reject('未下载微信');
 				}
-				let result = await Request.post('/pay/payOrder', { total_fee: money, desc: desc });
+				let result = await Request.post('/pay/payOrderByWechat', { total_fee: money, desc: desc });
 				let data = result.data;
 				let params = {
 					appId: config.appid,

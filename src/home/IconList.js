@@ -6,9 +6,7 @@ import StorageUtil from '../util/Storage';
 import config from '../config/config';
 import Toast from '../component/Toast';
 import I18n from '../language/I18n';
-import Alipay from '../util/Alipay';
 import { init, Geolocation } from 'react-native-amap-geolocation';
-import Request from '../util/Request';
 
 export default class IconList extends React.Component {
 	constructor(props) {
@@ -70,7 +68,7 @@ export default class IconList extends React.Component {
 		// 充值
 		if (data && data.key === 'home_recharge') {
 			await this.judgeMember();
-			navigation.navigate('ReChargeScreen');
+			navigation.navigate('ReChargeScreen', { type: 'recharge' });
 		}
 
 		// 联系我们
@@ -80,22 +78,10 @@ export default class IconList extends React.Component {
 
 		// 获取所有的存储的key
 		if (data && data.key === 'aaa') {
-			// this.setState({ num: this.state.num + 1 });
-			// let keys = await StorageUtil.getAllKeys();
-			// let res = await StorageUtil.multiGet(keys);
-			// console.log('StorageUtil: ', res);
-			// let res = await Request.get('/test/alipay');
-			console.log(111111);
-			let res = await Request.post('/pay/payByOrderAlipay', { desc: 'moving会员', money: '0.01' });
-			console.log(res.data, 2666);
-			Alipay.pay(res.data)
-				.then(data => {
-					console.log(data, 123);
-				})
-				.catch(err => {
-					console.log('err=' + err);
-					this.refs.toast.show('支付失败');
-				});
+			this.setState({ num: this.state.num + 1 });
+			let keys = await StorageUtil.getAllKeys();
+			let res = await StorageUtil.multiGet(keys);
+			console.log('StorageUtil: ', res);
 		}
 
 		// 清除所有的keys

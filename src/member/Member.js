@@ -17,6 +17,8 @@ export default class Member extends React.Component {
 	// 去支付
 	payOrder() {
 		// this.props.navigation.navigate('PayOrderScreen', { money, type: 'beMember' });
+		let { navigation } = this.props;
+		navigation.navigate('ReChargeScreen', { type: 'member' });
 	}
 
 	render() {
