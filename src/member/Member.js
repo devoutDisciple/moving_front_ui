@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, View, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from 'react-native';
-import Swiper from 'react-native-swiper';
-import Icon from 'react-native-vector-icons/AntDesign';
+import CommonSylte from '../style/common';
 // import Dialog from '../util/Dialog';
 import CommonHeader from '../component/CommonHeader';
 import IconWithText from '../component/IconWithText';
@@ -12,26 +11,16 @@ const { width } = Dimensions.get('window');
 export default class Member extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			selectIndex: 0,
-		};
-	}
-
-	// swiperChange 选择不同的会员的时候
-	swiperChange(index) {
-		this.setState({ selectIndex: index });
+		this.state = {};
 	}
 
 	// 去支付
 	payOrder() {
-		let { selectIndex } = this.state;
-		let money = selectIndex === 1 ? 90 : 80;
-		this.props.navigation.navigate('PayOrderScreen', { money, type: 'beMember' });
+		// this.props.navigation.navigate('PayOrderScreen', { money, type: 'beMember' });
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { selectIndex } = this.state;
 		const iconList = [
 			{
 				url: require('../../img/home/icon1.png'),
@@ -42,26 +31,19 @@ export default class Member extends React.Component {
 				text: '上门取衣',
 			},
 			{
-				url: selectIndex === 1 ? require('../../img/home/icon3.png') : '',
-				text: selectIndex === 1 ? '专属客服' : '',
+				url: require('../../img/home/icon3.png'),
+				text: '专属客服',
 			},
 			{
-				url: selectIndex === 1 ? require('../../img/home/icon3.png') : '',
-				text: selectIndex === 1 ? '免费配送' : '',
+				url: require('../../img/home/icon3.png'),
+				text: '免费配送',
 			},
 		];
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="成为会员" navigation={navigation} />
-				<View style={styles.swiperContainer}>
-					<Swiper
-						autoplay={false}
-						loop={false}
-						index={this.state.selectIndex}
-						onIndexChanged={this.swiperChange.bind(this)}
-						dotColor="rgba(255,255,255,.3)"
-						activeDotColor="#fff"
-					>
+				<ScrollView style={styles.container_scroll}>
+					<View style={styles.swiperContainer}>
 						<View style={styles.slide}>
 							<Image
 								style={styles.img}
@@ -69,60 +51,63 @@ export default class Member extends React.Component {
 								// source={{uri:  'https://facebook.githuby_logo.png',}}
 							/>
 						</View>
-						<View style={styles.slide}>
-							<Image
-								style={styles.img}
-								source={require('../../img/public/lunbo2.png')}
-								// source={{uri:  'https://facebook.githuby_logo.png',}}
-							/>
-						</View>
-					</Swiper>
-				</View>
-				<ScrollView style={styles.member_content}>
-					<View style={styles.home_icon}>
-						{iconList.map((item, index) => {
-							return <IconWithText key={index} source={item.url} text={item.text} index={index} />;
-						})}
 					</View>
-					<View style={styles.member_empty} />
-					<View style={styles.member_detail}>
-						<View style={styles.member_detail_title}>
-							<Text
-								style={{
-									fontSize: 16,
-									color: '#fb9dd0',
-									fontWeight: 'bold',
-								}}
-							>
-								会员权益说明
-							</Text>
+					<View style={styles.member_content}>
+						<View style={styles.home_icon}>
+							{iconList.map((item, index) => {
+								return <IconWithText key={index} source={item.url} text={item.text} index={index} />;
+							})}
 						</View>
-						<View style={styles.member_detail_content}>
-							<Text style={styles.member_detail_content_text}>
-								&emsp;CLEANERS洗衣店将引用5G智慧时代推出“线上洗衣”实现智慧管理，无接触收送衣服。更贴近消费者，让消费者更舒心，更方便。
-							</Text>
-							<Text style={styles.member_detail_content_text}>
-								&emsp;CLEANERS洗衣店将引用5G智慧时代推出“线上洗衣”实现智慧管理，无接触收送衣服。更贴近消费者，让消费者更舒心，更方便。
-							</Text>
-							{selectIndex === 1 && <Text style={styles.member_detail_content_text}>3. 专属客服</Text>}
-							{selectIndex === 1 && <Text style={styles.member_detail_content_text}>4. 免费配送</Text>}
+						<View style={styles.member_empty} />
+						<View style={styles.member_detail}>
+							<View style={styles.member_detail_title}>
+								<Text
+									style={{
+										fontSize: 16,
+										color: '#fb9dd0',
+										fontWeight: 'bold',
+									}}
+								>
+									会员权益说明
+								</Text>
+							</View>
+							<View style={styles.member_detail_content}>
+								<View style={styles.detail_common_title}>
+									<Text style={{ fontSize: 16, color: '#333' }}>MOVING 普通会员</Text>
+								</View>
+								<Text style={styles.member_detail_content_text}>
+									&emsp;&emsp;充值200元赠送20元 每周四会员日可享8.5折优惠（皮衣，皮鞋，包包护理不适用）
+									获赠积分奖励，可在积分商城兑换相应礼品。 每一次使用MOVING收衣柜可免费使用七天
+								</Text>
+								<Text style={styles.member_detail_content_text}>
+									&emsp;&emsp;充值500元赠送150元 每周四会员日可享8.5折优惠（皮衣，皮鞋，包包护理不适用）
+									获赠积分奖励，可在积分商城兑换相应礼品。 每一次使用MOVING收衣柜可免费使用七天。
+									赠送MOVING集团旗下《MOVING FITNESS动健身》月卡（有效期兑换一个月）
+								</Text>
+								<Text style={styles.member_detail_content_text}>
+									&emsp;&emsp;充值600元赠送200元 每周四会员日可享8.5折优惠（皮衣，皮鞋，包包护理不适用）
+									获赠积分奖励，可在积分商城兑换相应礼品。 每一次使用MOVING收衣柜可免费使用七天。
+									赠送MOVING集团旗下《MOVING FITNESS动健身》2月卡（有效期兑换一个月）
+								</Text>
+								<Text style={styles.member_detail_content_text}>
+									&emsp;&emsp;充值1000元赠送400元 每周四会员日可享8.5折优惠（皮衣，皮鞋，包包护理不适用）
+									获赠积分奖励，可在积分商城兑换相应礼品。 每一次使用MOVING收衣柜可免费使用七天。
+									赠送MOVING集团旗下《MOVING FITNESS动健身》季卡（有效期兑换一个月）
+								</Text>
+								<View style={styles.detail_common_title}>
+									<Text style={{ fontSize: 16, color: '#333' }}>MOVING PLUS会员</Text>
+								</View>
+								<Text style={styles.member_detail_content_text}>
+									&emsp;&emsp;MOVING PLUS会员是针对企业机构以及酒店服务，请联系我们得到更多的信息
+								</Text>
+								<Text style={styles.member_detail_content_text}>&emsp;&emsp;+86 13672473338</Text>
+							</View>
 						</View>
 					</View>
 				</ScrollView>
 				<View style={styles.member_bottom}>
 					<TouchableOpacity onPress={this.payOrder.bind(this)} style={styles.member_bottom_btn}>
-						<Text style={{ marginTop: 5, color: '#fff' }}>超值价 ￥</Text>
-						<Text style={{ fontSize: 25, color: '#ffe4f2' }}>{selectIndex === 0 ? 80 : 90}</Text>
-						<Text style={{ marginTop: 5, color: '#fff' }}> 元 / </Text>
-						<Text
-							style={{
-								marginTop: 5,
-								marginLeft: 5,
-								color: '#fff',
-							}}
-						>
-							立即抢购
-						</Text>
+						<Text style={{ color: '#fff', fontSize: 20 }}>超低价立即抢购</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -132,12 +117,13 @@ export default class Member extends React.Component {
 
 let iconSize = 45;
 const styles = StyleSheet.create({
+	detail_common_title: CommonSylte.detail_common_title,
 	container: {
 		flex: 1,
+		flexDirection: 'column',
 	},
 	member_content: {
 		flex: 1,
-		// backgroundColor: 'orange',
 	},
 	member_empty: {
 		height: 10,
@@ -151,11 +137,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	member_detail_content: {
-		height: 100,
 		margin: 10,
 		shadowColor: 'green',
-		// borderColor: 'red',
-		// borderWidth: 1,
 		shadowOffset: {
 			width: 18,
 			height: 20,
@@ -169,7 +152,6 @@ const styles = StyleSheet.create({
 	},
 	member_bottom: {
 		height: 100,
-		// backgroundColor: 'blue',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -215,5 +197,8 @@ const styles = StyleSheet.create({
 	home_icon_item_text: {
 		marginTop: 10,
 		fontSize: 12,
+	},
+	container_scroll: {
+		flex: 1,
 	},
 });

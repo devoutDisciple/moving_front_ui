@@ -90,8 +90,9 @@
 		C14FA817249DD13E006A36DD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D1C24350CD5003C01FE /* libsqlite3.0.tbd */; };
 		C14FA818249DD14A006A36DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2424350FDB003C01FE /* libc++.tbd */; };
 		C14FA819249DD154006A36DD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D2624350FEE003C01FE /* libz.tbd */; };
-		C14FA824249FBDF2006A36DD /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C14FA822249FBDF2006A36DD /* assets */; };
-		C14FA825249FBDF2006A36DD /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C14FA823249FBDF2006A36DD /* main.jsbundle */; };
+		C14FA82824A118B7006A36DD /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C14FA82624A118B7006A36DD /* assets */; };
+		C14FA82924A118B8006A36DD /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C14FA82724A118B7006A36DD /* main.jsbundle */; };
+		C14FA82D24A27647006A36DD /* RCTAlipay.m in Sources */ = {isa = PBXBuildFile; fileRef = C14FA82C24A27647006A36DD /* RCTAlipay.m */; };
 		C1A78D2E2435C412003C01FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		C1F7698A242F579D00420968 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F76989242F579D00420968 /* AMapFoundationKit.framework */; };
 		C1F7698C242F57B500420968 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F7698B242F57B500420968 /* AMapLocationKit.framework */; };
@@ -167,8 +168,10 @@
 		C14FA809249D4D6C006A36DD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C14FA80B249DB8CD006A36DD /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ../../../Downloads/OpenSDK1.8.7.1/libWeChatSDK.a; sourceTree = "<group>"; };
 		C14FA80D249DD064006A36DD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		C14FA822249FBDF2006A36DD /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
-		C14FA823249FBDF2006A36DD /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
+		C14FA82624A118B7006A36DD /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
+		C14FA82724A118B7006A36DD /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
+		C14FA82B24A275FE006A36DD /* RCTAlipay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAlipay.h; sourceTree = "<group>"; };
+		C14FA82C24A27647006A36DD /* RCTAlipay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAlipay.m; sourceTree = "<group>"; };
 		C18296FC248D5C950067C8F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		C1A78D1824350C1A003C01FE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C1A78D1A24350C37003C01FE /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -305,8 +308,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				C14FA822249FBDF2006A36DD /* assets */,
-				C14FA823249FBDF2006A36DD /* main.jsbundle */,
+				C14FA82A24A275C4006A36DD /* Alipay */,
+				C14FA82624A118B7006A36DD /* assets */,
+				C14FA82724A118B7006A36DD /* main.jsbundle */,
 				C14FA809249D4D6C006A36DD /* Default-568h@2x.png */,
 				13B07FAE1A68108700A75B9A /* laundryApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -392,6 +396,15 @@
 			);
 			name = Fonts;
 			path = "../node_modules/react-native-vector-icons/Fonts";
+			sourceTree = "<group>";
+		};
+		C14FA82A24A275C4006A36DD /* Alipay */ = {
+			isa = PBXGroup;
+			children = (
+				C14FA82B24A275FE006A36DD /* RCTAlipay.h */,
+				C14FA82C24A27647006A36DD /* RCTAlipay.m */,
+			);
+			path = Alipay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -563,14 +576,14 @@
 				C11F75B123A15704007090FA /* Foundation.ttf in Resources */,
 				C11F75BD23A15704007090FA /* FontAwesome5_Regular.ttf in Resources */,
 				C14FA80A249D4D6C006A36DD /* Default-568h@2x.png in Resources */,
-				C14FA824249FBDF2006A36DD /* assets in Resources */,
+				C14FA82824A118B7006A36DD /* assets in Resources */,
 				C11F75B523A15704007090FA /* Ionicons.ttf in Resources */,
 				C11F75C923A15704007090FA /* EvilIcons.ttf in Resources */,
 				C11F75A123A15704007090FA /* Entypo.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C11F75C523A15704007090FA /* Zocial.ttf in Resources */,
 				C11F75CD23A15704007090FA /* SimpleLineIcons.ttf in Resources */,
-				C14FA825249FBDF2006A36DD /* main.jsbundle in Resources */,
+				C14FA82924A118B8006A36DD /* main.jsbundle in Resources */,
 				C11F759D23A15704007090FA /* Feather.ttf in Resources */,
 				C11F759923A15704007090FA /* Octicons.ttf in Resources */,
 				C11F75A523A15704007090FA /* FontAwesome5_Brands.ttf in Resources */,
@@ -711,6 +724,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-laundryApp/Pods-laundryApp-resources.sh",
+				"${PODS_ROOT}/AlipaySDK-iOS/AlipaySDK.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
@@ -732,24 +746,6 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -854,6 +850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				C14FA82D24A27647006A36DD /* RCTAlipay.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -957,7 +954,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202006220010;
+				CURRENT_PROJECT_VERSION = 202006230047;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -970,7 +967,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 0.1.9;
+				MARKETING_VERSION = 0.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -994,7 +991,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202006220010;
+				CURRENT_PROJECT_VERSION = 202006230047;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1006,7 +1003,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 0.1.9;
+				MARKETING_VERSION = 0.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

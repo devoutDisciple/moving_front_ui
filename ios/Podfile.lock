@@ -1,4 +1,5 @@
 PODS:
+  - AlipaySDK-iOS (15.7.4)
   - AMapFoundation (1.6.3)
   - AMapLocation (2.6.5):
     - AMapFoundation (~> 1.6.3)
@@ -287,6 +288,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - AlipaySDK-iOS
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -333,6 +335,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - AlipaySDK-iOS
     - AMapFoundation
     - AMapLocation
     - boost-for-react-native
@@ -424,6 +427,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AlipaySDK-iOS: 8659cdb4403de7e5f26ad8b699864a9cbe53384c
   AMapFoundation: 9ed923193b357ebb30a073e9fe255d3c24054d5a
   AMapLocation: c566d448285cd502c1e313063d9e2460bd4d7100
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
@@ -472,6 +476,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
-PODFILE CHECKSUM: 5947c49de49a1bcb58800ea8970b4fbcf6e95b8a
+PODFILE CHECKSUM: 96e7a3180c59fb1894211d03ba36c6d8559b113f
 
 COCOAPODS: 1.8.4

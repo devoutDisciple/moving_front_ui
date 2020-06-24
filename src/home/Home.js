@@ -42,8 +42,8 @@ export default class HomeScreen extends React.Component {
 								justifyContent: 'center',
 							}}
 						>
-							<Icon style={{ width: 20, marginTop: 3 }} name="enviromento" size={16} color="#fb9dd0" />
-							<Text style={{ flex: 1, marginTop: 2 }}>
+							<Icon style={{ width: 20, marginTop: 2 }} name="enviromento" size={16} color="#fb9dd0" />
+							<Text style={{ flex: 1 }}>
 								{navigation.state.params && navigation.state.params.title ? navigation.state.params.title : ''}
 							</Text>
 						</View>
@@ -56,7 +56,7 @@ export default class HomeScreen extends React.Component {
 			headerRight: () => {
 				return (
 					<TouchableOpacity onPress={() => navigation.state.params.rightIconClick()}>
-						<Icon style={{ width: 20, marginTop: 3 }} name="customerservice" size={16} color="#fb9dd0" />
+						<Icon style={{ width: 20, marginTop: 2 }} name="customerservice" size={16} color="#fb9dd0" />
 					</TouchableOpacity>
 				);
 			},
