@@ -10,8 +10,8 @@ import Storage from '../util/Storage';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
+import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
-
 import { Text, View, TouchableOpacity, ScrollView, Linking } from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -21,9 +21,11 @@ export default class HomeScreen extends React.Component {
 			loadingVisible: false,
 			shopList: [],
 			shopid: '',
-			version: '1.0.0',
+			versionSoftDialogVisible: false, // 非强制更新
+			versionForceDialogVisible: false, // 强制更新
 		};
 		this.locationClick = this.locationClick.bind(this);
+		this.goAppStore = this.goAppStore.bind(this);
 	}
 
 	static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -81,8 +83,6 @@ export default class HomeScreen extends React.Component {
 		};
 	};
 
-	componentWillReceiveProps() {}
-
 	async componentDidMount() {
 		const { setParams } = this.props.navigation;
 		// 设置左右按钮的点击功能
@@ -98,20 +98,39 @@ export default class HomeScreen extends React.Component {
 
 	// 获取当前版本
 	async getVersion() {
-		let { version } = this.state;
 		let res = await Request.get('/version/getCurrentVersion');
 		let versionDetail = res.data;
-		if (version !== config.currentVersion) {
+		if (versionDetail.version !== config.currentVersion) {
 			if (versionDetail.force === 1) {
-				return Message.forceUpdateVersion('更新', '发现新版本, 请更新');
+				this.setState({
+					versionSoftDialogVisible: true,
+				});
 			}
 			if (versionDetail.force === 2) {
-				return Message.softUpdate('更新', '发现新版本, 请更新');
+				this.setState({
+					versionForceDialogVisible: true,
+				});
 			}
 		}
 	}
 
-	// 获取所有商店
+	// 跳转到appstore进行更新
+	goAppStore() {
+		let url = `itms-apps://apps.apple.com/us/app/${config.AppStoreId}`;
+		//后面有个APP_ID，
+		Linking.canOpenURL(url)
+			.then(supported => {
+				if (supported) {
+					Linking.openURL(url);
+				} else {
+				}
+			})
+			.catch(error => {
+				console.log(error, 222);
+			});
+	}
+
+	// 获取所有商店信息
 	async getAllShop() {
 		this.setState({ loadingVisible: true });
 
@@ -136,10 +155,6 @@ export default class HomeScreen extends React.Component {
 			.finally(() => {
 				this.setState({ loadingVisible: false });
 			});
-	}
-
-	async clear() {
-		await Storage.clear();
 	}
 
 	// 位置点击
@@ -192,7 +207,7 @@ export default class HomeScreen extends React.Component {
 
 	render() {
 		let { navigation } = this.props;
-		let { loadingVisible, shopid } = this.state;
+		let { loadingVisible, shopid, versionForceDialogVisible, versionSoftDialogVisible } = this.state;
 		return (
 			<View style={{ flex: 1 }}>
 				<ScrollView style={{ flex: 1 }}>
@@ -202,10 +217,33 @@ export default class HomeScreen extends React.Component {
 					<IconList navigation={navigation} />
 					{/* 快递柜子 */}
 					<Express navigation={navigation} shopid={shopid} />
-					{/* <TouchableOpacity onPress={this.clear.bind(this)}>
-                        <Text>清除缓存</Text>
-                    </TouchableOpacity> */}
 				</ScrollView>
+				{/* 非强制版本 */}
+				{versionSoftDialogVisible && (
+					<VersionDialog
+						title="版本更新"
+						okText="立即更新"
+						cancelText="取消更新"
+						desc="有新版本更新,请更新至最新版本"
+						onOk={this.goAppStore.bind(this)}
+						onCancel={() => {
+							this.setState({ versionSoftDialogVisible: false });
+						}}
+						cancelShow={true}
+					/>
+				)}
+				{/* 强制更新版本 */}
+				{versionForceDialogVisible && (
+					<VersionDialog
+						title="版本更新"
+						okText="立即更新"
+						desc="有新版本更新,请立即更新至最新版本"
+						onOk={this.goAppStore.bind(this)}
+						onCancel={() => {}}
+						cancelShow={false}
+					/>
+				)}
+
 				<Loading visible={loadingVisible} />
 			</View>
 		);

@@ -8,7 +8,8 @@ import Picker from 'react-native-picker';
 import config from '../../config/config';
 import I18n from '../../language/I18n';
 import CommonHeader from '../../component/CommonHeader';
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import Request from '../../util/Request';
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
 
 export default class SettingScreen extends React.Component {
 	constructor(props) {
@@ -50,10 +51,22 @@ export default class SettingScreen extends React.Component {
 		// 检查更新
 		if (key === 'about') {
 			this.setState({ loadingVisible: true });
-			setTimeout(() => {
+			let res = await Request.get('/version/getCurrentVersion');
+			let versionDetail = res.data;
+			if (versionDetail.version === config.currentVersion) {
 				this.setState({ loadingVisible: false });
-				Toast.success('已经是最新版本');
-			}, 2000);
+				return Toast.success('已经是最新版本');
+			}
+			this.setState({ loadingVisible: false }, () => {
+				let url = `itms-apps://apps.apple.com/us/app/${config.AppStoreId}`;
+				//后面有个APP_ID，
+				Linking.canOpenURL(url).then(supported => {
+					if (supported) {
+						Linking.openURL(url);
+					} else {
+					}
+				});
+			});
 		}
 		// 隐私政策
 		if (key === 'privacy') {
@@ -103,13 +116,13 @@ export default class SettingScreen extends React.Component {
 					<View style={styles.empty} />
 					<View style={styles.content_chunk}>
 						<ListItem text={I18n.t('setting.password')} onPress={this.onPress.bind(this, 'resetPassword')} withBorder bigText />
-						<ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder />
+						{/* <ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder /> */}
 						<ListItem
+							bigText
+							withBorder
+							otherText={config.currentVersion}
 							text={I18n.t('setting.version')}
 							onPress={this.onPress.bind(this, 'about')}
-							withBorder
-							otherText="1.0.0"
-							bigText
 						/>
 						<ListItem text="隐私政策" bigText onPress={this.onPress.bind(this, 'privacy')} />
 					</View>

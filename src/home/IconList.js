@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Linking } from 'react-native';
 import IconWithText from '../component/IconWithText';
 import StorageUtil from '../util/Storage';
 import config from '../config/config';
@@ -108,6 +108,23 @@ export default class IconList extends React.Component {
 			navigation.navigate('ReChargeScreen', { type: 'recharge' });
 		}
 
+		// 版本更新
+		if (data && data.key === 'home_operation') {
+			let url = `itms-apps://itunes.apple.com/app/${config.AppStoreId}`;
+			// let url = `itms-apps://apps.apple.com/us/app/${config.AppStoreId}`;
+			//后面有个APP_ID，
+			Linking.canOpenURL(url)
+				.then(supported => {
+					if (supported) {
+						Linking.openURL(url);
+					} else {
+					}
+				})
+				.catch(error => {
+					console.log(error, 222);
+				});
+		}
+
 		// 关于我们
 		if (data && data.key === 'home_concat') {
 			navigation.navigate('ConcatUsScreen');
@@ -115,10 +132,21 @@ export default class IconList extends React.Component {
 
 		// 获取所有的存储的key
 		if (data && data.key === 'aaa') {
-			this.setState({ num: this.state.num + 1 });
-			let keys = await StorageUtil.getAllKeys();
-			let res = await StorageUtil.multiGet(keys);
-			console.log('StorageUtil: ', res);
+			let url = 'http://47.107.43.166/';
+			Linking.canOpenURL(url)
+				.then(supported => {
+					if (supported) {
+						Linking.openURL(url);
+					} else {
+					}
+				})
+				.catch(error => {
+					console.log(error, 222);
+				});
+			// 	this.setState({ num: this.state.num + 1 });
+			// 	let keys = await StorageUtil.getAllKeys();
+			// 	let res = await StorageUtil.multiGet(keys);
+			// 	console.log('StorageUtil: ', res);
 		}
 
 		// 清除所有的keys
@@ -161,17 +189,17 @@ export default class IconList extends React.Component {
 			{
 				key: 'home_operation',
 				url: require('../../img/home/caozuo.png'),
-				text: '操作指南',
+				text: '版本更新',
 			},
 			{
 				key: 'aaa',
 				url: require('../../img/home/icon6.png'),
-				text: '邀请用户',
+				text: 'MOVING官网',
 			},
 			{
 				key: 'bbb',
-				url: require('../../img/home/icon6.png'),
-				text: '协议',
+				// url: require('../../img/home/icon6.png'),
+				// text: '协议',
 			},
 		];
 		return (

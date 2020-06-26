@@ -1,25 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export default class Dialog extends React.Component {
 	constructor(props) {
-		this.state = {
-			value: props.defalutValue || '',
-			changeKey: props.changeKey || '',
-		};
+		super(props);
 	}
 
 	componentDidMount() {}
 
-	onChangeText(value) {
-		this.setState({ value });
-	}
-
 	render() {
-		let { title } = this.props,
-			{ changeKey, value } = this.state;
+		let { title, okText, cancelText, cancelShow, onOk, onCancel, desc } = this.props;
 		return (
 			<View style={styles.container}>
 				<View style={styles.content}>
@@ -34,24 +26,20 @@ export default class Dialog extends React.Component {
 							{title}
 						</Text>
 					</View>
-					<View style={styles.content_desc}>
-						<TextInput
-							style={styles.message_edit_input}
-							onChangeText={this.onChangeText.bind(this)}
-							defaultValue={this.state.value}
-							selectionColor="#fb9bcd"
-							maxLength={20}
-							placeholder="请输入"
-							placeholderTextColor="#bfbfbf"
-						/>
-					</View>
+					{desc && (
+						<View style={styles.content_desc}>
+							<Text style={styles.content_desc_text}>{desc}</Text>
+						</View>
+					)}
 					<View style={styles.content_footer}>
-						<TouchableOpacity onPress={() => this.props.onOk(changeKey, value)} style={styles.content_footer_left}>
-							<Text style={styles.content_footer_text}>确定</Text>
+						<TouchableOpacity onPress={onOk} style={styles.content_footer_left}>
+							<Text style={styles.content_footer_text}>{okText}</Text>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => this.props.onCancel()} style={styles.content_footer_right}>
-							<Text style={styles.content_footer_text}>取消</Text>
-						</TouchableOpacity>
+						{cancelShow && (
+							<TouchableOpacity onPress={onCancel} style={styles.content_footer_right}>
+								<Text style={styles.content_footer_text}>{cancelText}</Text>
+							</TouchableOpacity>
+						)}
 					</View>
 				</View>
 			</View>
@@ -68,9 +56,9 @@ const styles = StyleSheet.create({
 	},
 	content: {
 		minHeight: 40,
-		width: width * 0.8,
+		width: 250,
 		position: 'absolute',
-		left: width / 10,
+		left: (width - 250) / 2,
 		top: height / 2 - 60,
 		opacity: 1,
 		backgroundColor: 'rgba(255,255,255,1)',
@@ -78,16 +66,20 @@ const styles = StyleSheet.create({
 		overflow: 'hidden',
 	},
 	content_title: {
-		height: 40,
+		height: 50,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	content_desc: {
-		height: 60,
+		height: 40,
+		// backgroundColor: 'red',
 		justifyContent: 'center',
 		alignItems: 'center',
-		// backgroundColor: 'red',
 		marginTop: -10,
+	},
+	content_desc_text: {
+		fontSize: 12,
+		color: '#8a8a8a',
 	},
 	message_edit_input: {
 		height: 40,
