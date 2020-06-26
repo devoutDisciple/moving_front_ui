@@ -1,5 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import Config from '../config/config';
+import FastImage from '../component/FastImage';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -11,18 +13,31 @@ export default class Waller extends React.Component {
 	componentDidMount() {}
 
 	render() {
-		let { iconName, text, onPress, iconColor, active } = this.props;
+		let { iconName, text, onPress, iconColor, active, iconType } = this.props;
 		return (
 			<TouchableOpacity onPress={onPress}>
 				<View style={styles.my_list_item}>
-					{iconName && (
-						<View style={styles.my_list_item_icon}>
-							<Icon name={iconName} size={22} color={iconColor || '#fb9dd0'} />
+					<>
+						{iconName && !iconType && (
+							<View style={styles.my_list_item_icon}>
+								<Icon name={iconName} size={22} color={iconColor || '#fb9dd0'} />
+							</View>
+						)}
+						{iconType && (
+							<View style={styles.my_list_item_icon}>
+								<FastImage
+									style={styles.logo}
+									source={{
+										uri: `${Config.baseUrl}/logo.jpg`,
+									}}
+								/>
+							</View>
+						)}
+						<View style={styles.my_list_item_desc}>
+							<Text style={styles.my_list_item_desc_text}>{text}</Text>
 						</View>
-					)}
-					<View style={styles.my_list_item_desc}>
-						<Text style={styles.my_list_item_desc_text}>{text}</Text>
-					</View>
+					</>
+
 					{active ? (
 						<View style={styles.my_list_item_icon}>
 							<Icon name="checkcircleo" size={20} color="#fb9dd0" />
@@ -44,6 +59,10 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		backgroundColor: '#fff',
 		flexDirection: 'row',
+	},
+	logo: {
+		width: 22,
+		height: 22,
 	},
 	my_list_item_with_border: {
 		height: 60,

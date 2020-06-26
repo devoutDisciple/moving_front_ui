@@ -9,6 +9,7 @@ import PayUtil from '../util/PayUtil';
 import Alipay from '../util/Alipay';
 import StorageUtil from '../util/Storage';
 import * as WeChat from 'react-native-wechat-lib';
+import Loading from '../component/Loading';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -17,10 +18,11 @@ export default class PayOrderScreen extends React.Component {
 		super(props);
 		this.state = {
 			payWay: 'alipay', // 默认微信支付
-			user: {}, // 用户信息
+			user: { balance: 0 }, // 用户信息
 			money: 0.0, // 默认80
 			type: 'loading...', // beMember - 成为会员 recharge - 余额充值 order -订单支付
 			given: 0, // 余额充值的时候赠送的
+			loadingVisible: false,
 			wechatVisible: false,
 		};
 	}
@@ -57,7 +59,7 @@ export default class PayOrderScreen extends React.Component {
 
 	// 订单支付
 	async payOrder() {
-		let { payWay, money } = this.state;
+		let { payWay, money, user } = this.state;
 		const { navigation } = this.props;
 		let orderid = navigation.getParam('orderid');
 		if (payWay === 'wechat') {
@@ -86,22 +88,27 @@ export default class PayOrderScreen extends React.Component {
 			await Alipay.pay(res.data);
 			return navigation.navigate('HomeScreen');
 		}
+		if (payWay === 'moving') {
+			this.setState({ loadingVisible: true });
+			let res = await Request.post('/pay/payByOrderByBalance', { orderid: orderid, money: money, userid: user.id });
+			// return navigation.navigate('HomeScreen');
+			if (res.data === 'success') {
+				Toast.success('支付完成');
+				return navigation.navigate('HomeScreen');
+			}
+			this.setState({ loadingVisible: false });
+		}
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { payWay, user, money, wechatVisible } = this.state;
+		let { payWay, user, money, wechatVisible, loadingVisible } = this.state;
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="洗衣费用支付" navigation={navigation} />
 				<ScrollView style={styles.content}>
-					{/* <FastImage
-                        style={styles.content_logo}
-                        source={require('../../img/public/logo2.png')}
-                    /> */}
 					<View style={styles.money}>
 						<Text style={styles.money_num}>￥ {money}</Text>
-						{/* <Text style={styles.money_order}>订单编号: 328443973823897493</Text> */}
 						<Text style={styles.money_order}>订单支付</Text>
 						<Text style={styles.money_order}>
 							用户名称: {user.username} 手机号: {user.phone}
@@ -119,7 +126,6 @@ export default class PayOrderScreen extends React.Component {
 							active={payWay === 'wechat'}
 						/>
 					)}
-
 					<PayItem
 						iconName="alipay-circle"
 						onPress={this.payWayChange.bind(this, 'alipay')}
@@ -127,10 +133,19 @@ export default class PayOrderScreen extends React.Component {
 						text="支付宝支付"
 						active={payWay === 'alipay'}
 					/>
+					<PayItem
+						iconName="alipay-circle"
+						iconType="img"
+						onPress={this.payWayChange.bind(this, 'moving')}
+						iconColor="#208ee9"
+						text={`余额支付(${user.balance}元 可用)`}
+						active={payWay === 'moving'}
+					/>
 				</ScrollView>
 				<TouchableOpacity style={styles.bottom_btn} onPress={this.payOrder.bind(this)}>
 					<Text style={styles.bottom_btn_text}>确认支付</Text>
 				</TouchableOpacity>
+				<Loading visible={loadingVisible} />
 			</View>
 		);
 	}
