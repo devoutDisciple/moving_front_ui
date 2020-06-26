@@ -140,15 +140,6 @@ export default class AllOrder extends React.Component {
 					</View>
 					<TouchableOpacity onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>预约地址：{home_address}</Text>
-						</View>
-						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>预约人：{home_username}</Text>
-						</View>
-						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>联系方式：{home_phone}</Text>
-						</View>
-						<View style={styles.order_item_right_adrress}>
 							<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
 						</View>
 						<View style={styles.order_item_right_adrress}>

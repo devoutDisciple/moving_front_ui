@@ -151,21 +151,8 @@ export default class AllOrder extends React.Component {
 							</View>
 						</View>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>收货人：{intergral_username}</Text>
-						</View>
-						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>联系方式：{intergral_phone}</Text>
-						</View>
-						<View style={styles.order_item_right_adrress}>
 							<Text style={styles.font_desc_style}>订单方式：积分兑换</Text>
 						</View>
-
-						{/* <View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>订单链路：MOVING洗衣柜下单</Text>
-						</View>
-						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>取货方式：MOVING洗衣柜取货</Text>
-						</View> */}
 					</TouchableOpacity>
 					<View style={styles.order_item_right_bottom}>{this.renderBtn()}</View>
 				</View>
