@@ -7,10 +7,10 @@ export default {
 				data = '普通用户';
 				break;
 			case 2:
-				data = '黄金会员';
+				data = 'MOVING会员';
 				break;
 			case 3:
-				data = '钻石会员';
+				data = 'MOVING PLUS 会员';
 				break;
 			default:
 				data = '普通用户';

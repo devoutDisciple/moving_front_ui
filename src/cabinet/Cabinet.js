@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Request from '../util/Request';
-import Toast from '../component/Toast';
 import CabinetItem from './CabinetItem';
 import CommonSylte from '../style/common';
 import CommonHeader from '../component/CommonHeader';

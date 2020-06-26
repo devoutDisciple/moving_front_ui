@@ -123,18 +123,18 @@ export default class IconList extends React.Component {
 			},
 			{
 				key: 'home_operation',
-				// url: require('../../img/home/caozuo.png'),
-				// text: '操作指南',
+				url: require('../../img/home/caozuo.png'),
+				text: '操作指南',
 			},
 			{
 				key: 'aaa',
-				// url: require('../../img/home/icon6.png'),
-				// text: '邀请用户',
+				url: require('../../img/home/icon6.png'),
+				text: '邀请用户',
 			},
 			{
 				key: 'bbb',
-				// url: require('../../img/home/icon6.png'),
-				// text: '协议',
+				url: require('../../img/home/icon6.png'),
+				text: '协议',
 			},
 		];
 		return (

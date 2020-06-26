@@ -3,6 +3,7 @@ import React from 'react';
 import FastImage from '../component/FastImage';
 import config from '../config/config';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FilterStatus from '../util/FilterStatus';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class MyScreen extends React.Component {
@@ -19,16 +20,17 @@ export default class MyScreen extends React.Component {
 	}
 
 	render() {
-		let { user } = this.props;
-		console.log(user, 99);
-		let member = '普通用户';
+		let { user } = this.props,
+			key = '';
 		if (Number(user.member) === 1) {
-			member = '普通用户';
+			key = 'my_header_message_member_normal';
 		}
 		if (Number(user.member) === 2) {
-			member = 'VIP尊贵用户';
+			key = 'my_header_message_member_vip';
 		}
-		console.log(`${config.baseUrl}/${user.photo}}`);
+		if (Number(user.member) === 3) {
+			key = 'my_header_message_member_super_vip';
+		}
 		return (
 			<View style={styles.my_header}>
 				<View style={styles.my_header_img_container}>
@@ -58,12 +60,12 @@ export default class MyScreen extends React.Component {
 							</TouchableOpacity>
 						</View>
 					</View>
-					<View style={user.member === '1' ? styles.my_header_message_member_normal : styles.my_header_message_member_member}>
+					<View style={styles[key]}>
 						<View style={styles.my_header_message_member_icon}>
 							<FastImage style={{ width: 20, height: 20 }} source={require('../../img/public/member.png')} />
 						</View>
 						<View style={styles.my_header_message_member_text}>
-							<Text style={{ color: '#fff' }}>{member}</Text>
+							<Text style={{ color: '#fff' }}>{FilterStatus.filterMemberStatus(user.member)}</Text>
 						</View>
 					</View>
 				</View>
@@ -112,16 +114,25 @@ const styles = StyleSheet.create({
 	},
 	my_header_message_member_normal: {
 		height: 30,
-		width: 110,
-		paddingHorizontal: 9,
+		width: 120,
+		paddingHorizontal: 15,
 		backgroundColor: '#bfbfbf',
 		marginLeft: 11,
 		flexDirection: 'row',
 		borderRadius: 20,
 	},
-	my_header_message_member_member: {
+	my_header_message_member_vip: {
 		height: 30,
-		width: 130,
+		width: 140,
+		paddingHorizontal: 9,
+		backgroundColor: '#fb9dd0',
+		marginLeft: 11,
+		flexDirection: 'row',
+		borderRadius: 20,
+	},
+	my_header_message_member_super_vip: {
+		height: 30,
+		width: 180,
 		paddingHorizontal: 9,
 		backgroundColor: '#fb9dd0',
 		marginLeft: 11,
@@ -133,7 +144,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	my_header_message_member_text: {
-		width: 80,
+		// width: 80,
+		// paddingHorizontal: 10,
 		justifyContent: 'center',
 	},
 });
