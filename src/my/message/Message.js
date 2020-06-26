@@ -34,15 +34,18 @@ export default class SettingScreen extends React.Component {
 	async getUserInfo() {
 		this.setState({ loadingVisible: true });
 		// 获取用户id的值
-		let currentUser = await Storage.get('user');
-		let userid = currentUser.id;
+		let currentUser = await Storage.get('user'),
+			userid = currentUser.id;
 		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data || '';
 		if (!user) {
 			// 去登陆页面
 			this.props.navigation.navigate('LoginScreen');
 		}
-		this.setState({ user: user, loadingVisible: false });
+		this.setState({ user: user, loadingVisible: false }, () => {
+			// 保存完用户信息之后更新本地缓存的用户信息
+			Storage.set('user', user);
+		});
 	}
 
 	// 弹框确定的时候

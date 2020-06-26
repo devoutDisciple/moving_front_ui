@@ -5,6 +5,7 @@ import IconWithText from '../component/IconWithText';
 import StorageUtil from '../util/Storage';
 import config from '../config/config';
 import Toast from '../component/Toast';
+import Message from '../component/Message';
 import I18n from '../language/I18n';
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
@@ -44,12 +45,53 @@ export default class IconList extends React.Component {
 		});
 	}
 
+	// 判断用户是否登录
+	async onJudgeUserIsLogin() {
+		let user = await StorageUtil.get('user');
+		// 用户没有登录
+		if (!user) {
+			return 1;
+		}
+		// 用户信息不完整
+		if (!user.phone || !user.username || !user.email) {
+			return 2;
+		}
+		// 普通会员
+		if (Number(user.member) === 1) {
+			return 3;
+		}
+		return 9;
+	}
+
 	// icon点击的时候
 	async onIconPress(data) {
 		let { navigation } = this.props;
-
+		let status = await this.onJudgeUserIsLogin();
+		console.log(status, 111);
+		// 先进行验证
+		// 需要个人信息完整和需要登录的功能
+		let beBogin = ['home_clothing', 'home_recharge'];
+		if (data && beBogin.includes(data.key)) {
+			if (status === 1) {
+				navigation.navigate('LoginScreen');
+				return Toast.warning('请先登录');
+			}
+			if (status === 2) {
+				navigation.navigate('MyMessage');
+				return Toast.warning('请先完善个人信息');
+			}
+		}
+		// 上门取衣
+		if (data && data.key === 'home_clothing') {
+			if (status === 3) {
+				navigation.navigate('MemberScreen');
+				return Message.warning('请知悉', '此服务仅会员可用');
+			}
+			await this.judgeMember();
+			navigation.navigate('ClothingScreen');
+		}
 		// moving商城
-		if (data && data.key === 'home_integral') {
+		if (data && data.key === 'home_shop') {
 			await this.judgeMember();
 			navigation.navigate('IntergralScreen');
 		}
@@ -58,11 +100,6 @@ export default class IconList extends React.Component {
 		if (data && data.key === 'home_member') {
 			await this.judgeMember();
 			navigation.navigate('MemberScreen');
-		}
-		// 上门取衣
-		if (data && data.key === 'home_clothing') {
-			await this.judgeMember();
-			navigation.navigate('ClothingScreen');
 		}
 
 		// 充值
@@ -100,7 +137,7 @@ export default class IconList extends React.Component {
 				text: '上门取衣',
 			},
 			{
-				key: 'home_integral',
+				key: 'home_shop',
 				url: require('../../img/home/jifen.png'),
 				text: 'Moving商城',
 			},

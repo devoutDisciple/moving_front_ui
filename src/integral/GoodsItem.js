@@ -2,11 +2,7 @@
 import React from 'react';
 import FastImage from '../component/FastImage';
 import config from '../config/config';
-import Request from '../util/Request';
-import StorageUtil from '../util/Storage';
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity, Alert } from 'react-native';
-import Message from '../component/Message';
-import Toast from '../component/Toast';
 
 const { width } = Dimensions.get('window');
 

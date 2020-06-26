@@ -11,14 +11,15 @@ export default class OrderScreen extends React.Component {
 	componentDidMount() {}
 
 	render() {
-		let { orderDetail } = this.props,
+		let { orderDetail, type } = this.props,
 			goods = [];
 		try {
 			goods = JSON.parse(orderDetail.goods);
 		} catch (error) {
 			goods = [];
 		}
-		if (goods && goods.length !== 0) {
+		console.log(orderDetail, 99898);
+		if (goods && goods.length !== 0 && Number(type) === 1) {
 			return (
 				<View style={styles.detail_content_goods}>
 					<View style={styles.detail_common_title}>
@@ -45,6 +46,38 @@ export default class OrderScreen extends React.Component {
 					</View>
 					<View style={styles.detail_content_goods_total}>
 						<Text style={styles.detail_content_goods_total_text}>总价：￥{orderDetail.money}</Text>
+					</View>
+				</View>
+			);
+		}
+		// 积分兑换商品
+		if (Number(type) === 2) {
+			return (
+				<View style={styles.detail_content_goods}>
+					<View style={styles.detail_common_title}>
+						<Text>预约上门取衣</Text>
+					</View>
+				</View>
+			);
+		}
+		// 积分兑换商品
+		if (Number(type) === 3) {
+			return (
+				<View style={styles.detail_content_goods}>
+					<View style={styles.detail_common_title}>
+						<Text>积分兑换</Text>
+					</View>
+					<View style={styles.detail_content_goods_item}>
+						{/* <Image style={styles.detail_content_goods_item_img} source={require('../../../img/lunbo/3.jpg')} /> */}
+						<View style={styles.detail_content_goods_item_name}>
+							<Text>{goods.name}</Text>
+						</View>
+						<View style={styles.detail_content_goods_item_num}>
+							<Text>x 1</Text>
+						</View>
+						<View style={styles.detail_content_goods_item_price}>
+							<Text style={styles.detail_content_goods_item_price_text}>{goods.intergral}积分</Text>
+						</View>
 					</View>
 				</View>
 			);

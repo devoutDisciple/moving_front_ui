@@ -70,8 +70,9 @@ export default class LoginScreen extends React.Component {
 		});
 		if (res && res.code === 200) {
 			await Storage.setString('token', res.data ? res.data.token : '');
+			// 更新会员信息
 			await Storage.set('user', res.data);
-			this.props.navigation.navigate('Home');
+			this.props.navigation.navigate('Home', { type: 'login' });
 		}
 	}
 

@@ -8,6 +8,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import config from '../config/config';
 import storageUtil from '../util/Storage';
 import Toast from '../component/Toast';
+import Message from '../component/Message';
 
 export default class Express extends React.Component {
 	constructor(props) {
@@ -40,13 +41,7 @@ export default class Express extends React.Component {
 	async putClothing(boxDetail) {
 		let boxid = boxDetail.boxid,
 			cabinetId = boxDetail.id;
-		let shop = await storageUtil.get('shop'),
-			{ navigation } = this.props;
-		// 验证是否商店信息是否存在
-		// if (!shop) {
-		// 	navigation.navigate('LoginScreen');
-		// 	return Toast.warning('请先登录!');
-		// }
+		let { navigation } = this.props;
 		// 验证用户是否登录
 		let user = await storageUtil.get('user');
 		if (!user) {
@@ -54,31 +49,19 @@ export default class Express extends React.Component {
 			return Toast.warning('请先登录!');
 		}
 		// 登录过后验证用户信息是否完整
-		console.log(user);
-		// address: "西溪水岸花苑"
-		// age: 42
-		// balance: "888"
-		// create_time: "2020-03-16T17:10:11.000Z"
-		// email: "11111"
-		// id: 10
-		// integral: "5929"
-		// is_delete: "1"
-		// member: "2"
-		// nickname: "测试账号"
-		// password: "111111"
-		// phone: "18210619398"
-		// photo: "user/user_ybwygl6s2504_1589948853658.jpg"
-		// security_code: 693023
-		// security_create_time: "2020-01-11T18:38:39.000Z"
-		// security_expire_time: "2020-01-11T18:39:39.000Z"
-		// sex: 2
-		// token: "hcrptne6jo22lwbs_1593187639787"
-		// username: "张振111"
-		// navigation.navigate('GoodsScreen', { boxid, cabinetId });
 		if (!user.phone || !user.username || !user.email) {
 			navigation.navigate('MyMessage');
 			return Toast.warning('请先补全个人信息!');
 		}
+		// 判断用户是否是会员
+		if (Number(user.member) === 1) {
+			// 普通用户，提示要收取费用
+			return Message.warning('请知悉', '普通用户将要收取一定衣物保管费用', () => {
+				navigation.navigate('GoodsScreen', { boxid, cabinetId });
+			});
+		}
+		// 跳转衣物结算页面
+		navigation.navigate('GoodsScreen', { boxid, cabinetId });
 	}
 
 	render() {

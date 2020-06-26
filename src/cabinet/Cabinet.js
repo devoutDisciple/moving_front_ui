@@ -87,10 +87,11 @@ export default class OrderScreen extends React.Component {
 
 	// 增加订单
 	async addOrder(boxid, cellid) {
-		let params = this.getParams();
-		let shop = await storageUtil.get('shop'),
-			user = await storageUtil.get('user');
-		let shopid = shop.id,
+		let params = this.getParams(),
+			{ navigation } = this.props,
+			shop = await storageUtil.get('shop'),
+			user = await storageUtil.get('user'),
+			shopid = shop.id,
 			userid = user.id;
 		let result = await Request.post('/order/addByCabinet', {
 			shopid,
@@ -105,7 +106,9 @@ export default class OrderScreen extends React.Component {
 			order_type: 1, // 通过柜子送货
 		});
 		if (result.data === 'success') {
-			Message.warning('柜子已打开, 请存放衣物!', '订单已生成,祝您生活愉快');
+			Message.warning('柜子已打开, 请存放衣物!', '订单已生成,祝您生活愉快', () => {
+				return navigation.navigate('HomeScreen');
+			});
 			this.getState();
 		}
 	}

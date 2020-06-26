@@ -99,7 +99,6 @@ export default class SettingScreen extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="设置" navigation={navigation} back={this.goBackHome.bind(this)} />
-				{/* <CommonHeader title="设置" navigation={navigation} /> */}
 				<View style={styles.content}>
 					<View style={styles.empty} />
 					<View style={styles.content_chunk}>

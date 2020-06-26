@@ -17,6 +17,7 @@ export default class OrderScreen extends React.Component {
 			orderDetail: {},
 			loadingVisible: false,
 			address: {},
+			type: 1, // 默认是从柜子下的订单
 		};
 	}
 
@@ -31,8 +32,7 @@ export default class OrderScreen extends React.Component {
 		const { navigation } = this.props;
 		let id = navigation.getParam('id');
 		let order = await Request.get('/order/getOrderById', { id });
-		console.log(order.data, 888);
-		this.setState({ orderDetail: order.data || {}, loadingVisible: false });
+		this.setState({ orderDetail: order.data || {}, loadingVisible: false, type: order.data.order_type });
 	}
 
 	// 获取用户默认地址
@@ -40,13 +40,12 @@ export default class OrderScreen extends React.Component {
 		let user = await storageUtil.get('user');
 		let userid = user.id;
 		let address = await Request.get('/address/getUserDefaultAddress', { userid });
-		console.log(address.data, 999);
 		this.setState({ address: address.data || {} });
 	}
 
 	render() {
 		const { navigation } = this.props,
-			{ orderDetail, loadingVisible, address } = this.state;
+			{ orderDetail, loadingVisible, address, type } = this.state;
 		return (
 			// <Text>234</Text>
 			<View style={{ flex: 1 }}>
@@ -56,9 +55,12 @@ export default class OrderScreen extends React.Component {
 						<Text style={styles.detail_content_title_num}>订单编号: {orderDetail.code}</Text>
 						<Text style={styles.detail_content_title_time}>{orderDetail.create_time}</Text>
 					</View>
-					<Detailgoods orderDetail={orderDetail} />
-					<DetailShop orderDetail={orderDetail} address={address} />
-					<DetailSave orderDetail={orderDetail} address={address} />
+					<Detailgoods orderDetail={orderDetail} type={type} />
+					<DetailShop orderDetail={orderDetail} address={address} type={type} />
+					<View>
+						<DetailSave orderDetail={orderDetail} address={address} type={type} />
+					</View>
+
 					{/* <DetailSend orderDetail={orderDetail} /> */}
 				</ScrollView>
 				<Loading visible={loadingVisible} />

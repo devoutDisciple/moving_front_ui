@@ -75,11 +75,11 @@ export default class Member extends React.Component {
 			goods: JSON.stringify(goods),
 		});
 		if (result.data === 'success') {
-			this.setState({ loading: false });
 			Message.warning('兑换成功', '稍后为您安排送货', () => {
 				this.props.navigation.navigate('HomeScreen');
 			});
 		}
+		this.setState({ loading: false });
 	}
 
 	// 点击编辑地址的时候

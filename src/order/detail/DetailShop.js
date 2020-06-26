@@ -23,7 +23,7 @@ export default class OrderScreen extends React.Component {
 						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopName}</Text>
 					</View>
 					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>联系人: </Text>
+						<Text style={styles.detail_send_content_item_label}>店铺联系人: </Text>
 						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopManager}</Text>
 					</View>
 					<View style={styles.detail_send_content_item}>

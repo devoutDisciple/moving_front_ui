@@ -27,20 +27,6 @@ export default class AllOrder extends React.Component {
 			}
 			let { navigation } = this.props;
 			navigation.navigate('PayOrderScreen', { money: this.props.detail.money, type: 'order', orderid: id });
-			// let result = await PayUtil.payMoneyByWeChat(this.props.detail.money, '支付洗衣费用');
-			// if (result === 'success') {
-			// 	Toast.success('支付成功');
-			// 	try {
-			// 		setTimeout(async () => {
-			// 			let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-			// 			if (orderStatus.data === 'success') {
-			// 				return this.props.onSearch();
-			// 			}
-			// 		}, 500);
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// }
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}
