@@ -4,7 +4,6 @@ import Request from '../../util/Request';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
 import Message from '../../component/Message';
-import PayUtil from '../../util/PayUtil';
 import FilterStatus from '../../util/FilterStatus';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
@@ -111,7 +110,9 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		const { goods } = this.props;
+		console.log(this.props.detail, 999);
 		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, money, status } = this.props.detail;
+		console.log(`${Config.baseUrl}/${cabinetUrl}`);
 
 		return (
 			<View style={styles.order_item}>

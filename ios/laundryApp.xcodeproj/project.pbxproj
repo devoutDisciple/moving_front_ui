@@ -83,6 +83,8 @@
 		C11F75D223A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C11F75D323A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C11F75D423A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
+		C1245F3D24A6979B009421B3 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C1245F3B24A6979B009421B3 /* main.jsbundle */; };
+		C1245F3E24A6979B009421B3 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = C1245F3C24A6979B009421B3 /* assets */; };
 		C14FA80A249D4D6C006A36DD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C14FA809249D4D6C006A36DD /* Default-568h@2x.png */; };
 		C14FA811249DD0C6006A36DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D1824350C1A003C01FE /* SystemConfiguration.framework */; };
 		C14FA814249DD0C9006A36DD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C14FA80D249DD064006A36DD /* WebKit.framework */; };
@@ -162,6 +164,8 @@
 		C11F759223A15703007090FA /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C11F759323A15703007090FA /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		C11F759423A15703007090FA /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		C1245F3B24A6979B009421B3 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
+		C1245F3C24A6979B009421B3 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
 		C14FA7FE249D33E5006A36DD /* laundryApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "laundryApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C14FA809249D4D6C006A36DD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C14FA80B249DB8CD006A36DD /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = ../../../Downloads/OpenSDK1.8.7.1/libWeChatSDK.a; sourceTree = "<group>"; };
@@ -304,6 +308,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C1245F3C24A6979B009421B3 /* assets */,
+				C1245F3B24A6979B009421B3 /* main.jsbundle */,
 				C14FA82A24A275C4006A36DD /* Alipay */,
 				C14FA809249D4D6C006A36DD /* Default-568h@2x.png */,
 				13B07FAE1A68108700A75B9A /* laundryApp */,
@@ -572,7 +578,9 @@
 				C14FA80A249D4D6C006A36DD /* Default-568h@2x.png in Resources */,
 				C11F75B523A15704007090FA /* Ionicons.ttf in Resources */,
 				C11F75C923A15704007090FA /* EvilIcons.ttf in Resources */,
+				C1245F3D24A6979B009421B3 /* main.jsbundle in Resources */,
 				C11F75A123A15704007090FA /* Entypo.ttf in Resources */,
+				C1245F3E24A6979B009421B3 /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C11F75C523A15704007090FA /* Zocial.ttf in Resources */,
 				C11F75CD23A15704007090FA /* SimpleLineIcons.ttf in Resources */,
@@ -965,7 +973,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202006250140;
+				CURRENT_PROJECT_VERSION = 202006270649;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -978,7 +986,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.3.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1002,7 +1010,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202006250140;
+				CURRENT_PROJECT_VERSION = 202006270649;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1014,7 +1022,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.3.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

@@ -133,7 +133,6 @@ export default class HomeScreen extends React.Component {
 	// 获取所有商店信息
 	async getAllShop() {
 		this.setState({ loadingVisible: true });
-
 		// 获取所有门店列表
 		Request.get('/shop/all')
 			.then(async res => {
