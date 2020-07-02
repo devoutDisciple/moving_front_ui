@@ -18,7 +18,6 @@ export default class OrderScreen extends React.Component {
 		} catch (error) {
 			goods = [];
 		}
-		console.log(orderDetail, 99898);
 		if (goods && goods.length !== 0 && Number(type) === 1) {
 			return (
 				<View style={styles.detail_content_goods}>

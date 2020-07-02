@@ -93,7 +93,6 @@ export default class Member extends React.Component {
 			onPickerConfirm: res => {
 				let day = res[0],
 					hour = res[1];
-				console.log(day, hour, 789);
 				this.setState({ selectDay: day, selectTime: hour });
 			},
 		});

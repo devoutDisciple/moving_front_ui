@@ -67,7 +67,6 @@ export default class IconList extends React.Component {
 	async onIconPress(data) {
 		let { navigation } = this.props;
 		let status = await this.onJudgeUserIsLogin();
-		console.log(status, 111);
 		// 先进行验证
 		// 需要个人信息完整和需要登录的功能
 		let beBogin = ['home_clothing', 'home_recharge'];
@@ -121,7 +120,7 @@ export default class IconList extends React.Component {
 					}
 				})
 				.catch(error => {
-					console.log(error, 222);
+					console.log(error);
 				});
 		}
 
@@ -141,7 +140,7 @@ export default class IconList extends React.Component {
 					}
 				})
 				.catch(error => {
-					console.log(error, 222);
+					console.log(error);
 				});
 			// 	this.setState({ num: this.state.num + 1 });
 			// 	let keys = await StorageUtil.getAllKeys();

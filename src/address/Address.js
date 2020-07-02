@@ -24,7 +24,6 @@ export default class Member extends React.Component {
 
 	// 当参数含有flash的时候会进行刷新
 	async componentWillReceiveProps(nextProps) {
-		console.log(nextProps.navigation, 898989);
 		if (nextProps && nextProps.navigation && nextProps.navigation.state.params.flash) {
 			await this.onSearchAddress();
 		}
@@ -98,7 +97,6 @@ export default class Member extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		console.log(navigation, 5678);
 		let type = navigation.getParam('type');
 		let { addressList, loading } = this.state;
 		return (

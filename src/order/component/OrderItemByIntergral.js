@@ -120,10 +120,8 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		let { id, shopName, create_time, goods, intergral_username, intergral_phone, intergral_num, status } = this.props.detail;
-		console.log(this.props.detail);
+		let { id, shopName, create_time, goods, intergral_num, status } = this.props.detail;
 		goods = JSON.parse(goods || {});
-		console.log(goods, 222);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>

@@ -29,12 +29,6 @@ export default class OrderScreen extends React.Component {
 		await this.getState();
 	}
 
-	componentWillUnmount() {
-		window.removeEventListener('scroll', this.getParams);
-		window.removeEventListener('scroll', this.addOrder);
-		window.removeEventListener('scroll', this.getState);
-	}
-
 	getParams() {
 		let { navigation } = this.props;
 		let boxid = navigation.getParam('boxid', ''),

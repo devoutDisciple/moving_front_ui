@@ -28,9 +28,9 @@ export default class Goods extends React.Component {
 			return Toast.warning('请登录!');
 		}
 		let { navigation } = this.props;
-		console.log(navigation, 111);
 		let boxid = navigation.getParam('boxid', ''),
 			cabinetId = navigation.getParam('cabinetId', '');
+
 		Request.get('/clothing/getByShopid', { shopid: shop.id }).then(res => {
 			let data = res.data || [];
 			if (Array.isArray(data) && data.length !== 0) {

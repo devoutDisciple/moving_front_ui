@@ -126,7 +126,7 @@ export default class HomeScreen extends React.Component {
 				}
 			})
 			.catch(error => {
-				console.log(error, 222);
+				console.log(error);
 			});
 	}
 

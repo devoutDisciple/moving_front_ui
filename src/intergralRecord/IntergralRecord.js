@@ -33,7 +33,6 @@ export default class Intergral extends React.Component {
 	}
 
 	async headerRefresh() {
-		console.log(111);
 		this.setState({ headerLoading: true });
 		await this.getUserIntergralRecord();
 		this.setState({ headerLoading: false });

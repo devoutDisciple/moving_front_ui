@@ -91,7 +91,6 @@ export default class Member extends React.Component {
 	filterNull(obj, keys) {
 		let flag = true;
 		keys.forEach(item => {
-			console.log(!obj[item], obj[item]);
 			if (!obj[item]) {
 				flag = false;
 			}
