@@ -71,11 +71,11 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	content_desc: {
-		height: 40,
+		height: 60,
 		// backgroundColor: 'red',
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginTop: -10,
+		marginTop: -20,
 	},
 	content_desc_text: {
 		fontSize: 12,

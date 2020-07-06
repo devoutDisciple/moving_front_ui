@@ -15,6 +15,7 @@ import message from '../component/Message';
 // import Toast from 'react-native-root-toast';
 import CommonHeader from '../component/CommonHeader';
 import MessageItem from '../my/message/MessageItem';
+import NavigationUtil from '../util/NavigationUtil';
 
 const timeFormat = 'YYYY-MM-DD';
 export default class Member extends React.Component {
@@ -147,6 +148,7 @@ export default class Member extends React.Component {
 	async onSureOrder() {
 		let shop = await StorageUtil.get('shop');
 		let user = await StorageUtil.get('user');
+		let { navigation } = this.props;
 		let { selectDay, selectTime, selectAddress, username, phone, house, desc } = this.state;
 		if (!selectAddress || !username || !phone || !house) {
 			return Toast.warning('请完善预约信息');
@@ -170,6 +172,7 @@ export default class Member extends React.Component {
 		if (result.data === 'success') {
 			this.setState({ loadingVisible: false });
 			Toast.success('下单成功,祝您生活愉快');
+			NavigationUtil.reset(navigation, 'HomeScreen');
 		}
 	}
 

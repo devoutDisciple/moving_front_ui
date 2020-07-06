@@ -4,7 +4,7 @@ import Swiper from 'react-native-swiper';
 import Config from '../config/config';
 import FastImage from '../component/FastImage';
 import Request from '../util/Request';
-import { StyleSheet, Dimensions, View, Text } from 'react-native';
+import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -39,7 +39,7 @@ export default class SwiperComponent extends Component {
 	render() {
 		let { swiperList = [] } = this.state;
 		return (
-			<View style={styles.swiperContainer}>
+			<TouchableOpacity style={styles.swiperContainer} onPress={() => this.props.onShowPreviewModal(swiperList)}>
 				{swiperList && swiperList.length !== 0 ? (
 					<Swiper removeClippedSubviews={false} autoplay={true} dotColor="rgba(255,255,255,.3)" activeDotColor="#fff">
 						{swiperList.map((item, index) => {
@@ -60,7 +60,7 @@ export default class SwiperComponent extends Component {
 						<Text style={{ color: '#bfbfbf' }}>暂无数据</Text>
 					</View>
 				)}
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }

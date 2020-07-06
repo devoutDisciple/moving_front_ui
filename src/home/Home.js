@@ -1,4 +1,3 @@
-/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Swiper from './Swiper';
@@ -12,7 +11,9 @@ import Loading from '../component/Loading';
 import Message from '../component/Message';
 import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Text, View, TouchableOpacity, ScrollView, Linking } from 'react-native';
+import Spinner from 'react-native-spinkit';
+import { Text, View, TouchableOpacity, ScrollView, Linking, Modal } from 'react-native';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 export default class HomeScreen extends React.Component {
 	constructor(props) {
@@ -23,6 +24,8 @@ export default class HomeScreen extends React.Component {
 			shopid: '',
 			versionSoftDialogVisible: false, // 非强制更新
 			versionForceDialogVisible: false, // 强制更新
+			previewModalVisible: false,
+			swiperList: [],
 		};
 		this.locationClick = this.locationClick.bind(this);
 		this.goAppStore = this.goAppStore.bind(this);
@@ -92,8 +95,8 @@ export default class HomeScreen extends React.Component {
 			// 右侧按钮点击
 			rightIconClick: () => this.serviceClick(),
 		});
-		await this.getAllShop();
 		await this.getVersion();
+		await this.getAllShop();
 	}
 
 	// 获取当前版本
@@ -204,14 +207,23 @@ export default class HomeScreen extends React.Component {
 			.catch(error => console.log('tel error', error));
 	}
 
+	// 点击图片预览
+	onShowPreviewModal(swiperList) {
+		let list = [];
+		if (Array.isArray(swiperList)) {
+			swiperList.forEach(item => list.push({ url: `${config.baseUrl}/${item.url}` }));
+		}
+		this.setState({ previewModalVisible: true, swiperList: list });
+	}
+
 	render() {
 		let { navigation } = this.props;
-		let { loadingVisible, shopid, versionForceDialogVisible, versionSoftDialogVisible } = this.state;
+		let { loadingVisible, shopid, versionForceDialogVisible, versionSoftDialogVisible, swiperList, previewModalVisible } = this.state;
 		return (
 			<View style={{ flex: 1 }}>
 				<ScrollView style={{ flex: 1 }}>
 					{/* 轮播图 */}
-					<Swiper navigation={navigation} shopid={shopid} />
+					<Swiper navigation={navigation} shopid={shopid} onShowPreviewModal={this.onShowPreviewModal.bind(this)} />
 					{/* 图标选项 */}
 					<IconList navigation={navigation} />
 					{/* 快递柜子 */}
@@ -242,7 +254,16 @@ export default class HomeScreen extends React.Component {
 						cancelShow={false}
 					/>
 				)}
-
+				{previewModalVisible && (
+					<Modal visible={true} transparent={true}>
+						<ImageViewer
+							imageUrls={swiperList}
+							failImageSource="暂无图片信息"
+							onClick={() => this.setState({ previewModalVisible: false })}
+							loadingRender={() => <Spinner type="Bounce" color="#fb9bcd" />}
+						/>
+					</Modal>
+				)}
 				<Loading visible={loadingVisible} />
 			</View>
 		);
