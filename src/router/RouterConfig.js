@@ -60,6 +60,8 @@ import AboutUsScreen from '../aboutUs/AboutUs';
 import PrivacyScreen from '../privacy/Privacy';
 // 支付订单页面
 import PayOrderScreen from '../payOrder/PayOrder';
+// 首屏广告
+import AdvertisementScreen from '../advertisement/index';
 
 import TabBarItem from './TabBarItem';
 
@@ -181,6 +183,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 首屏广告
+		AdvertisementScreen: {
+			screen: AdvertisementScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,
