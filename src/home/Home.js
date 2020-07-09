@@ -12,7 +12,7 @@ import Message from '../component/Message';
 import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Spinner from 'react-native-spinkit';
-import { Text, View, TouchableOpacity, ScrollView, Linking, Modal } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
 export default class HomeScreen extends React.Component {
@@ -28,6 +28,7 @@ export default class HomeScreen extends React.Component {
 			swiperList: [],
 			cabinetList: [],
 			previewSwiperList: [],
+			freshLoading: false,
 		};
 		this.locationClick = this.locationClick.bind(this);
 		this.goAppStore = this.goAppStore.bind(this);
@@ -97,6 +98,13 @@ export default class HomeScreen extends React.Component {
 			// 右侧按钮点击
 			rightIconClick: () => this.serviceClick(),
 		});
+		await this.onSearchData(true);
+	}
+
+	async onSearchData(flag) {
+		let state = {};
+		flag ? (state.loadingVisible = true) : (state.freshLoading = true);
+		this.setState(state);
 		// 获取版本信息
 		await this.getVersion();
 		// 获取所有商店
@@ -105,6 +113,8 @@ export default class HomeScreen extends React.Component {
 		await this.getAllCabinetByShop(shopid);
 		// 获取轮播图信息
 		await this.getSwiperList(shopid);
+		flag ? (state.loadingVisible = false) : (state.freshLoading = false);
+		this.setState(state);
 	}
 
 	// 初始化语言信息
@@ -130,7 +140,6 @@ export default class HomeScreen extends React.Component {
 
 	// 获取所有商店信息
 	async getAllShop() {
-		this.setState({ loadingVisible: true });
 		// 获取所有门店列表
 		let res = await Request.get('/shop/all');
 		let data = res.data;
@@ -147,7 +156,6 @@ export default class HomeScreen extends React.Component {
 				title: shop.name || '',
 			});
 		});
-		this.setState({ loadingVisible: false });
 		return shop.id;
 	}
 
@@ -253,12 +261,16 @@ export default class HomeScreen extends React.Component {
 			versionSoftDialogVisible,
 			cabinetList,
 			swiperList,
+			freshLoading,
 			previewSwiperList,
 			previewModalVisible,
 		} = this.state;
 		return (
 			<View style={{ flex: 1 }}>
-				<ScrollView style={{ flex: 1 }}>
+				<ScrollView
+					style={{ flex: 1 }}
+					refreshControl={<RefreshControl refreshing={freshLoading} onRefresh={this.onSearchData.bind(this, false)} />}
+				>
 					{/* 轮播图 */}
 					<Swiper
 						navigation={navigation}

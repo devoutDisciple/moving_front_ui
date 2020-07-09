@@ -15,7 +15,6 @@ export default class SwiperComponent extends Component {
 
 	render() {
 		let swiperList = this.props.swiperList;
-		console.log(swiperList, 7788);
 		return (
 			<TouchableOpacity style={styles.swiperContainer} onPress={() => this.props.onShowPreviewModal(swiperList)}>
 				{swiperList && swiperList.length !== 0 ? (
