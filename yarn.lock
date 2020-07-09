@@ -862,15 +862,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@react-native-community/art@^1.1.2":
-  version "1.2.0"
-  resolved "https://registry.npm.taobao.org/@react-native-community/art/download/@react-native-community/art-1.2.0.tgz#386d95393f6042d9006f9d4bc6063fb898794460"
-  integrity sha1-OG2VOT9gQtkAb51LxgY/uJh5RGA=
-  dependencies:
-    art "^0.10.3"
-    invariant "^2.2.4"
-    prop-types "^15.7.2"
-
 "@react-native-community/async-storage@^1.7.1":
   version "1.11.0"
   resolved "https://registry.npm.taobao.org/@react-native-community/async-storage/download/@react-native-community/async-storage-1.11.0.tgz#bf81b8813080846f150c67f531987c429b442166"
@@ -1416,7 +1407,7 @@ array-unique@^0.3.2:
   resolved "https://registry.npm.taobao.org/array-unique/download/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
 
-art@^0.10.0, art@^0.10.3:
+art@^0.10.0:
   version "0.10.3"
   resolved "https://registry.npm.taobao.org/art/download/art-0.10.3.tgz#b01d84a968ccce6208df55a733838c96caeeaea2"
   integrity sha1-sB2EqWjMzmII31WnM4OMlsrurqI=
@@ -5391,14 +5382,6 @@ react-native-picker@^4.3.7:
   resolved "https://registry.npm.taobao.org/react-native-picker/download/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"
   integrity sha1-mELoxi/w2LZ26VFNn5FyQTwFGKg=
 
-react-native-progress@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.npm.taobao.org/react-native-progress/download/react-native-progress-4.1.2.tgz#ffb2264ddfeba409c730e36a9791bb7bbe07a00d"
-  integrity sha1-/7ImTd/rpAnHMONql5G7e74HoA0=
-  dependencies:
-    "@react-native-community/art" "^1.1.2"
-    prop-types "^15.7.2"
-
 react-native-ratings@^6.3.0:
   version "6.5.0"
   resolved "https://registry.npm.taobao.org/react-native-ratings/download/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"
@@ -5413,6 +5396,11 @@ react-native-reanimated@^1.4.0:
   integrity sha1-OGdsmd1YVQT9xzMe+0Xl9I7HM5o=
   dependencies:
     fbjs "^1.0.0"
+
+react-native-restart@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.npm.taobao.org/react-native-restart/download/react-native-restart-0.0.17.tgz#c1f38e019d1a2114248d496698e7951e9435ba91"
+  integrity sha1-wfOOAZ0aIRQkjUlmmOeVHpQ1upE=
 
 react-native-root-siblings@^4.0.0:
   version "4.0.6"

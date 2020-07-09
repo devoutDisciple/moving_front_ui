@@ -1,10 +1,9 @@
-/* eslint-disable react-native/no-inline-styles */
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Storage from '../util/Storage';
+import I18n from '../language/I18n';
 
 // 首页
 import HomeScreen from '../home/Home';
@@ -112,7 +111,7 @@ const TabNavigator = createBottomTabNavigator(
 			screen: HomeContainer,
 			navigationOptions: {
 				title: 'Home',
-				tabBarLabel: '首页',
+				tabBarLabel: I18n.t('menu.home'),
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
@@ -126,7 +125,7 @@ const TabNavigator = createBottomTabNavigator(
 			screen: OrderContainer,
 			navigationOptions: {
 				title: 'Order',
-				tabBarLabel: '订单',
+				tabBarLabel: I18n.t('menu.order'),
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
@@ -148,7 +147,7 @@ const TabNavigator = createBottomTabNavigator(
 			screen: MyContainer,
 			navigationOptions: {
 				title: 'My',
-				tabBarLabel: '我的',
+				tabBarLabel: I18n.t('menu.my'),
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}

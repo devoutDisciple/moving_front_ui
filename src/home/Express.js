@@ -18,25 +18,6 @@ export default class Express extends React.Component {
 		};
 	}
 
-	async componentDidMount() {
-		await this.getAllCabinetByShop(this.props.shopid);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.props.shopid !== nextProps.shopid) {
-			this.getAllCabinetByShop(nextProps.shopid);
-		}
-	}
-
-	// 根据商店id获取快递柜子
-	async getAllCabinetByShop(shopid) {
-		if (!shopid) {
-			return;
-		}
-		let res = await Request.get('/cabinet/getAllByShop', { shopid });
-		this.setState({ cabinetList: res.data || [] });
-	}
-
 	// 存放衣物
 	async putClothing(boxDetail) {
 		let boxid = boxDetail.boxid,
@@ -65,7 +46,7 @@ export default class Express extends React.Component {
 	}
 
 	render() {
-		let { cabinetList } = this.state;
+		let { cabinetList } = this.props;
 		return (
 			<View style={styles.home_express}>
 				<View style={styles.detail_common_title}>

@@ -5,7 +5,7 @@ import Express from './Express';
 import IconList from './IconList';
 import Request from '../util/Request';
 import config from '../config/config';
-import Storage from '../util/Storage';
+import StorageUtil from '../util/Storage';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
@@ -26,6 +26,8 @@ export default class HomeScreen extends React.Component {
 			versionForceDialogVisible: false, // 强制更新
 			previewModalVisible: false,
 			swiperList: [],
+			cabinetList: [],
+			previewSwiperList: [],
 		};
 		this.locationClick = this.locationClick.bind(this);
 		this.goAppStore = this.goAppStore.bind(this);
@@ -95,15 +97,24 @@ export default class HomeScreen extends React.Component {
 			// 右侧按钮点击
 			rightIconClick: () => this.serviceClick(),
 		});
+		// 获取版本信息
 		await this.getVersion();
-		await this.getAllShop();
+		// 获取所有商店
+		let shopid = await this.getAllShop();
+		// 获取快递柜子
+		await this.getAllCabinetByShop(shopid);
+		// 获取轮播图信息
+		await this.getSwiperList(shopid);
 	}
+
+	// 初始化语言信息
+	async getLanguage() {}
 
 	// 获取当前版本
 	async getVersion() {
 		let res = await Request.get('/version/getCurrentVersion');
 		let versionDetail = res.data;
-		if (versionDetail.version !== config.currentVersion) {
+		if (!versionDetail.version.includes(config.currentVersion)) {
 			if (versionDetail.force === 1) {
 				this.setState({
 					versionSoftDialogVisible: true,
@@ -115,6 +126,48 @@ export default class HomeScreen extends React.Component {
 				});
 			}
 		}
+	}
+
+	// 获取所有商店信息
+	async getAllShop() {
+		this.setState({ loadingVisible: true });
+		// 获取所有门店列表
+		let res = await Request.get('/shop/all');
+		let data = res.data;
+		let shop = await StorageUtil.get('shop');
+		// 如果没有缓存过商店
+		if (!shop) {
+			shop = (data && data[0]) || {};
+			// 保存设置的商店
+			await StorageUtil.set('shop', shop);
+		}
+		await this.setState({ shopList: data || [], shopid: shop.id }, () => {
+			let { navigation } = this.props;
+			navigation.navigate('HomeScreen', {
+				title: shop.name || '',
+			});
+		});
+		this.setState({ loadingVisible: false });
+		return shop.id;
+	}
+
+	// 根据商店id获取快递柜子
+	async getAllCabinetByShop(shopid) {
+		if (!shopid) {
+			return;
+		}
+		let res = await Request.get('/cabinet/getAllByShop', { shopid });
+		this.setState({ cabinetList: res.data || [] });
+	}
+
+	// 获取swiper
+	async getSwiperList(shopid) {
+		if (!shopid) {
+			return;
+		}
+		// 获取当前门店的轮播图列表
+		let res = await Request.get('/swiper/getAllById', { shopid });
+		this.setState({ swiperList: res.data || [] });
 	}
 
 	// 跳转到appstore进行更新
@@ -130,32 +183,6 @@ export default class HomeScreen extends React.Component {
 			})
 			.catch(error => {
 				console.log(error);
-			});
-	}
-
-	// 获取所有商店信息
-	async getAllShop() {
-		this.setState({ loadingVisible: true });
-		// 获取所有门店列表
-		Request.get('/shop/all')
-			.then(async res => {
-				let data = res.data;
-				let shop = await Storage.get('shop');
-				// 如果没有缓存过商店
-				if (!shop) {
-					shop = (data && data[0]) || {};
-					// 保存设置的商店
-					await Storage.set('shop', shop);
-				}
-				this.setState({ shopList: data || [], shopid: shop.id }, () => {
-					let { navigation } = this.props;
-					navigation.navigate('HomeScreen', {
-						title: shop.name || '',
-					});
-				});
-			})
-			.finally(() => {
-				this.setState({ loadingVisible: false });
 			});
 	}
 
@@ -182,7 +209,7 @@ export default class HomeScreen extends React.Component {
 					}
 				});
 				this.setState({ shopid: selectShop.id }, async () => {
-					await Storage.set('shop', selectShop);
+					await StorageUtil.set('shop', selectShop);
 					navigation.navigate('HomeScreen', {
 						title: name || '',
 					});
@@ -194,7 +221,7 @@ export default class HomeScreen extends React.Component {
 
 	// 点击客服按钮
 	async serviceClick() {
-		let shop = await Storage.get('shop');
+		let shop = await StorageUtil.get('shop');
 		let tel = `tel:${shop.phone}`; // 目标电话
 		Linking.canOpenURL(tel)
 			.then(supported => {
@@ -208,26 +235,41 @@ export default class HomeScreen extends React.Component {
 	}
 
 	// 点击图片预览
-	onShowPreviewModal(swiperList) {
-		let list = [];
+	onShowPreviewModal() {
+		let { swiperList } = this.state,
+			list = [];
 		if (Array.isArray(swiperList)) {
 			swiperList.forEach(item => list.push({ url: `${config.baseUrl}/${item.url}` }));
 		}
-		this.setState({ previewModalVisible: true, swiperList: list });
+		this.setState({ previewModalVisible: true, previewSwiperList: list });
 	}
 
 	render() {
 		let { navigation } = this.props;
-		let { loadingVisible, shopid, versionForceDialogVisible, versionSoftDialogVisible, swiperList, previewModalVisible } = this.state;
+		let {
+			loadingVisible,
+			shopid,
+			versionForceDialogVisible,
+			versionSoftDialogVisible,
+			cabinetList,
+			swiperList,
+			previewSwiperList,
+			previewModalVisible,
+		} = this.state;
 		return (
 			<View style={{ flex: 1 }}>
 				<ScrollView style={{ flex: 1 }}>
 					{/* 轮播图 */}
-					<Swiper navigation={navigation} shopid={shopid} onShowPreviewModal={this.onShowPreviewModal.bind(this)} />
+					<Swiper
+						navigation={navigation}
+						shopid={shopid}
+						swiperList={swiperList}
+						onShowPreviewModal={this.onShowPreviewModal.bind(this)}
+					/>
 					{/* 图标选项 */}
 					<IconList navigation={navigation} />
 					{/* 快递柜子 */}
-					<Express navigation={navigation} shopid={shopid} />
+					<Express navigation={navigation} shopid={shopid} cabinetList={cabinetList} />
 				</ScrollView>
 				{/* 非强制版本 */}
 				{versionSoftDialogVisible && (
@@ -257,7 +299,7 @@ export default class HomeScreen extends React.Component {
 				{previewModalVisible && (
 					<Modal visible={true} transparent={true}>
 						<ImageViewer
-							imageUrls={swiperList}
+							imageUrls={previewSwiperList}
 							failImageSource="暂无图片信息"
 							onClick={() => this.setState({ previewModalVisible: false })}
 							loadingRender={() => <Spinner type="Bounce" color="#fb9bcd" />}

@@ -24,7 +24,7 @@ export default class IconList extends React.Component {
 			android: config.map_key_android,
 		});
 		Geolocation.getCurrentPosition(({ coords }) => {
-			console.log(coords);
+			console.log(coords, 9999);
 		});
 	}
 

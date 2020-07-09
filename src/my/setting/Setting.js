@@ -5,6 +5,8 @@ import Toast from '../../component/Toast';
 import Loading from '../../component/Loading';
 import ListItem from '../../component/ListItem';
 import Picker from 'react-native-picker';
+import RNRestart from 'react-native-restart';
+
 import config from '../../config/config';
 import I18n from '../../language/I18n';
 import CommonHeader from '../../component/CommonHeader';
@@ -30,23 +32,24 @@ export default class SettingScreen extends React.Component {
 		}
 		// 切换语言
 		if (key === 'language') {
-			Picker.init({
-				...config.pickCommonConfig,
-				pickerData: ['中文', 'english'],
-				selectedValue: ['中文'],
-				onPickerConfirm: res => {
-					let data = res[0];
-					if (data === '中文') {
-						I18n.locale = 'zh';
-						this.setState({ num: this.state.num + 1 });
-					}
-					if (data === 'english') {
-						I18n.locale = 'en';
-						this.setState({ num: this.state.num + 1 });
-					}
-				},
-			});
-			Picker.show();
+			RNRestart.Restart();
+			// Picker.init({
+			// 	...config.pickCommonConfig,
+			// 	pickerData: ['中文', 'english'],
+			// 	selectedValue: ['中文'],
+			// 	onPickerConfirm: res => {
+			// 		let data = res[0];
+			// 		if (data === '中文') {
+			// 			I18n.locale = 'zh';
+			// 			this.setState({ num: this.state.num + 1 });
+			// 		}
+			// 		if (data === 'english') {
+			// 			I18n.locale = 'en';
+			// 			this.setState({ num: this.state.num + 1 });
+			// 		}
+			// 	},
+			// });
+			// Picker.show();
 		}
 		// 检查更新
 		if (key === 'about') {

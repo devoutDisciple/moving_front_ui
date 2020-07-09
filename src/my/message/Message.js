@@ -94,8 +94,8 @@ export default class SettingScreen extends React.Component {
 			includeBase64: true,
 		}).then(async response => {
 			// 获取用户token值
-			let token = await Storage.getString('token'),
-				data = { img: response.data, token };
+			let user = await Storage.get('user');
+			let data = { img: response.data, userid: user.id };
 			let result = await Request.post('/user/addPhoto', data);
 			if (result.data === 'success') {
 				Toast.success('头像修改成功');

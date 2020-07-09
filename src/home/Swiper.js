@@ -11,33 +11,11 @@ const { width } = Dimensions.get('window');
 export default class SwiperComponent extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			swiperList: [],
-		};
-		this.getSwiperList = this.getSwiperList.bind(this);
-	}
-
-	async componentDidMount() {
-		await this.getSwiperList(this.props.shopid);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.props.shopid !== nextProps.shopid) {
-			this.getSwiperList(nextProps.shopid);
-		}
-	}
-
-	async getSwiperList(shopid) {
-		if (!shopid) {
-			return;
-		}
-		// 获取当前门店的轮播图列表
-		let res = await Request.get('/swiper/getAllById', { shopid });
-		this.setState({ swiperList: res.data || [] });
 	}
 
 	render() {
-		let { swiperList = [] } = this.state;
+		let swiperList = this.props.swiperList;
+		console.log(swiperList, 7788);
 		return (
 			<TouchableOpacity style={styles.swiperContainer} onPress={() => this.props.onShowPreviewModal(swiperList)}>
 				{swiperList && swiperList.length !== 0 ? (

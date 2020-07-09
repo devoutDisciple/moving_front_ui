@@ -23,7 +23,7 @@ export default class Member extends React.Component {
 	}
 
 	// 当参数含有flash的时候会进行刷新
-	async componentWillReceiveProps(nextProps) {
+	async UNSAFE_componentWillReceiveProps(nextProps) {
 		if (nextProps && nextProps.navigation && nextProps.navigation.state.params.flash) {
 			await this.onSearchAddress();
 		}
