@@ -64,15 +64,17 @@ export default class PayOrderScreen extends React.Component {
 		let orderid = navigation.getParam('orderid');
 		if (payWay === 'wechat') {
 			try {
-				// 获取用户token值
 				let res = await PayUtil.payMoneyByWeChat(money, 'MOVING洗衣费用结算');
 				if (res === 'success') {
 					Toast.success('支付完成');
 					try {
 						setTimeout(async () => {
+							// 更改订单状态
 							let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: orderid, status: 4 });
+							// 更改用户积分
+							await Request.post('/user/updateUserIntergral', { userid: user.id, money: money });
 							if (orderStatus.data === 'success') {
-								return navigation.navigate('HomeScreen');
+								return navigation.goBack();
 							}
 						}, 500);
 					} catch (error) {
@@ -84,19 +86,25 @@ export default class PayOrderScreen extends React.Component {
 			}
 		}
 		if (payWay === 'alipay') {
-			let res = await Request.post('/pay/payByOrderAlipay', { desc: 'MOVING洗衣费用结算', money: money, type: 'order' });
+			let res = await Request.post('/pay/payByOrderAlipay', {
+				desc: 'MOVING洗衣费用结算',
+				money: 0.01,
+				// money: money,
+				type: 'order',
+				orderid: orderid,
+				userid: user.id,
+			});
 			await Alipay.pay(res.data);
-			return navigation.navigate('HomeScreen');
+			return navigation.goBack();
 		}
 		if (payWay === 'moving') {
 			this.setState({ loadingVisible: true });
 			let res = await Request.post('/pay/payByOrderByBalance', { orderid: orderid, money: money, userid: user.id });
-			// return navigation.navigate('HomeScreen');
-			if (res.data === 'success') {
-				Toast.success('支付完成');
-				return navigation.navigate('HomeScreen');
-			}
 			this.setState({ loadingVisible: false });
+			if (res.data === 'success') {
+				Toast.success('支付完成, 请刷新订单');
+				return navigation.goBack();
+			}
 		}
 	}
 

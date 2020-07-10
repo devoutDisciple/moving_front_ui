@@ -11,8 +11,11 @@ import PayUtil from '../util/PayUtil';
 import Request from '../util/Request';
 import StorageUtil from '../util/Storage';
 import Alipay from '../util/Alipay';
+import Message from '../component/Message';
 import * as WeChat from 'react-native-wechat-lib';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import NavigationUtil from '../util/NavigationUtil';
+
 const { width } = Dimensions.get('window');
 
 export default class ReCharge extends React.Component {
@@ -52,11 +55,32 @@ export default class ReCharge extends React.Component {
 		const { navigation } = this.props,
 			{ activeMoney, payWay } = this.state;
 		let currentPay = config.PAY_MONEY_FOR_BALANCE[activeMoney];
-		// member-会员
+		// member-会员 recharge-余额充值
 		let type = navigation.getParam('type');
+		let storageUser = await StorageUtil.get('user');
+		let res = await Request.get('/user/getUserByUserid', { userid: storageUser.id });
+		let currentUser = res.data;
+		// 判断用户是否是会员
+		if (type === 'member' && Number(currentUser.member) === 2) {
+			return Message.confirm('您已经是MOVING会员', '前往余额充值', () => {
+				NavigationUtil.reset(navigation, 'HomeScreen');
+			});
+		}
+		// 支付宝支付
+		if (payWay === 'alipay') {
+			let alires = await Request.post('/pay/payByOrderAlipay', {
+				desc: 'MOVING会员',
+				money: currentPay.pay,
+				type: type,
+				userid: currentUser.id,
+				given: currentPay.given,
+			});
+			Alipay.pay(alires.data);
+		}
 		// 微信支付
 		if (payWay === 'wechat') {
 			let result = await PayUtil.payMoneyByWeChat(currentPay.pay, type === 'member' ? 'MOVING会员' : 'MOVING充值');
+			// let result = await PayUtil.payMoneyByWeChat(0.01, type === 'member' ? 'MOVING会员' : 'MOVING充值');
 			if (result === 'success') {
 				Toast.success('支付成功');
 				try {
@@ -68,17 +92,6 @@ export default class ReCharge extends React.Component {
 				}
 			}
 		}
-		// 支付宝支付
-		if (payWay === 'alipay') {
-			let res = await Request.post('/pay/payByOrderAlipay', { desc: 'MOVING会员', money: currentPay.pay, type: type });
-			Alipay.pay(res.data)
-				.then(data => {
-					console.log('成功');
-				})
-				.catch(err => {
-					console.log('err=' + err);
-				});
-		}
 	}
 
 	async changeUserBalance() {
@@ -89,11 +102,13 @@ export default class ReCharge extends React.Component {
 		// member-会员
 		let type = navigation.getParam('type');
 		let { pay, given } = currentPay;
-		// 获取用户token值
-		let user = await StorageUtil.getString('user');
+		let user = await StorageUtil.get('user');
 		let userData = await Request.post('/user/recharge', { userid: user.id, money: pay, given });
 		if (userData.data === 'success') {
-			return Toast.success(type === 'member' ? '恭喜您成为MOVING会员' : '充值成功');
+			Toast.success(type === 'member' ? '恭喜您成为MOVING会员' : '充值成功');
+			setTimeout(() => {
+				NavigationUtil.reset(navigation, 'HomeScreen');
+			}, 1000);
 		} else {
 			return Toast.warning('网络出小差了，请联系管理员');
 		}
