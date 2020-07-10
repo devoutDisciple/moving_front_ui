@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Storage from '../../util/Storage';
+import StorageUtil from '../../util/Storage';
 import Toast from '../../component/Toast';
 import Loading from '../../component/Loading';
 import ListItem from '../../component/ListItem';
 import Picker from 'react-native-picker';
+import NavigationUtil from '../../util/NavigationUtil';
 import RNRestart from 'react-native-restart';
 
 import config from '../../config/config';
-import I18n from '../../language/I18n';
 import CommonHeader from '../../component/CommonHeader';
 import Request from '../../util/Request';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
@@ -32,24 +32,24 @@ export default class SettingScreen extends React.Component {
 		}
 		// 切换语言
 		if (key === 'language') {
-			RNRestart.Restart();
-			// Picker.init({
-			// 	...config.pickCommonConfig,
-			// 	pickerData: ['中文', 'english'],
-			// 	selectedValue: ['中文'],
-			// 	onPickerConfirm: res => {
-			// 		let data = res[0];
-			// 		if (data === '中文') {
-			// 			I18n.locale = 'zh';
-			// 			this.setState({ num: this.state.num + 1 });
-			// 		}
-			// 		if (data === 'english') {
-			// 			I18n.locale = 'en';
-			// 			this.setState({ num: this.state.num + 1 });
-			// 		}
-			// 	},
-			// });
-			// Picker.show();
+			// RNRestart.Restart();
+			Picker.init({
+				...config.pickCommonConfig,
+				pickerData: ['中文', 'english'],
+				selectedValue: ['中文'],
+				onPickerConfirm: async res => {
+					let data = res[0];
+					if (data === '中文') {
+						await StorageUtil.setString('language', 'zh');
+						// this.setState({ num: this.state.num + 1 });
+					}
+					if (data === 'english') {
+						await StorageUtil.setString('language', 'en');
+						// this.setState({ num: this.state.num + 1 });
+					}
+				},
+			});
+			Picker.show();
 		}
 		// 检查更新
 		if (key === 'about') {
@@ -99,8 +99,8 @@ export default class SettingScreen extends React.Component {
 	// 点击退出登录
 	async logoutBtnClick() {
 		const { navigation } = this.props;
-		await Storage.multiRemove(['user', 'token']);
-		return navigation.navigate('Home');
+		await StorageUtil.multiRemove(['user', 'token']);
+		NavigationUtil.reset(navigation, 'HomeScreen');
 	}
 
 	// 返回主页
@@ -118,13 +118,13 @@ export default class SettingScreen extends React.Component {
 				<View style={styles.content}>
 					<View style={styles.empty} />
 					<View style={styles.content_chunk}>
-						<ListItem text={I18n.t('setting.password')} onPress={this.onPress.bind(this, 'resetPassword')} withBorder bigText />
-						{/* <ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder /> */}
+						<ListItem text="重置密码" onPress={this.onPress.bind(this, 'resetPassword')} withBorder bigText />
+						<ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder bigText />
 						<ListItem
 							bigText
 							withBorder
 							otherText={config.currentVersion}
-							text={I18n.t('setting.version')}
+							text="版本更新"
 							onPress={this.onPress.bind(this, 'about')}
 						/>
 						<ListItem text="隐私政策" bigText onPress={this.onPress.bind(this, 'privacy')} />

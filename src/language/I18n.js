@@ -12,4 +12,5 @@ I18n.translations = {
 	zh,
 };
 
+console.log(I18n, 888);
 export default I18n;

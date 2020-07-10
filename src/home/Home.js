@@ -117,9 +117,6 @@ export default class HomeScreen extends React.Component {
 		this.setState(state);
 	}
 
-	// 初始化语言信息
-	async getLanguage() {}
-
 	// 获取当前版本
 	async getVersion() {
 		let res = await Request.get('/version/getCurrentVersion');
