@@ -3,7 +3,6 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Storage from '../util/Storage';
-import I18n from '../language/I18n';
 
 // 首页
 import HomeScreen from '../home/Home';
@@ -111,7 +110,7 @@ const TabNavigator = createBottomTabNavigator(
 			screen: HomeContainer,
 			navigationOptions: {
 				title: 'Home',
-				tabBarLabel: I18n.t('menu.home'),
+				tabBarLabel: '首页',
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
@@ -125,7 +124,7 @@ const TabNavigator = createBottomTabNavigator(
 			screen: OrderContainer,
 			navigationOptions: {
 				title: 'Order',
-				tabBarLabel: I18n.t('menu.order'),
+				tabBarLabel: '订单',
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
@@ -147,7 +146,7 @@ const TabNavigator = createBottomTabNavigator(
 			screen: MyContainer,
 			navigationOptions: {
 				title: 'My',
-				tabBarLabel: I18n.t('menu.my'),
+				tabBarLabel: '我的',
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}

@@ -6,7 +6,6 @@ import StorageUtil from '../util/Storage';
 import config from '../config/config';
 import Toast from '../component/Toast';
 import Message from '../component/Message';
-import I18n from '../language/I18n';
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
 export default class IconList extends React.Component {
@@ -171,12 +170,12 @@ export default class IconList extends React.Component {
 			{
 				key: 'home_member',
 				url: require('../../img/home/hello.png'),
-				text: I18n.t('home.member'),
+				text: '成为会员',
 			},
 			{
 				key: 'home_recharge',
 				url: require('../../img/home/chongzhi.png'),
-				text: I18n.t('home.recharge'),
+				text: '会员充值',
 			},
 		];
 		const iconList2 = [
