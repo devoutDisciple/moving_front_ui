@@ -23,7 +23,7 @@ export default class ReCharge extends React.Component {
 		super(props);
 		this.state = {
 			activeMoney: 0,
-			payWay: 'alipay',
+			payWay: 'wechat',
 			wechatVisible: false,
 		};
 	}
@@ -71,48 +71,61 @@ export default class ReCharge extends React.Component {
 			let alires = await Request.post('/pay/payByOrderAlipay', {
 				desc: 'MOVING会员',
 				money: currentPay.pay,
+				// money: 0.01,
 				type: type,
 				userid: currentUser.id,
 				given: currentPay.given,
 			});
 			Alipay.pay(alires.data);
+			setTimeout(() => {
+				Message.confirmPay('是否支付成功', '', () => {
+					Toast.success('请前往我的余额查看');
+					NavigationUtil.reset(navigation, 'HomeScreen');
+				});
+			}, 1000);
 		}
 		// 微信支付
 		if (payWay === 'wechat') {
-			let result = await PayUtil.payMoneyByWeChat(currentPay.pay, type === 'member' ? 'MOVING会员' : 'MOVING充值');
-			// let result = await PayUtil.payMoneyByWeChat(0.01, type === 'member' ? 'MOVING会员' : 'MOVING充值');
+			// let result = await PayUtil.payMoneyByWeChat(currentPay.pay, type === 'member' ? 'MOVING会员' : 'MOVING充值');
+			let result = await PayUtil.payMoneyByWeChat({
+				desc: type === 'member' ? 'MOVING会员' : 'MOVING充值',
+				money: 0.01,
+				type: type,
+				userid: currentUser.id,
+				given: currentPay.given,
+			});
 			if (result === 'success') {
 				Toast.success('支付成功');
-				try {
-					setTimeout(async () => {
-						this.changeUserBalance();
-					}, 500);
-				} catch (error) {
-					console.log(error);
-				}
+				return setTimeout(() => {
+					NavigationUtil.reset(navigation, 'HomeScreen');
+				}, 1000);
 			}
+			Message.confirmPay('是否支付成功', '', () => {
+				Toast.success('请前往我的余额查看');
+				NavigationUtil.reset(navigation, 'HomeScreen');
+			});
 		}
 	}
 
-	async changeUserBalance() {
-		// Toast.error('请先安装支付宝或微信');
-		const { navigation } = this.props,
-			{ activeMoney } = this.state;
-		let currentPay = config.PAY_MONEY_FOR_BALANCE[activeMoney];
-		// member-会员
-		let type = navigation.getParam('type');
-		let { pay, given } = currentPay;
-		let user = await StorageUtil.get('user');
-		let userData = await Request.post('/user/recharge', { userid: user.id, money: pay, given });
-		if (userData.data === 'success') {
-			Toast.success(type === 'member' ? '恭喜您成为MOVING会员' : '充值成功');
-			setTimeout(() => {
-				NavigationUtil.reset(navigation, 'HomeScreen');
-			}, 1000);
-		} else {
-			return Toast.warning('网络出小差了，请联系管理员');
-		}
-	}
+	// async changeUserBalance() {
+	// 	// Toast.error('请先安装支付宝或微信');
+	// 	const { navigation } = this.props,
+	// 		{ activeMoney } = this.state;
+	// 	let currentPay = config.PAY_MONEY_FOR_BALANCE[activeMoney];
+	// 	// member-会员
+	// 	let type = navigation.getParam('type');
+	// 	let { pay, given } = currentPay;
+	// 	let user = await StorageUtil.get('user');
+	// 	let userData = await Request.post('/user/recharge', { userid: user.id, money: pay, given });
+	// 	if (userData.data === 'success') {
+	// 		Toast.success(type === 'member' ? '恭喜您成为MOVING会员' : '充值成功');
+	// 		setTimeout(() => {
+	// 			NavigationUtil.reset(navigation, 'HomeScreen');
+	// 		}, 1000);
+	// 	} else {
+	// 		return Toast.warning('网络出小差了，请联系管理员');
+	// 	}
+	// }
 
 	render() {
 		let { navigation } = this.props,

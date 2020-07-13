@@ -61,9 +61,9 @@
 		</dict>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>$(PRODUCT_NAME)想访问您的相册, 为了帮助您上传头像</string>
+	<string>$(PRODUCT_NAME)想访问您的媒体资料库, 方便为了您推送背景音乐</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME)想访问您的相册, 为了帮助您上传头像</string>
+	<string>$(PRODUCT_NAME)想访问您的相机权限, 为了帮助您上传头像</string>
 	<key>NSContactsUsageDescription</key>
 	<string>$(PRODUCT_NAME)想读取您的通讯录，方便手机联系我们店员</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -71,19 +71,11 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME)想要获取您的位置，方便使用上门取衣等功能</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>是否允许$(PRODUCT_NAME)使用您的麦克风</string>
+	<string>$(PRODUCT_NAME)想要获取您的麦克风权限，方便使用上门取衣等功能</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>是否允许$(PRODUCT_NAME)保存相册</string>
+	<string>$(PRODUCT_NAME)想访问您的相册, 为了帮助您上传头像</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>是否允许$(PRODUCT_NAME)访问您的相册</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>是否允许$(PRODUCT_NAME)访问提醒事项</string>
-	<key>NSSiriUsageDescription</key>
-	<string>是否允许$(PRODUCT_NAME)使用Siri</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>是否允许$(PRODUCT_NAME)使用语音识别</string>
-	<key>Privacy - Calendars Usage Description </key>
-	<string>是否允许$(PRODUCT_NAME)使用日历</string>
+	<string>$(PRODUCT_NAME)想获取您的相册权限, 为了帮助您上传头像</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

@@ -10,6 +10,7 @@ import Alipay from '../util/Alipay';
 import StorageUtil from '../util/Storage';
 import * as WeChat from 'react-native-wechat-lib';
 import Loading from '../component/Loading';
+import Message from '../component/Message';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -64,23 +65,21 @@ export default class PayOrderScreen extends React.Component {
 		let orderid = navigation.getParam('orderid');
 		if (payWay === 'wechat') {
 			try {
-				let res = await PayUtil.payMoneyByWeChat(money, 'MOVING洗衣费用结算');
+				let res = await PayUtil.payMoneyByWeChat({
+					desc: 'MOVING洗衣费用结算',
+					// money: money,
+					money: 0.01,
+					type: 'order',
+					orderid: orderid,
+					userid: user.id,
+				});
 				if (res === 'success') {
-					Toast.success('支付完成');
-					try {
-						setTimeout(async () => {
-							// 更改订单状态
-							let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: orderid, status: 4 });
-							// 更改用户积分
-							await Request.post('/user/updateUserIntergral', { userid: user.id, money: money });
-							if (orderStatus.data === 'success') {
-								return navigation.goBack();
-							}
-						}, 500);
-					} catch (error) {
-						console.log(error);
-					}
+					return Toast.success('支付完成');
 				}
+				Message.confirmPay('是否支付成功', '', () => {
+					Toast.success('请刷新订单');
+					navigation.goBack();
+				});
 			} catch (error) {
 				Toast.warning(error);
 			}
@@ -88,14 +87,19 @@ export default class PayOrderScreen extends React.Component {
 		if (payWay === 'alipay') {
 			let res = await Request.post('/pay/payByOrderAlipay', {
 				desc: 'MOVING洗衣费用结算',
-				money: 0.01,
 				// money: money,
+				money: 0.01,
 				type: 'order',
 				orderid: orderid,
 				userid: user.id,
 			});
+			setTimeout(() => {
+				Message.confirmPay('是否支付成功', '', () => {
+					Toast.success('请刷新订单');
+					navigation.goBack();
+				});
+			}, 1000);
 			await Alipay.pay(res.data);
-			return navigation.goBack();
 		}
 		if (payWay === 'moving') {
 			this.setState({ loadingVisible: true });

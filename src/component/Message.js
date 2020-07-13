@@ -30,6 +30,22 @@ export default {
 			{ cancelable: false },
 		);
 	},
+	confirmPay: (title, message, callBack) => {
+		Alert.alert(
+			title,
+			message,
+			[
+				{
+					text: '取消',
+				},
+				{
+					text: '已完成支付',
+					onPress: callBack ? callBack : () => {},
+				},
+			],
+			{ cancelable: false },
+		);
+	},
 	forceUpdateVersion: (title, message) => {
 		Alert.alert(
 			title,

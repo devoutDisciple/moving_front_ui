@@ -4,14 +4,14 @@ import config from '../config/config';
 
 export default {
 	// 微信支付
-	payMoneyByWeChat: (money, desc) => {
+	payMoneyByWeChat: ({ money, desc, ...rest }) => {
 		return new Promise(async (resolve, reject) => {
 			try {
 				let isWXAppInstalled = await WeChat.isWXAppInstalled();
 				if (!isWXAppInstalled) {
 					return reject('未下载微信');
 				}
-				let result = await Request.post('/pay/payOrderByWechat', { total_fee: money, desc: desc });
+				let result = await Request.post('/pay/payOrderByWechat', { money: money, desc: desc, ...rest });
 				let data = result.data;
 				let params = {
 					appId: config.appid,
@@ -22,6 +22,7 @@ export default {
 					package: data.package, // 商家根据财付通文档填写的数据和签名
 					sign: data.newSign, // 商家根据微信开放平台文档对数据做的签名
 				};
+
 				// 第三步，调起微信客户端支付
 				WeChat.pay(params)
 					.then(response => {

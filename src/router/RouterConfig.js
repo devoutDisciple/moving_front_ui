@@ -181,18 +181,18 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
-		// 首页
-		HomeScreen: {
-			screen: TabNavigator,
+		// 首屏广告
+		AdvertisementScreen: {
+			screen: AdvertisementScreen,
 			navigationOptions: {
 				headerShown: false,
 				headerBackTitle: '返回',
 				headerBackAllowFontScaling: false,
 			},
 		},
-		// 首屏广告
-		AdvertisementScreen: {
-			screen: AdvertisementScreen,
+		// 首页
+		HomeScreen: {
+			screen: TabNavigator,
 			navigationOptions: {
 				headerShown: false,
 				headerBackTitle: '返回',
