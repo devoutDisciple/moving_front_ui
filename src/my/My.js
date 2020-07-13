@@ -116,6 +116,7 @@ export default class MyScreen extends React.Component {
 			<View style={styles.container}>
 				<ScrollView
 					style={styles.content}
+					howsVerticalScrollIndicator={false}
 					refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}
 				>
 					<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />

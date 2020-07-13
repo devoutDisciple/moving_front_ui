@@ -44,7 +44,7 @@ export default class Intergral extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="积分兑换记录" navigation={navigation} />
-				<ScrollView style={styles.intergrals_content}>
+				<ScrollView style={styles.intergrals_content} showsVerticalScrollIndicator={false}>
 					{data && data.length !== 0 ? (
 						<FlatList
 							data={data}

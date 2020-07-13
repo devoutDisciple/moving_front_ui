@@ -101,7 +101,7 @@ export default class RegisterScreen extends React.Component {
 	render() {
 		const { loginBtnDisable, timeNumVisible, timeNum } = this.state;
 		return (
-			<ScrollView style={{ flex: 1, padding: 10 }}>
+			<ScrollView style={{ flex: 1, padding: 10 }} showsVerticalScrollIndicator={false}>
 				<TouchableOpacity style={{ marginVertical: 20 }} onPress={this.backHome.bind(this)}>
 					<Icon name="left" size={22} color="#333" />
 				</TouchableOpacity>

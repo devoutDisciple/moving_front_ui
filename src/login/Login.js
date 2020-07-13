@@ -80,7 +80,7 @@ export default class LoginScreen extends React.Component {
 		const { loginBtnDisable } = this.state;
 
 		return (
-			<ScrollView style={{ flex: 1, padding: 10 }}>
+			<ScrollView style={{ flex: 1, padding: 10 }} showsVerticalScrollIndicator={false}>
 				<TouchableOpacity style={{ marginVertical: 20 }} onPress={this.goOtherPage.bind(this, 1)}>
 					<Icon name="close" size={22} color="#333" />
 				</TouchableOpacity>

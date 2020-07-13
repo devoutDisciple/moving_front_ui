@@ -50,7 +50,7 @@ export default class OrderScreen extends React.Component {
 			// <Text>234</Text>
 			<View style={{ flex: 1 }}>
 				<CommonHeader title="订单详情" navigation={navigation} />
-				<ScrollView style={styles.detail_content}>
+				<ScrollView style={styles.detail_content} showsVerticalScrollIndicator={false}>
 					<View style={styles.detail_content_title}>
 						<Text style={styles.detail_content_title_num}>订单编号: {orderDetail.code}</Text>
 						<Text style={styles.detail_content_title_time}>{orderDetail.create_time}</Text>

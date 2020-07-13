@@ -100,7 +100,7 @@ export default class Goods extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="计算洗衣所需金额" navigation={navigation} />
-				<ScrollView style={styles.content}>
+				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 					<View style={styles.content_title}>
 						<Text>洗衣费用价格计算（仅供参考）</Text>
 					</View>

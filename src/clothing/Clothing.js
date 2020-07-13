@@ -193,7 +193,7 @@ export default class Member extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="预约上门取衣" navigation={navigation} />
-				<ScrollView style={styles.content}>
+				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 					<ClothingItem label="预约时间" value={`${selectDay} ${selectTime}`} showIcon onPress={this.showTimeSelect.bind(this)} />
 					<ClothingItem
 						label="联系人"

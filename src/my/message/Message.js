@@ -110,7 +110,7 @@ export default class SettingScreen extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="个人信息" navigation={navigation} />
-				<ScrollView style={styles.setting_content}>
+				<ScrollView style={styles.setting_content} showsVerticalScrollIndicator={false}>
 					<MessageItem label="头像" value={user.photo} showIcon isImage onPress={this.selectPhoto.bind(this)} />
 					<MessageItem
 						showIcon

@@ -219,7 +219,7 @@ export default class PayOrderScreen extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title={type === 'clothing' ? '派送费用' : '洗衣费用支付'} navigation={navigation} />
-				<ScrollView style={styles.content}>
+				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 					<View style={styles.money}>
 						<Text style={styles.money_num}>￥ {money}</Text>
 						<Text style={styles.money_order}>{type === 'clothing' ? '上门取衣派送费用' : '订单支付'}</Text>

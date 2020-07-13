@@ -70,7 +70,7 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		let { navigation } = this.props;
-		let { data, headerLoading, footerStatus, loadingVisible, type } = this.state;
+		let { data, headerLoading, footerStatus, loadingVisible } = this.state;
 		return (
 			<View style={styles.order_container}>
 				<FlatList
@@ -81,6 +81,7 @@ export default class AllOrder extends React.Component {
 					onEndReached={this.footerRefresh.bind(this)}
 					ListEmptyComponent={<Empty />}
 					keyExtractor={(item, index) => String(item.id)}
+					showsVerticalScrollIndicator={false}
 					ListFooterComponent={<FooterScreen status={footerStatus} />}
 					renderItem={({ item, index }) => {
 						// 通过快递柜下单

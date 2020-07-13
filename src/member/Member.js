@@ -44,7 +44,7 @@ export default class Member extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="成为会员" navigation={navigation} />
-				<ScrollView style={styles.container_scroll}>
+				<ScrollView style={styles.container_scroll} showsVerticalScrollIndicator={false}>
 					<View style={styles.swiperContainer}>
 						<View style={styles.slide}>
 							<Image

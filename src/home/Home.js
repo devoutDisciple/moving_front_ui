@@ -266,6 +266,7 @@ export default class HomeScreen extends React.Component {
 			<View style={{ flex: 1 }}>
 				<ScrollView
 					style={{ flex: 1 }}
+					showsVerticalScrollIndicator={false}
 					refreshControl={<RefreshControl refreshing={freshLoading} onRefresh={this.onSearchData.bind(this, false)} />}
 				>
 					{/* 轮播图 */}

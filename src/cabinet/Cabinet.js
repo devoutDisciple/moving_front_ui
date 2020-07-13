@@ -113,7 +113,7 @@ export default class OrderScreen extends React.Component {
 		return (
 			<View style={{ flex: 1 }}>
 				<CommonHeader title="选择柜口" navigation={navigation} back={() => navigation.navigate('HomeScreen')} />
-				<ScrollView style={styles.cabinet}>
+				<ScrollView style={styles.cabinet} showsVerticalScrollIndicator={false}>
 					<View style={styles.cabinet_item}>
 						<View style={styles.detail_common_title}>
 							<Text>幸福家园北门一号柜</Text>

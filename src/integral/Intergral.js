@@ -65,7 +65,7 @@ export default class Intergral extends React.Component {
 				<View style={styles.intergrals_title}>
 					<Text>可兑换商品</Text>
 				</View>
-				<ScrollView style={styles.intergrals_content}>
+				<ScrollView style={styles.intergrals_content} showsVerticalScrollIndicator={false}>
 					{goods && goods.length !== 0 ? (
 						<View style={styles.intergrals_content_chunk}>
 							{goods.map(item => {

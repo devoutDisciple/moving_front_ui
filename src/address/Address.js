@@ -102,7 +102,7 @@ export default class Member extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="我的收货地址" navigation={navigation} />
-				<ScrollView style={styles.content}>
+				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 					{addressList.map((item, index) => {
 						return (
 							<View key={index} style={styles.content_item}>

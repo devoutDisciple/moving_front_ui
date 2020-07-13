@@ -40,7 +40,7 @@ export default class Suggestion extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="意见反馈" navigation={navigation} />
-				<ScrollView style={styles.suggest}>
+				<ScrollView style={styles.suggest} showsVerticalScrollIndicator={false}>
 					<View style={styles.suggest_title}>
 						<Text style={{ fontSize: 13, color: '#8a8a8a' }}>请选择您想反馈的问题点</Text>
 					</View>

@@ -20,7 +20,7 @@ export default class ConcatUs extends React.Component {
 			<View style={styles.container}>
 				<CommonHeader title="关于我们" navigation={navigation} />
 
-				<ScrollView style={styles.text_content}>
+				<ScrollView style={styles.text_content} showsVerticalScrollIndicator={false}>
 					<View style={styles.logo_container}>
 						<FastImage
 							style={styles.logo}

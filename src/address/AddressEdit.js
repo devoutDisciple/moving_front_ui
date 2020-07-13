@@ -114,7 +114,7 @@ export default class Member extends React.Component {
 		return (
 			<View style={styles.address_container}>
 				<CommonHeader title="编辑地址" navigation={navigation} />
-				<ScrollView style={styles.address_content}>
+				<ScrollView style={styles.address_content} showsVerticalScrollIndicator={false}>
 					<MessageItem
 						showIcon
 						label="姓名"

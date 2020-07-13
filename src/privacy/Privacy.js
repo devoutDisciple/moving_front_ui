@@ -17,7 +17,7 @@ export default class ShopRecord extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title="隐私政策" navigation={navigation} />
-				<ScrollView style={styles.container_text}>
+				<ScrollView style={styles.container_text} showsVerticalScrollIndicator={false}>
 					<View style={styles.member_detail_content}>
 						<Text style={styles.member_detail_content_text}>
 							&emsp;&emsp;广告、分析服务类的授权合作伙伴。除非得到您的许可，否则我们不会将您的个人身份信息（指可以识别您身份的信息，例如姓名或电子邮箱，通过这些信息可以联系到您或识别您的身份）与提供广告、分析服务的合作伙伴分享。我们会向这些合作伙伴提供有关其广告覆盖面和有效性的信息，而不会提供您的个人身份信息，或者我们将这些信息进行汇总，以便它不会识别您个人。例如，只有在广告主同意遵守我们的广告发布准则后，我们才可能会告诉广告主他们广告的效果如何，或者有多少人看了他们广告或在看到广告后安装了应用，或者向这些合作伙伴提供不能识别个人身份的人口统计信息（例如“位于北京的25岁男性，喜欢软件开发”），帮助他们了解其受众或顾客。

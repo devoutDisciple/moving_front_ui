@@ -135,7 +135,7 @@ export default class ReCharge extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CommonHeader title={flag ? '成为会员' : '充值'} navigation={navigation} />
-				<ScrollView style={styles.content}>
+				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 					<FastImage style={styles.content_logo} source={require('../../img/public/logo2.png')} />
 					<View style={styles.detail_common_title}>
 						<Text style={{ fontSize: 14, color: '#333' }}>{flag ? '会员价格' : '余额充值'}</Text>
