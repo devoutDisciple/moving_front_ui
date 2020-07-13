@@ -7,10 +7,10 @@ import ListItem from '../../component/ListItem';
 import Picker from 'react-native-picker';
 import NavigationUtil from '../../util/NavigationUtil';
 import RNRestart from 'react-native-restart';
-
 import config from '../../config/config';
 import CommonHeader from '../../component/CommonHeader';
 import Request from '../../util/Request';
+import Message from '../../component/Message';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
 
 export default class SettingScreen extends React.Component {
@@ -77,30 +77,19 @@ export default class SettingScreen extends React.Component {
 		}
 		// 永久注销账号
 		if (key === 'logout') {
-			Alert.alert(
-				'提示',
-				'注销后将不可恢复',
-				[
-					{
-						text: '取消',
-						onPress: () => console.log('Cancel Pressed'),
-						style: 'cancel',
-					},
-					{
-						text: '确定',
-						onPress: () => Toast.warning('暂不支持永久注销'),
-					},
-				],
-				{ cancelable: false },
-			);
+			Message.confirm('提示', '注销后将不可恢复', () => {
+				Toast.warning('暂不支持永久注销');
+			});
 		}
 	}
 
 	// 点击退出登录
 	async logoutBtnClick() {
 		const { navigation } = this.props;
-		await StorageUtil.multiRemove(['user', 'token']);
-		NavigationUtil.reset(navigation, 'HomeScreen');
+		Message.confirm('提示', '确定退出登录', async () => {
+			await StorageUtil.multiRemove(['user', 'token']);
+			NavigationUtil.reset(navigation, 'HomeScreen');
+		});
 	}
 
 	// 返回主页

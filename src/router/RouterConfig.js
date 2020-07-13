@@ -60,6 +60,8 @@ import PrivacyScreen from '../privacy/Privacy';
 import PayOrderScreen from '../payOrder/PayOrder';
 // 首屏广告
 import AdvertisementScreen from '../advertisement/index';
+// 服务协议
+import ServiceProtocolScreen from '../protocol/ServiceProtocol';
 
 import TabBarItem from './TabBarItem';
 
@@ -181,6 +183,31 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 登录页面
+		LoginScreen: {
+			screen: LoginScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
+		// 隐私政策页面
+		PrivacyScreen: {
+			screen: PrivacyScreen,
+			headerBackTitle: '返回',
+			navigationOptions: {
+				headerShown: false,
+			},
+		},
+		ServiceProtocolScreen: {
+			screen: ServiceProtocolScreen,
+			headerBackTitle: '返回',
+			navigationOptions: {
+				headerShown: false,
+			},
+		},
+
 		// 首屏广告
 		AdvertisementScreen: {
 			screen: AdvertisementScreen,
@@ -283,14 +310,6 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
-		// 隐私政策页面 PrivacyScreen
-		PrivacyScreen: {
-			screen: PrivacyScreen,
-			headerBackTitle: '返回',
-			navigationOptions: {
-				headerShown: false,
-			},
-		},
 
 		// 意见和反馈页面
 		SuggestionScreen: {
@@ -342,15 +361,7 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
-		// 登录页面
-		LoginScreen: {
-			screen: LoginScreen,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
+
 		// 注册页面
 		ResgisterScreen: {
 			screen: ResgisterScreen,

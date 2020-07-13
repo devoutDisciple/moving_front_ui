@@ -7,6 +7,7 @@ import message from '../component/Message';
 import { Button } from 'react-native-elements';
 import { Kohana } from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
+import FastImage from '../component/FastImage';
 import { baseColor, commonInputParams } from './commonParams';
 
 export default class ResetPassword extends React.Component {
@@ -20,6 +21,7 @@ export default class ResetPassword extends React.Component {
 			securityCode: '', // 验证码
 			password: '', // 密码
 			confirmPassword: '', // 确认的密码
+			checked: false,
 		};
 	}
 
@@ -35,7 +37,10 @@ export default class ResetPassword extends React.Component {
 
 	// 点击重置密码的时候
 	async secuityCodeBtnClick() {
-		let { phone, securityCode, password, confirmPassword } = this.state;
+		let { phone, securityCode, password, confirmPassword, checked } = this.state;
+		if (!checked) {
+			return message.warning('提示', '请先勾选用户协议！');
+		}
 		// 手机号不通过
 		if (!/^1[3456789]\d{9}$/.test(phone)) {
 			return message.warning('提示', '请输入正确的手机号码');
@@ -109,7 +114,8 @@ export default class ResetPassword extends React.Component {
 	}
 
 	render() {
-		const { loginBtnDisable, timeNumVisible, timeNum } = this.state;
+		const { loginBtnDisable, timeNumVisible, timeNum, checked } = this.state;
+		const { navigation } = this.props;
 		return (
 			<ScrollView style={{ flex: 1, padding: 10 }} showsVerticalScrollIndicator={false}>
 				<TouchableOpacity style={{ marginVertical: 20 }} onPress={this.backHome.bind(this)}>
@@ -199,12 +205,62 @@ export default class ResetPassword extends React.Component {
 						title="确定"
 					/>
 				</View>
+				<View style={styles.protocol}>
+					<TouchableOpacity style={styles.img_container} onPress={() => this.setState({ checked: !checked })}>
+						<FastImage
+							style={styles.img}
+							source={
+								checked
+									? require('../../img/public/check_box_select.png')
+									: require('../../img/public/check_box_no_select.png')
+							}
+						/>
+					</TouchableOpacity>
+					<Text style={styles.protocol_desc}>我已阅读并同意MOVING洗衣</Text>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate('PrivacyScreen');
+						}}
+					>
+						<Text style={styles.protocol_text}>《隐私政策》</Text>
+					</TouchableOpacity>
+					<Text style={styles.protocol_desc}>和</Text>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate('ServiceProtocolScreen');
+						}}
+					>
+						<Text style={styles.protocol_text}>《服务协议》</Text>
+					</TouchableOpacity>
+				</View>
 			</ScrollView>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	img_container: {
+		width: 20,
+		height: 20,
+	},
+	protocol: {
+		marginTop: 30,
+		flexDirection: 'row',
+		justifyContent: 'center',
+	},
+	img: {
+		height: 18,
+		width: 18,
+		marginTop: -2,
+	},
+	protocol_desc: {
+		fontSize: 12,
+		color: '#cdcdcd',
+	},
+	protocol_text: {
+		fontSize: 12,
+		color: '#515151',
+	},
 	login_desc: {
 		marginVertical: 30,
 		height: 50,
