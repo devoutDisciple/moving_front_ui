@@ -23,7 +23,7 @@ export default class ReCharge extends React.Component {
 		super(props);
 		this.state = {
 			activeMoney: 0,
-			payWay: 'wechat',
+			payWay: 'alipay',
 			wechatVisible: false,
 		};
 	}
@@ -71,7 +71,6 @@ export default class ReCharge extends React.Component {
 			let alires = await Request.post('/pay/payByOrderAlipay', {
 				desc: 'MOVING会员',
 				money: currentPay.pay,
-				// money: 0.01,
 				type: type,
 				userid: currentUser.id,
 				given: currentPay.given,
@@ -89,7 +88,7 @@ export default class ReCharge extends React.Component {
 			// let result = await PayUtil.payMoneyByWeChat(currentPay.pay, type === 'member' ? 'MOVING会员' : 'MOVING充值');
 			let result = await PayUtil.payMoneyByWeChat({
 				desc: type === 'member' ? 'MOVING会员' : 'MOVING充值',
-				money: 0.01,
+				mmoney: currentPay.pay,
 				type: type,
 				userid: currentUser.id,
 				given: currentPay.given,

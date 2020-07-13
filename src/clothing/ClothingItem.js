@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import FastImage from '../../component/FastImage';
+import FastImage from '../component/FastImage';
 import Icon from 'react-native-vector-icons/AntDesign';
-import config from '../../config/config';
+import config from '../config/config';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class SettingScreen extends React.Component {
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 	},
 	setting_content_item: {
 		marginHorizontal: 10,
-		height: 70,
+		height: 65,
 		borderBottomColor: '#f1f1f1',
 		borderBottomWidth: 0.5,
 		justifyContent: 'center',

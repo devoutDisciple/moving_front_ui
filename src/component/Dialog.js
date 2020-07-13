@@ -47,11 +47,11 @@ export default class Dialog extends React.Component {
 						/>
 					</View>
 					<View style={styles.content_footer}>
-						<TouchableOpacity onPress={() => this.props.onOk(changeKey, value)} style={styles.content_footer_left}>
-							<Text style={styles.content_footer_text}>确定</Text>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={() => this.props.onCancel()} style={styles.content_footer_right}>
+						<TouchableOpacity onPress={() => this.props.onCancel()} style={styles.content_footer_left}>
 							<Text style={styles.content_footer_text}>取消</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={() => this.props.onOk(changeKey, value)} style={styles.content_footer_right}>
+							<Text style={styles.content_footer_text}>确定</Text>
 						</TouchableOpacity>
 					</View>
 				</View>

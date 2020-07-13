@@ -20,11 +20,11 @@ export default {
 			message,
 			[
 				{
-					text: '取消',
-				},
-				{
 					text: '确定',
 					onPress: callBack ? callBack : () => {},
+				},
+				{
+					text: '取消',
 				},
 			],
 			{ cancelable: false },

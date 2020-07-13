@@ -2,9 +2,7 @@
 import React from 'react';
 import Request from '../../util/Request';
 import Config from '../../config/config';
-import Toast from '../../component/Toast';
 import Message from '../../component/Message';
-import PayUtil from '../../util/PayUtil';
 import FilterStatus from '../../util/FilterStatus';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
@@ -12,45 +10,6 @@ export default class AllOrder extends React.Component {
 	constructor(props) {
 		super(props);
 		this.renderBtn = this.renderBtn.bind(this);
-		this.updateOrderStatus = this.updateOrderStatus.bind(this);
-	}
-
-	componentDidMount() {}
-
-	// 点击去支付
-	async payOrder() {
-		try {
-			// 判断店员是否确认
-			let { is_sure, id } = this.props.detail;
-			if (Number(is_sure) !== 2) {
-				return Toast.warning('订单金额待店员确认，请稍后');
-			}
-			let result = await PayUtil.payMoneyByWeChat(this.props.detail.money, '支付洗衣费用');
-			if (result === 'success') {
-				Toast.success('支付成功');
-				try {
-					setTimeout(async () => {
-						let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-						if (orderStatus.data === 'success') {
-							return this.props.onSearch();
-						}
-					}, 500);
-				} catch (error) {
-					console.log(error);
-				}
-			}
-		} catch (error) {
-			return Toast.warning(error || '系统错误');
-		}
-	}
-
-	async updateOrderStatus() {
-		let { id } = this.props.detail;
-		let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-		if (orderStatus.data === 'success') {
-			return this.props.onSearch();
-		}
-		return;
 	}
 
 	// 打开柜子
@@ -92,11 +51,6 @@ export default class AllOrder extends React.Component {
 	renderBtn() {
 		let actionBtn = [];
 		let { status } = this.props.detail;
-		const payBtn = (
-			<TouchableOpacity key="payBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
-				<Text style={styles.order_pay_font}>去支付</Text>
-			</TouchableOpacity>
-		);
 		const connectBtn = (
 			<TouchableOpacity key="connectBtn" onPress={this.onConnectUs.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>联系我们</Text>
@@ -107,12 +61,7 @@ export default class AllOrder extends React.Component {
 				<Text style={styles.order_pay_font}>打开柜子</Text>
 			</TouchableOpacity>
 		);
-		if (status === 1 || status === 2 || status === 5 || 6 || 7) {
-			actionBtn = [connectBtn];
-		}
-		if (status === 3) {
-			actionBtn = [payBtn, connectBtn];
-		}
+		actionBtn = [connectBtn];
 		if (status === 4) {
 			actionBtn = [openBoxBtn, connectBtn];
 		}

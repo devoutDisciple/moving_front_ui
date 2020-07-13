@@ -4,7 +4,6 @@ import Request from '../../util/Request';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
 import Message from '../../component/Message';
-import PayUtil from '../../util/PayUtil';
 import FilterStatus from '../../util/FilterStatus';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
@@ -12,7 +11,6 @@ export default class AllOrder extends React.Component {
 	constructor(props) {
 		super(props);
 		this.renderBtn = this.renderBtn.bind(this);
-		this.updateOrderStatus = this.updateOrderStatus.bind(this);
 	}
 
 	componentDidMount() {}
@@ -20,48 +18,12 @@ export default class AllOrder extends React.Component {
 	// 点击去支付
 	async payOrder() {
 		try {
-			// 判断店员是否确认
-			let { is_sure, id } = this.props.detail;
-			if (Number(is_sure) !== 2) {
-				return Toast.warning('订单金额待店员确认，请稍后');
-			}
-			let result = await PayUtil.payMoneyByWeChat(this.props.detail.money, '支付洗衣费用');
-			if (result === 'success') {
-				Toast.success('支付成功');
-				try {
-					setTimeout(async () => {
-						let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-						if (orderStatus.data === 'success') {
-							return this.props.onSearch();
-						}
-					}, 500);
-				} catch (error) {
-					console.log(error);
-				}
-			}
+			let { id } = this.props.detail;
+			let { navigation } = this.props;
+			navigation.navigate('PayOrderScreen', { money: 9.9, type: 'clothing', orderid: id, pay: 'already' });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}
-	}
-
-	async updateOrderStatus() {
-		let { id } = this.props.detail;
-		let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-		if (orderStatus.data === 'success') {
-			return this.props.onSearch();
-		}
-		return;
-	}
-
-	// 打开柜子
-	async onOpenCabinet() {
-		let { id } = this.props.detail;
-		let result = await Request.post('/order/openCellById', { orderId: id });
-		if (result.data === 'success') {
-			Message.warning('柜门已打开', '请取出衣物，随手关门，谢谢！');
-			return this.props.onSearch();
-		}
-		return Message.warning('网络错误', '请稍后重试！');
 	}
 
 	// 联系我们
@@ -102,25 +64,19 @@ export default class AllOrder extends React.Component {
 				<Text style={styles.order_pay_font}>联系我们</Text>
 			</TouchableOpacity>
 		);
-		const openBoxBtn = (
-			<TouchableOpacity key="openBoxBtn" onPress={this.onOpenCabinet.bind(this)} style={styles.order_item_right_bottom_btn}>
-				<Text style={styles.order_pay_font}>打开柜子</Text>
-			</TouchableOpacity>
-		);
-		if (status === 1 || status === 2 || status === 5 || status === 6) {
+		// 已经下单， 未付款
+		if (status === 6) {
+			actionBtn = [connectBtn, payBtn];
+		}
+		// 已经下单已付款
+		if (status === 8) {
 			actionBtn = [connectBtn];
-		}
-		if (status === 3) {
-			actionBtn = [payBtn, connectBtn];
-		}
-		if (status === 4) {
-			actionBtn = [openBoxBtn, connectBtn];
 		}
 		return actionBtn;
 	}
 
 	render() {
-		const { id, shopName, create_time, home_address, status, home_username, home_phone, home_time } = this.props.detail;
+		const { id, shopName, create_time, status, home_time } = this.props.detail;
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>

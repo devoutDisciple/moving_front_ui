@@ -14,8 +14,7 @@ import StorageUtil from '../util/Storage';
 import message from '../component/Message';
 // import Toast from 'react-native-root-toast';
 import CommonHeader from '../component/CommonHeader';
-import MessageItem from '../my/message/MessageItem';
-import NavigationUtil from '../util/NavigationUtil';
+import ClothingItem from './ClothingItem';
 
 const timeFormat = 'YYYY-MM-DD';
 export default class Member extends React.Component {
@@ -167,13 +166,11 @@ export default class Member extends React.Component {
 			home_phone: phone,
 			desc,
 		};
-		this.setState({ loadingVisible: true });
-		let result = await RequestUtil.post('/order/addByHome', params);
-		if (result.data === 'success') {
-			this.setState({ loadingVisible: false });
-			Toast.success('下单成功,祝您生活愉快');
-			NavigationUtil.reset(navigation, 'HomeScreen');
-		}
+		// let result = await RequestUtil.post('/order/addByHome', params);
+		// if (result.data === 'success') {
+		// NavigationUtil.reset(navigation, 'HomeScreen');
+		// }
+		navigation.navigate('PayOrderScreen', { type: 'clothing', money: 9.9, ...params });
 	}
 
 	render() {
@@ -197,8 +194,8 @@ export default class Member extends React.Component {
 			<View style={styles.container}>
 				<CommonHeader title="预约上门取衣" navigation={navigation} />
 				<ScrollView style={styles.content}>
-					<MessageItem label="预约时间" value={`${selectDay} ${selectTime}`} showIcon onPress={this.showTimeSelect.bind(this)} />
-					<MessageItem
+					<ClothingItem label="预约时间" value={`${selectDay} ${selectTime}`} showIcon onPress={this.showTimeSelect.bind(this)} />
+					<ClothingItem
 						label="联系人"
 						value={username || '请输入'}
 						showIcon
@@ -208,7 +205,7 @@ export default class Member extends React.Component {
 							});
 						}}
 					/>
-					<MessageItem
+					<ClothingItem
 						label="手机号"
 						value={phone || '请输入'}
 						showIcon
@@ -218,9 +215,9 @@ export default class Member extends React.Component {
 							});
 						}}
 					/>
-					<MessageItem label="物品重量" value="3 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} />
-					<MessageItem label="取货地址" value={selectAddress || '请选择'} showIcon onPress={this.onSelectAddress.bind(this)} />
-					<MessageItem
+					<ClothingItem label="物品重量" value="2 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} />
+					<ClothingItem label="取货地址" value={selectAddress || '请选择'} showIcon onPress={this.onSelectAddress.bind(this)} />
+					<ClothingItem
 						showIcon
 						label="小区地址"
 						value={house || '请输入'}
@@ -233,7 +230,7 @@ export default class Member extends React.Component {
 							);
 						}}
 					/>
-					<MessageItem
+					<ClothingItem
 						showIcon
 						label="备注"
 						value={desc || '请输入'}

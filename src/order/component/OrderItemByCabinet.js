@@ -25,7 +25,6 @@ export default class AllOrder extends React.Component {
 				return Toast.warning('订单金额待店员确认，请稍后');
 			}
 			// 查看会员余额是否充足
-
 			let { navigation } = this.props;
 			navigation.navigate('PayOrderScreen', { money: this.props.detail.money, type: 'order', orderid: id });
 		} catch (error) {

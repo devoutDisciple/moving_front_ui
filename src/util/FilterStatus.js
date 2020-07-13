@@ -37,10 +37,13 @@ export default {
 				data = '已完成';
 				break;
 			case 6:
-				data = '预约成功';
+				data = '待付款';
 				break;
 			case 7:
 				data = '积分兑换';
+				break;
+			case 8:
+				data = '预约成功';
 				break;
 			default:
 				data = '待取货';

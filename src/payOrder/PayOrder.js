@@ -11,6 +11,7 @@ import StorageUtil from '../util/Storage';
 import * as WeChat from 'react-native-wechat-lib';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
+import NavigationUtil from '../util/NavigationUtil';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -42,20 +43,122 @@ export default class PayOrderScreen extends React.Component {
 
 	// 获取用户
 	async getUser() {
+		this.setState({ loadingVisible: true });
 		const { navigation } = this.props;
 		let money = navigation.getParam('money');
-		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付
+		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付 clothing-上门取衣
 		// 获取用户id的值
 		let currentUser = await StorageUtil.get('user');
 		let userid = currentUser.id;
 		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data;
-		this.setState({ user: user, money, type });
+		this.setState({ user: user, money, type, loadingVisible: false });
 	}
 
 	// 支付方式改变
 	payWayChange(key) {
 		this.setState({ payWay: key });
+	}
+
+	// 付款
+	pay() {
+		const { navigation } = this.props;
+		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付
+		if (type === 'clothing') {
+			return this.payGetClothing();
+		}
+		return this.payOrder();
+	}
+
+	// 上门取衣支付
+	async payGetClothing() {
+		let { payWay, money, user } = this.state;
+		const { navigation } = this.props;
+		let userid = navigation.getParam('userid'),
+			shopid = navigation.getParam('shopid'),
+			home_time = navigation.getParam('home_time'),
+			home_address = navigation.getParam('home_address'),
+			home_username = navigation.getParam('home_username'),
+			home_phone = navigation.getParam('home_phone'),
+			home_desc = navigation.getParam('desc'),
+			pay = navigation.getParam('pay');
+		let orderid = '';
+		// 未支付
+		if (!pay) {
+			this.setState({ loadingVisible: true });
+			// 创建上门取衣订单
+			let orderResult = await Request.post('/order/addByHome', {
+				userid,
+				shopid,
+				home_time,
+				home_address,
+				home_username,
+				home_phone,
+				desc: home_desc,
+			});
+			this.setState({ loadingVisible: false });
+			if (!orderResult || !orderResult.data || !orderResult.data.data || orderResult.data.success !== 'success') {
+				return;
+			}
+			orderid = orderResult.data.data;
+		}
+		// 已经支付
+		if (pay === 'already') {
+			orderid = navigation.getParam('orderid');
+		}
+		if (payWay === 'wechat') {
+			try {
+				this.setState({ loadingVisible: true });
+				let res = await PayUtil.payMoneyByWeChat({
+					desc: '预约取衣派送费用',
+					money: money,
+					type: 'clothing',
+					orderid: orderid,
+					userid: user.id,
+				});
+				this.setState({ loadingVisible: false });
+				if (res === 'success') {
+					return Message.confirm('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
+						NavigationUtil.reset(navigation, 'HomeScreen');
+					});
+				}
+				Message.confirmPay('是否支付成功', '', () => {
+					Toast.success('请前往订单查看详细信息');
+					NavigationUtil.reset(navigation, 'HomeScreen');
+				});
+			} catch (error) {
+				Toast.warning(error);
+			}
+		}
+		if (payWay === 'alipay') {
+			this.setState({ loadingVisible: true });
+			let res = await Request.post('/pay/payByOrderAlipay', {
+				desc: '预约取衣派送费用',
+				money: money,
+				type: 'clothing',
+				userid: user.id,
+				orderid: orderid,
+			});
+			this.setState({ loadingVisible: false });
+			setTimeout(() => {
+				Message.confirmPay('是否支付成功', '', () => {
+					Toast.success('请前往订单查看详细信息');
+					NavigationUtil.reset(navigation, 'HomeScreen');
+				});
+			}, 1000);
+			await Alipay.pay(res.data);
+		}
+		if (payWay === 'moving') {
+			this.setState({ loadingVisible: true });
+			// 扣除用户余额费用
+			let res = await Request.post('/order/subMoneyByAccount', { userid: user.id, orderid: orderid });
+			this.setState({ loadingVisible: false });
+			if (res.data === 'success') {
+				Message.confirm('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
+					NavigationUtil.reset(navigation, 'HomeScreen');
+				});
+			}
+		}
 	}
 
 	// 订单支付
@@ -67,8 +170,7 @@ export default class PayOrderScreen extends React.Component {
 			try {
 				let res = await PayUtil.payMoneyByWeChat({
 					desc: 'MOVING洗衣费用结算',
-					// money: money,
-					money: 0.01,
+					money: money,
 					type: 'order',
 					orderid: orderid,
 					userid: user.id,
@@ -87,8 +189,7 @@ export default class PayOrderScreen extends React.Component {
 		if (payWay === 'alipay') {
 			let res = await Request.post('/pay/payByOrderAlipay', {
 				desc: 'MOVING洗衣费用结算',
-				// money: money,
-				money: 0.01,
+				money: money,
 				type: 'order',
 				orderid: orderid,
 				userid: user.id,
@@ -114,14 +215,14 @@ export default class PayOrderScreen extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let { payWay, user, money, wechatVisible, loadingVisible } = this.state;
+		let { payWay, user, money, wechatVisible, loadingVisible, type } = this.state;
 		return (
 			<View style={styles.container}>
-				<CommonHeader title="洗衣费用支付" navigation={navigation} />
+				<CommonHeader title={type === 'clothing' ? '派送费用' : '洗衣费用支付'} navigation={navigation} />
 				<ScrollView style={styles.content}>
 					<View style={styles.money}>
 						<Text style={styles.money_num}>￥ {money}</Text>
-						<Text style={styles.money_order}>订单支付</Text>
+						<Text style={styles.money_order}>{type === 'clothing' ? '上门取衣派送费用' : '订单支付'}</Text>
 						<Text style={styles.money_order}>
 							用户名称: {user.username} 手机号: {user.phone}
 						</Text>
@@ -154,7 +255,7 @@ export default class PayOrderScreen extends React.Component {
 						active={payWay === 'moving'}
 					/>
 				</ScrollView>
-				<TouchableOpacity style={styles.bottom_btn} onPress={this.payOrder.bind(this)}>
+				<TouchableOpacity style={styles.bottom_btn} onPress={this.pay.bind(this)}>
 					<Text style={styles.bottom_btn_text}>确认支付</Text>
 				</TouchableOpacity>
 				<Loading visible={loadingVisible} />
