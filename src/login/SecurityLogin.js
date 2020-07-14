@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import Request from '../util/Request';
 import config from '../config/config';
 import message from '../component/Message';
@@ -9,6 +9,8 @@ import { Kohana } from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { baseColor, commonInputParams } from './commonParams';
 import FastImage from '../component/FastImage';
+import Storage from '../util/Storage';
+import NavigationUtil from '../util/NavigationUtil';
 
 export default class RegisterScreen extends React.Component {
 	constructor(props) {
@@ -51,12 +53,10 @@ export default class RegisterScreen extends React.Component {
 			security_code: securityCode,
 		});
 		if (res && res.code === 200) {
-			AsyncStorage.setItem('token', res.data, (error, result) => {
-				if (error) {
-					return message.warning('提示', '网络错误，请稍后重试');
-				}
-				this.props.navigation.navigate('Home');
-			});
+			await Storage.setString('token', res.data ? res.data.token : '');
+			// 更新会员信息
+			await Storage.set('user', res.data);
+			NavigationUtil.reset(this.props.navigation, 'HomeScreen');
 		}
 	}
 

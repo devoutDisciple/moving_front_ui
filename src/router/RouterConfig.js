@@ -183,6 +183,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 首屏广告
+		AdvertisementScreen: {
+			screen: AdvertisementScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
 		// 登录页面
 		LoginScreen: {
 			screen: LoginScreen,
@@ -208,15 +217,6 @@ const finnalApp = createStackNavigator(
 			},
 		},
 
-		// 首屏广告
-		AdvertisementScreen: {
-			screen: AdvertisementScreen,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,

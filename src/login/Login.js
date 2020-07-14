@@ -5,10 +5,11 @@ import { Button } from 'react-native-elements';
 import { Kohana } from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { baseColor, commonInputParams } from './commonParams';
-import Storage from '../util/Storage';
 import Request from '../util/Request';
 import FastImage from '../component/FastImage';
 import message from '../component/Message';
+import Storage from '../util/Storage';
+import NavigationUtil from '../util/NavigationUtil';
 
 export default class LoginScreen extends React.Component {
 	constructor(props) {
@@ -77,7 +78,7 @@ export default class LoginScreen extends React.Component {
 			await Storage.setString('token', res.data ? res.data.token : '');
 			// 更新会员信息
 			await Storage.set('user', res.data);
-			this.props.navigation.navigate('Home', { type: 'login' });
+			NavigationUtil.reset(this.props.navigation, 'HomeScreen');
 		}
 	}
 

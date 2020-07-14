@@ -1,4 +1,3 @@
-/* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import My_Header from './Header';
@@ -41,7 +40,6 @@ export default class MyScreen extends React.Component {
 		setParams({
 			rightIconClick: () => this.setIconClick(),
 		});
-
 		// 获取用户信息
 		await this.getUserInfo();
 	}
@@ -52,6 +50,9 @@ export default class MyScreen extends React.Component {
 		// 获取用户id的值
 		let currentUser = await Storage.get('user');
 		let userid = currentUser.id;
+		if (!userid) {
+			return;
+		}
 		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data || '';
 		await Storage.set('user', user);

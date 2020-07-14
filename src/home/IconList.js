@@ -195,7 +195,7 @@ export default class IconList extends React.Component {
 				text: 'MOVING官网',
 			},
 			{
-				key: 'bbb',
+				// key: 'bbb',
 				// url: require('../../img/home/icon6.png'),
 				// text: '协议',
 			},

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView, StyleSheet, AsyncStorage } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Kohana } from 'react-native-textinput-effects';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -9,6 +9,8 @@ import Request from '../util/Request';
 import config from '../config/config';
 import FastImage from '../component/FastImage';
 import message from '../component/Message';
+import Storage from '../util/Storage';
+import NavigationUtil from '../util/NavigationUtil';
 
 export default class RegisterScreen extends React.Component {
 	constructor(props) {
@@ -62,25 +64,23 @@ export default class RegisterScreen extends React.Component {
 		if (!/^1[3456789]\d{9}$/.test(phone)) {
 			return message.warning('提示', '请输入正确的手机号码');
 		}
-		if (securityCode.length <= 5) {
+		if (securityCode.length < 5) {
 			return message.warning('提示', '请输入正确的验证码');
 		}
 		if (password.length <= 5 || password.length > 11) {
 			return message.warning('提示', '密码请输入6-12个字符以内');
 		}
-		let res = await Request.post('/register/add', {
+		let res = await Request.post('/register/register', {
 			username,
 			phone,
 			security_code: securityCode,
 			password,
 		});
 		if (res && res.code === 200) {
-			AsyncStorage.setItem('token', res.data, (error, result) => {
-				if (error) {
-					return message.warning('提示', '网络错误，请稍后重试');
-				}
-				this.props.navigation.navigate('Home');
-			});
+			await Storage.setString('token', res.data ? res.data.token : '');
+			// 更新会员信息
+			await Storage.set('user', res.data);
+			NavigationUtil.reset(this.props.navigation, 'HomeScreen');
 		}
 	}
 
@@ -92,9 +92,12 @@ export default class RegisterScreen extends React.Component {
 			return message.warning('提示', '请输入正确的手机号码');
 		}
 		// 请求获得验证码
-		await Request.post('/register/sendMessage', {
+		let res = await Request.post('/register/sendMessage', {
 			phoneNum: phone,
 		});
+		if (res.code !== 200 && res.data !== 'success') {
+			return;
+		}
 		this.setState({
 			timeNumVisible: true,
 		});
