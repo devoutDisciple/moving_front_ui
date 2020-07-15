@@ -12,6 +12,7 @@ import * as WeChat from 'react-native-wechat-lib';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
 import NavigationUtil from '../util/NavigationUtil';
+import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
 
@@ -217,49 +218,51 @@ export default class PayOrderScreen extends React.Component {
 		const { navigation } = this.props;
 		let { payWay, user, money, wechatVisible, loadingVisible, type } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title={type === 'clothing' ? '派送费用' : '洗衣费用支付'} navigation={navigation} />
-				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-					<View style={styles.money}>
-						<Text style={styles.money_num}>￥ {money}</Text>
-						<Text style={styles.money_order}>{type === 'clothing' ? '上门取衣派送费用' : '订单支付'}</Text>
-						<Text style={styles.money_order}>
-							用户名称: {user.username} 手机号: {user.phone}
-						</Text>
-					</View>
-					<View style={styles.detail_common_title}>
-						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
-					</View>
-					{wechatVisible && (
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title={type === 'clothing' ? '派送费用' : '洗衣费用支付'} navigation={navigation} />
+					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+						<View style={styles.money}>
+							<Text style={styles.money_num}>￥ {money}</Text>
+							<Text style={styles.money_order}>{type === 'clothing' ? '上门取衣派送费用' : '订单支付'}</Text>
+							<Text style={styles.money_order}>
+								用户名称: {user.username} 手机号: {user.phone}
+							</Text>
+						</View>
+						<View style={styles.detail_common_title}>
+							<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
+						</View>
+						{wechatVisible && (
+							<PayItem
+								iconName="wechat"
+								onPress={this.payWayChange.bind(this, 'wechat')}
+								iconColor="#89e04c"
+								text="微信支付"
+								active={payWay === 'wechat'}
+							/>
+						)}
 						<PayItem
-							iconName="wechat"
-							onPress={this.payWayChange.bind(this, 'wechat')}
-							iconColor="#89e04c"
-							text="微信支付"
-							active={payWay === 'wechat'}
+							iconName="alipay-circle"
+							onPress={this.payWayChange.bind(this, 'alipay')}
+							iconColor="#208ee9"
+							text="支付宝支付"
+							active={payWay === 'alipay'}
 						/>
-					)}
-					<PayItem
-						iconName="alipay-circle"
-						onPress={this.payWayChange.bind(this, 'alipay')}
-						iconColor="#208ee9"
-						text="支付宝支付"
-						active={payWay === 'alipay'}
-					/>
-					<PayItem
-						iconName="alipay-circle"
-						iconType="img"
-						onPress={this.payWayChange.bind(this, 'moving')}
-						iconColor="#208ee9"
-						text={`余额支付(${user.balance}元 可用)`}
-						active={payWay === 'moving'}
-					/>
-				</ScrollView>
-				<TouchableOpacity style={styles.bottom_btn} onPress={this.pay.bind(this)}>
-					<Text style={styles.bottom_btn_text}>确认支付</Text>
-				</TouchableOpacity>
-				<Loading visible={loadingVisible} />
-			</View>
+						<PayItem
+							iconName="alipay-circle"
+							iconType="img"
+							onPress={this.payWayChange.bind(this, 'moving')}
+							iconColor="#208ee9"
+							text={`余额支付(${user.balance}元 可用)`}
+							active={payWay === 'moving'}
+						/>
+					</ScrollView>
+					<TouchableOpacity style={styles.bottom_btn} onPress={this.pay.bind(this)}>
+						<Text style={styles.bottom_btn_text}>确认支付</Text>
+					</TouchableOpacity>
+					<Loading visible={loadingVisible} />
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

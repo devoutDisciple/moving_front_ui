@@ -12,6 +12,7 @@ import FileterStatus from '../../util/FilterStatus';
 import Loading from '../../component/Loading';
 import ImagePicker from 'react-native-image-crop-picker';
 import CommonHeader from '../../component/CommonHeader';
+import SafeViewComponent from '../../component/SafeViewComponent';
 
 export default class SettingScreen extends React.Component {
 	constructor(props) {
@@ -108,69 +109,71 @@ export default class SettingScreen extends React.Component {
 		const { navigation } = this.props,
 			{ visible, user, changeKey, title, defalutValue, loadingVisible } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="个人信息" navigation={navigation} />
-				<ScrollView style={styles.setting_content} showsVerticalScrollIndicator={false}>
-					<MessageItem label="头像" value={user.photo} showIcon isImage onPress={this.selectPhoto.bind(this)} />
-					<MessageItem
-						showIcon
-						label="昵称"
-						value={user.nickname}
-						onPress={() => {
-							this.setState({ changeKey: 'nickname', title: '修改昵称', defalutValue: user.nickname }, () => {
-								this.setState({ visible: true });
-							});
-						}}
-					/>
-					<MessageItem
-						showIcon
-						label="姓名"
-						value={user.username}
-						onPress={() => {
-							this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: user.username }, () => {
-								this.setState({ visible: true });
-							});
-						}}
-					/>
-					<MessageItem
-						label="性别"
-						value={
-							<View style={styles.sex_container}>
-								<TouchableOpacity onPress={this.onSaveValue.bind(this, 'sex', 1)}>
-									<Text style={user.sex === 1 ? styles.sex_item_active : styles.sex_item_normal}>男</Text>
-								</TouchableOpacity>
-								<TouchableOpacity onPress={this.onSaveValue.bind(this, 'sex', 2)}>
-									<Text style={user.sex === 2 ? styles.sex_item_active : styles.sex_item_normal}>女</Text>
-								</TouchableOpacity>
-							</View>
-						}
-						isSwitch
-					/>
-					<MessageItem label="年龄" value={user.age} showIcon onPress={this.showAgeSelect.bind(this)} />
-					<MessageItem
-						showIcon
-						label="邮箱"
-						value={user.email}
-						onPress={() => {
-							this.setState({ changeKey: 'email', title: '修改邮箱', defalutValue: user.email }, () => {
-								this.setState({ visible: true });
-							});
-						}}
-					/>
-					<MessageItem label="会员等级" value={FileterStatus.filterMemberStatus(user.member)} onPress={() => {}} />
-					<MessageItem label="登录账号" value={user.phone} onPress={() => {}} />
-				</ScrollView>
-				{visible && (
-					<Dialog
-						title={title}
-						changeKey={changeKey}
-						defalutValue={defalutValue}
-						onOk={this.onOkDialog.bind(this)}
-						onCancel={() => this.setState({ visible: false })}
-					/>
-				)}
-				<Loading visible={loadingVisible} />
-			</View>
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="个人信息" navigation={navigation} />
+					<ScrollView style={styles.setting_content} showsVerticalScrollIndicator={false}>
+						<MessageItem label="头像" value={user.photo} showIcon isImage onPress={this.selectPhoto.bind(this)} />
+						<MessageItem
+							showIcon
+							label="昵称"
+							value={user.nickname}
+							onPress={() => {
+								this.setState({ changeKey: 'nickname', title: '修改昵称', defalutValue: user.nickname }, () => {
+									this.setState({ visible: true });
+								});
+							}}
+						/>
+						<MessageItem
+							showIcon
+							label="姓名"
+							value={user.username}
+							onPress={() => {
+								this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: user.username }, () => {
+									this.setState({ visible: true });
+								});
+							}}
+						/>
+						<MessageItem
+							label="性别"
+							value={
+								<View style={styles.sex_container}>
+									<TouchableOpacity onPress={this.onSaveValue.bind(this, 'sex', 1)}>
+										<Text style={user.sex === 1 ? styles.sex_item_active : styles.sex_item_normal}>男</Text>
+									</TouchableOpacity>
+									<TouchableOpacity onPress={this.onSaveValue.bind(this, 'sex', 2)}>
+										<Text style={user.sex === 2 ? styles.sex_item_active : styles.sex_item_normal}>女</Text>
+									</TouchableOpacity>
+								</View>
+							}
+							isSwitch
+						/>
+						<MessageItem label="年龄" value={user.age} showIcon onPress={this.showAgeSelect.bind(this)} />
+						<MessageItem
+							showIcon
+							label="邮箱"
+							value={user.email}
+							onPress={() => {
+								this.setState({ changeKey: 'email', title: '修改邮箱', defalutValue: user.email }, () => {
+									this.setState({ visible: true });
+								});
+							}}
+						/>
+						<MessageItem label="会员等级" value={FileterStatus.filterMemberStatus(user.member)} onPress={() => {}} />
+						<MessageItem label="登录账号" value={user.phone} onPress={() => {}} />
+					</ScrollView>
+					{visible && (
+						<Dialog
+							title={title}
+							changeKey={changeKey}
+							defalutValue={defalutValue}
+							onOk={this.onOkDialog.bind(this)}
+							onCancel={() => this.setState({ visible: false })}
+						/>
+					)}
+					<Loading visible={loadingVisible} />
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

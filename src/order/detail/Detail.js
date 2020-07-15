@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, Image } from 'react-native';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import CommonHeader from '../../component/CommonHeader';
 import DetailSave from './DetailSave';
 // import DetailSend from './DetailSend';
@@ -9,6 +9,7 @@ import Detailgoods from './DetailGoods';
 import Request from '../../util/Request';
 import Loading from '../../component/Loading';
 import storageUtil from '../../util/Storage';
+import SafeViewComponent from '../../component/SafeViewComponent';
 
 export default class OrderScreen extends React.Component {
 	constructor(props) {
@@ -47,24 +48,25 @@ export default class OrderScreen extends React.Component {
 		const { navigation } = this.props,
 			{ orderDetail, loadingVisible, address, type } = this.state;
 		return (
-			// <Text>234</Text>
-			<View style={{ flex: 1 }}>
-				<CommonHeader title="订单详情" navigation={navigation} />
-				<ScrollView style={styles.detail_content} showsVerticalScrollIndicator={false}>
-					<View style={styles.detail_content_title}>
-						<Text style={styles.detail_content_title_num}>订单编号: {orderDetail.code}</Text>
-						<Text style={styles.detail_content_title_time}>{orderDetail.create_time}</Text>
-					</View>
-					<Detailgoods orderDetail={orderDetail} type={type} />
-					<DetailShop orderDetail={orderDetail} address={address} type={type} />
-					<View>
-						<DetailSave orderDetail={orderDetail} address={address} type={type} />
-					</View>
+			<SafeViewComponent>
+				<View style={{ flex: 1 }}>
+					<CommonHeader title="订单详情" navigation={navigation} />
+					<ScrollView style={styles.detail_content} showsVerticalScrollIndicator={false}>
+						<View style={styles.detail_content_title}>
+							<Text style={styles.detail_content_title_num}>订单编号: {orderDetail.code}</Text>
+							<Text style={styles.detail_content_title_time}>{orderDetail.create_time}</Text>
+						</View>
+						<Detailgoods orderDetail={orderDetail} type={type} />
+						<DetailShop orderDetail={orderDetail} address={address} type={type} />
+						<View>
+							<DetailSave orderDetail={orderDetail} address={address} type={type} />
+						</View>
 
-					{/* <DetailSend orderDetail={orderDetail} /> */}
-				</ScrollView>
-				<Loading visible={loadingVisible} />
-			</View>
+						{/* <DetailSend orderDetail={orderDetail} /> */}
+					</ScrollView>
+					<Loading visible={loadingVisible} />
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

@@ -8,6 +8,7 @@ import Message from '../component/Message';
 import CommonHeader from '../component/CommonHeader';
 import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Toast from '../component/Toast';
+import SafeViewComponent from '../component/SafeViewComponent';
 
 export default class Member extends React.Component {
 	constructor(props) {
@@ -100,51 +101,53 @@ export default class Member extends React.Component {
 		let type = navigation.getParam('type');
 		let { addressList, loading } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="我的收货地址" navigation={navigation} />
-				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-					{addressList.map((item, index) => {
-						return (
-							<View key={index} style={styles.content_item}>
-								<TouchableOpacity onPress={this.selectRadio.bind(this, index)} style={styles.content_item_left}>
-									<Image
-										style={styles.content_item_img}
-										source={
-											item.is_defalut === 2
-												? require('../../img/home/radioActive.png')
-												: require('../../img/home/radio.png')
-										}
-									/>
-								</TouchableOpacity>
-								<View style={styles.content_item_center}>
-									<View style={styles.content_item_center_title}>
-										<Text style={styles.content_item_center_title_text}>
-											{item.username} {item.sex === 1 ? '先生' : '女士'} {item.phone}
-										</Text>
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="我的收货地址" navigation={navigation} />
+					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+						{addressList.map((item, index) => {
+							return (
+								<View key={index} style={styles.content_item}>
+									<TouchableOpacity onPress={this.selectRadio.bind(this, index)} style={styles.content_item_left}>
+										<Image
+											style={styles.content_item_img}
+											source={
+												item.is_defalut === 2
+													? require('../../img/home/radioActive.png')
+													: require('../../img/home/radio.png')
+											}
+										/>
+									</TouchableOpacity>
+									<View style={styles.content_item_center}>
+										<View style={styles.content_item_center_title}>
+											<Text style={styles.content_item_center_title_text}>
+												{item.username} {item.sex === 1 ? '先生' : '女士'} {item.phone}
+											</Text>
+										</View>
+										<View style={styles.content_item_center_address}>
+											<Text style={styles.content_item_center_address_text}>{`${item.area} ${item.street}`}</Text>
+										</View>
 									</View>
-									<View style={styles.content_item_center_address}>
-										<Text style={styles.content_item_center_address_text}>{`${item.area} ${item.street}`}</Text>
-									</View>
+									<TouchableOpacity onPress={this.editAddressClick.bind(this, item)} style={styles.content_item_right}>
+										<Image style={styles.content_item_img} source={require('../../img/home/edit.png')} />
+									</TouchableOpacity>
 								</View>
-								<TouchableOpacity onPress={this.editAddressClick.bind(this, item)} style={styles.content_item_right}>
-									<Image style={styles.content_item_img} source={require('../../img/home/edit.png')} />
-								</TouchableOpacity>
-							</View>
-						);
-					})}
-				</ScrollView>
-				{type === 'intergral' ? (
-					<TouchableOpacity onPress={this.onSureIntergralOrder.bind(this)} style={styles.add_address_btn}>
-						<Text style={styles.add_address_btn_text}>确认</Text>
-					</TouchableOpacity>
-				) : (
-					<TouchableOpacity onPress={this.onAddAddress.bind(this)} style={styles.add_address_btn}>
-						<Text style={styles.add_address_btn_text}>新增地址</Text>
-					</TouchableOpacity>
-				)}
+							);
+						})}
+					</ScrollView>
+					{type === 'intergral' ? (
+						<TouchableOpacity onPress={this.onSureIntergralOrder.bind(this)} style={styles.add_address_btn}>
+							<Text style={styles.add_address_btn_text}>确认</Text>
+						</TouchableOpacity>
+					) : (
+						<TouchableOpacity onPress={this.onAddAddress.bind(this)} style={styles.add_address_btn}>
+							<Text style={styles.add_address_btn_text}>新增地址</Text>
+						</TouchableOpacity>
+					)}
 
-				<Loading visible={loading} />
-			</View>
+					<Loading visible={loading} />
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

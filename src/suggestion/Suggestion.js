@@ -4,8 +4,9 @@ import SugItem from './SugItem';
 import Screen from '../util/Screen';
 import Request from '../util/Request';
 import Storage from '../util/Storage';
-import CommonHeader from '../component/CommonHeader';
 import Toast from '../component/Toast';
+import CommonHeader from '../component/CommonHeader';
+import SafeViewComponent from '../component/SafeViewComponent';
 import { View, StyleSheet, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default class Suggestion extends React.Component {
@@ -38,39 +39,41 @@ export default class Suggestion extends React.Component {
 		const { navigation } = this.props,
 			{ data, activeIndex } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="意见反馈" navigation={navigation} />
-				<ScrollView style={styles.suggest} showsVerticalScrollIndicator={false}>
-					<View style={styles.suggest_title}>
-						<Text style={{ fontSize: 13, color: '#8a8a8a' }}>请选择您想反馈的问题点</Text>
-					</View>
-					<View style={styles.suggest_content}>
-						{data.map((item, index) => {
-							return (
-								<SugItem
-									key={index}
-									text={item}
-									onPress={() => this.setState({ activeIndex: index })}
-									active={activeIndex === index}
-								/>
-							);
-						})}
-					</View>
-					<View style={styles.suggest_title}>
-						<Text style={{ fontSize: 13, color: '#8a8a8a' }}>请补充详细问题和建议</Text>
-					</View>
-					<TextInput
-						multiline
-						maxLength={200}
-						style={styles.suggest_input}
-						onChangeText={value => this.setState({ value })}
-						placeholder="请描述您使用此软件遇到的问题和意见(200字以内)"
-					/>
-				</ScrollView>
-				<TouchableOpacity style={styles.bottom_btn} onPress={this.onSubmit.bind(this)}>
-					<Text style={styles.bottom_btn_text}>提交</Text>
-				</TouchableOpacity>
-			</View>
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="意见反馈" navigation={navigation} />
+					<ScrollView style={styles.suggest} showsVerticalScrollIndicator={false}>
+						<View style={styles.suggest_title}>
+							<Text style={{ fontSize: 13, color: '#8a8a8a' }}>请选择您想反馈的问题点</Text>
+						</View>
+						<View style={styles.suggest_content}>
+							{data.map((item, index) => {
+								return (
+									<SugItem
+										key={index}
+										text={item}
+										onPress={() => this.setState({ activeIndex: index })}
+										active={activeIndex === index}
+									/>
+								);
+							})}
+						</View>
+						<View style={styles.suggest_title}>
+							<Text style={{ fontSize: 13, color: '#8a8a8a' }}>请补充详细问题和建议</Text>
+						</View>
+						<TextInput
+							multiline
+							maxLength={200}
+							style={styles.suggest_input}
+							onChangeText={value => this.setState({ value })}
+							placeholder="请描述您使用此软件遇到的问题和意见(200字以内)"
+						/>
+					</ScrollView>
+					<TouchableOpacity style={styles.bottom_btn} onPress={this.onSubmit.bind(this)}>
+						<Text style={styles.bottom_btn_text}>提交</Text>
+					</TouchableOpacity>
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

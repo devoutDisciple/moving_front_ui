@@ -6,6 +6,7 @@ import Loading from '../component/Loading';
 import Request from '../util/Request';
 import Storage from '../util/Storage';
 import CommonHeader from '../component/CommonHeader';
+import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
 export default class Intergral extends React.Component {
@@ -54,41 +55,43 @@ export default class Intergral extends React.Component {
 		const { navigation } = this.props;
 		let { loadingVisible, integral, goods } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="积分兑换" navigation={navigation} />
-				<View style={styles.intergrals_show}>
-					<View style={styles.intergrals_show_content}>
-						<Text style={styles.intergrals_show_content_title}>可用积分</Text>
-						<Text style={styles.intergrals_show_content_num}>{integral}</Text>
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="积分兑换" navigation={navigation} />
+					<View style={styles.intergrals_show}>
+						<View style={styles.intergrals_show_content}>
+							<Text style={styles.intergrals_show_content_title}>可用积分</Text>
+							<Text style={styles.intergrals_show_content_num}>{integral}</Text>
+						</View>
 					</View>
-				</View>
-				<View style={styles.intergrals_title}>
-					<Text>可兑换商品</Text>
-				</View>
-				<ScrollView style={styles.intergrals_content} showsVerticalScrollIndicator={false}>
-					{goods && goods.length !== 0 ? (
-						<View style={styles.intergrals_content_chunk}>
-							{goods.map(item => {
-								return (
-									<GoodsItem
-										key={item.id}
-										data={item || {}}
-										navigation={navigation}
-										onSearch={this.getUserIntergral.bind(this)}
-									/>
-								);
-							})}
-						</View>
-					) : (
-						<View style={styles.empty}>
-							<Text style={styles.empty_text}>暂无可兑换商品</Text>
-						</View>
-					)}
+					<View style={styles.intergrals_title}>
+						<Text>可兑换商品</Text>
+					</View>
+					<ScrollView style={styles.intergrals_content} showsVerticalScrollIndicator={false}>
+						{goods && goods.length !== 0 ? (
+							<View style={styles.intergrals_content_chunk}>
+								{goods.map(item => {
+									return (
+										<GoodsItem
+											key={item.id}
+											data={item || {}}
+											navigation={navigation}
+											onSearch={this.getUserIntergral.bind(this)}
+										/>
+									);
+								})}
+							</View>
+						) : (
+							<View style={styles.empty}>
+								<Text style={styles.empty_text}>暂无可兑换商品</Text>
+							</View>
+						)}
 
-					<View style={{ height: 20 }} />
-				</ScrollView>
-				<Loading visible={loadingVisible} />
-			</View>
+						<View style={{ height: 20 }} />
+					</ScrollView>
+					<Loading visible={loadingVisible} />
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

@@ -14,6 +14,7 @@ import StorageUtil from '../util/Storage';
 import message from '../component/Message';
 // import Toast from 'react-native-root-toast';
 import CommonHeader from '../component/CommonHeader';
+import SafeViewComponent from '../component/SafeViewComponent';
 import ClothingItem from './ClothingItem';
 
 const timeFormat = 'YYYY-MM-DD';
@@ -107,7 +108,6 @@ export default class Member extends React.Component {
 			pickerData: addressList,
 			onPickerConfirm: async res => {
 				let area = res.join(' ');
-				console.log(area);
 				this.setState({ selectAddress: area });
 			},
 		});
@@ -191,80 +191,92 @@ export default class Member extends React.Component {
 			desc,
 		} = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="预约上门取衣" navigation={navigation} />
-				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-					<ClothingItem label="预约时间" value={`${selectDay} ${selectTime}`} showIcon onPress={this.showTimeSelect.bind(this)} />
-					<ClothingItem
-						label="联系人"
-						value={username || '请输入'}
-						showIcon
-						onPress={() => {
-							this.setState({ changeKey: 'username', title: '联系人', defalutValue: '', placeHolder: '' }, () => {
-								this.setState({ dialogVisible: true });
-							});
-						}}
-					/>
-					<ClothingItem
-						label="手机号"
-						value={phone || '请输入'}
-						showIcon
-						onPress={() => {
-							this.setState({ changeKey: 'phone', title: '手机号', defalutValue: '', placeHolder: '' }, () => {
-								this.setState({ dialogVisible: true });
-							});
-						}}
-					/>
-					<ClothingItem label="物品重量" value="2 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} />
-					<ClothingItem label="取货地址" value={selectAddress || '请选择'} showIcon onPress={this.onSelectAddress.bind(this)} />
-					<ClothingItem
-						showIcon
-						label="小区地址"
-						value={house || '请输入'}
-						onPress={() => {
-							this.setState(
-								{ changeKey: 'house', title: '小区地址', defalutValue: '', placeHolder: '请输入xx小区xx幢' },
-								() => {
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="预约上门取衣" navigation={navigation} />
+					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+						<ClothingItem
+							label="预约时间"
+							value={`${selectDay} ${selectTime}`}
+							showIcon
+							onPress={this.showTimeSelect.bind(this)}
+						/>
+						<ClothingItem
+							label="联系人"
+							value={username || '请输入'}
+							showIcon
+							onPress={() => {
+								this.setState({ changeKey: 'username', title: '联系人', defalutValue: '', placeHolder: '' }, () => {
 									this.setState({ dialogVisible: true });
-								},
-							);
-						}}
-					/>
-					<ClothingItem
-						showIcon
-						label="备注"
-						value={desc || '请输入'}
-						onPress={() => {
-							this.setState({ changeKey: 'desc', title: '备注', defalutValue: '', placeHolder: '' }, () => {
-								this.setState({ dialogVisible: true });
-							});
-						}}
-					/>
-				</ScrollView>
-				<TouchableOpacity onPress={this.onSureOrder.bind(this)} style={styles.bottom}>
-					<Text
-						style={{
-							color: '#fff',
-							fontSize: 20,
-							fontWeight: '800',
-						}}
-					>
-						确认订单
-					</Text>
-				</TouchableOpacity>
-				<Loading visible={loadingVisible} />
-				{dialogVisible && (
-					<Dialog
-						visible={dialogVisible}
-						title={title}
-						changeKey={changeKey}
-						placeHolder={placeHolder}
-						defalutValue={defalutValue}
-						onOk={this.onOkDialog.bind(this)}
-						onCancel={this.onCancelDialog.bind(this)}
-					/>
-				)}
-			</View>
+								});
+							}}
+						/>
+						<ClothingItem
+							label="手机号"
+							value={phone || '请输入'}
+							showIcon
+							onPress={() => {
+								this.setState({ changeKey: 'phone', title: '手机号', defalutValue: '', placeHolder: '' }, () => {
+									this.setState({ dialogVisible: true });
+								});
+							}}
+						/>
+						<ClothingItem label="物品重量" value="2 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} />
+						<ClothingItem
+							label="取货地址"
+							value={selectAddress || '请选择'}
+							showIcon
+							onPress={this.onSelectAddress.bind(this)}
+						/>
+						<ClothingItem
+							showIcon
+							label="小区地址"
+							value={house || '请输入'}
+							onPress={() => {
+								this.setState(
+									{ changeKey: 'house', title: '小区地址', defalutValue: '', placeHolder: '请输入xx小区xx幢' },
+									() => {
+										this.setState({ dialogVisible: true });
+									},
+								);
+							}}
+						/>
+						<ClothingItem
+							showIcon
+							label="备注"
+							value={desc || '请输入'}
+							onPress={() => {
+								this.setState({ changeKey: 'desc', title: '备注', defalutValue: '', placeHolder: '' }, () => {
+									this.setState({ dialogVisible: true });
+								});
+							}}
+						/>
+					</ScrollView>
+					<TouchableOpacity onPress={this.onSureOrder.bind(this)} style={styles.bottom}>
+						<Text
+							style={{
+								color: '#fff',
+								fontSize: 20,
+								fontWeight: '800',
+							}}
+						>
+							确认订单
+						</Text>
+					</TouchableOpacity>
+					<Loading visible={loadingVisible} />
+					{dialogVisible && (
+						<Dialog
+							visible={dialogVisible}
+							title={title}
+							changeKey={changeKey}
+							placeHolder={placeHolder}
+							defalutValue={defalutValue}
+							onOk={this.onOkDialog.bind(this)}
+							onCancel={this.onCancelDialog.bind(this)}
+						/>
+					)}
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

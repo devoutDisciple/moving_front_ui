@@ -1,11 +1,11 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert, TouchableOpacity } from 'react-native';
 import GoodsItem from './GoodsItem';
-import CommonHeader from '../component/CommonHeader';
-import storageUtil from '../util/Storage';
-import Toast from '../component/Toast';
 import Request from '../util/Request';
+import Toast from '../component/Toast';
+import storageUtil from '../util/Storage';
+import CommonHeader from '../component/CommonHeader';
+import SafeViewComponent from '../component/SafeViewComponent';
+import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -98,60 +98,62 @@ export default class Goods extends React.Component {
 		const { navigation } = this.props;
 		let { data, totalPrice } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="计算洗衣所需金额" navigation={navigation} />
-				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-					<View style={styles.content_title}>
-						<Text>洗衣费用价格计算（仅供参考）</Text>
-					</View>
-					<View style={styles.content_clothing}>
-						{data &&
-							data.map((item, index) => {
-								return (
-									<GoodsItem
-										key={index}
-										id={item.id}
-										num={item.num}
-										name={item.name}
-										source={item.url}
-										price={item.price}
-										onSubCloth={this.onSubCloth.bind(this)}
-										onAddCloth={this.onAddCloth.bind(this)}
-									/>
-								);
-							})}
-					</View>
-					<View style={styles.content_title}>
-						<Text>备注信息</Text>
-					</View>
-					<View style={styles.content_input}>
-						<TextInput
-							multiline
-							maxLength={100}
-							autoComplete="off"
-							keyboardType="default"
-							selectionColor="#fb9bcd"
-							placeholderTextColor="#bfbfbf"
-							style={styles.message_desc_input}
-							placeholder="MOVING洗衣店为您尽心服务!"
-							onChangeText={value => this.setState({ remark: value })}
-						/>
-					</View>
-				</ScrollView>
-				<View style={styles.footer}>
-					<View style={styles.footer_left}>
-						<View style={styles.footer_left_content}>
-							<Text style={styles.footer_left_content_text}>预计所需: ￥</Text>
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="计算洗衣所需金额" navigation={navigation} />
+					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+						<View style={styles.content_title}>
+							<Text>洗衣费用价格计算（仅供参考）</Text>
 						</View>
-						<View style={styles.footer_right_content}>
-							<Text style={styles.footer_right_content_text}>{totalPrice}</Text>
+						<View style={styles.content_clothing}>
+							{data &&
+								data.map((item, index) => {
+									return (
+										<GoodsItem
+											key={index}
+											id={item.id}
+											num={item.num}
+											name={item.name}
+											source={item.url}
+											price={item.price}
+											onSubCloth={this.onSubCloth.bind(this)}
+											onAddCloth={this.onAddCloth.bind(this)}
+										/>
+									);
+								})}
 						</View>
+						<View style={styles.content_title}>
+							<Text>备注信息</Text>
+						</View>
+						<View style={styles.content_input}>
+							<TextInput
+								multiline
+								maxLength={100}
+								autoComplete="off"
+								keyboardType="default"
+								selectionColor="#fb9bcd"
+								placeholderTextColor="#bfbfbf"
+								style={styles.message_desc_input}
+								placeholder="MOVING洗衣店为您尽心服务!"
+								onChangeText={value => this.setState({ remark: value })}
+							/>
+						</View>
+					</ScrollView>
+					<View style={styles.footer}>
+						<View style={styles.footer_left}>
+							<View style={styles.footer_left_content}>
+								<Text style={styles.footer_left_content_text}>预计所需: ￥</Text>
+							</View>
+							<View style={styles.footer_right_content}>
+								<Text style={styles.footer_right_content_text}>{totalPrice}</Text>
+							</View>
+						</View>
+						<TouchableOpacity style={styles.footer_right} onPress={this.onSureClothing.bind(this)}>
+							<Text style={styles.footer_right_text}>确定</Text>
+						</TouchableOpacity>
 					</View>
-					<TouchableOpacity style={styles.footer_right} onPress={this.onSureClothing.bind(this)}>
-						<Text style={styles.footer_right_text}>确定</Text>
-					</TouchableOpacity>
 				</View>
-			</View>
+			</SafeViewComponent>
 		);
 	}
 }

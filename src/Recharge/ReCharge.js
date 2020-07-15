@@ -15,6 +15,7 @@ import Message from '../component/Message';
 import * as WeChat from 'react-native-wechat-lib';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import NavigationUtil from '../util/NavigationUtil';
+import SafeViewComponent from '../component/SafeViewComponent';
 
 const { width } = Dimensions.get('window');
 
@@ -88,7 +89,7 @@ export default class ReCharge extends React.Component {
 			// let result = await PayUtil.payMoneyByWeChat(currentPay.pay, type === 'member' ? 'MOVING会员' : 'MOVING充值');
 			let result = await PayUtil.payMoneyByWeChat({
 				desc: type === 'member' ? 'MOVING会员' : 'MOVING充值',
-				mmoney: currentPay.pay,
+				money: currentPay.pay,
 				type: type,
 				userid: currentUser.id,
 				given: currentPay.given,
@@ -133,51 +134,53 @@ export default class ReCharge extends React.Component {
 			{ activeMoney, payWay, wechatVisible } = this.state,
 			flag = type === 'member';
 		return (
-			<View style={styles.container}>
-				<CommonHeader title={flag ? '成为会员' : '充值'} navigation={navigation} />
-				<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-					<FastImage style={styles.content_logo} source={require('../../img/public/logo2.png')} />
-					<View style={styles.detail_common_title}>
-						<Text style={{ fontSize: 14, color: '#333' }}>{flag ? '会员价格' : '余额充值'}</Text>
-					</View>
-					<View style={styles.content_account}>
-						{config.PAY_MONEY_FOR_BALANCE.map((item, index) => {
-							return (
-								<MoneyItem
-									key={index}
-									money={item.pay}
-									discount={item.given}
-									active={activeMoney === index}
-									onPress={this.onPressChargeItem.bind(this, index)}
-								/>
-							);
-						})}
-					</View>
-					<View style={styles.detail_common_title}>
-						<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
-					</View>
-					{wechatVisible && (
-						<PayItem
-							iconName="wechat"
-							onPress={this.payWayChange.bind(this, 'wechat')}
-							iconColor="#89e04c"
-							text="微信支付"
-							active={payWay === 'wechat'}
-						/>
-					)}
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title={flag ? '成为会员' : '充值'} navigation={navigation} />
+					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+						<FastImage style={styles.content_logo} source={require('../../img/public/logo2.png')} />
+						<View style={styles.detail_common_title}>
+							<Text style={{ fontSize: 14, color: '#333' }}>{flag ? '会员价格' : '余额充值'}</Text>
+						</View>
+						<View style={styles.content_account}>
+							{config.PAY_MONEY_FOR_BALANCE.map((item, index) => {
+								return (
+									<MoneyItem
+										key={index}
+										money={item.pay}
+										discount={item.given}
+										active={activeMoney === index}
+										onPress={this.onPressChargeItem.bind(this, index)}
+									/>
+								);
+							})}
+						</View>
+						<View style={styles.detail_common_title}>
+							<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
+						</View>
+						{wechatVisible && (
+							<PayItem
+								iconName="wechat"
+								onPress={this.payWayChange.bind(this, 'wechat')}
+								iconColor="#89e04c"
+								text="微信支付"
+								active={payWay === 'wechat'}
+							/>
+						)}
 
-					<PayItem
-						iconName="alipay-circle"
-						onPress={this.payWayChange.bind(this, 'alipay')}
-						iconColor="#208ee9"
-						text="支付宝支付"
-						active={payWay === 'alipay'}
-					/>
-				</ScrollView>
-				<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>
-					<Text style={styles.bottom_btn_text}>去支付</Text>
-				</TouchableOpacity>
-			</View>
+						<PayItem
+							iconName="alipay-circle"
+							onPress={this.payWayChange.bind(this, 'alipay')}
+							iconColor="#208ee9"
+							text="支付宝支付"
+							active={payWay === 'alipay'}
+						/>
+					</ScrollView>
+					<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>
+						<Text style={styles.bottom_btn_text}>去支付</Text>
+					</TouchableOpacity>
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }

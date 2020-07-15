@@ -11,7 +11,8 @@ import config from '../../config/config';
 import CommonHeader from '../../component/CommonHeader';
 import Request from '../../util/Request';
 import Message from '../../component/Message';
-import { Text, View, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
+import SafeViewComponent from '../../component/SafeViewComponent';
+import { Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
 export default class SettingScreen extends React.Component {
 	constructor(props) {
@@ -102,34 +103,36 @@ export default class SettingScreen extends React.Component {
 		const { navigation } = this.props;
 		let { loadingVisible } = this.state;
 		return (
-			<View style={styles.container}>
-				<CommonHeader title="设置" navigation={navigation} back={this.goBackHome.bind(this)} />
-				<View style={styles.content}>
-					<View style={styles.empty} />
-					<View style={styles.content_chunk}>
-						<ListItem text="重置密码" onPress={this.onPress.bind(this, 'resetPassword')} withBorder bigText />
-						<ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder bigText />
-						<ListItem
-							bigText
-							withBorder
-							otherText={config.currentVersion}
-							text="版本更新"
-							onPress={this.onPress.bind(this, 'about')}
-						/>
-						<ListItem text="隐私政策" bigText onPress={this.onPress.bind(this, 'privacy')} />
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<CommonHeader title="设置" navigation={navigation} back={this.goBackHome.bind(this)} />
+					<View style={styles.content}>
+						<View style={styles.empty} />
+						<View style={styles.content_chunk}>
+							<ListItem text="重置密码" onPress={this.onPress.bind(this, 'resetPassword')} withBorder bigText />
+							{/* <ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder bigText /> */}
+							<ListItem
+								bigText
+								withBorder
+								otherText={config.currentVersion}
+								text="版本更新"
+								onPress={this.onPress.bind(this, 'about')}
+							/>
+							<ListItem text="隐私政策" bigText onPress={this.onPress.bind(this, 'privacy')} />
+						</View>
+						<View style={styles.empty} />
+						<View style={styles.content_chunk}>
+							<ListItem text="永久注销账号" bigText onPress={this.onPress.bind(this, 'logout')} />
+						</View>
+						<View style={styles.empty} />
+						<View style={styles.empty} />
+						<TouchableOpacity style={styles.logout} onPress={this.logoutBtnClick.bind(this)}>
+							<Text style={styles.logout_text}>退出登录</Text>
+						</TouchableOpacity>
 					</View>
-					<View style={styles.empty} />
-					<View style={styles.content_chunk}>
-						<ListItem text="永久注销账号" bigText onPress={this.onPress.bind(this, 'logout')} />
-					</View>
-					<View style={styles.empty} />
-					<View style={styles.empty} />
-					<TouchableOpacity style={styles.logout} onPress={this.logoutBtnClick.bind(this)}>
-						<Text style={styles.logout_text}>退出登录</Text>
-					</TouchableOpacity>
+					<Loading visible={loadingVisible} />
 				</View>
-				<Loading visible={loadingVisible} />
-			</View>
+			</SafeViewComponent>
 		);
 	}
 }

@@ -6,6 +6,7 @@ import Request from '../util/Request';
 import Storage from '../util/Storage';
 import ListItem from '../component/ListItem';
 import Icon from 'react-native-vector-icons/AntDesign';
+import SafeViewComponent from '../component/SafeViewComponent';
 import { StyleSheet, TouchableOpacity, ScrollView, View, RefreshControl } from 'react-native';
 
 export default class MyScreen extends React.Component {
@@ -114,25 +115,27 @@ export default class MyScreen extends React.Component {
 	render() {
 		let { user, loading } = this.state;
 		return (
-			<View style={styles.container}>
-				<ScrollView
-					style={styles.content}
-					howsVerticalScrollIndicator={false}
-					refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}
-				>
-					<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
-					<My_Wallert navigation={this.props.navigation} user={user} />
-					<View style={{ height: 10 }} />
-					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
-					<ListItem iconName="staro" text="Moving商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
-					{/* <ListItem iconName="staro" text="购买记录" onPress={this.onPressListItem.bind(this, 'intergralRecord')} /> */}
-					<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
-					{/* <ListItem iconName="linechart" text="消费记录" onPress={this.onPressListItem.bind(this, 'shopping')} /> */}
-					<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
-					<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
-					{/* <ListItem iconName="message1" text="联系我们" onPress={this.onPressListItem.bind(this, 'concatUs')} /> */}
-				</ScrollView>
-			</View>
+			<SafeViewComponent>
+				<View style={styles.container}>
+					<ScrollView
+						style={styles.content}
+						howsVerticalScrollIndicator={false}
+						refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}
+					>
+						<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
+						<My_Wallert navigation={this.props.navigation} user={user} />
+						<View style={{ height: 10 }} />
+						<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
+						<ListItem iconName="staro" text="Moving商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
+						{/* <ListItem iconName="staro" text="购买记录" onPress={this.onPressListItem.bind(this, 'intergralRecord')} /> */}
+						<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
+						{/* <ListItem iconName="linechart" text="消费记录" onPress={this.onPressListItem.bind(this, 'shopping')} /> */}
+						<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
+						<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
+						{/* <ListItem iconName="message1" text="联系我们" onPress={this.onPressListItem.bind(this, 'concatUs')} /> */}
+					</ScrollView>
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }
@@ -143,6 +146,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 		padding: 10,
+		marginTop: 10,
 	},
 	content: {
 		flex: 1,

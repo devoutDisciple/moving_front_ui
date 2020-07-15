@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import FastImage from '../component/FastImage';
 import Storage from '../util/Storage';
 import NavigationUtil from '../util/NavigationUtil';
+import SafeViewComponent from '../component/SafeViewComponent';
 import { baseColor, commonInputParams } from './commonParams';
 
 export default class ResetPassword extends React.Component {
@@ -117,123 +118,125 @@ export default class ResetPassword extends React.Component {
 		const { loginBtnDisable, timeNumVisible, timeNum, checked } = this.state;
 		const { navigation } = this.props;
 		return (
-			<ScrollView style={{ flex: 1, padding: 10 }} showsVerticalScrollIndicator={false}>
-				<TouchableOpacity style={{ marginVertical: 20 }} onPress={this.backHome.bind(this)}>
-					<Icon name="left" size={22} color="#333" />
-				</TouchableOpacity>
-				<View style={{ marginVertical: 20, marginLeft: 20 }}>
-					<Text style={{ fontSize: 20 }}>重置密码</Text>
-				</View>
-				<Kohana
-					{...commonInputParams}
-					iconName="phone"
-					label={'请输入手机号'}
-					onChangeText={this.inputChange.bind(this, 'phone')}
-					keyboardType="number-pad"
-					maxLength={11}
-					selectionColor={baseColor.fontColor}
-				/>
-				<View style={styles.register_message}>
-					<View style={styles.register_message_left}>
-						<Kohana
-							{...commonInputParams}
-							iconName="message1"
-							label={'验证码'}
-							onChangeText={this.inputChange.bind(this, 'securityCode')}
-							keyboardType="number-pad"
-							maxLength={6}
-							selectionColor={baseColor.fontColor}
+			<SafeViewComponent>
+				<ScrollView style={{ flex: 1, padding: 10 }} showsVerticalScrollIndicator={false}>
+					<TouchableOpacity style={{ marginVertical: 20 }} onPress={this.backHome.bind(this)}>
+						<Icon name="left" size={22} color="#333" />
+					</TouchableOpacity>
+					<View style={{ marginVertical: 20, marginLeft: 20 }}>
+						<Text style={{ fontSize: 20 }}>重置密码</Text>
+					</View>
+					<Kohana
+						{...commonInputParams}
+						iconName="phone"
+						label={'请输入手机号'}
+						onChangeText={this.inputChange.bind(this, 'phone')}
+						keyboardType="number-pad"
+						maxLength={11}
+						selectionColor={baseColor.fontColor}
+					/>
+					<View style={styles.register_message}>
+						<View style={styles.register_message_left}>
+							<Kohana
+								{...commonInputParams}
+								iconName="message1"
+								label={'验证码'}
+								onChangeText={this.inputChange.bind(this, 'securityCode')}
+								keyboardType="number-pad"
+								maxLength={6}
+								selectionColor={baseColor.fontColor}
+							/>
+						</View>
+						{timeNumVisible ? (
+							<View style={styles.register_message_right}>
+								<Text
+									style={{
+										fontSize: 14,
+										marginTop: 8,
+										color: baseColor.fontColor,
+									}}
+								>
+									{timeNum}秒后重新获取
+								</Text>
+							</View>
+						) : (
+							<TouchableOpacity onPress={this.getMessage.bind(this)} style={styles.register_message_right}>
+								<Text
+									style={{
+										fontSize: 16,
+										marginTop: 8,
+										color: baseColor.fontColor,
+									}}
+								>
+									获取验证码
+								</Text>
+							</TouchableOpacity>
+						)}
+					</View>
+					<Kohana
+						iconName="lock"
+						{...commonInputParams}
+						label={'设置密码'}
+						onChangeText={this.inputChange.bind(this, 'password')}
+						secureTextEntry={true}
+						selectionColor={baseColor.fontColor}
+						maxLength={20}
+					/>
+					<Kohana
+						iconName="lock"
+						{...commonInputParams}
+						label={'确认密码'}
+						onChangeText={this.inputChange.bind(this, 'confirmPassword')}
+						secureTextEntry={true}
+						selectionColor={baseColor.fontColor}
+						maxLength={20}
+					/>
+					<View style={styles.login_btn}>
+						<Button
+							buttonStyle={{
+								backgroundColor: baseColor.heightColor,
+								borderRadius: 30,
+								height: 60,
+							}}
+							disabled={loginBtnDisable}
+							disabledStyle={{
+								backgroundColor: baseColor.disableColor,
+							}}
+							disabledTitleStyle={{ color: '#fff' }}
+							onPress={this.secuityCodeBtnClick.bind(this)}
+							title="确定"
 						/>
 					</View>
-					{timeNumVisible ? (
-						<View style={styles.register_message_right}>
-							<Text
-								style={{
-									fontSize: 14,
-									marginTop: 8,
-									color: baseColor.fontColor,
-								}}
-							>
-								{timeNum}秒后重新获取
-							</Text>
-						</View>
-					) : (
-						<TouchableOpacity onPress={this.getMessage.bind(this)} style={styles.register_message_right}>
-							<Text
-								style={{
-									fontSize: 16,
-									marginTop: 8,
-									color: baseColor.fontColor,
-								}}
-							>
-								获取验证码
-							</Text>
+					<View style={styles.protocol}>
+						<TouchableOpacity style={styles.img_container} onPress={() => this.setState({ checked: !checked })}>
+							<FastImage
+								style={styles.img}
+								source={
+									checked
+										? require('../../img/public/check_box_select.png')
+										: require('../../img/public/check_box_no_select.png')
+								}
+							/>
 						</TouchableOpacity>
-					)}
-				</View>
-				<Kohana
-					iconName="lock"
-					{...commonInputParams}
-					label={'设置密码'}
-					onChangeText={this.inputChange.bind(this, 'password')}
-					secureTextEntry={true}
-					selectionColor={baseColor.fontColor}
-					maxLength={20}
-				/>
-				<Kohana
-					iconName="lock"
-					{...commonInputParams}
-					label={'确认密码'}
-					onChangeText={this.inputChange.bind(this, 'confirmPassword')}
-					secureTextEntry={true}
-					selectionColor={baseColor.fontColor}
-					maxLength={20}
-				/>
-				<View style={styles.login_btn}>
-					<Button
-						buttonStyle={{
-							backgroundColor: baseColor.heightColor,
-							borderRadius: 30,
-							height: 60,
-						}}
-						disabled={loginBtnDisable}
-						disabledStyle={{
-							backgroundColor: baseColor.disableColor,
-						}}
-						disabledTitleStyle={{ color: '#fff' }}
-						onPress={this.secuityCodeBtnClick.bind(this)}
-						title="确定"
-					/>
-				</View>
-				<View style={styles.protocol}>
-					<TouchableOpacity style={styles.img_container} onPress={() => this.setState({ checked: !checked })}>
-						<FastImage
-							style={styles.img}
-							source={
-								checked
-									? require('../../img/public/check_box_select.png')
-									: require('../../img/public/check_box_no_select.png')
-							}
-						/>
-					</TouchableOpacity>
-					<Text style={styles.protocol_desc}>我已阅读并同意MOVING洗衣</Text>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.navigate('PrivacyScreen');
-						}}
-					>
-						<Text style={styles.protocol_text}>《隐私政策》</Text>
-					</TouchableOpacity>
-					<Text style={styles.protocol_desc}>和</Text>
-					<TouchableOpacity
-						onPress={() => {
-							navigation.navigate('ServiceProtocolScreen');
-						}}
-					>
-						<Text style={styles.protocol_text}>《服务协议》</Text>
-					</TouchableOpacity>
-				</View>
-			</ScrollView>
+						<Text style={styles.protocol_desc}>我已阅读并同意MOVING洗衣</Text>
+						<TouchableOpacity
+							onPress={() => {
+								navigation.navigate('PrivacyScreen');
+							}}
+						>
+							<Text style={styles.protocol_text}>《隐私政策》</Text>
+						</TouchableOpacity>
+						<Text style={styles.protocol_desc}>和</Text>
+						<TouchableOpacity
+							onPress={() => {
+								navigation.navigate('ServiceProtocolScreen');
+							}}
+						>
+							<Text style={styles.protocol_text}>《服务协议》</Text>
+						</TouchableOpacity>
+					</View>
+				</ScrollView>
+			</SafeViewComponent>
 		);
 	}
 }

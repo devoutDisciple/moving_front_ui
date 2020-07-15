@@ -8,6 +8,7 @@ import { Button } from 'react-native-elements';
 import MessageItem from '../my/message/MessageItem';
 import CommonHeader from '../component/CommonHeader';
 import Toast from '../component/Toast';
+import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 export default class Member extends React.Component {
@@ -112,83 +113,85 @@ export default class Member extends React.Component {
 		const { navigation } = this.props,
 			{ visible, title, defalutValue, changeKey, address } = this.state;
 		return (
-			<View style={styles.address_container}>
-				<CommonHeader title="编辑地址" navigation={navigation} />
-				<ScrollView style={styles.address_content} showsVerticalScrollIndicator={false}>
-					<MessageItem
-						showIcon
-						label="姓名"
-						value={address.username}
-						onPress={() => {
-							this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: address.username }, () => {
-								this.setState({ visible: true });
-							});
-						}}
-					/>
-					<MessageItem
-						label="性别"
-						value={
-							<View style={styles.sex_container}>
-								<TouchableOpacity onPress={this.onChangeSex.bind(this, 1)}>
-									<Text style={address.sex === 1 ? styles.sex_item_active : styles.sex_item_normal}>男</Text>
-								</TouchableOpacity>
-								<TouchableOpacity onPress={this.onChangeSex.bind(this, 2)}>
-									<Text style={address.sex === 2 ? styles.sex_item_active : styles.sex_item_normal}>女</Text>
-								</TouchableOpacity>
+			<SafeViewComponent>
+				<View style={styles.address_container}>
+					<CommonHeader title="编辑地址" navigation={navigation} />
+					<ScrollView style={styles.address_content} showsVerticalScrollIndicator={false}>
+						<MessageItem
+							showIcon
+							label="姓名"
+							value={address.username}
+							onPress={() => {
+								this.setState({ changeKey: 'username', title: '修改姓名', defalutValue: address.username }, () => {
+									this.setState({ visible: true });
+								});
+							}}
+						/>
+						<MessageItem
+							label="性别"
+							value={
+								<View style={styles.sex_container}>
+									<TouchableOpacity onPress={this.onChangeSex.bind(this, 1)}>
+										<Text style={address.sex === 1 ? styles.sex_item_active : styles.sex_item_normal}>男</Text>
+									</TouchableOpacity>
+									<TouchableOpacity onPress={this.onChangeSex.bind(this, 2)}>
+										<Text style={address.sex === 2 ? styles.sex_item_active : styles.sex_item_normal}>女</Text>
+									</TouchableOpacity>
+								</View>
+							}
+							isSwitch
+						/>
+						<MessageItem
+							showIcon
+							label="手机号"
+							value={address.phone}
+							onPress={() =>
+								this.setState({ changeKey: 'phone', title: '修改手机号', defalutValue: address.phone }, () => {
+									this.setState({ visible: true });
+								})
+							}
+						/>
+						<MessageItem label="所在区域" value={address.area} showIcon onPress={this.onShowPicker.bind(this)} />
+						<MessageItem
+							showIcon
+							label="街道/小区"
+							value={address.street}
+							onPress={() =>
+								this.setState({ changeKey: 'street', title: '修改具体位置', defalutValue: address.street }, () => {
+									this.setState({ visible: true });
+								})
+							}
+						/>
+						{address.area && (
+							<View style={styles.address_desc}>
+								<Text style={styles.address_desc_title}>收货地址为：</Text>
+								<Text style={styles.address_desc_street}>
+									{address.area} {address.street}
+								</Text>
 							</View>
-						}
-						isSwitch
-					/>
-					<MessageItem
-						showIcon
-						label="手机号"
-						value={address.phone}
-						onPress={() =>
-							this.setState({ changeKey: 'phone', title: '修改手机号', defalutValue: address.phone }, () => {
-								this.setState({ visible: true });
-							})
-						}
-					/>
-					<MessageItem label="所在区域" value={address.area} showIcon onPress={this.onShowPicker.bind(this)} />
-					<MessageItem
-						showIcon
-						label="街道/小区"
-						value={address.street}
-						onPress={() =>
-							this.setState({ changeKey: 'street', title: '修改具体位置', defalutValue: address.street }, () => {
-								this.setState({ visible: true });
-							})
-						}
-					/>
-					{address.area && (
-						<View style={styles.address_desc}>
-							<Text style={styles.address_desc_title}>收货地址为：</Text>
-							<Text style={styles.address_desc_street}>
-								{address.area} {address.street}
-							</Text>
-						</View>
+						)}
+						<Button
+							buttonStyle={{
+								backgroundColor: '#fb9bcd',
+								borderRadius: 10,
+								height: 50,
+								marginTop: 20,
+							}}
+							onPress={this.onSaveValue.bind(this)}
+							title="保存"
+						/>
+					</ScrollView>
+					{visible && (
+						<Dialog
+							title={title}
+							changeKey={changeKey}
+							defalutValue={defalutValue}
+							onOk={this.onOkDialog.bind(this)}
+							onCancel={() => this.setState({ visible: false })}
+						/>
 					)}
-					<Button
-						buttonStyle={{
-							backgroundColor: '#fb9bcd',
-							borderRadius: 10,
-							height: 50,
-							marginTop: 20,
-						}}
-						onPress={this.onSaveValue.bind(this)}
-						title="保存"
-					/>
-				</ScrollView>
-				{visible && (
-					<Dialog
-						title={title}
-						changeKey={changeKey}
-						defalutValue={defalutValue}
-						onOk={this.onOkDialog.bind(this)}
-						onCancel={() => this.setState({ visible: false })}
-					/>
-				)}
-			</View>
+				</View>
+			</SafeViewComponent>
 		);
 	}
 }
