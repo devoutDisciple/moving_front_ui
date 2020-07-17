@@ -148,6 +148,13 @@ export default class HomeScreen extends React.Component {
 			// 保存设置的商店
 			await StorageUtil.set('shop', shop);
 		}
+		if (shop && data) {
+			let currentRes = data.filter(item => item.id === shop.id);
+			console.log(currentRes, 111);
+			shop = (currentRes && currentRes[0]) || {};
+			// 保存设置的商店
+			await StorageUtil.set('shop', shop);
+		}
 		await this.setState({ shopList: data || [], shopid: shop.id }, () => {
 			let { navigation } = this.props;
 			navigation.navigate('HomeScreen', {

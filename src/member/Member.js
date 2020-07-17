@@ -5,6 +5,7 @@ import CommonSylte from '../style/common';
 import CommonHeader from '../component/CommonHeader';
 import IconWithText from '../component/IconWithText';
 import SafeViewComponent from '../component/SafeViewComponent';
+import config from '../config/config';
 import { Text, View, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -34,12 +35,12 @@ export default class Member extends React.Component {
 				text: '上门取衣',
 			},
 			{
-				url: require('../../img/home/icon3.png'),
-				text: '专属客服',
+				// url: require('../../img/home/icon3.png'),
+				// text: '专属客服',
 			},
 			{
-				url: require('../../img/home/icon3.png'),
-				text: '免费配送',
+				// url: require('../../img/home/icon3.png'),
+				// text: '免费配送',
 			},
 		];
 		return (
@@ -51,7 +52,9 @@ export default class Member extends React.Component {
 							<View style={styles.slide}>
 								<Image
 									style={styles.img}
-									source={require('../../img/public/lunbo1.png')}
+									source={{
+										uri: `${config.baseUrl}/member.jpg`,
+									}}
 									// source={{uri:  'https://facebook.githuby_logo.png',}}
 								/>
 							</View>

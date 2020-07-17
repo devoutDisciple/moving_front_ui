@@ -495,7 +495,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -954,7 +954,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2020070071150245;
+				CURRENT_PROJECT_VERSION = 2020070071152135;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -967,7 +967,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -991,7 +991,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2020070071150245;
+				CURRENT_PROJECT_VERSION = 2020070071152135;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1003,7 +1003,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.4.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

@@ -220,14 +220,14 @@ export default class PayOrderScreen extends React.Component {
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader title={type === 'clothing' ? '派送费用' : '洗衣费用支付'} navigation={navigation} />
+					<CommonHeader title={type === 'clothing' ? '收取衣物费用' : '洗衣费用支付'} navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						<View style={styles.money}>
 							<Text style={styles.money_num}>￥ {money}</Text>
-							<Text style={styles.money_order}>{type === 'clothing' ? '上门取衣派送费用' : '订单支付'}</Text>
-							<Text style={styles.money_order}>
+							<Text style={styles.money_order}>{type === 'clothing' ? '上门收取衣物费用' : '订单支付'}</Text>
+							{/* <Text style={styles.money_order}>
 								用户名称: {user.username} 手机号: {user.phone}
-							</Text>
+							</Text> */}
 						</View>
 						<View style={styles.detail_common_title}>
 							<Text style={{ fontSize: 14, color: '#333' }}>选择支付方式</Text>
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
 		height: 0.4 * width,
 	},
 	money: {
-		height: 250,
+		height: 200,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
