@@ -12,7 +12,6 @@ import Message from '../component/Message';
 import Spinner from 'react-native-spinkit';
 import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
-import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
@@ -271,63 +270,61 @@ export default class HomeScreen extends React.Component {
 			previewModalVisible,
 		} = this.state;
 		return (
-			<SafeViewComponent>
-				<View style={{ flex: 1 }}>
-					<ScrollView
-						style={{ flex: 1 }}
-						showsVerticalScrollIndicator={false}
-						refreshControl={<RefreshControl refreshing={freshLoading} onRefresh={this.onSearchData.bind(this, false)} />}
-					>
-						{/* 轮播图 */}
-						<Swiper
-							navigation={navigation}
-							shopid={shopid}
-							swiperList={swiperList}
-							onShowPreviewModal={this.onShowPreviewModal.bind(this)}
+			<View style={{ flex: 1 }}>
+				<ScrollView
+					style={{ flex: 1 }}
+					showsVerticalScrollIndicator={false}
+					refreshControl={<RefreshControl refreshing={freshLoading} onRefresh={this.onSearchData.bind(this, false)} />}
+				>
+					{/* 轮播图 */}
+					<Swiper
+						navigation={navigation}
+						shopid={shopid}
+						swiperList={swiperList}
+						onShowPreviewModal={this.onShowPreviewModal.bind(this)}
+					/>
+					{/* 图标选项 */}
+					<IconList navigation={navigation} />
+					{/* 快递柜子 */}
+					<Express navigation={navigation} shopid={shopid} cabinetList={cabinetList} />
+				</ScrollView>
+				{/* 非强制版本 */}
+				{versionSoftDialogVisible && (
+					<VersionDialog
+						title="版本更新"
+						okText="立即更新"
+						cancelText="取消更新"
+						desc="有新版本更新,请更新至最新版本"
+						onOk={this.goAppStore.bind(this)}
+						onCancel={() => {
+							this.setState({ versionSoftDialogVisible: false });
+						}}
+						cancelShow={true}
+					/>
+				)}
+				{/* 强制更新版本 */}
+				{versionForceDialogVisible && (
+					<VersionDialog
+						title="版本更新"
+						okText="立即更新"
+						desc="有新版本更新,请立即更新至最新版本"
+						onOk={this.goAppStore.bind(this)}
+						onCancel={() => {}}
+						cancelShow={false}
+					/>
+				)}
+				{previewModalVisible && (
+					<Modal visible={true} transparent={true}>
+						<ImageViewer
+							imageUrls={previewSwiperList}
+							failImageSource="暂无图片信息"
+							onClick={() => this.setState({ previewModalVisible: false })}
+							loadingRender={() => <Spinner type="Bounce" color="#fb9bcd" />}
 						/>
-						{/* 图标选项 */}
-						<IconList navigation={navigation} />
-						{/* 快递柜子 */}
-						<Express navigation={navigation} shopid={shopid} cabinetList={cabinetList} />
-					</ScrollView>
-					{/* 非强制版本 */}
-					{versionSoftDialogVisible && (
-						<VersionDialog
-							title="版本更新"
-							okText="立即更新"
-							cancelText="取消更新"
-							desc="有新版本更新,请更新至最新版本"
-							onOk={this.goAppStore.bind(this)}
-							onCancel={() => {
-								this.setState({ versionSoftDialogVisible: false });
-							}}
-							cancelShow={true}
-						/>
-					)}
-					{/* 强制更新版本 */}
-					{versionForceDialogVisible && (
-						<VersionDialog
-							title="版本更新"
-							okText="立即更新"
-							desc="有新版本更新,请立即更新至最新版本"
-							onOk={this.goAppStore.bind(this)}
-							onCancel={() => {}}
-							cancelShow={false}
-						/>
-					)}
-					{previewModalVisible && (
-						<Modal visible={true} transparent={true}>
-							<ImageViewer
-								imageUrls={previewSwiperList}
-								failImageSource="暂无图片信息"
-								onClick={() => this.setState({ previewModalVisible: false })}
-								loadingRender={() => <Spinner type="Bounce" color="#fb9bcd" />}
-							/>
-						</Modal>
-					)}
-					<Loading visible={loadingVisible} />
-				</View>
-			</SafeViewComponent>
+					</Modal>
+				)}
+				<Loading visible={loadingVisible} />
+			</View>
 		);
 	}
 }
