@@ -2,12 +2,14 @@
 import React from 'react';
 import config from '../config/config';
 import Request from '../util/Request';
+import Toast from '../component/Toast';
 import Dialog from '../component/Dialog';
 import Picker from 'react-native-picker';
+import Loading from '../component/Loading';
+import Message from '../component/Message';
 import { Button } from 'react-native-elements';
 import MessageItem from '../my/message/MessageItem';
 import CommonHeader from '../component/CommonHeader';
-import Toast from '../component/Toast';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
@@ -21,13 +23,20 @@ export default class Member extends React.Component {
 			title: '',
 			changeKey: '',
 			defalutValue: '',
+			loadingVisible: false,
 		};
 		this.filterArea = this.filterArea.bind(this);
 	}
 
 	async componentDidMount() {
+		await this.onInitSearch();
+	}
+
+	async onInitSearch() {
+		this.setState({ loadingVisible: true });
 		await this.onSearchAddress();
 		await this.onSearchArea();
+		this.setState({ loadingVisible: false });
 	}
 
 	// 查询改地址
@@ -109,9 +118,26 @@ export default class Member extends React.Component {
 		}
 	}
 
+	// 删除地址
+	async deleteAddress() {
+		Message.confirm('提示', '是否确认删除改地址', async () => {
+			let { navigation } = this.props,
+				id = navigation.getParam('id');
+			this.setState({ loadingVisible: true });
+			let result = await Request.post('/address/deleteById', { id });
+			this.setState({ loadingVisible: false });
+			if (result.data === 'success') {
+				Toast.success('删除成功');
+				navigation.navigate('MyAddressScreen', {
+					flash: true,
+				});
+			}
+		});
+	}
+
 	render() {
 		const { navigation } = this.props,
-			{ visible, title, defalutValue, changeKey, address } = this.state;
+			{ visible, title, defalutValue, changeKey, address, loadingVisible } = this.state;
 		return (
 			<SafeViewComponent>
 				<View style={styles.address_container}>
@@ -180,6 +206,19 @@ export default class Member extends React.Component {
 							onPress={this.onSaveValue.bind(this)}
 							title="保存"
 						/>
+						<Button
+							buttonStyle={{
+								backgroundColor: '#cdcdcd',
+								borderRadius: 10,
+								height: 50,
+								marginTop: 20,
+							}}
+							titleStyle={{
+								color: '#8a8a8a',
+							}}
+							onPress={this.deleteAddress.bind(this)}
+							title="删除"
+						/>
 					</ScrollView>
 					{visible && (
 						<Dialog
@@ -191,6 +230,7 @@ export default class Member extends React.Component {
 						/>
 					)}
 				</View>
+				<Loading visible={loadingVisible} />
 			</SafeViewComponent>
 		);
 	}

@@ -3,7 +3,7 @@ let flag = true; // true - 线上环境
 export default {
 	baseUrl: flag ? 'http://47.107.43.166:3001' : 'http://127.0.01:3001',
 	AppStoreId: '1518058596',
-	currentVersion: '0.4.1', // 目前版本
+	currentVersion: '0.4.3', // 目前版本
 	sercurity_code_time: 60, //验证码的过期时间
 	pickCommonConfig: {
 		pickerConfirmBtnText: '确认',

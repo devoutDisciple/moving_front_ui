@@ -136,9 +136,15 @@ export default class Member extends React.Component {
 						})}
 					</ScrollView>
 					{type === 'intergral' ? (
-						<TouchableOpacity onPress={this.onSureIntergralOrder.bind(this)} style={styles.add_address_btn}>
-							<Text style={styles.add_address_btn_text}>确认</Text>
-						</TouchableOpacity>
+						addressList && addressList.length !== 0 ? (
+							<TouchableOpacity onPress={this.onSureIntergralOrder.bind(this)} style={styles.add_address_btn}>
+								<Text style={styles.add_address_btn_text}>确认</Text>
+							</TouchableOpacity>
+						) : (
+							<TouchableOpacity onPress={this.onAddAddress.bind(this)} style={styles.add_address_btn}>
+								<Text style={styles.add_address_btn_text}>新增地址</Text>
+							</TouchableOpacity>
+						)
 					) : (
 						<TouchableOpacity onPress={this.onAddAddress.bind(this)} style={styles.add_address_btn}>
 							<Text style={styles.add_address_btn_text}>新增地址</Text>

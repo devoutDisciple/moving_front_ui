@@ -1,20 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Config from '../config/config';
-import FastImage from '../component/FastImage';
+// import FastImage from '../component/FastImage';
 import NavigationUtil from '../util/NavigationUtil';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Image, View, Dimensions, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export default class Advertisement extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			height: 0,
-			textArr: ['3s', '2s', '1s', '跳过'],
-			text: '3s',
+			textArr: ['3 跳过', '2 跳过', '1 跳过', '跳过'],
+			text: '3 跳过',
 		};
 	}
 
@@ -68,7 +69,7 @@ export default class Advertisement extends React.Component {
 						backgroundColor: '#fdfdfd',
 					}}
 				>
-					<FastImage
+					<Image
 						style={{ width: screenWidth, height: height }}
 						source={{
 							uri: `${Config.baseUrl}/advertisement.jpg`,
@@ -88,12 +89,13 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		right: 20,
 		top: 70,
-		height: 40,
-		width: 40,
+		height: 30,
+		width: 60,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#fb9dd0',
-		borderRadius: 100,
+		backgroundColor: '#bfbfbf',
+		borderRadius: 50,
+		opacity: 0.7,
 	},
 	skip_text: {
 		color: '#fff',
