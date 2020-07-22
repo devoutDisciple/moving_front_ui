@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import StorageUtil from '../../util/Storage';
 import Toast from '../../component/Toast';
@@ -6,7 +5,6 @@ import Loading from '../../component/Loading';
 import ListItem from '../../component/ListItem';
 import Picker from 'react-native-picker';
 import NavigationUtil from '../../util/NavigationUtil';
-import RNRestart from 'react-native-restart';
 import config from '../../config/config';
 import CommonHeader from '../../component/CommonHeader';
 import Request from '../../util/Request';
@@ -72,6 +70,9 @@ export default class SettingScreen extends React.Component {
 				});
 			});
 		}
+		if (key === 'service') {
+			return navigation.navigate('ServiceProtocolScreen');
+		}
 		// 隐私政策
 		if (key === 'privacy') {
 			return navigation.navigate('PrivacyScreen');
@@ -118,6 +119,7 @@ export default class SettingScreen extends React.Component {
 								text="版本更新"
 								onPress={this.onPress.bind(this, 'about')}
 							/>
+							<ListItem bigText withBorder text="服务协议" onPress={this.onPress.bind(this, 'service')} />
 							<ListItem text="隐私政策" bigText onPress={this.onPress.bind(this, 'privacy')} />
 						</View>
 						<View style={styles.empty} />

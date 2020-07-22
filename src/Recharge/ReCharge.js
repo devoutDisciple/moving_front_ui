@@ -6,16 +6,16 @@ import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
 import CommonStyle from '../style/common';
 import Toast from '../component/Toast';
-import config from '../config/config';
 import PayUtil from '../util/PayUtil';
 import Request from '../util/Request';
 import StorageUtil from '../util/Storage';
 import Alipay from '../util/Alipay';
 import Message from '../component/Message';
+import Loading from '../component/Loading';
 import * as WeChat from 'react-native-wechat-lib';
-import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import NavigationUtil from '../util/NavigationUtil';
 import SafeViewComponent from '../component/SafeViewComponent';
+import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -26,13 +26,26 @@ export default class ReCharge extends React.Component {
 			activeMoney: 0,
 			payWay: 'alipay',
 			wechatVisible: false,
+			moneyTypeList: [],
+			loadingVisible: false,
 		};
 	}
 
 	async componentDidMount() {
 		await this.onJudgeWechat();
+		await this.getAllMoneyTypeList();
 	}
 
+	async getAllMoneyTypeList() {
+		this.setState({ loadingVisible: true });
+		let res = await Request.get('/money/getAllType');
+		console.log(res.data, 999);
+		if (res && res.data && Array.isArray(res.data)) {
+			this.setState({ moneyTypeList: res.data, loadingVisible: false });
+		}
+	}
+
+	// 判断是否已经安装微信
 	async onJudgeWechat() {
 		let isWXAppInstalled = await WeChat.isWXAppInstalled();
 		if (isWXAppInstalled) {
@@ -54,8 +67,8 @@ export default class ReCharge extends React.Component {
 	async onSurePay() {
 		// Toast.error('请先安装支付宝或微信');
 		const { navigation } = this.props,
-			{ activeMoney, payWay } = this.state;
-		let currentPay = config.PAY_MONEY_FOR_BALANCE[activeMoney];
+			{ activeMoney, payWay, moneyTypeList } = this.state;
+		let currentPay = moneyTypeList[activeMoney];
 		// member-会员 recharge-余额充值
 		let type = navigation.getParam('type');
 		let storageUser = await StorageUtil.get('user');
@@ -71,10 +84,10 @@ export default class ReCharge extends React.Component {
 		if (payWay === 'alipay') {
 			let alires = await Request.post('/pay/payByOrderAlipay', {
 				desc: 'MOVING会员',
-				money: currentPay.pay,
+				money: currentPay.money,
 				type: type,
 				userid: currentUser.id,
-				given: currentPay.given,
+				given: currentPay.send,
 			});
 			Alipay.pay(alires.data);
 			setTimeout(() => {
@@ -89,10 +102,10 @@ export default class ReCharge extends React.Component {
 			// let result = await PayUtil.payMoneyByWeChat(currentPay.pay, type === 'member' ? 'MOVING会员' : 'MOVING充值');
 			let result = await PayUtil.payMoneyByWeChat({
 				desc: type === 'member' ? 'MOVING会员' : 'MOVING充值',
-				money: currentPay.pay,
+				money: currentPay.money,
 				type: type,
 				userid: currentUser.id,
-				given: currentPay.given,
+				given: currentPay.send,
 			});
 			if (result === 'success') {
 				Toast.success('支付成功');
@@ -107,31 +120,11 @@ export default class ReCharge extends React.Component {
 		}
 	}
 
-	// async changeUserBalance() {
-	// 	// Toast.error('请先安装支付宝或微信');
-	// 	const { navigation } = this.props,
-	// 		{ activeMoney } = this.state;
-	// 	let currentPay = config.PAY_MONEY_FOR_BALANCE[activeMoney];
-	// 	// member-会员
-	// 	let type = navigation.getParam('type');
-	// 	let { pay, given } = currentPay;
-	// 	let user = await StorageUtil.get('user');
-	// 	let userData = await Request.post('/user/recharge', { userid: user.id, money: pay, given });
-	// 	if (userData.data === 'success') {
-	// 		Toast.success(type === 'member' ? '恭喜您成为MOVING会员' : '充值成功');
-	// 		setTimeout(() => {
-	// 			NavigationUtil.reset(navigation, 'HomeScreen');
-	// 		}, 1000);
-	// 	} else {
-	// 		return Toast.warning('网络出小差了，请联系管理员');
-	// 	}
-	// }
-
 	render() {
 		let { navigation } = this.props,
 			// member-会员
 			type = navigation.getParam('type'),
-			{ activeMoney, payWay, wechatVisible } = this.state,
+			{ activeMoney, payWay, wechatVisible, moneyTypeList, loadingVisible } = this.state,
 			flag = type === 'member';
 		return (
 			<SafeViewComponent>
@@ -143,12 +136,12 @@ export default class ReCharge extends React.Component {
 							<Text style={{ fontSize: 14, color: '#333' }}>{flag ? '会员价格' : '余额充值'}</Text>
 						</View>
 						<View style={styles.content_account}>
-							{config.PAY_MONEY_FOR_BALANCE.map((item, index) => {
+							{moneyTypeList.map((item, index) => {
 								return (
 									<MoneyItem
 										key={index}
-										money={item.pay}
-										discount={item.given}
+										money={item.money}
+										discount={item.send}
 										active={activeMoney === index}
 										onPress={this.onPressChargeItem.bind(this, index)}
 									/>
@@ -179,6 +172,7 @@ export default class ReCharge extends React.Component {
 					<TouchableOpacity style={styles.bottom_btn} onPress={this.onSurePay.bind(this)}>
 						<Text style={styles.bottom_btn_text}>去支付</Text>
 					</TouchableOpacity>
+					<Loading visible={loadingVisible} />
 				</View>
 			</SafeViewComponent>
 		);

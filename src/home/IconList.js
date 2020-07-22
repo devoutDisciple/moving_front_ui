@@ -81,10 +81,10 @@ export default class IconList extends React.Component {
 		}
 		// 上门取衣
 		if (data && data.key === 'home_clothing') {
-			if (status === 3) {
-				navigation.navigate('MemberScreen');
-				return Message.warning('请知悉', '此服务仅会员可用');
-			}
+			// if (status === 3) {
+			// 	navigation.navigate('MemberScreen');
+			// 	return Message.warning('请知悉', '此服务仅会员可用');
+			// }
 			await this.judgeMember();
 			navigation.navigate('ClothingScreen');
 		}

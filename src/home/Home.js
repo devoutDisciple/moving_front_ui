@@ -12,8 +12,9 @@ import Message from '../component/Message';
 import Spinner from 'react-native-spinkit';
 import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import NavigationUtil from '../util/NavigationUtil';
+import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl } from 'react-native';
 
 export default class HomeScreen extends React.Component {
 	constructor(props) {
@@ -222,9 +223,10 @@ export default class HomeScreen extends React.Component {
 				});
 				this.setState({ shopid: selectShop.id }, async () => {
 					await StorageUtil.set('shop', selectShop);
-					navigation.navigate('HomeScreen', {
-						title: name || '',
-					});
+					NavigationUtil.reset(navigation, 'HomeScreen');
+					// navigation.navigate('HomeScreen', {
+					// 	title: name || '',
+					// });
 				});
 			},
 		});

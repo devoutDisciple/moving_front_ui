@@ -109,7 +109,6 @@ export default class PayOrderScreen extends React.Component {
 		}
 		if (payWay === 'wechat') {
 			try {
-				this.setState({ loadingVisible: true });
 				let res = await PayUtil.payMoneyByWeChat({
 					desc: '预约取衣派送费用',
 					money: money,
@@ -117,7 +116,6 @@ export default class PayOrderScreen extends React.Component {
 					orderid: orderid,
 					userid: user.id,
 				});
-				this.setState({ loadingVisible: false });
 				if (res === 'success') {
 					return Message.confirm('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
 						NavigationUtil.reset(navigation, 'HomeScreen');
@@ -132,7 +130,6 @@ export default class PayOrderScreen extends React.Component {
 			}
 		}
 		if (payWay === 'alipay') {
-			this.setState({ loadingVisible: true });
 			let res = await Request.post('/pay/payByOrderAlipay', {
 				desc: '预约取衣派送费用',
 				money: money,
@@ -140,7 +137,6 @@ export default class PayOrderScreen extends React.Component {
 				userid: user.id,
 				orderid: orderid,
 			});
-			this.setState({ loadingVisible: false });
 			setTimeout(() => {
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请前往订单查看详细信息');

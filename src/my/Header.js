@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
 	my_header_img_container: {
 		height: headerHeight,
 		width: headerHeight,
+		marginTop: 5,
 	},
 	my_header_image: {
 		height: headerHeight,
