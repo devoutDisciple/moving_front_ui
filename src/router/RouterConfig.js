@@ -183,6 +183,16 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 首页
+		HomeScreen: {
+			screen: TabNavigator,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
+
 		// 首屏广告
 		AdvertisementScreen: {
 			screen: AdvertisementScreen,
@@ -217,15 +227,6 @@ const finnalApp = createStackNavigator(
 			},
 		},
 
-		// 首页
-		HomeScreen: {
-			screen: TabNavigator,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
 		// 积分兑换记录页面
 		IntergralRecordScreen: {
 			screen: IntergralRecordScreen,

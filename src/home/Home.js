@@ -116,6 +116,19 @@ export default class HomeScreen extends React.Component {
 		await this.getSwiperList(shopid);
 		flag ? (state.loadingVisible = false) : (state.freshLoading = false);
 		this.setState(state);
+		// 获取用户信息
+		await this.getCurrentUserInfo();
+	}
+
+	// 更新当前用户信息
+	async getCurrentUserInfo() {
+		let user = await StorageUtil.get('user');
+		if (!user) {
+			return;
+		}
+		let res = await Request.get('/user/getUserByUserid', { userid: user.id });
+		let currentUser = res.data || '';
+		await StorageUtil.set('user', currentUser);
 	}
 
 	// 获取当前版本
@@ -148,13 +161,14 @@ export default class HomeScreen extends React.Component {
 			// 保存设置的商店
 			await StorageUtil.set('shop', shop);
 		}
+
 		if (shop && data) {
 			let currentRes = data.filter(item => item.id === shop.id);
-			console.log(currentRes, 111);
 			shop = (currentRes && currentRes[0]) || {};
 			// 保存设置的商店
 			await StorageUtil.set('shop', shop);
 		}
+
 		await this.setState({ shopList: data || [], shopid: shop.id }, () => {
 			let { navigation } = this.props;
 			navigation.navigate('HomeScreen', {
@@ -288,7 +302,12 @@ export default class HomeScreen extends React.Component {
 					{/* 图标选项 */}
 					<IconList navigation={navigation} />
 					{/* 快递柜子 */}
-					<Express navigation={navigation} shopid={shopid} cabinetList={cabinetList} />
+					<Express
+						shopid={shopid}
+						navigation={navigation}
+						cabinetList={cabinetList}
+						setLoading={flag => this.setState({ loadingVisible: flag })}
+					/>
 				</ScrollView>
 				{/* 非强制版本 */}
 				{versionSoftDialogVisible && (

@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import moment from 'moment';
 import Config from '../config/config';
 import config from '../config/config';
@@ -12,10 +11,10 @@ import Loading from '../component/Loading';
 import { getDayHours } from '../util/Util';
 import StorageUtil from '../util/Storage';
 import message from '../component/Message';
-// import Toast from 'react-native-root-toast';
+import ClothingItem from './ClothingItem';
 import CommonHeader from '../component/CommonHeader';
 import SafeViewComponent from '../component/SafeViewComponent';
-import ClothingItem from './ClothingItem';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 const timeFormat = 'YYYY-MM-DD';
 export default class Member extends React.Component {
@@ -31,7 +30,6 @@ export default class Member extends React.Component {
 			changeKey: '',
 			defalutValue: '',
 			placeHolder: '',
-
 			selectDay: `${tomorrow}(明天)`,
 			selectTime: '09:00',
 			selectAddress: '',

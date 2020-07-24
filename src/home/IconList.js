@@ -24,7 +24,7 @@ export default class IconList extends React.Component {
 			android: config.map_key_android,
 		});
 		Geolocation.getCurrentPosition(({ coords }) => {
-			console.log(coords, '用户位置');
+			// console.log(coords, '用户位置');
 		});
 		PushNotificationIOS.requestPermissions().then(
 			data => {
@@ -90,10 +90,10 @@ export default class IconList extends React.Component {
 		}
 		// 上门取衣
 		if (data && data.key === 'home_clothing') {
-			// if (status === 3) {
-			// 	navigation.navigate('MemberScreen');
-			// 	return Message.warning('请知悉', '此服务仅会员可用');
-			// }
+			if (status === 3) {
+				navigation.navigate('MemberScreen');
+				return Message.warning('请知悉', '此服务仅会员可用');
+			}
 			await this.judgeMember();
 			navigation.navigate('ClothingScreen');
 		}
@@ -139,34 +139,34 @@ export default class IconList extends React.Component {
 
 		// 获取所有的存储的key
 		if (data && data.key === 'aaa') {
-			let url = 'http://47.107.43.166/';
-			Linking.canOpenURL(url)
-				.then(supported => {
-					if (supported) {
-						Linking.openURL(url);
-					} else {
-					}
-				})
-				.catch(error => {
-					console.log(error);
-				});
-			// this.setState({ num: this.state.num + 1 });
-			// let keys = await StorageUtil.getAllKeys();
-			// let res = await StorageUtil.multiGet(keys);
-			// console.log('StorageUtil: ', res);
+			// let url = 'http://47.107.43.166/';
+			// Linking.canOpenURL(url)
+			// 	.then(supported => {
+			// 		if (supported) {
+			// 			Linking.openURL(url);
+			// 		} else {
+			// 		}
+			// 	})
+			// 	.catch(error => {
+			// 		console.log(error);
+			// 	});
+			this.setState({ num: this.state.num + 1 });
+			let keys = await StorageUtil.getAllKeys();
+			let res = await StorageUtil.multiGet(keys);
+			console.log('StorageUtil: ', res);
 		}
 
 		// 清除所有的keys
 		if (data && data.key === 'bbb') {
-			// this.setState({ num: this.state.num + 1 });
-			// await StorageUtil.clear();
-			// console.log('清除成功');
-
-			PushNotificationIOS.presentLocalNotification({
-				alertTitle: 'Sample Title',
-				alertBody: 'Sample local notification',
-				applicationIconBadgeNumber: 1,
-			});
+			this.setState({ num: this.state.num + 1 });
+			await StorageUtil.clear();
+			console.log('清除成功');
+			//
+			// PushNotificationIOS.presentLocalNotification({
+			// 	alertTitle: 'Sample Title',
+			// 	alertBody: 'Sample local notification',
+			// 	applicationIconBadgeNumber: 1,
+			// });
 		}
 	}
 

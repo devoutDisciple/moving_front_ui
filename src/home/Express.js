@@ -23,12 +23,20 @@ export default class Express extends React.Component {
 		let boxid = boxDetail.boxid,
 			cabinetId = boxDetail.id;
 		let { navigation } = this.props;
+		console.log(1111);
 		// 验证用户是否登录
 		let user = await storageUtil.get('user');
 		if (!user) {
 			navigation.navigate('LoginScreen');
 			return Toast.warning('请先登录!');
 		}
+		let { setLoading } = this.props;
+		setLoading(true);
+		// 更新当前用户信息
+		let res = await Request.get('/user/getUserByUserid', { userid: user.id });
+		user = res.data || '';
+		await storageUtil.set('user', user);
+		setLoading(false);
 		// 登录过后验证用户信息是否完整
 		if (!user.phone || !user.username || !user.email) {
 			navigation.navigate('MyMessage');

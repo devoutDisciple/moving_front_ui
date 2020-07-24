@@ -3,11 +3,15 @@ import React from 'react';
 import Request from '../util/Request';
 import CabinetItem from './CabinetItem';
 import CommonSylte from '../style/common';
-import CommonHeader from '../component/CommonHeader';
 import Loading from '../component/Loading';
 import storageUtil from '../util/Storage';
 import Message from '../component/Message';
 import { INIT_BOX_STATE } from './const';
+import Alipay from '../util/Alipay';
+import PayUtil from '../util/PayUtil';
+import config from '../config/config';
+import * as WeChat from 'react-native-wechat-lib';
+import CommonHeader from '../component/CommonHeader';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
@@ -17,17 +21,40 @@ export default class OrderScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			user: {},
 			active: 'smallBox',
+			cabinetDetail: {},
+			wechatVisible: false,
 			loadingVisible: false,
 			boxDetail: INIT_BOX_STATE.INIT_BOX_STATE,
 		};
-		this.getParams = this.getParams.bind(this);
-		this.addOrder = this.addOrder.bind(this);
-		this.getState = this.getState.bind(this);
 	}
 
 	async componentDidMount() {
-		await this.getState();
+		await this.getInitData();
+		await this.onJudgeWechat();
+	}
+
+	async onJudgeWechat() {
+		let isWXAppInstalled = await WeChat.isWXAppInstalled();
+		if (isWXAppInstalled) {
+			this.setState({ wechatVisible: true });
+		}
+	}
+
+	async getInitData() {
+		try {
+			this.setState({ loadingVisible: true });
+			// 获取格子可用状态
+			await this.getState();
+			// 获取用户信息
+			await this.getUserInfo();
+			// 获取快递柜详细信息
+			await this.getCabinetDetail();
+			this.setState({ loadingVisible: false });
+		} catch (error) {
+			this.setState({ loadingVisible: false });
+		}
 	}
 
 	getParams() {
@@ -41,19 +68,31 @@ export default class OrderScreen extends React.Component {
 	}
 
 	// 获取格子的可用状态
-	getState() {
+	async getState() {
 		let params = this.getParams();
-		Request.get('/cabinet/getStateById', { cabinetId: params.cabinetId || 8 }).then(res => {
-			let data = res.data;
-			let boxState = INIT_BOX_STATE.INIT_BOX_STATE;
-			boxState[0].used = data && data.samllBox ? data.samllBox.used : 0;
-			boxState[0].empty = data && data.samllBox ? data.samllBox.empty : 0;
-			boxState[1].used = data && data.bigBox ? data.bigBox.used : 0;
-			boxState[1].empty = data && data.bigBox ? data.bigBox.empty : 0;
-			this.setState({
-				boxDetail: boxState,
-			});
-		});
+		let res = await Request.get('/cabinet/getStateById', { cabinetId: params.cabinetId });
+		let data = res.data;
+		let boxState = INIT_BOX_STATE.INIT_BOX_STATE;
+		boxState[0].used = data && data.samllBox ? data.samllBox.used : 0;
+		boxState[0].empty = data && data.samllBox ? data.samllBox.empty : 0;
+		boxState[1].used = data && data.bigBox ? data.bigBox.used : 0;
+		boxState[1].empty = data && data.bigBox ? data.bigBox.empty : 0;
+		this.setState({ boxDetail: boxState });
+	}
+
+	// 获取用户信息
+	async getUserInfo() {
+		let user = await storageUtil.get('user');
+		let res = await Request.get('/user/getUserByUserid', { userid: user.id });
+		let currentUser = res.data || '';
+		this.setState({ user: currentUser });
+	}
+
+	// 获取当前快递柜信息
+	async getCabinetDetail() {
+		let params = this.getParams();
+		let res = await Request.get('/cabinet/getDetailById', { cabinetId: params.cabinetId });
+		this.setState({ cabinetDetail: res.data || {} });
 	}
 
 	// 切换格口
@@ -61,27 +100,73 @@ export default class OrderScreen extends React.Component {
 		this.setState({ active: id });
 	}
 
+	// 点击打开柜子
+	async onClickOpenBtn() {
+		let { user, wechatVisible } = this.state;
+		// let { navigation } = this.props;
+		if (Number(user.member) === 1) {
+			let res = await Request.get('/user/getUserCabinetUseTimeByUserid', { userid: user.id });
+			let result = res.data || '';
+			if (result.cabinet_use_time > 0) {
+				return this.onOpenCabinet(true);
+			}
+			return Message.paySelect(
+				'请知悉',
+				'普通用户将收取一元钱作为柜子使用费用',
+				async () => {
+					let alipayRes = await Request.post('/pay/payByOrderAlipay', {
+						desc: '洗衣柜使用费用',
+						money: config.SAVE_CLOTHING_MONEY,
+						type: 'save_clothing',
+						userid: user.id,
+					});
+					await Alipay.pay(alipayRes.data);
+				},
+				async () => {
+					await PayUtil.payMoneyByWeChat({
+						money: config.SAVE_CLOTHING_MONEY,
+						desc: '洗衣柜使用费用',
+						type: 'save_clothing',
+						userid: user.id,
+					});
+				},
+				async () => {
+					this.getInitData();
+				},
+				wechatVisible,
+			);
+		}
+		this.onOpenCabinet(false);
+	}
+
 	// 打开柜子
-	onOpenCabinet() {
+	async onOpenCabinet(flag) {
 		let detail = this.getParams();
 		let boxid = detail.boxid,
 			type = this.state.active,
 			cabinetId = detail.cabinetId;
-		this.setState({ loadingVisible: true }, () => {
-			Request.post('/cabinet/openCellSave', { cabinetId, boxid, type })
-				.then(res => {
-					if (res.code === 200) {
-						let { cellid } = res.data;
-						return this.addOrder(detail.boxid, cellid);
-						// return Toast.success('柜子已打开, 请存放衣物!');
-					}
-				})
-				.finally(() => this.setState({ loadingVisible: false }));
-		});
+		this.setState({ loadingVisible: true });
+		let res = await Request.post('/cabinet/openCellSave', { cabinetId, boxid, type });
+		this.setState({ loadingVisible: false });
+		if (res.code === 200) {
+			let { cellid } = res.data;
+			// 如果用户不是会员的话， 减少用户使用柜子次数
+			if (flag) {
+				this.subUserUseTime();
+			}
+			// 增加订单
+			return this.addOrder(detail.boxid, cellid, flag);
+		}
+	}
+
+	// 减少用户打开柜子的次数
+	async subUserUseTime() {
+		let { user } = this.state;
+		await Request.post('/user/subCabinetUseTime', { userid: user.id });
 	}
 
 	// 增加订单
-	async addOrder(boxid, cellid) {
+	async addOrder(boxid, cellid, flag) {
 		let params = this.getParams(),
 			{ navigation } = this.props,
 			shop = await storageUtil.get('shop'),
@@ -98,6 +183,7 @@ export default class OrderScreen extends React.Component {
 			cabinetId: params.cabinetId,
 			boxid,
 			cellid,
+			pre_pay: flag ? 1 : 0,
 			order_type: 1, // 通过柜子送货
 		});
 		if (result.data === 'success') {
@@ -110,7 +196,7 @@ export default class OrderScreen extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let { active, boxDetail, loadingVisible } = this.state;
+		let { active, boxDetail, loadingVisible, cabinetDetail } = this.state;
 		return (
 			<SafeViewComponent>
 				<View style={{ flex: 1 }}>
@@ -118,7 +204,7 @@ export default class OrderScreen extends React.Component {
 					<ScrollView style={styles.cabinet} showsVerticalScrollIndicator={false}>
 						<View style={styles.cabinet_item}>
 							<View style={styles.detail_common_title}>
-								<Text>幸福家园北门一号柜</Text>
+								<Text>{cabinetDetail.name || 'MOVING洗衣柜'}</Text>
 							</View>
 							<View style={styles.cabinet_item_content}>
 								{boxDetail.map((item, index) => {
@@ -139,7 +225,7 @@ export default class OrderScreen extends React.Component {
 							<Text style={styles.cabinet_tip_text}>谢谢配合!</Text>
 						</View>
 					</ScrollView>
-					<TouchableOpacity style={styles.cabinet_item_bottom} onPress={this.onOpenCabinet.bind(this)}>
+					<TouchableOpacity style={styles.cabinet_item_bottom} onPress={this.onClickOpenBtn.bind(this)}>
 						<Text style={styles.cabinet_item_bottom_text}>打开柜子</Text>
 					</TouchableOpacity>
 					<Loading visible={loadingVisible} />

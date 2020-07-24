@@ -76,4 +76,27 @@ export default {
 			{ cancelable: true },
 		);
 	},
+	// 费用支付
+	paySelect: (title, message, okFun, cancelFun, complatePay, wechatVisible) => {
+		let content = [
+			{
+				text: '支付宝支付',
+				onPress: okFun ? okFun : () => {},
+			},
+		];
+		if (wechatVisible) {
+			content.push({
+				text: '微信支付',
+				onPress: cancelFun ? cancelFun : () => {},
+			});
+		}
+		content.push({
+			text: '已完成支付',
+			onPress: complatePay ? complatePay : () => {},
+		});
+		content.push({
+			text: '取消',
+		});
+		return Alert.alert(title, message, content, { cancelable: true });
+	},
 };
