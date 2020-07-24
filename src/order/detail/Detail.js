@@ -23,13 +23,22 @@ export default class OrderScreen extends React.Component {
 	}
 
 	async componentDidMount() {
-		await this.getOrderById();
-		await this.getUserDefaultAddress();
+		await this.initSearch();
+	}
+
+	async initSearch() {
+		try {
+			this.setState({ loadingVisible: true });
+			await this.getOrderById();
+			await this.getUserDefaultAddress();
+			this.setState({ loadingVisible: false });
+		} catch (error) {
+			this.setState({ loadingVisible: false });
+		}
 	}
 
 	// 根据订单id获取订单
 	async getOrderById() {
-		this.setState({ loadingVisible: true });
 		const { navigation } = this.props;
 		let id = navigation.getParam('id');
 		let order = await Request.get('/order/getOrderById', { id });

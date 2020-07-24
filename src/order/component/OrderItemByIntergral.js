@@ -97,7 +97,7 @@ export default class AllOrder extends React.Component {
 								<Text style={styles.font_desc_style}>{intergral_num} 积分</Text>
 							</View>
 						</View>
-						<View style={styles.order_item_right_adrress}>
+						<View style={styles.order_item_right_order_type}>
 							<Text style={styles.font_desc_style}>订单方式：积分兑换</Text>
 						</View>
 					</TouchableOpacity>
@@ -158,12 +158,17 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1,
 	},
 	order_item_right_adrress: {
-		marginTop: 8,
+		marginTop: 15,
+		minHeight: 24,
+	},
+	order_item_right_order_type: {
+		marginTop: 10,
 		minHeight: 24,
 	},
 	order_item_right_goods: {
 		flexDirection: 'row',
-		marginTop: 5,
+		marginTop: 15,
+		minHeight: 24,
 	},
 	order_item_right_goods_left: {
 		flex: 1,

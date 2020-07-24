@@ -13,6 +13,7 @@ export default class OrderScreen extends React.Component {
 	render() {
 		let { orderDetail, type } = this.props,
 			goods = [];
+		console.log(orderDetail, 999);
 		try {
 			goods = JSON.parse(orderDetail.goods);
 		} catch (error) {
@@ -41,10 +42,19 @@ export default class OrderScreen extends React.Component {
 						);
 					})}
 					<View style={styles.detail_content_goods_send}>
-						<Text>派送费： ￥{orderDetail.send_money}</Text>
+						<Text>原价： ￥{orderDetail.origin_money || '0.00'}</Text>
+					</View>
+					<View style={styles.detail_content_goods_send}>
+						<Text>折扣： ￥{(orderDetail.discount || 10) + '折'}</Text>
+					</View>
+					<View style={styles.detail_content_goods_send}>
+						<Text>已减： ￥{Number(Number(orderDetail.origin_money) - Number(orderDetail.money).toFixed(2)) || '0.00'}</Text>
+					</View>
+					<View style={styles.detail_content_goods_send}>
+						<Text>派送费： ￥{orderDetail.send_money || '0.00'}</Text>
 					</View>
 					<View style={styles.detail_content_goods_total}>
-						<Text style={styles.detail_content_goods_total_text}>总价：￥{orderDetail.money}</Text>
+						<Text style={styles.detail_content_goods_total_text}>总价：￥{orderDetail.money || '0.00'}</Text>
 					</View>
 				</View>
 			);
