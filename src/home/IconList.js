@@ -6,6 +6,7 @@ import StorageUtil from '../util/Storage';
 import config from '../config/config';
 import Toast from '../component/Toast';
 import Message from '../component/Message';
+import PushNotificationIOS from '../util/PushNotification';
 import { init, Geolocation } from 'react-native-amap-geolocation';
 
 export default class IconList extends React.Component {
@@ -25,6 +26,14 @@ export default class IconList extends React.Component {
 		Geolocation.getCurrentPosition(({ coords }) => {
 			console.log(coords, '用户位置');
 		});
+		PushNotificationIOS.requestPermissions().then(
+			data => {
+				console.log('PushNotificationIOS.requestPermissions', data);
+			},
+			data => {
+				console.log('PushNotificationIOS.requestPermissions failed', data);
+			},
+		);
 	}
 
 	// 判断是不是会员
@@ -149,9 +158,15 @@ export default class IconList extends React.Component {
 
 		// 清除所有的keys
 		if (data && data.key === 'bbb') {
-			this.setState({ num: this.state.num + 1 });
-			await StorageUtil.clear();
-			console.log('清除成功');
+			// this.setState({ num: this.state.num + 1 });
+			// await StorageUtil.clear();
+			// console.log('清除成功');
+
+			PushNotificationIOS.presentLocalNotification({
+				alertTitle: 'Sample Title',
+				alertBody: 'Sample local notification',
+				applicationIconBadgeNumber: 1,
+			});
 		}
 	}
 
@@ -195,9 +210,9 @@ export default class IconList extends React.Component {
 				text: 'MOVING官网',
 			},
 			{
-				// key: 'bbb',
-				// url: require('../../img/home/icon6.png'),
-				// text: '协议',
+				key: 'bbb',
+				url: require('../../img/home/icon6.png'),
+				text: '协议',
 			},
 		];
 		return (

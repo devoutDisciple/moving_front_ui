@@ -182,6 +182,7 @@
 		C1A78D2424350FDB003C01FE /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C1A78D2624350FEE003C01FE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C1A78D2824350FF8003C01FE /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		C1AEFB5624C99B0200246732 /* MOVING洗衣.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "MOVING洗衣.entitlements"; path = "laundryApp/MOVING洗衣.entitlements"; sourceTree = "<group>"; };
 		C1F76989242F579D00420968 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
 		C1F7698B242F57B500420968 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		C37AF49885A0E9A731B57EB8 /* Pods-laundryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp.release.xcconfig"; path = "Target Support Files/Pods-laundryApp/Pods-laundryApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -260,6 +261,7 @@
 		13B07FAE1A68108700A75B9A /* laundryApp */ = {
 			isa = PBXGroup;
 			children = (
+				C1AEFB5624C99B0200246732 /* MOVING洗衣.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				C11F758423A15703007090FA /* Fonts */,
@@ -952,6 +954,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "laundryApp/MOVING洗衣.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 202007190342;
@@ -989,6 +992,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "laundryApp/MOVING洗衣.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 202007190342;

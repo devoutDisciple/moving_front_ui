@@ -5,11 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import <UserNotifications/UNUserNotificationCenter.h>
 #import <React/RCTBridgeDelegate.h>
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, WXApiDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, WXApiDelegate, UNUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
