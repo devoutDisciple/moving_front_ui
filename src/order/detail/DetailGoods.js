@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import CommonSylte from '../../style/common';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 export default class OrderScreen extends React.Component {
 	constructor(props) {
@@ -19,6 +19,7 @@ export default class OrderScreen extends React.Component {
 		} catch (error) {
 			goods = [];
 		}
+		const subMoney = Number(Number(orderDetail.origin_money) - Number(orderDetail.money)).toFixed(2);
 		if (goods && goods.length !== 0 && Number(type) === 1) {
 			return (
 				<View style={styles.detail_content_goods}>
@@ -28,7 +29,6 @@ export default class OrderScreen extends React.Component {
 					{goods.map((item, index) => {
 						return (
 							<View key={index} style={styles.detail_content_goods_item}>
-								{/* <Image style={styles.detail_content_goods_item_img} source={require('../../../img/lunbo/3.jpg')} /> */}
 								<View style={styles.detail_content_goods_item_name}>
 									<Text>{item.name}</Text>
 								</View>
@@ -36,7 +36,9 @@ export default class OrderScreen extends React.Component {
 									<Text>x {item.num}</Text>
 								</View>
 								<View style={styles.detail_content_goods_item_price}>
-									<Text style={styles.detail_content_goods_item_price_text}>￥ {item.num * item.price}</Text>
+									<Text style={styles.detail_content_goods_item_price_text}>
+										￥ {Number(item.num * item.price).toFixed(2)}
+									</Text>
 								</View>
 							</View>
 						);
@@ -48,7 +50,7 @@ export default class OrderScreen extends React.Component {
 						<Text>折扣： ￥{(orderDetail.discount || 10) + '折'}</Text>
 					</View>
 					<View style={styles.detail_content_goods_send}>
-						<Text>已减： ￥{Number(Number(orderDetail.origin_money) - Number(orderDetail.money).toFixed(2)) || '0.00'}</Text>
+						<Text>已减： ￥{subMoney || '0.00'}</Text>
 					</View>
 					<View style={styles.detail_content_goods_send}>
 						<Text>派送费： ￥{orderDetail.send_money || '0.00'}</Text>
@@ -77,7 +79,6 @@ export default class OrderScreen extends React.Component {
 						<Text>积分兑换</Text>
 					</View>
 					<View style={styles.detail_content_goods_item}>
-						{/* <Image style={styles.detail_content_goods_item_img} source={require('../../../img/lunbo/3.jpg')} /> */}
 						<View style={styles.detail_content_goods_item_name}>
 							<Text>{goods.name}</Text>
 						</View>

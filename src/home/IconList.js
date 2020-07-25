@@ -138,29 +138,29 @@ export default class IconList extends React.Component {
 		}
 
 		// 获取所有的存储的key
-		if (data && data.key === 'aaa') {
-			// let url = 'http://47.107.43.166/';
-			// Linking.canOpenURL(url)
-			// 	.then(supported => {
-			// 		if (supported) {
-			// 			Linking.openURL(url);
-			// 		} else {
-			// 		}
-			// 	})
-			// 	.catch(error => {
-			// 		console.log(error);
-			// 	});
-			this.setState({ num: this.state.num + 1 });
-			let keys = await StorageUtil.getAllKeys();
-			let res = await StorageUtil.multiGet(keys);
-			console.log('StorageUtil: ', res);
+		if (data && data.key === 'guanwang') {
+			let url = 'http://47.107.43.166/';
+			Linking.canOpenURL(url)
+				.then(supported => {
+					if (supported) {
+						Linking.openURL(url);
+					} else {
+					}
+				})
+				.catch(error => {
+					console.log(error);
+				});
+			// this.setState({ num: this.state.num + 1 });
+			// let keys = await StorageUtil.getAllKeys();
+			// let res = await StorageUtil.multiGet(keys);
+			// console.log('StorageUtil: ', res);
 		}
 
 		// 清除所有的keys
 		if (data && data.key === 'bbb') {
-			this.setState({ num: this.state.num + 1 });
-			await StorageUtil.clear();
-			console.log('清除成功');
+			// this.setState({ num: this.state.num + 1 });
+			// await StorageUtil.clear();
+			// console.log('清除成功');
 			//
 			// PushNotificationIOS.presentLocalNotification({
 			// 	alertTitle: 'Sample Title',
@@ -205,14 +205,14 @@ export default class IconList extends React.Component {
 				text: '版本更新',
 			},
 			{
-				key: 'aaa',
+				key: 'guanwang',
 				url: require('../../img/home/icon6.png'),
 				text: 'MOVING官网',
 			},
 			{
-				key: 'bbb',
-				url: require('../../img/home/icon6.png'),
-				text: '协议',
+				// key: 'bbb',
+				// url: require('../../img/home/icon6.png'),
+				// text: '协议',
 			},
 		];
 		return (
