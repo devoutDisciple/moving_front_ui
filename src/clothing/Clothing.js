@@ -37,6 +37,11 @@ export default class Member extends React.Component {
 			phone: '',
 			house: '',
 			desc: '',
+			// selectAddress: '',
+			// username: '张振11',
+			// phone: '15906672702',
+			// house: 'aaa',
+			// desc: '描述',
 		};
 	}
 
@@ -168,7 +173,7 @@ export default class Member extends React.Component {
 		// if (result.data === 'success') {
 		// NavigationUtil.reset(navigation, 'HomeScreen');
 		// }
-		navigation.navigate('PayOrderScreen', { type: 'clothing', money: 9.9, ...params });
+		navigation.navigate('PayOrderScreen', { type: 'clothing', money: config.getClothingMoney, ...params });
 	}
 
 	render() {

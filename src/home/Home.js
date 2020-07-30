@@ -91,6 +91,7 @@ export default class HomeScreen extends React.Component {
 	};
 
 	async componentDidMount() {
+		console.log(1111);
 		const { setParams } = this.props.navigation;
 		// 设置左右按钮的点击功能
 		setParams({
@@ -104,20 +105,25 @@ export default class HomeScreen extends React.Component {
 
 	async onSearchData(flag) {
 		let state = {};
-		flag ? (state.loadingVisible = true) : (state.freshLoading = true);
-		this.setState(state);
-		// 获取版本信息
-		await this.getVersion();
-		// 获取所有商店
-		let shopid = await this.getAllShop();
-		// 获取快递柜子
-		await this.getAllCabinetByShop(shopid);
-		// 获取轮播图信息
-		await this.getSwiperList(shopid);
-		flag ? (state.loadingVisible = false) : (state.freshLoading = false);
-		this.setState(state);
-		// 获取用户信息
-		await this.getCurrentUserInfo();
+		try {
+			flag ? (state.loadingVisible = true) : (state.freshLoading = true);
+			this.setState(state);
+			// 获取版本信息
+			await this.getVersion();
+			// 获取所有商店
+			let shopid = await this.getAllShop();
+			// 获取快递柜子
+			await this.getAllCabinetByShop(shopid);
+			// 获取轮播图信息
+			await this.getSwiperList(shopid);
+			flag ? (state.loadingVisible = false) : (state.freshLoading = false);
+			this.setState(state);
+			// 获取用户信息
+			await this.getCurrentUserInfo();
+		} catch (error) {
+			flag ? (state.loadingVisible = false) : (state.freshLoading = false);
+			this.setState(state);
+		}
 	}
 
 	// 更新当前用户信息

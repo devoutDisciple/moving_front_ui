@@ -96,7 +96,7 @@ export default class Express extends React.Component {
 					})
 				) : (
 					<View style={styles.empty}>
-						<Text style={styles.empty_text}>快递柜不见了。。。</Text>
+						<Text style={styles.empty_text}>洗衣柜不见了。。。</Text>
 					</View>
 				)}
 			</View>

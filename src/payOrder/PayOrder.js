@@ -47,6 +47,7 @@ export default class PayOrderScreen extends React.Component {
 		this.setState({ loadingVisible: true });
 		const { navigation } = this.props;
 		let money = navigation.getParam('money');
+		console.log(money);
 		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付 clothing-上门取衣
 		// 获取用户id的值
 		let currentUser = await StorageUtil.get('user');

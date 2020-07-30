@@ -204,13 +204,13 @@ PODS:
   - react-native-amap-geolocation (1.1.2):
     - AMapLocation (~> 2.6.0)
     - React
-  - react-native-camera (3.30.0):
+  - react-native-camera (3.33.0):
     - React
-    - react-native-camera/RCT (= 3.30.0)
-    - react-native-camera/RN (= 3.30.0)
-  - react-native-camera/RCT (3.30.0):
+    - react-native-camera/RCT (= 3.33.0)
+    - react-native-camera/RN (= 3.33.0)
+  - react-native-camera/RCT (3.33.0):
     - React
-  - react-native-camera/RN (3.30.0):
+  - react-native-camera/RN (3.33.0):
     - React
   - react-native-restart (0.0.17):
     - React
@@ -257,15 +257,13 @@ PODS:
     - React
   - RNCPushNotificationIOS (1.4.0):
     - React
-  - RNDeviceInfo (5.6.1):
+  - RNDeviceInfo (5.6.3):
     - React
   - RNFastImage (7.0.2):
     - React
     - SDWebImage (~> 5.0)
     - SDWebImageWebPCoder (~> 0.2.3)
-  - RNGestureHandler (1.6.1):
-    - React
-  - RNI18n (2.0.15):
+  - RNGestureHandler (1.7.0):
     - React
   - RNImageCropPicker (0.28.0):
     - React-Core
@@ -276,11 +274,11 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
-  - RNReanimated (1.9.0):
+  - RNReanimated (1.10.1):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
-  - RNVectorIcons (6.6.0):
+  - RNVectorIcons (6.7.0):
     - React
   - RSKImageCropper (2.2.3)
   - SDWebImage (5.8.1):
@@ -289,6 +287,8 @@ PODS:
   - SDWebImageWebPCoder (0.2.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.0)
+  - toolbar-android (0.1.0-rc.2):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -332,11 +332,11 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNI18n (from `../node_modules/react-native-i18n`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "toolbar-android (from `../node_modules/@react-native-community/toolbar-android`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -423,8 +423,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fast-image"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNI18n:
-    :path: "../node_modules/react-native-i18n"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
   RNReanimated:
@@ -433,6 +431,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  toolbar-android:
+    :path: "../node_modules/@react-native-community/toolbar-android"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -459,7 +459,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8dfb73b987afa9324e4009bdce62a18ce23d983c
   React-jsinspector: d15478d0a8ada19864aa4d1cc1c697b41b3fa92f
   react-native-amap-geolocation: 5b42219a67e29b4c1ce0b75faf3b8869f97e2f7c
-  react-native-camera: eeb5b5f4ba4c1365fed3563af8a72007cbad7aab
+  react-native-camera: 55e1afb6d585314ca96ea5504e6b1ba7583c1d21
   react-native-restart: d19a0f8d053d065fe64cd2baebb6487111c77149
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-viewpager: a7b438ca32c57b2614ece2a123e7fe116f743131
@@ -475,17 +475,17 @@ SPEC CHECKSUMS:
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
   RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
   RNCPushNotificationIOS: dc1c0c6aa18a128df123598149f42e848d26a4ac
-  RNDeviceInfo: b6e650fbd234732c759544218657d549b4339038
+  RNDeviceInfo: 5be12a5bfbb8da3528c43ee4373abd9c30d04616
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
-  RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
+  RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNImageCropPicker: cf129d17e042ce3e96fb9ada967c28f21f977c82
-  RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
+  RNReanimated: c2bb7438b57a3d987bb2e4e6e4bca94787e30b02
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
-  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   SDWebImage: e3eae2eda88578db0685a0c88597fdadd9433f05
   SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
+  toolbar-android: 85f3ef4d691469f2d304e7dee4bca013aa1ba1ff
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: 96e7a3180c59fb1894211d03ba36c6d8559b113f

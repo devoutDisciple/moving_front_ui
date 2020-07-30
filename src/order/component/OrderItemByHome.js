@@ -20,7 +20,7 @@ export default class AllOrder extends React.Component {
 		try {
 			let { id } = this.props.detail;
 			let { navigation } = this.props;
-			navigation.navigate('PayOrderScreen', { money: 9.9, type: 'clothing', orderid: id, pay: 'already' });
+			navigation.navigate('PayOrderScreen', { money: Config.getClothingMoney, type: 'clothing', orderid: id, pay: 'already' });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}

@@ -22,7 +22,6 @@ export default {
 					package: data.package, // 商家根据财付通文档填写的数据和签名
 					sign: data.newSign, // 商家根据微信开放平台文档对数据做的签名
 				};
-				console.log(params, 111);
 				// 第三步，调起微信客户端支付
 				WeChat.pay(params)
 					.then(response => {

@@ -112,7 +112,7 @@ export default class OrderScreen extends React.Component {
 			}
 			return Message.paySelect(
 				'请知悉',
-				'普通用户将收取一元钱作为柜子使用费用',
+				'普通用户将收取一元钱作为洗衣柜使用费用',
 				async () => {
 					let alipayRes = await Request.post('/pay/payByOrderAlipay', {
 						desc: '洗衣柜使用费用',
@@ -187,7 +187,7 @@ export default class OrderScreen extends React.Component {
 			order_type: 1, // 通过柜子送货
 		});
 		if (result.data === 'success') {
-			Message.warning('柜子已打开, 请存放衣物!', '订单已生成,祝您生活愉快', () => {
+			Message.warning('洗衣柜已打开, 请存放衣物!', '订单已生成,祝您生活愉快', () => {
 				return navigation.navigate('HomeScreen');
 			});
 			this.getState();
@@ -220,7 +220,7 @@ export default class OrderScreen extends React.Component {
 							</View>
 						</View>
 						<View style={styles.cabinet_tip}>
-							<Text style={styles.cabinet_tip_text}>Tip: 柜子可免费存放三天,超出时间将收取费用</Text>
+							<Text style={styles.cabinet_tip_text}>Tip: 洗衣柜可免费存放三天,超出时间将收取费用</Text>
 							<Text style={styles.cabinet_tip_text}>收到取衣通知后,请尽快取回您的衣物</Text>
 							<Text style={styles.cabinet_tip_text}>谢谢配合!</Text>
 						</View>
