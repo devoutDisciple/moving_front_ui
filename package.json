@@ -22,7 +22,6 @@
     "react": "16.9.0",
     "react-native": "0.61.4",
     "react-native-amap-geolocation": "^1.1.0",
-    "react-native-camera": "^3.17.0",
     "react-native-device-info": "^5.6.1",
     "react-native-elements": "^1.2.7",
     "react-native-fast-image": "^7.0.2",
@@ -51,7 +50,7 @@
     "babel-jest": "^24.9.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
-    "jetifier": "^1.6.4",
+    "jetifier": "^1.6.6",
     "metro-react-native-babel-preset": "^0.57.0",
     "react-test-renderer": "16.9.0"
   },
