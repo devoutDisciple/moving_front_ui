@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Swiper from 'react-native-swiper';
 import Config from '../config/config';
 import FastImage from '../component/FastImage';
-import Request from '../util/Request';
 import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');

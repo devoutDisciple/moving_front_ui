@@ -101,6 +101,7 @@ export default class LoginScreen extends React.Component {
 						label={'请输入手机号'}
 						onChangeText={this.inputChange.bind(this, 'phone')}
 						keyboardType="number-pad"
+						returnKeyType="done"
 						maxLength={11}
 						selectionColor={baseColor.fontColor}
 					/>

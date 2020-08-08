@@ -122,6 +122,7 @@ export default class RegisterScreen extends React.Component {
 						label={'请输入手机号'}
 						onChangeText={this.inputChange.bind(this, 'phone')}
 						keyboardType="number-pad"
+						returnKeyType="done"
 						maxLength={11}
 						selectionColor={baseColor.fontColor}
 					/>
@@ -133,6 +134,7 @@ export default class RegisterScreen extends React.Component {
 								label={'验证码'}
 								onChangeText={this.inputChange.bind(this, 'securityCode')}
 								keyboardType="number-pad"
+								returnKeyType="done"
 								maxLength={6}
 								selectionColor={baseColor.fontColor}
 							/>
