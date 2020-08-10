@@ -3,6 +3,7 @@ import GoodsItem from './GoodsItem';
 import Request from '../util/Request';
 import Toast from '../component/Toast';
 import storageUtil from '../util/Storage';
+import Loading from '../component/Loading';
 import CommonHeader from '../component/CommonHeader';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert, TouchableOpacity } from 'react-native';
@@ -14,10 +15,11 @@ export default class Goods extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
-			totalPrice: 0,
+			totalPrice: 0.0,
 			remark: '',
 			boxid: '',
 			cabinetId: '',
+			loadingVisible: false,
 		};
 	}
 
@@ -38,6 +40,30 @@ export default class Goods extends React.Component {
 			}
 			this.setState({ data: data || [], boxid, cabinetId });
 		});
+	}
+
+	// 查询衣物
+	async onSearchClothing() {
+		try {
+			this.setState({ loadingVisible: true });
+			let shop = await storageUtil.get('shop');
+			if (!shop) {
+				this.props.navigation.navigate('LoginScreen');
+				return Toast.warning('请登录!');
+			}
+			let { navigation } = this.props;
+			let boxid = navigation.getParam('boxid', ''),
+				cabinetId = navigation.getParam('cabinetId', '');
+
+			let res = await Request.get('/clothing/getByShopid', { shopid: shop.id });
+			let data = res.data || [];
+			if (Array.isArray(data) && data.length !== 0) {
+				data.forEach(item => (item.num = 0));
+			}
+			this.setState({ data: data || [], boxid, cabinetId, loadingVisible: false });
+		} catch (error) {
+			this.setState({ loadingVisible: false });
+		}
 	}
 
 	// 点击确定的时候
@@ -91,19 +117,20 @@ export default class Goods extends React.Component {
 		data.map(item => {
 			totalPrice += Number(item.price * item.num);
 		});
+		totalPrice = Number(totalPrice).toFixed(2);
 		this.setState({ totalPrice });
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { data, totalPrice } = this.state;
+		let { data, totalPrice, loadingVisible } = this.state;
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
 					<CommonHeader title="计算洗衣所需金额" navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						<View style={styles.content_title}>
-							<Text>洗衣费用价格计算（仅供参考）</Text>
+							<Text>洗衣费用计算（仅供参考）</Text>
 						</View>
 						<View style={styles.content_clothing}>
 							{data &&
@@ -152,6 +179,7 @@ export default class Goods extends React.Component {
 							<Text style={styles.footer_right_text}>确定</Text>
 						</TouchableOpacity>
 					</View>
+					<Loading visible={loadingVisible} />
 				</View>
 			</SafeViewComponent>
 		);

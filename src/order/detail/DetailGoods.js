@@ -20,7 +20,7 @@ export default class OrderScreen extends React.Component {
 			goods = [];
 		}
 		const subMoney = Number(Number(orderDetail.origin_money) - Number(orderDetail.money)).toFixed(2);
-		if (goods && goods.length !== 0 && Number(type) === 1) {
+		if (goods && goods.length !== 0 && (Number(type) === 1 || Number(type) === 2)) {
 			return (
 				<View style={styles.detail_content_goods}>
 					<View style={styles.detail_common_title}>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
 	},
 	detail_content_goods_item: {
 		flexDirection: 'row',
-		height: 50,
+		height: 40,
 	},
 	detail_content_goods_item_img: {
 		height: 30,
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		marginLeft: 10,
+		color: '#8a8a8a',
 	},
 	detail_content_goods_item_num: {
 		width: 50,
@@ -139,9 +140,11 @@ const styles = StyleSheet.create({
 	detail_content_goods_item_price_text: {
 		fontSize: 16,
 		fontWeight: '800',
+		color: '#333',
 	},
 	detail_content_goods_send: {
 		marginVertical: 10,
+		marginLeft: 10,
 	},
 	detail_content_goods_total: {
 		alignItems: 'flex-end',
@@ -149,5 +152,6 @@ const styles = StyleSheet.create({
 	detail_content_goods_total_text: {
 		fontSize: 18,
 		fontWeight: '800',
+		color: '#333',
 	},
 });

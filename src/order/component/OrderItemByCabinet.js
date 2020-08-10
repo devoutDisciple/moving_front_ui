@@ -109,7 +109,7 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		const { goods } = this.props;
-		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, money, status } = this.props.detail;
+		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, cabinetName, money, status } = this.props.detail;
 
 		return (
 			<View style={styles.order_item}>
@@ -128,9 +128,11 @@ export default class AllOrder extends React.Component {
 					<View style={styles.order_item_right_time}>
 						<Text style={{ fontSize: 10, color: '#333' }}>{create_time}</Text>
 					</View>
-					<TouchableOpacity onPress={this.onSearchDetail.bind(this, id)}>
+					<TouchableOpacity style={styles.order_item_touch} onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>存取地址：{cabinetAdderss}</Text>
+							<Text style={styles.font_desc_style}>
+								存取地址：{cabinetAdderss} {cabinetName}
+							</Text>
 						</View>
 						<View style={styles.order_item_right_goods}>
 							<View style={styles.order_item_right_goods_left}>
@@ -160,7 +162,10 @@ const styles = StyleSheet.create({
 	font_desc_style: {
 		fontSize: 12,
 		color: '#333',
-		lineHeight: 20,
+		lineHeight: 28,
+	},
+	order_item_touch: {
+		paddingTop: 10,
 	},
 	order_item: {
 		minHeight: 150,
@@ -200,17 +205,8 @@ const styles = StyleSheet.create({
 		borderBottomColor: '#f2f2f2',
 		borderBottomWidth: 1,
 	},
-	order_item_right_adrress: {
-		marginTop: 15,
-		minHeight: 24,
-	},
-	order_item_right_order_type: {
-		marginTop: 10,
-		minHeight: 24,
-	},
 	order_item_right_goods: {
 		flexDirection: 'row',
-		marginTop: 6,
 	},
 	order_item_right_goods_left: {
 		flex: 1,

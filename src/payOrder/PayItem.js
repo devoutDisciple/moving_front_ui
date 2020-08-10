@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Config from '../config/config';
 import FastImage from '../component/FastImage';

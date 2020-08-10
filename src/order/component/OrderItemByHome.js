@@ -64,6 +64,13 @@ export default class AllOrder extends React.Component {
 				<Text style={styles.order_pay_font}>联系我们</Text>
 			</TouchableOpacity>
 		);
+		console.log(status, 111);
+		if (status === 1 || status === 2 || status === 5) {
+			actionBtn = [connectBtn];
+		}
+		if (status === 3) {
+			actionBtn = [payBtn, connectBtn];
+		}
 		// 已经下单， 未付款
 		if (status === 6) {
 			actionBtn = [connectBtn, payBtn];
@@ -94,7 +101,7 @@ export default class AllOrder extends React.Component {
 					<View style={styles.order_item_right_time}>
 						<Text style={{ fontSize: 10, color: '#333' }}>{create_time}</Text>
 					</View>
-					<TouchableOpacity onPress={this.onSearchDetail.bind(this, id)}>
+					<TouchableOpacity style={styles.order_item_touch} onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
 							<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
 						</View>
@@ -118,7 +125,10 @@ const styles = StyleSheet.create({
 	font_desc_style: {
 		fontSize: 12,
 		color: '#333',
-		lineHeight: 20,
+		lineHeight: 28,
+	},
+	order_item_touch: {
+		paddingTop: 10,
 	},
 	order_item: {
 		minHeight: 150,
@@ -157,14 +167,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		borderBottomColor: '#f2f2f2',
 		borderBottomWidth: 1,
-	},
-	order_item_right_adrress: {
-		marginTop: 15,
-		minHeight: 24,
-	},
-	order_item_right_order_type: {
-		marginTop: 10,
-		minHeight: 24,
 	},
 	order_item_right_goods: {
 		flexDirection: 'row',

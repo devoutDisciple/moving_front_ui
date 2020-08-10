@@ -5,6 +5,7 @@ import CabinetItem from './CabinetItem';
 import CommonSylte from '../style/common';
 import Loading from '../component/Loading';
 import storageUtil from '../util/Storage';
+import Toast from '../component/Toast';
 import Message from '../component/Message';
 import { INIT_BOX_STATE } from './const';
 import Alipay from '../util/Alipay';
@@ -144,18 +145,24 @@ export default class OrderScreen extends React.Component {
 		let detail = this.getParams();
 		let boxid = detail.boxid,
 			type = this.state.active,
-			cabinetId = detail.cabinetId;
+			cabinetId = detail.cabinetId,
+			{ user } = this.state;
 		this.setState({ loadingVisible: true });
-		let res = await Request.post('/cabinet/openCellSave', { cabinetId, boxid, type });
-		this.setState({ loadingVisible: false });
-		if (res.code === 200) {
-			let { cellid } = res.data;
-			// 如果用户不是会员的话， 减少用户使用柜子次数
-			if (flag) {
-				this.subUserUseTime();
+		try {
+			let res = await Request.post('/cabinet/openCellSave', { cabinetId, boxid, type, userid: user.id });
+			this.setState({ loadingVisible: false });
+			if (res.code === 200) {
+				let { cellid } = res.data;
+				// 如果用户不是会员的话， 减少用户使用柜子次数
+				if (flag) {
+					this.subUserUseTime();
+				}
+				// 增加订单
+				return this.addOrder(detail.boxid, cellid, flag);
 			}
-			// 增加订单
-			return this.addOrder(detail.boxid, cellid, flag);
+		} catch (error) {
+			console.log(error, 111);
+			this.setState({ loadingVisible: false });
 		}
 	}
 
