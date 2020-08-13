@@ -27,6 +27,7 @@ export default class PayOrderScreen extends React.Component {
 			given: 0, // 余额充值的时候赠送的
 			loadingVisible: false,
 			wechatVisible: false,
+			clothingPay: '',
 		};
 	}
 
@@ -47,14 +48,14 @@ export default class PayOrderScreen extends React.Component {
 		this.setState({ loadingVisible: true });
 		const { navigation } = this.props;
 		let money = navigation.getParam('money');
-		console.log(money);
 		let type = navigation.getParam('type'); // beMember - 成为会员 recharge - 余额充值 order -订单支付 clothing-上门取衣
+		let clothingPay = navigation.getParam('pay');
 		// 获取用户id的值
 		let currentUser = await StorageUtil.get('user');
 		let userid = currentUser.id;
 		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data;
-		this.setState({ user: user, money, type, loadingVisible: false });
+		this.setState({ user: user, money, type, clothingPay, loadingVisible: false });
 	}
 
 	// 支付方式改变
@@ -84,10 +85,11 @@ export default class PayOrderScreen extends React.Component {
 			home_phone = navigation.getParam('home_phone'),
 			home_desc = navigation.getParam('desc'),
 			urgency = navigation.getParam('urgency'),
-			pay = navigation.getParam('pay');
-		let orderid = '';
+			clothingPay = navigation.getParam('pay');
+		let orderid = '',
+			showText = clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用';
 		// 未支付
-		if (!pay) {
+		if (!clothingPay) {
 			this.setState({ loadingVisible: true });
 			// 创建上门取衣订单
 			let orderResult = await Request.post('/order/addByHome', {
@@ -107,13 +109,13 @@ export default class PayOrderScreen extends React.Component {
 			orderid = orderResult.data.data;
 		}
 		// 已经支付
-		if (pay === 'already') {
+		if (clothingPay === 'already') {
 			orderid = navigation.getParam('orderid');
 		}
 		if (payWay === 'wechat') {
 			try {
 				let res = await PayUtil.payMoneyByWeChat({
-					desc: '预约取衣派送费用',
+					desc: clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用',
 					money: money,
 					type: 'clothing',
 					orderid: orderid,
@@ -215,15 +217,17 @@ export default class PayOrderScreen extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let { payWay, user, money, wechatVisible, loadingVisible, type } = this.state;
+		let { payWay, user, money, wechatVisible, loadingVisible, type, clothingPay } = this.state;
+		console.log(clothingPay, 999000);
+		let shoText = type === 'clothing' ? (clothingPay === 'payAllClothing' ? '洗衣费用支付' : '收取衣物费用') : '洗衣费用支付';
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader title={type === 'clothing' ? '收取衣物费用' : '洗衣费用支付'} navigation={navigation} />
+					<CommonHeader title={shoText} navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						<View style={styles.money}>
 							<Text style={styles.money_num}>￥ {money}</Text>
-							<Text style={styles.money_order}>{type === 'clothing' ? '上门收取衣物费用' : '订单支付'}</Text>
+							<Text style={styles.money_order}>{shoText}</Text>
 							{/* <Text style={styles.money_order}>
 								用户名称: {user.username} 手机号: {user.phone}
 							</Text> */}
@@ -291,6 +295,7 @@ const styles = StyleSheet.create({
 	},
 	money_order: {
 		fontSize: 12,
+		paddingLeft: 10,
 		color: '#8a8a8a',
 		marginVertical: 5,
 	},

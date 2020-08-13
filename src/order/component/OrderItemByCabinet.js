@@ -22,14 +22,18 @@ export default class AllOrder extends React.Component {
 	// 点击去支付
 	async payOrder() {
 		try {
+			let { detail } = this.props;
 			// 判断店员是否确认
-			let { is_sure, id } = this.props.detail;
+			let { is_sure, id, money, urgency } = detail;
 			if (Number(is_sure) !== 2) {
 				return Toast.warning('订单金额待店员确认，请稍后');
 			}
+			if (urgency === 2) {
+				money = Number(money * 1.5).toFixed(2);
+			}
 			// 查看会员余额是否充足
 			let { navigation } = this.props;
-			navigation.navigate('PayOrderScreen', { money: this.props.detail.money, type: 'order', orderid: id });
+			navigation.navigate('PayOrderScreen', { money: money, type: 'order', orderid: id });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}

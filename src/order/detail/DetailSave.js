@@ -1,4 +1,5 @@
 import React from 'react';
+import CommonShow from './CommonShow';
 import CommonSylte from '../../style/common';
 import { Text, View, StyleSheet } from 'react-native';
 
@@ -19,67 +20,47 @@ export default class OrderScreen extends React.Component {
 						<Text>衣物信息</Text>
 					</View>
 					<View style={styles.detail_send_content}>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>存货时间: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.create_time}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>存货地点: </Text>
-							<Text style={styles.detail_send_content_item_text}>
-								{orderDetail.cabinetAddress} {orderDetail.cellid}格口
-							</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>收件人: </Text>
-							<Text style={styles.detail_send_content_item_text}>{address.username}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>收件人电话: </Text>
-							<Text style={styles.detail_send_content_item_text}>{address.phone}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>收件人地址: </Text>
-							<Text style={styles.detail_send_content_item_text}>
-								{address.area} {address.street}
-							</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>备注: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.desc || '无'}</Text>
-						</View>
+						<CommonShow label="存货时间" value={orderDetail.create_time} />
+						<CommonShow label="存货地点" value={`${orderDetail.cabinetAddress} ${orderDetail.cellid} 格口`} />
+						<CommonShow label="收件人" value={address.username} />
+						<CommonShow label="收件人电话" value={address.phone} />
+						<CommonShow label="收件人地址" value={`${address.area} ${address.street}`} />
+						<CommonShow label="备注" value={orderDetail.desc || '无'} />
 					</View>
 				</View>
 			);
 		}
 		if (type === 2) {
 			return (
-				<View style={styles.detail_send}>
-					<View style={styles.detail_common_title}>
-						<Text>预约信息</Text>
+				<>
+					{orderDetail.cabinetAddress ? (
+						<View style={styles.detail_send}>
+							<View style={styles.detail_common_title}>
+								<Text>衣物存放信息</Text>
+							</View>
+							<View style={styles.detail_send_content}>
+								<CommonShow label="取衣时间" value={orderDetail.home_time} />
+								<CommonShow label="取衣地点" value={orderDetail.home_address} />
+								<CommonShow label="联系人" value={orderDetail.home_username} />
+								<CommonShow label="联系方式" value={orderDetail.home_phone} />
+								<CommonShow label="备注" value={orderDetail.desc} />
+							</View>
+						</View>
+					) : null}
+
+					<View style={styles.detail_send}>
+						<View style={styles.detail_common_title}>
+							<Text>预约信息</Text>
+						</View>
+						<View style={styles.detail_send_content}>
+							<CommonShow label="取衣时间" value={orderDetail.home_time} />
+							<CommonShow label="取衣地点" value={orderDetail.home_address} />
+							<CommonShow label="联系人" value={orderDetail.home_username} />
+							<CommonShow label="联系方式" value={orderDetail.home_phone} />
+							<CommonShow label="备注" value={orderDetail.desc} />
+						</View>
 					</View>
-					<View style={styles.detail_send_content}>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>取衣时间: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.home_time}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>取衣地点: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.home_address}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>联系人: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.home_username}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>联系方式: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.home_phone}</Text>
-						</View>
-						<View style={styles.detail_send_content_item}>
-							<Text style={styles.detail_send_content_item_label}>备注: </Text>
-							<Text style={styles.detail_send_content_item_text}>{orderDetail.desc}</Text>
-						</View>
-					</View>
-				</View>
+				</>
 			);
 		}
 		return (

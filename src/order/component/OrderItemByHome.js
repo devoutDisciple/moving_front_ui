@@ -21,8 +21,21 @@ export default class AllOrder extends React.Component {
 	// 点击去支付
 	async payOrder() {
 		try {
-			let { id } = this.props.detail;
-			let { navigation } = this.props;
+			let { detail, navigation } = this.props,
+				{ id } = detail;
+			// 订单金额待支付
+			if (detail.status === 3) {
+				let { is_sure, money, urgency } = detail;
+				// 判断店员是否确认
+				if (Number(is_sure) !== 2) {
+					return Toast.warning('订单金额待店员确认，请稍后');
+				}
+				if (urgency === 2) {
+					money = Number(money * 1.5).toFixed(2);
+				}
+				return navigation.navigate('PayOrderScreen', { money: money, type: 'clothing', orderid: id, pay: 'payAllClothing' });
+			}
+
 			navigation.navigate('PayOrderScreen', { money: Config.getClothingMoney, type: 'clothing', orderid: id, pay: 'already' });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
@@ -54,6 +67,19 @@ export default class AllOrder extends React.Component {
 		});
 	}
 
+	// 打开柜子
+	async onOpenCabinet() {
+		Message.confirm('请注意', '请确认是否在柜子旁边', async () => {
+			let { id } = this.props.detail;
+			let result = await Request.post('/order/openCellById', { orderId: id });
+			if (result.data === 'success') {
+				Message.warning('柜门已打开', '请取出衣物，随手关门，谢谢！');
+				return this.props.onSearch();
+			}
+			return Message.warning('网络错误', '请稍后重试！');
+		});
+	}
+
 	renderBtn() {
 		let actionBtn = [];
 		let { status } = this.props.detail;
@@ -67,12 +93,19 @@ export default class AllOrder extends React.Component {
 				<Text style={styles.order_pay_font}>联系我们</Text>
 			</TouchableOpacity>
 		);
-		console.log(status, 111);
+		const openBoxBtn = (
+			<TouchableOpacity key="openBoxBtn" onPress={this.onOpenCabinet.bind(this)} style={styles.order_item_right_bottom_btn}>
+				<Text style={styles.order_pay_font}>打开柜子</Text>
+			</TouchableOpacity>
+		);
 		if (status === 1 || status === 2 || status === 5) {
 			actionBtn = [connectBtn];
 		}
 		if (status === 3) {
 			actionBtn = [payBtn, connectBtn];
+		}
+		if (status === 4) {
+			actionBtn = [openBoxBtn, connectBtn];
 		}
 		// 已经下单， 未付款
 		if (status === 6) {
@@ -90,7 +123,9 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		const { id, shopName, create_time, status, home_time, urgency, money } = this.props.detail;
+		let { goods, detail } = this.props;
+		const { id, shopName, create_time, status, home_time, urgency, money, cabinetAdderss, cabinetName, is_sure } = detail;
+		console.log(cabinetAdderss, cabinetName, 8989);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
@@ -116,10 +151,20 @@ export default class AllOrder extends React.Component {
 						)}
 					</View>
 					<TouchableOpacity style={styles.order_item_touch} onPress={this.onSearchDetail.bind(this, id)}>
-						<View style={styles.order_item_right_adrress}>
-							<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
-						</View>
-						<MoneyItem text="洗衣费用：" money={Number(money).toFixed(2)} />
+						{cabinetAdderss && cabinetName ? (
+							<View style={styles.order_item_right_adrress}>
+								<Text style={styles.font_desc_style}>
+									存取地址：{cabinetAdderss} {cabinetName}
+								</Text>
+							</View>
+						) : null}
+						{Number(is_sure) === 2 ? (
+							<MoneyItem text={goods} money={Number(money).toFixed(2)} />
+						) : (
+							<View style={styles.order_item_right_adrress}>
+								<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
+							</View>
+						)}
 						{Number(urgency) === 2 && (
 							<>
 								<MoneyItem text="加急费用：" money={Number(money * 0.5).toFixed(2)} />

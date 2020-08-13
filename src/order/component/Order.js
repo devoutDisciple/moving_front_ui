@@ -84,37 +84,44 @@ export default class AllOrder extends React.Component {
 					showsVerticalScrollIndicator={false}
 					ListFooterComponent={<FooterScreen status={footerStatus} />}
 					renderItem={({ item, index }) => {
-						// 通过快递柜下单
-						if (item.order_type === 1) {
-							let goods = JSON.parse(item.goods || []);
-							let firstName = goods[0] ? goods[0].name : '--';
-							let totalThings = 0;
+						if (item.order_type === 1 || item.order_type === 2) {
+							let goods = '',
+								firstName = '--',
+								totalThings = 0;
+							goods = JSON.parse(item.goods || []);
+							firstName = goods[0] ? goods[0].name : '--';
+							totalThings = 0;
 							if (goods.length !== 0) {
 								goods.forEach(good => {
 									totalThings += Number(good.num);
 								});
 							}
-							return (
-								<OrderItemByCabinet
-									detail={item}
-									key={String(item.id)}
-									navigation={navigation}
-									onSearch={this.headerRefresh.bind(this)}
-									goods={`${firstName} 等 ${totalThings} 件衣物`}
-								/>
-							);
+							// 通过快递柜下单
+							if (item.order_type === 1) {
+								return (
+									<OrderItemByCabinet
+										detail={item}
+										key={String(item.id)}
+										navigation={navigation}
+										onSearch={this.headerRefresh.bind(this)}
+										goods={`${firstName} 等 ${totalThings} 件衣物`}
+									/>
+								);
+							}
+							// 预约上门取衣
+							if (item.order_type === 2) {
+								return (
+									<OrderItemByHome
+										detail={item}
+										key={String(item.id)}
+										navigation={navigation}
+										onSearch={this.headerRefresh.bind(this)}
+										goods={`${firstName} 等 ${totalThings} 件衣物`}
+									/>
+								);
+							}
 						}
-						// 预约上门取衣
-						if (item.order_type === 2) {
-							return (
-								<OrderItemByHome
-									detail={item}
-									key={String(item.id)}
-									navigation={navigation}
-									onSearch={this.headerRefresh.bind(this)}
-								/>
-							);
-						}
+
 						// 积分兑换
 						if (item.order_type === 3) {
 							return (
