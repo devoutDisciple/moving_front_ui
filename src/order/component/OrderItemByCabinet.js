@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import MoneyItem from './MoneyItem';
 import Request from '../../util/Request';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
@@ -142,35 +143,13 @@ export default class AllOrder extends React.Component {
 								存取地址：{cabinetAdderss} {cabinetName}
 							</Text>
 						</View>
-						<View style={styles.order_item_right_goods}>
-							<View style={styles.order_item_right_goods_left}>
-								<Text style={styles.font_desc_style}>{goods}</Text>
-							</View>
-							<View style={styles.order_item_right_goods_right}>
-								<Text style={styles.font_desc_style}>￥ {money}</Text>
-							</View>
-						</View>
+						<MoneyItem text={goods} money={Number(money).toFixed(2)} />
 						{Number(urgency) === 2 && (
 							<>
-								<View style={styles.order_item_right_goods}>
-									<View style={styles.order_item_right_goods_left}>
-										<Text style={styles.font_desc_style}>加急费用</Text>
-									</View>
-									<View style={styles.order_item_right_goods_right}>
-										<Text style={styles.font_desc_style}>￥ {Number(money * 0.5).toFixed(2)}</Text>
-									</View>
-								</View>
-								<View style={styles.order_item_right_goods}>
-									<View style={styles.order_item_right_goods_left}>
-										<Text style={styles.font_desc_style}>洗衣总费用</Text>
-									</View>
-									<View style={styles.order_item_right_goods_right}>
-										<Text style={styles.font_desc_style}>￥ {Number(money * 1.5).toFixed(2)}</Text>
-									</View>
-								</View>
+								<MoneyItem text="加急费用：" money={Number(money * 0.5).toFixed(2)} />
+								<MoneyItem text="洗衣总费用：" money={Number(money * 1.5).toFixed(2)} />
 							</>
 						)}
-
 						<View style={styles.order_item_right_order_type}>
 							<Text style={styles.font_desc_style}>订单方式：MOVING洗衣柜下单</Text>
 						</View>
@@ -237,16 +216,6 @@ const styles = StyleSheet.create({
 	},
 	order_item_right_time_left: {
 		flex: 1,
-	},
-	order_item_right_goods: {
-		flexDirection: 'row',
-	},
-	order_item_right_goods_left: {
-		flex: 1,
-	},
-	order_item_right_goods_right: {
-		width: 70,
-		alignItems: 'flex-end',
 	},
 	order_item_right_bottom: {
 		height: 40,

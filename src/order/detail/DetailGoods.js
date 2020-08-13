@@ -18,7 +18,10 @@ export default class OrderScreen extends React.Component {
 		} catch (error) {
 			goods = [];
 		}
-		const subMoney = Number(Number(orderDetail.origin_money) - Number(orderDetail.money)).toFixed(2);
+		let subMoney = Number(Number(orderDetail.origin_money) - Number(orderDetail.money)).toFixed(2);
+		if (Number(orderDetail.urgency) === 2) {
+			subMoney = Number(orderDetail.origin_money * 1.5 - (orderDetail.origin_money * 1.5 * orderDetail.discount) / 10).toFixed(2);
+		}
 		if (goods && goods.length !== 0 && (Number(type) === 1 || Number(type) === 2)) {
 			return (
 				<View style={styles.detail_content_goods}>
@@ -47,7 +50,7 @@ export default class OrderScreen extends React.Component {
 					</View>
 					{orderDetail.urgency === 2 && (
 						<View style={styles.detail_content_goods_send}>
-							<Text>加急费用：￥{Number(orderDetail.money * 0.5).toFixed(2)}</Text>
+							<Text>加急费用：￥{Number(orderDetail.origin_money * 0.5).toFixed(2)}</Text>
 						</View>
 					)}
 
@@ -59,7 +62,7 @@ export default class OrderScreen extends React.Component {
 						)}
 					</View>
 					<View style={styles.detail_content_goods_send}>
-						<Text>已减：￥{Number(subMoney).toFixed(2) || '0.00'}</Text>
+						<Text>优惠金额：￥{Number(subMoney).toFixed(2) || '0.00'}</Text>
 					</View>
 					<View style={styles.detail_content_goods_send}>
 						<Text>派送费：￥{Number(orderDetail.send_money).toFixed(2) || '0.00'}</Text>

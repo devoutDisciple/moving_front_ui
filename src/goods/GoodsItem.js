@@ -1,9 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-
-const { width } = Dimensions.get('window');
 
 export default class Goods extends React.Component {
 	constructor(props) {

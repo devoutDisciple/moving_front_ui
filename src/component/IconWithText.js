@@ -1,6 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import FastImage from '../component/FastImage';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class IconWithText extends React.Component {
 	constructor(props) {
@@ -12,7 +12,7 @@ export default class IconWithText extends React.Component {
 		if (source) {
 			return (
 				<TouchableOpacity onPress={onPress} key={index} style={styles.home_icon_item}>
-					<Image style={styles.home_icon_item_img} source={source} />
+					<FastImage style={styles.home_icon_item_img} source={source} />
 					<Text style={styles.home_icon_item_text}>{text}</Text>
 				</TouchableOpacity>
 			);

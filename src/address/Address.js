@@ -1,12 +1,12 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Request from '../util/Request';
 import StorageUtil from '../util/Storage';
 import RequestUtil from '../util/Request';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
+import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
-import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Toast from '../component/Toast';
 import SafeViewComponent from '../component/SafeViewComponent';
 
@@ -109,7 +109,7 @@ export default class Member extends React.Component {
 							return (
 								<View key={index} style={styles.content_item}>
 									<TouchableOpacity onPress={this.selectRadio.bind(this, index)} style={styles.content_item_left}>
-										<Image
+										<FastImage
 											style={styles.content_item_img}
 											source={
 												item.is_defalut === 2
@@ -129,7 +129,7 @@ export default class Member extends React.Component {
 										</View>
 									</View>
 									<TouchableOpacity onPress={this.editAddressClick.bind(this, item)} style={styles.content_item_right}>
-										<Image style={styles.content_item_img} source={require('../../img/home/edit.png')} />
+										<FastImage style={styles.content_item_img} source={require('../../img/home/edit.png')} />
 									</TouchableOpacity>
 								</View>
 							);

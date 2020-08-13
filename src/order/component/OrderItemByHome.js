@@ -1,12 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import MoneyItem from './MoneyItem';
 import Request from '../../util/Request';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
 import Message from '../../component/Message';
 import { Badge } from 'react-native-elements';
+import FastImage from '../../component/FastImage';
 import FilterStatus from '../../util/FilterStatus';
-import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
 export default class AllOrder extends React.Component {
 	constructor(props) {
@@ -88,11 +90,11 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		const { id, shopName, create_time, status, home_time, urgency } = this.props.detail;
+		const { id, shopName, create_time, status, home_time, urgency, money } = this.props.detail;
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					<Image style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/logo_square.jpg` }} />
+					<FastImage style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/logo_square.jpg` }} />
 				</View>
 				<View style={styles.order_item_right}>
 					<View style={styles.order_item_right_title}>
@@ -117,6 +119,13 @@ export default class AllOrder extends React.Component {
 						<View style={styles.order_item_right_adrress}>
 							<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
 						</View>
+						<MoneyItem text="洗衣费用：" money={Number(money).toFixed(2)} />
+						{Number(urgency) === 2 && (
+							<>
+								<MoneyItem text="加急费用：" money={Number(money * 0.5).toFixed(2)} />
+								<MoneyItem text="总费用：" money={Number(money * 1.5).toFixed(2)} />
+							</>
+						)}
 						<View style={styles.order_item_right_order_type}>
 							<Text style={styles.font_desc_style}>订单方式：预约上门取衣</Text>
 						</View>

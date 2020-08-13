@@ -1,13 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Config from '../config/config';
-// import FastImage from '../component/FastImage';
 import NavigationUtil from '../util/NavigationUtil';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Image, View, Dimensions, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
 
 export default class Advertisement extends React.Component {
 	constructor(props) {

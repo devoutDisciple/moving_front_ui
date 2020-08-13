@@ -1,7 +1,7 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import FastImage from '../component/FastImage';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Text, View, StyleSheet, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +18,7 @@ export default class OrderScreen extends React.Component {
 				style={active ? styles.cabinet_item_content_chunk_active : styles.cabinet_item_content_chunk}
 			>
 				<View style={styles.cabinet_item_content_chunk_img_content}>
-					<Image style={styles.cabinet_item_content_chunk_img} source={active ? detail.activeImg : detail.normalImg} />
+					<FastImage style={styles.cabinet_item_content_chunk_img} source={active ? detail.activeImg : detail.normalImg} />
 				</View>
 				<View style={styles.cabinet_item_content_chunk_title}>
 					<Text
