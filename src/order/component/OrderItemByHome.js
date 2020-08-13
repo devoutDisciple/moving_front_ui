@@ -4,6 +4,7 @@ import Request from '../../util/Request';
 import Config from '../../config/config';
 import Toast from '../../component/Toast';
 import Message from '../../component/Message';
+import { Badge } from 'react-native-elements';
 import FilterStatus from '../../util/FilterStatus';
 import { Text, View, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
@@ -79,11 +80,15 @@ export default class AllOrder extends React.Component {
 		if (status === 8) {
 			actionBtn = [connectBtn];
 		}
+		// 店员下单
+		if (status === 9) {
+			actionBtn = [connectBtn];
+		}
 		return actionBtn;
 	}
 
 	render() {
-		const { id, shopName, create_time, status, home_time } = this.props.detail;
+		const { id, shopName, create_time, status, home_time, urgency } = this.props.detail;
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
@@ -99,7 +104,14 @@ export default class AllOrder extends React.Component {
 						</View>
 					</View>
 					<View style={styles.order_item_right_time}>
-						<Text style={{ fontSize: 10, color: '#333' }}>{create_time}</Text>
+						<View style={styles.order_item_right_time_left}>
+							<Text style={{ fontSize: 10, color: '#333' }}>{create_time}</Text>
+						</View>
+						{Number(urgency) === 2 && (
+							<View style={styles.order_item_right_time_right}>
+								<Badge value="加急订单" status="success" textStyle={{ fontSize: 10 }} />
+							</View>
+						)}
 					</View>
 					<TouchableOpacity style={styles.order_item_touch} onPress={this.onSearchDetail.bind(this, id)}>
 						<View style={styles.order_item_right_adrress}>
@@ -163,10 +175,14 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-end',
 	},
 	order_item_right_time: {
-		height: 20,
-		justifyContent: 'center',
+		height: 25,
+		alignItems: 'center',
 		borderBottomColor: '#f2f2f2',
 		borderBottomWidth: 1,
+		flexDirection: 'row',
+	},
+	order_item_right_time_left: {
+		flex: 1,
 	},
 	order_item_right_goods: {
 		flexDirection: 'row',

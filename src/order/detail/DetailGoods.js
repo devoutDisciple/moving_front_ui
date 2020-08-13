@@ -44,19 +44,32 @@ export default class OrderScreen extends React.Component {
 						);
 					})}
 					<View style={styles.detail_content_goods_send}>
-						<Text>原价： ￥{orderDetail.origin_money || '0.00'}</Text>
+						<Text>洗衣费用：￥{Number(orderDetail.origin_money).toFixed(2) || '0.00'}</Text>
+					</View>
+					{orderDetail.urgency === 2 && (
+						<View style={styles.detail_content_goods_send}>
+							<Text>加急费用：￥{Number(orderDetail.money * 0.5).toFixed(2)}</Text>
+						</View>
+					)}
+
+					<View style={styles.detail_content_goods_send}>
+						{Number(orderDetail.discount) === 10 ? (
+							<Text>折扣：无</Text>
+						) : (
+							<Text>折扣：{(orderDetail.discount || 10) + '折'}</Text>
+						)}
 					</View>
 					<View style={styles.detail_content_goods_send}>
-						<Text>折扣： ￥{(orderDetail.discount || 10) + '折'}</Text>
+						<Text>已减：￥{Number(subMoney).toFixed(2) || '0.00'}</Text>
 					</View>
 					<View style={styles.detail_content_goods_send}>
-						<Text>已减： ￥{subMoney || '0.00'}</Text>
-					</View>
-					<View style={styles.detail_content_goods_send}>
-						<Text>派送费： ￥{orderDetail.send_money || '0.00'}</Text>
+						<Text>派送费：￥{Number(orderDetail.send_money).toFixed(2) || '0.00'}</Text>
 					</View>
 					<View style={styles.detail_content_goods_total}>
-						<Text style={styles.detail_content_goods_total_text}>总价：￥{orderDetail.money || '0.00'}</Text>
+						<Text style={styles.detail_content_goods_total_text}>
+							总价：￥
+							{orderDetail.urgency === 2 ? Number(orderDetail.money * 1.5).toFixed(2) : Number(orderDetail.money).toFixed(2)}
+						</Text>
 					</View>
 				</View>
 			);
@@ -106,8 +119,9 @@ const styles = StyleSheet.create({
 	detail_common_title: CommonSylte.detail_common_title,
 	detail_content_goods: {
 		backgroundColor: '#fff',
-		marginVertical: 10,
+		marginTop: 10,
 		padding: 10,
+		borderRadius: 5,
 	},
 	empty: {
 		fontSize: 12,

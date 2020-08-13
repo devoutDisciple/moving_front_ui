@@ -3,12 +3,12 @@ import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import CommonHeader from '../../component/CommonHeader';
 import DetailSave from './DetailSave';
-// import DetailSend from './DetailSend';
 import DetailShop from './DetailShop';
 import Detailgoods from './DetailGoods';
 import Request from '../../util/Request';
 import Loading from '../../component/Loading';
 import storageUtil from '../../util/Storage';
+import { Badge } from 'react-native-elements';
 import SafeViewComponent from '../../component/SafeViewComponent';
 
 export default class OrderScreen extends React.Component {
@@ -63,7 +63,10 @@ export default class OrderScreen extends React.Component {
 					<ScrollView style={styles.detail_content} showsVerticalScrollIndicator={false}>
 						<View style={styles.detail_content_title}>
 							<Text style={styles.detail_content_title_num}>订单编号: {orderDetail.code}</Text>
-							<Text style={styles.detail_content_title_time}>{orderDetail.create_time}</Text>
+							<View style={styles.detail_content_title_time}>
+								<Text style={styles.detail_content_title_time_left}>{orderDetail.create_time}</Text>
+								{orderDetail.urgency === 2 && <Badge value="加急订单" status="success" textStyle={{ fontSize: 10 }} />}
+							</View>
 						</View>
 						<Detailgoods orderDetail={orderDetail} type={type} />
 						<DetailShop orderDetail={orderDetail} address={address} type={type} />
@@ -88,7 +91,10 @@ const styles = StyleSheet.create({
 	},
 	detail_content_title: {
 		backgroundColor: '#fff',
-		padding: 10,
+		paddingTop: 10,
+		paddingBottom: 5,
+		paddingHorizontal: 10,
+		borderRadius: 5,
 	},
 	detail_content_title_num: {
 		fontSize: 14,
@@ -96,6 +102,14 @@ const styles = StyleSheet.create({
 	},
 	detail_content_title_time: {
 		marginTop: 5,
+		flexDirection: 'row',
+	},
+	detail_content_title_time_left: {
+		flex: 1,
+		fontSize: 12,
+		color: '#8a8a8a',
+	},
+	detail_content_title_time_right: {
 		fontSize: 12,
 		color: '#8a8a8a',
 	},

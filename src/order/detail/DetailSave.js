@@ -115,9 +115,10 @@ const styles = StyleSheet.create({
 	detail_common_title: CommonSylte.detail_common_title,
 	detail_send: {
 		backgroundColor: '#fff',
-		marginVertical: 10,
 		padding: 10,
 		marginBottom: 20,
+		marginTop: 10,
+		borderRadius: 5,
 	},
 	detail_send_content_item: {
 		flexDirection: 'row',

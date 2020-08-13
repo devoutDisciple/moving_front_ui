@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 		alignItems: 'flex-end',
 	},
 	order_item_right_time: {
-		height: 20,
+		height: 25,
 		justifyContent: 'center',
 		borderBottomColor: '#f2f2f2',
 		borderBottomWidth: 1,

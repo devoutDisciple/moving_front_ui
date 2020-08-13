@@ -5,7 +5,6 @@ import CabinetItem from './CabinetItem';
 import CommonSylte from '../style/common';
 import Loading from '../component/Loading';
 import storageUtil from '../util/Storage';
-import Toast from '../component/Toast';
 import Message from '../component/Message';
 import { INIT_BOX_STATE } from './const';
 import Alipay from '../util/Alipay';
@@ -64,8 +63,9 @@ export default class OrderScreen extends React.Component {
 			goods = navigation.getParam('goods', ''),
 			remark = navigation.getParam('remark', ''),
 			cabinetId = navigation.getParam('cabinetId', ''),
+			urgency = navigation.getParam('urgency', 1),
 			totalPrice = navigation.getParam('totalPrice', '');
-		return { goods, boxid, remark, totalPrice, cabinetId };
+		return { goods, boxid, remark, totalPrice, cabinetId, urgency };
 	}
 
 	// 获取格子的可用状态
@@ -146,6 +146,7 @@ export default class OrderScreen extends React.Component {
 		let boxid = detail.boxid,
 			type = this.state.active,
 			cabinetId = detail.cabinetId,
+			urgency = detail.urgency,
 			{ user } = this.state;
 		this.setState({ loadingVisible: true });
 		try {
@@ -158,7 +159,7 @@ export default class OrderScreen extends React.Component {
 					this.subUserUseTime();
 				}
 				// 增加订单
-				return this.addOrder(detail.boxid, cellid, flag);
+				return this.addOrder(detail.boxid, cellid, urgency, flag);
 			}
 		} catch (error) {
 			console.log(error, 111);
@@ -173,7 +174,7 @@ export default class OrderScreen extends React.Component {
 	}
 
 	// 增加订单
-	async addOrder(boxid, cellid, flag) {
+	async addOrder(boxid, cellid, urgency, flag) {
 		let params = this.getParams(),
 			{ navigation } = this.props,
 			shop = await storageUtil.get('shop'),
@@ -190,6 +191,7 @@ export default class OrderScreen extends React.Component {
 			cabinetId: params.cabinetId,
 			boxid,
 			cellid,
+			urgency,
 			pre_pay: flag ? 1 : 0,
 			order_type: 1, // 通过柜子送货
 		});

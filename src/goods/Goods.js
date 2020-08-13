@@ -2,10 +2,12 @@ import React from 'react';
 import GoodsItem from './GoodsItem';
 import Request from '../util/Request';
 import Toast from '../component/Toast';
+import Message from '../component/Message';
 import storageUtil from '../util/Storage';
 import Loading from '../component/Loading';
 import CommonHeader from '../component/CommonHeader';
 import SafeViewComponent from '../component/SafeViewComponent';
+import FastImage from '../component/FastImage';
 import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -20,6 +22,8 @@ export default class Goods extends React.Component {
 			boxid: '',
 			cabinetId: '',
 			loadingVisible: false,
+			urgencyMoney: 0.0, // 加急后的费用
+			urgency: 1, // 是否是加急订单 1-普通 2-加急
 		};
 	}
 
@@ -32,7 +36,6 @@ export default class Goods extends React.Component {
 		let { navigation } = this.props;
 		let boxid = navigation.getParam('boxid', ''),
 			cabinetId = navigation.getParam('cabinetId', '');
-
 		Request.get('/clothing/getByShopid', { shopid: shop.id }).then(res => {
 			let data = res.data || [];
 			if (Array.isArray(data) && data.length !== 0) {
@@ -54,7 +57,6 @@ export default class Goods extends React.Component {
 			let { navigation } = this.props;
 			let boxid = navigation.getParam('boxid', ''),
 				cabinetId = navigation.getParam('cabinetId', '');
-
 			let res = await Request.get('/clothing/getByShopid', { shopid: shop.id });
 			let data = res.data || [];
 			if (Array.isArray(data) && data.length !== 0) {
@@ -66,9 +68,22 @@ export default class Goods extends React.Component {
 		}
 	}
 
+	// 订单加急
+	async urgencyClick(flag) {
+		if (flag === 1) {
+			Message.warning('普通订单', '店员将会在一至三日内取货，请耐心等待');
+		}
+		if (flag === 2) {
+			Message.warning('加急订单', '店员将会在当日收取衣物，另外收取衣物总费用的50%作为加急费用');
+		}
+		this.setState({ urgency: flag }, () => {
+			this.onCountPrice();
+		});
+	}
+
 	// 点击确定的时候
 	onSureClothing() {
-		let { remark = '', totalPrice = 0, data, boxid, cabinetId } = this.state;
+		let { remark = '', totalPrice = 0, data, boxid, cabinetId, urgency } = this.state;
 		let selectGoods = data.filter(item => item.num !== 0);
 		Alert.alert(
 			'提示',
@@ -83,6 +98,7 @@ export default class Goods extends React.Component {
 							remark: remark,
 							goods: selectGoods,
 							totalPrice: totalPrice,
+							urgency: urgency,
 						});
 					},
 				},
@@ -112,22 +128,26 @@ export default class Goods extends React.Component {
 
 	// 结算价格
 	onCountPrice() {
-		let data = this.state.data;
+		let { data, urgency } = this.state;
 		let totalPrice = 0;
 		data.map(item => {
 			totalPrice += Number(item.price * item.num);
 		});
 		totalPrice = Number(totalPrice).toFixed(2);
-		this.setState({ totalPrice });
+		let urgencyMoney = 0.0;
+		if (urgency === 2) {
+			urgencyMoney = Number(totalPrice * 1.5).toFixed(2);
+		}
+		this.setState({ totalPrice, urgencyMoney });
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { data, totalPrice, loadingVisible } = this.state;
+		let { data, totalPrice, loadingVisible, urgency, urgencyMoney } = this.state;
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader title="计算洗衣所需金额" navigation={navigation} />
+					<CommonHeader title="计算洗衣费用" navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						<View style={styles.content_title}>
 							<Text>洗衣费用计算（仅供参考）</Text>
@@ -148,6 +168,33 @@ export default class Goods extends React.Component {
 										/>
 									);
 								})}
+						</View>
+						<View style={styles.content_title}>
+							<Text>订单加急</Text>
+						</View>
+						<View style={styles.urgency}>
+							<TouchableOpacity style={styles.urgency_content} onPress={this.urgencyClick.bind(this, 1)}>
+								<FastImage
+									style={styles.img}
+									source={
+										urgency === 1
+											? require('../../img/public/check_box_select.png')
+											: require('../../img/public/check_box_no_select.png')
+									}
+								/>
+								<Text style={styles.img_des}>普通订单</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.urgency_content} onPress={this.urgencyClick.bind(this, 2)}>
+								<FastImage
+									style={styles.img}
+									source={
+										urgency === 2
+											? require('../../img/public/check_box_select.png')
+											: require('../../img/public/check_box_no_select.png')
+									}
+								/>
+								<Text style={styles.img_des}>加急订单</Text>
+							</TouchableOpacity>
 						</View>
 						<View style={styles.content_title}>
 							<Text>备注信息</Text>
@@ -172,7 +219,7 @@ export default class Goods extends React.Component {
 								<Text style={styles.footer_left_content_text}>预计所需: ￥</Text>
 							</View>
 							<View style={styles.footer_right_content}>
-								<Text style={styles.footer_right_content_text}>{totalPrice}</Text>
+								<Text style={styles.footer_right_content_text}>{urgency === 1 ? totalPrice : urgencyMoney}</Text>
 							</View>
 						</View>
 						<TouchableOpacity style={styles.footer_right} onPress={this.onSureClothing.bind(this)}>
@@ -195,6 +242,29 @@ const styles = StyleSheet.create({
 	content: {
 		flex: 1,
 		margin: 10,
+	},
+	urgency: {
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		marginTop: 5,
+	},
+	urgency_content: {
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		height: 35,
+	},
+	img: {
+		height: 18,
+		width: 18,
+		// marginTop: -2,
+	},
+	img_des: {
+		marginLeft: 5,
+		marginRight: 10,
+		color: '#333',
+		fontSize: 14,
 	},
 	content_title: {
 		height: 20,
