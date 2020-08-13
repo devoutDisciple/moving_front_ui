@@ -13,7 +13,6 @@ export default class OrderScreen extends React.Component {
 	render() {
 		let { orderDetail, type } = this.props,
 			goods = [];
-		console.log(orderDetail, 999);
 		try {
 			goods = JSON.parse(orderDetail.goods);
 		} catch (error) {

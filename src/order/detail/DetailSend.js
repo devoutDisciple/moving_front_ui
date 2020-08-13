@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import CommonSylte from '../../style/common';
 import { Text, View, StyleSheet } from 'react-native';

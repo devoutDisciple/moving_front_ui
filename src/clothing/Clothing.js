@@ -33,6 +33,7 @@ export default class Member extends React.Component {
 			selectDay: `${tomorrow}(明天)`,
 			selectTime: '09:00',
 			selectAddress: '',
+			urgency: 1,
 			username: '',
 			phone: '',
 			house: '',
@@ -124,10 +125,12 @@ export default class Member extends React.Component {
 		this.setState(Object.assign(params, { dialogVisible: false }));
 	}
 
+	// 弹框取消的时候
 	onCancelDialog() {
 		this.setState({ dialogVisible: false });
 	}
 
+	// 修改重量
 	showWeightPick() {
 		Picker.init({
 			...config.pickCommonConfig,
@@ -146,12 +149,23 @@ export default class Member extends React.Component {
 		Picker.show();
 	}
 
+	// 改变加急状态
+	changeUrgency(value) {
+		if (value === 1) {
+			message.warning('普通订单', '店员将会在一至三日内取货，请耐心等待');
+		}
+		if (value === 2) {
+			message.warning('加急订单', '店员将会在当日收取衣物，另外收取衣物总费用的50%作为加急费用');
+		}
+		this.setState({ urgency: value });
+	}
+
 	// 确认订单
 	async onSureOrder() {
 		let shop = await StorageUtil.get('shop');
 		let user = await StorageUtil.get('user');
 		let { navigation } = this.props;
-		let { selectDay, selectTime, selectAddress, username, phone, house, desc } = this.state;
+		let { selectDay, selectTime, selectAddress, username, phone, house, desc, urgency } = this.state;
 		if (!selectAddress || !username || !phone || !house) {
 			return Toast.warning('请完善预约信息');
 		}
@@ -167,12 +181,9 @@ export default class Member extends React.Component {
 			home_address: `${selectAddress} ${house}`,
 			home_username: username,
 			home_phone: phone,
+			urgency,
 			desc,
 		};
-		// let result = await RequestUtil.post('/order/addByHome', params);
-		// if (result.data === 'success') {
-		// NavigationUtil.reset(navigation, 'HomeScreen');
-		// }
 		navigation.navigate('PayOrderScreen', { type: 'clothing', money: config.getClothingMoney, ...params });
 	}
 
@@ -187,6 +198,7 @@ export default class Member extends React.Component {
 			selectDay,
 			selectTime,
 			selectAddress,
+			urgency,
 			username,
 			phone,
 			house,
@@ -245,6 +257,20 @@ export default class Member extends React.Component {
 							}}
 						/>
 						<ClothingItem
+							label="是否加急"
+							isSwitch
+							value={
+								<View style={styles.sex_container}>
+									<TouchableOpacity onPress={this.changeUrgency.bind(this, 2)}>
+										<Text style={urgency === 2 ? styles.sex_item_active : styles.sex_item_normal}>是</Text>
+									</TouchableOpacity>
+									<TouchableOpacity onPress={this.changeUrgency.bind(this, 1)}>
+										<Text style={urgency === 1 ? styles.sex_item_active : styles.sex_item_normal}>否</Text>
+									</TouchableOpacity>
+								</View>
+							}
+						/>
+						<ClothingItem
 							showIcon
 							label="备注"
 							value={desc || '请输入'}
@@ -284,6 +310,13 @@ export default class Member extends React.Component {
 	}
 }
 
+const sex_common = {
+	marginLeft: 20,
+	borderWidth: 1,
+	paddingHorizontal: 20,
+	paddingVertical: 5,
+	borderRadius: 13,
+};
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -332,5 +365,18 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		height: 50,
 		backgroundColor: '#fb9dd0',
+	},
+	sex_container: {
+		flexDirection: 'row',
+	},
+	sex_item_active: {
+		...sex_common,
+		borderColor: '#fb9cce',
+		color: '#fb9cce',
+	},
+	sex_item_normal: {
+		...sex_common,
+		borderColor: '#e5e5e5',
+		color: '#333',
 	},
 });

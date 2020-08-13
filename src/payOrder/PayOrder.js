@@ -83,6 +83,7 @@ export default class PayOrderScreen extends React.Component {
 			home_username = navigation.getParam('home_username'),
 			home_phone = navigation.getParam('home_phone'),
 			home_desc = navigation.getParam('desc'),
+			urgency = navigation.getParam('urgency'),
 			pay = navigation.getParam('pay');
 		let orderid = '';
 		// 未支付
@@ -96,6 +97,7 @@ export default class PayOrderScreen extends React.Component {
 				home_address,
 				home_username,
 				home_phone,
+				urgency,
 				desc: home_desc,
 			});
 			this.setState({ loadingVisible: false });

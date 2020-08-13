@@ -44,6 +44,10 @@ export default class OrderScreen extends React.Component {
 								{address.area} {address.street}
 							</Text>
 						</View>
+						<View style={styles.detail_send_content_item}>
+							<Text style={styles.detail_send_content_item_label}>备注: </Text>
+							<Text style={styles.detail_send_content_item_text}>{orderDetail.desc || '无'}</Text>
+						</View>
 					</View>
 				</View>
 			);
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
 	detail_send_content_item_label: {
 		width: 80,
 		// textAlign: 'right',
-		// marginRight: 5,
+		marginRight: 5,
 	},
 	detail_send_content_item_text: {
 		flex: 1,
