@@ -1,5 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import CommonShow from './CommonShow';
 import CommonSylte from '../../style/common';
 import { Text, View, StyleSheet } from 'react-native';
 
@@ -11,29 +11,17 @@ export default class OrderScreen extends React.Component {
 	async componentDidMount() {}
 
 	render() {
-		let { orderDetail, address } = this.props;
+		let { orderDetail } = this.props;
 		return (
 			<View style={styles.detail_send}>
 				<View style={styles.detail_common_title}>
 					<Text>店铺信息</Text>
 				</View>
 				<View style={styles.detail_send_content}>
-					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>店铺名称: </Text>
-						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopName}</Text>
-					</View>
-					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>店铺联系人: </Text>
-						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopManager}</Text>
-					</View>
-					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>联系电话: </Text>
-						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopPhone}</Text>
-					</View>
-					<View style={styles.detail_send_content_item}>
-						<Text style={styles.detail_send_content_item_label}>店铺地址: </Text>
-						<Text style={styles.detail_send_content_item_text}>{orderDetail.shopAddress}</Text>
-					</View>
+					<CommonShow label="店铺名称" value={orderDetail.shopName} />
+					<CommonShow label="店铺联系人" value={orderDetail.shopManager} />
+					<CommonShow label="联系电话" value={orderDetail.shopPhone} />
+					<CommonShow label="店铺地址" value={orderDetail.shopAddress} />
 				</View>
 			</View>
 		);

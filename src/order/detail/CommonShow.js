@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
 	},
 	detail_send_content_item_label: {
 		width: 84,
-		// textAlign: 'right',
 		marginRight: 5,
 	},
 	detail_send_content_item_text: {

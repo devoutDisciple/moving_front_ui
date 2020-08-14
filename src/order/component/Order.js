@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Empty from './Empty';
 import FooterScreen from './Footer';
@@ -103,6 +102,9 @@ export default class AllOrder extends React.Component {
 										detail={item}
 										key={String(item.id)}
 										navigation={navigation}
+										setLoading={flag => {
+											this.setState({ loadingVisible: flag });
+										}}
 										onSearch={this.headerRefresh.bind(this)}
 										goods={`${firstName} 等 ${totalThings} 件衣物`}
 									/>
@@ -115,6 +117,9 @@ export default class AllOrder extends React.Component {
 										detail={item}
 										key={String(item.id)}
 										navigation={navigation}
+										setLoading={flag => {
+											this.setState({ loadingVisible: flag });
+										}}
 										onSearch={this.headerRefresh.bind(this)}
 										goods={`${firstName} 等 ${totalThings} 件衣物`}
 									/>
@@ -129,6 +134,9 @@ export default class AllOrder extends React.Component {
 									detail={item}
 									key={String(item.id)}
 									navigation={navigation}
+									setLoading={flag => {
+										this.setState({ loadingVisible: flag });
+									}}
 									onSearch={this.headerRefresh.bind(this)}
 								/>
 							);

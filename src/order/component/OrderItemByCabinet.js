@@ -13,8 +13,6 @@ import { Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 export default class AllOrder extends React.Component {
 	constructor(props) {
 		super(props);
-		this.renderBtn = this.renderBtn.bind(this);
-		this.updateOrderStatus = this.updateOrderStatus.bind(this);
 	}
 
 	componentDidMount() {}
@@ -39,24 +37,24 @@ export default class AllOrder extends React.Component {
 		}
 	}
 
-	async updateOrderStatus() {
-		let { id } = this.props.detail;
-		let orderStatus = await Request.post('/order/updateOrderStatus', { orderid: id, status: 4 });
-		if (orderStatus.data === 'success') {
-			return this.props.onSearch();
-		}
-		return;
-	}
-
 	// 打开柜子
 	async onOpenCabinet() {
-		let { id } = this.props.detail;
-		let result = await Request.post('/order/openCellById', { orderId: id });
-		if (result.data === 'success') {
-			Message.warning('柜门已打开', '请取出衣物，随手关门，谢谢！');
-			return this.props.onSearch();
-		}
-		return Message.warning('网络错误', '请稍后重试！');
+		Message.confirm('请注意', '请确认是否在柜子旁边', async () => {
+			try {
+				this.props.setLoading(true);
+				let { id } = this.props.detail;
+				let result = await Request.post('/order/openCellById', { orderId: id });
+				this.props.setLoading(false);
+				if (result.data === 'success') {
+					Message.warning('柜门已打开', '请取出衣物，随手关门，谢谢！');
+					return this.props.onSearch();
+				}
+				return Message.warning('网络错误', '请稍后重试！');
+			} catch (error) {
+				console.log(error);
+				this.props.setLoading(false);
+			}
+		});
 	}
 
 	// 联系我们
