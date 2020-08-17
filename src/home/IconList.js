@@ -1,13 +1,13 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
 import IconWithText from '../component/IconWithText';
 import StorageUtil from '../util/Storage';
 import config from '../config/config';
 import Toast from '../component/Toast';
+import UpdateVersion from '../util/Update';
 import Message from '../component/Message';
 import PushNotificationIOS from '../util/PushNotification';
 import { init, Geolocation } from 'react-native-amap-geolocation';
+import { View, StyleSheet, Linking } from 'react-native';
 
 export default class IconList extends React.Component {
 	constructor(props) {
@@ -117,19 +117,7 @@ export default class IconList extends React.Component {
 
 		// 版本更新
 		if (data && data.key === 'home_operation') {
-			let url = `itms-apps://itunes.apple.com/app/${config.AppStoreId}`;
-			// let url = `itms-apps://apps.apple.com/us/app/${config.AppStoreId}`;
-			//后面有个APP_ID，
-			Linking.canOpenURL(url)
-				.then(supported => {
-					if (supported) {
-						Linking.openURL(url);
-					} else {
-					}
-				})
-				.catch(error => {
-					console.log(error);
-				});
+			UpdateVersion.updateVersion();
 		}
 
 		// 关于我们

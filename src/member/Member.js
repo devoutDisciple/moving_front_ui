@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import CommonSylte from '../style/common';
-// import Dialog from '../util/Dialog';
 import CommonHeader from '../component/CommonHeader';
 import IconWithText from '../component/IconWithText';
 import SafeViewComponent from '../component/SafeViewComponent';

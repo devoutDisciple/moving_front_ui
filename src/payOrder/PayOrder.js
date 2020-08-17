@@ -115,7 +115,7 @@ export default class PayOrderScreen extends React.Component {
 		if (payWay === 'wechat') {
 			try {
 				let res = await PayUtil.payMoneyByWeChat({
-					desc: clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用',
+					desc: showText,
 					money: money,
 					type: 'clothing',
 					orderid: orderid,
@@ -136,7 +136,7 @@ export default class PayOrderScreen extends React.Component {
 		}
 		if (payWay === 'alipay') {
 			let res = await Request.post('/pay/payByOrderAlipay', {
-				desc: '预约取衣派送费用',
+				desc: showText,
 				money: money,
 				type: 'clothing',
 				userid: user.id,

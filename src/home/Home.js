@@ -9,12 +9,13 @@ import StorageUtil from '../util/Storage';
 import Picker from 'react-native-picker';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
+import UpdateVersion from '../util/Update';
 import Spinner from 'react-native-spinkit';
+import NavigationUtil from '../util/NavigationUtil';
 import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import NavigationUtil from '../util/NavigationUtil';
-import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl, Platform } from 'react-native';
 
 export default class HomeScreen extends React.Component {
 	constructor(props) {
@@ -91,7 +92,6 @@ export default class HomeScreen extends React.Component {
 	};
 
 	async componentDidMount() {
-		console.log(1111);
 		const { setParams } = this.props.navigation;
 		// 设置左右按钮的点击功能
 		setParams({
@@ -203,20 +203,9 @@ export default class HomeScreen extends React.Component {
 		this.setState({ swiperList: res.data || [] });
 	}
 
-	// 跳转到appstore进行更新
+	// 跳转更新
 	goAppStore() {
-		let url = `itms-apps://apps.apple.com/us/app/${config.AppStoreId}`;
-		//后面有个APP_ID，
-		Linking.canOpenURL(url)
-			.then(supported => {
-				if (supported) {
-					Linking.openURL(url);
-				} else {
-				}
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		UpdateVersion.updateVersion();
 	}
 
 	// 位置点击
