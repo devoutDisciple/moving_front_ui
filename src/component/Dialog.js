@@ -39,6 +39,7 @@ export default class Dialog extends React.Component {
 						<TextInput
 							maxLength={20}
 							defaultValue={value}
+							returnKeyType="done"
 							selectionColor="#fb9bcd"
 							placeholderTextColor="#bfbfbf"
 							style={styles.message_edit_input}

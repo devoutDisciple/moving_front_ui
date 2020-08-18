@@ -42,7 +42,7 @@ PODS:
     - Folly (= 2018.10.22.00)
     - RCTRequired (= 0.61.4)
     - React-Core (= 0.61.4)
-  - RCTWeChat (1.9.12):
+  - RCTWeChat (1.1.22):
     - React
   - React (0.61.4):
     - React-Core (= 0.61.4)
@@ -208,7 +208,7 @@ PODS:
     - React
   - react-native-spinkit (1.4.1):
     - React
-  - react-native-viewpager (3.3.0):
+  - react-native-viewpager (3.3.1):
     - React
   - React-RCTActionSheet (0.61.4):
     - React-Core/RCTActionSheetHeaders (= 0.61.4)
@@ -245,11 +245,11 @@ PODS:
     - React-cxxreact (= 0.61.4)
     - React-jsi (= 0.61.4)
     - ReactCommon/jscallinvoker (= 0.61.4)
-  - RNCAsyncStorage (1.11.0):
+  - RNCAsyncStorage (1.12.0):
     - React
   - RNCPushNotificationIOS (1.4.0):
     - React
-  - RNDeviceInfo (5.6.3):
+  - RNDeviceInfo (5.6.5):
     - React
   - RNFastImage (7.0.2):
     - React
@@ -266,7 +266,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
-  - RNReanimated (1.10.1):
+  - RNReanimated (1.13.0):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
@@ -439,7 +439,7 @@ SPEC CHECKSUMS:
   Picker: 37554355aef82a532ea95b71b6eeba66bc86182b
   RCTRequired: f3b3fb6f4723e8e52facb229d0c75fdc76773849
   RCTTypeSafety: 2ec60de6abb1db050b56ecc4b60188026078fd10
-  RCTWeChat: 21edc74a8d759566d226e6fa12e7ea5ac6bf2129
+  RCTWeChat: 38d5db24dba71d7c4f251f71103fd9ee366bf300
   React: 10e0130b57e55a7cd8c3dee37c1261102ce295f4
   React-Core: 636212410772d05f3a1eb79d965df2962ca1c70b
   React-CoreModules: 6f70d5e41919289c582f88c9ad9923fe5c87400a
@@ -450,7 +450,7 @@ SPEC CHECKSUMS:
   react-native-amap-geolocation: 5b42219a67e29b4c1ce0b75faf3b8869f97e2f7c
   react-native-restart: d19a0f8d053d065fe64cd2baebb6487111c77149
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
-  react-native-viewpager: a7b438ca32c57b2614ece2a123e7fe116f743131
+  react-native-viewpager: f730c1d175a2c1ae789464855d4a2c14247d3109
   React-RCTActionSheet: 7369b7c85f99b6299491333affd9f01f5a130c22
   React-RCTAnimation: d07be15b2bd1d06d89417eb0343f98ffd2b099a7
   React-RCTBlob: 8e0b23d95c9baa98f6b0e127e07666aaafd96c34
@@ -461,13 +461,13 @@ SPEC CHECKSUMS:
   React-RCTText: 21934e0a51d522abcd0a275407e80af45d6fd9ec
   React-RCTVibration: 0f76400ee3cec6edb9c125da49fed279340d145a
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
-  RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
+  RNCAsyncStorage: 2a692bcb9b69b76a2f1a95f33db057129700af64
   RNCPushNotificationIOS: dc1c0c6aa18a128df123598149f42e848d26a4ac
-  RNDeviceInfo: 5be12a5bfbb8da3528c43ee4373abd9c30d04616
+  RNDeviceInfo: c5f8f3a456adcbba405ace475254b08febc4c095
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNImageCropPicker: cf129d17e042ce3e96fb9ada967c28f21f977c82
-  RNReanimated: c2bb7438b57a3d987bb2e4e6e4bca94787e30b02
+  RNReanimated: 89f5e0a04d1dd52fbf27e7e7030d8f80a646a3fc
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a

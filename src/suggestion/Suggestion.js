@@ -64,7 +64,12 @@ export default class Suggestion extends React.Component {
 						<TextInput
 							multiline
 							maxLength={200}
+							blurOnSubmit={true}
+							returnKeyType="done"
+							keyboardType="default"
+							textAlignVertical="top"
 							style={styles.suggest_input}
+							underlineColorAndroid="transparent"
 							onChangeText={value => this.setState({ value })}
 							placeholder="请描述您使用此软件遇到的问题和意见(200字以内)"
 						/>

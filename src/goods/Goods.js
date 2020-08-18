@@ -8,7 +8,18 @@ import Loading from '../component/Loading';
 import CommonHeader from '../component/CommonHeader';
 import SafeViewComponent from '../component/SafeViewComponent';
 import FastImage from '../component/FastImage';
-import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, Alert, TouchableOpacity } from 'react-native';
+import {
+	Text,
+	View,
+	StyleSheet,
+	ScrollView,
+	TextInput,
+	Dimensions,
+	Alert,
+	TouchableOpacity,
+	KeyboardAvoidingView,
+	Platform,
+} from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -28,21 +39,7 @@ export default class Goods extends React.Component {
 	}
 
 	async componentDidMount() {
-		let shop = await storageUtil.get('shop');
-		if (!shop) {
-			this.props.navigation.navigate('LoginScreen');
-			return Toast.warning('请登录!');
-		}
-		let { navigation } = this.props;
-		let boxid = navigation.getParam('boxid', ''),
-			cabinetId = navigation.getParam('cabinetId', '');
-		Request.get('/clothing/getByShopid', { shopid: shop.id }).then(res => {
-			let data = res.data || [];
-			if (Array.isArray(data) && data.length !== 0) {
-				data.forEach(item => (item.num = 0));
-			}
-			this.setState({ data: data || [], boxid, cabinetId });
-		});
+		await this.onSearchClothing();
 	}
 
 	// 查询衣物
@@ -146,7 +143,7 @@ export default class Goods extends React.Component {
 		let { data, totalPrice, loadingVisible, urgency, urgencyMoney } = this.state;
 		return (
 			<SafeViewComponent>
-				<View style={styles.container}>
+				<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 					<CommonHeader title="计算洗衣费用" navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						<View style={styles.content_title}>
@@ -204,11 +201,15 @@ export default class Goods extends React.Component {
 								multiline
 								maxLength={100}
 								autoComplete="off"
+								blurOnSubmit={true}
+								returnKeyType="done"
 								keyboardType="default"
+								textAlignVertical="top"
 								selectionColor="#fb9bcd"
 								placeholderTextColor="#bfbfbf"
 								style={styles.message_desc_input}
-								placeholder="MOVING洗衣店为您尽心服务!"
+								underlineColorAndroid="transparent"
+								placeholder="MOVING洗衣为您尽心服务!"
 								onChangeText={value => this.setState({ remark: value })}
 							/>
 						</View>
@@ -227,7 +228,7 @@ export default class Goods extends React.Component {
 						</TouchableOpacity>
 					</View>
 					<Loading visible={loadingVisible} />
-				</View>
+				</KeyboardAvoidingView>
 			</SafeViewComponent>
 		);
 	}
