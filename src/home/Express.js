@@ -23,7 +23,6 @@ export default class Express extends React.Component {
 		let boxid = boxDetail.boxid,
 			cabinetId = boxDetail.id;
 		let { navigation } = this.props;
-		console.log(1111);
 		// 验证用户是否登录
 		let user = await storageUtil.get('user');
 		if (!user) {

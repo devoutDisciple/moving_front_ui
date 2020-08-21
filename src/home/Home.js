@@ -15,7 +15,7 @@ import NavigationUtil from '../util/NavigationUtil';
 import VersionDialog from '../component/VersionDialog';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Linking, Modal, RefreshControl } from 'react-native';
 
 export default class HomeScreen extends React.Component {
 	constructor(props) {

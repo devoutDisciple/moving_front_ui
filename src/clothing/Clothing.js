@@ -155,7 +155,7 @@ export default class Member extends React.Component {
 			message.warning('普通订单', '店员将会在一至三日内取货，请耐心等待');
 		}
 		if (value === 2) {
-			message.warning('加急订单', '店员将会在当日收取衣物，另外收取衣物总费用的50%作为加急费用');
+			message.warning('加急订单', '店员将会在一天内收取衣物，另外收取衣物总费用的50%作为加急费用');
 		}
 		this.setState({ urgency: value });
 	}

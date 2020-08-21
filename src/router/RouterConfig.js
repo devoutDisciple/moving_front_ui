@@ -62,6 +62,8 @@ import PayOrderScreen from '../payOrder/PayOrder';
 import AdvertisementScreen from '../advertisement/index';
 // 服务协议
 import ServiceProtocolScreen from '../protocol/ServiceProtocol';
+// 店内下单
+import ShopOrderScreen from '../shopOrderGoods/Goods';
 
 import TabBarItem from './TabBarItem';
 
@@ -193,6 +195,16 @@ const finnalApp = createStackNavigator(
 			},
 		},
 
+		// 店内下单
+		ShopOrderScreen: {
+			screen: ShopOrderScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
+
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,
@@ -244,6 +256,7 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
+
 		// 选择快递柜子页面
 		CabinetScreen: {
 			screen: CabinetScreen,
@@ -253,6 +266,7 @@ const finnalApp = createStackNavigator(
 				headerBackAllowFontScaling: false,
 			},
 		},
+
 		// 地址编辑页面
 		AddressEditScreen: {
 			screen: AddressEditScreen,
@@ -261,6 +275,7 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 			},
 		},
+
 		// 新增地址页面
 		AddressAddScreen: {
 			screen: AddressAddScreen,

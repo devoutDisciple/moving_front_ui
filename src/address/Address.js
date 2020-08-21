@@ -1,14 +1,14 @@
 import React from 'react';
 import Request from '../util/Request';
+import Toast from '../component/Toast';
 import StorageUtil from '../util/Storage';
 import RequestUtil from '../util/Request';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
 import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import Toast from '../component/Toast';
 import SafeViewComponent from '../component/SafeViewComponent';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 export default class Member extends React.Component {
 	constructor(props) {
@@ -103,7 +103,11 @@ export default class Member extends React.Component {
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader title="我的收货地址" navigation={navigation} />
+					<CommonHeader
+						title="我的收货地址"
+						navigation={navigation}
+						back={() => navigation.navigate('GoodsScreen', { flash: true })}
+					/>
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						{addressList.map((item, index) => {
 							return (

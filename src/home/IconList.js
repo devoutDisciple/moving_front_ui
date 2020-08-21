@@ -1,20 +1,17 @@
 import React from 'react';
-import IconWithText from '../component/IconWithText';
-import StorageUtil from '../util/Storage';
 import config from '../config/config';
 import Toast from '../component/Toast';
+import StorageUtil from '../util/Storage';
 import UpdateVersion from '../util/Update';
 import Message from '../component/Message';
+import IconWithText from '../component/IconWithText';
+import { View, StyleSheet, Linking } from 'react-native';
 import PushNotificationIOS from '../util/PushNotification';
 import { init, Geolocation } from 'react-native-amap-geolocation';
-import { View, StyleSheet, Linking } from 'react-native';
 
 export default class IconList extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			num: 1,
-		};
 	}
 
 	async componentDidMount() {
@@ -97,6 +94,13 @@ export default class IconList extends React.Component {
 			await this.judgeMember();
 			navigation.navigate('ClothingScreen');
 		}
+
+		// 店铺内下单
+		if (data && data.key === 'shop_order') {
+			await this.judgeMember();
+			navigation.navigate('GoodsScreen', { order_type: 'shop_order' });
+		}
+
 		// moving商城
 		if (data && data.key === 'home_shop') {
 			await this.judgeMember();
@@ -138,15 +142,14 @@ export default class IconList extends React.Component {
 				.catch(error => {
 					console.log(error);
 				});
-			// this.setState({ num: this.state.num + 1 });
-			// let keys = await StorageUtil.getAllKeys();
-			// let res = await StorageUtil.multiGet(keys);
-			// console.log('StorageUtil: ', res);
 		}
 
 		// 清除所有的keys
 		if (data && data.key === 'bbb') {
-			// this.setState({ num: this.state.num + 1 });
+			// let keys = await StorageUtil.getAllKeys();
+			// let res = await StorageUtil.multiGet(keys);
+			// console.log('StorageUtil: ', res);
+			//
 			// await StorageUtil.clear();
 			// console.log('清除成功');
 			//
@@ -161,6 +164,11 @@ export default class IconList extends React.Component {
 	render() {
 		const iconList1 = [
 			{
+				key: 'shop_order',
+				url: require('../../img/home/shop.png'),
+				text: '店内下单',
+			},
+			{
 				key: 'home_clothing',
 				url: require('../../img/home/service.png'),
 				text: '上门取衣',
@@ -172,16 +180,16 @@ export default class IconList extends React.Component {
 			},
 			{
 				key: 'home_member',
-				url: require('../../img/home/hello.png'),
+				url: require('../../img/home/member.png'),
 				text: '成为会员',
 			},
+		];
+		const iconList2 = [
 			{
 				key: 'home_recharge',
 				url: require('../../img/home/chongzhi.png'),
 				text: '会员充值',
 			},
-		];
-		const iconList2 = [
 			{
 				key: 'home_concat',
 				url: require('../../img/home/lianxi.png'),
@@ -194,14 +202,14 @@ export default class IconList extends React.Component {
 			},
 			{
 				key: 'guanwang',
-				url: require('../../img/home/icon6.png'),
-				text: 'MOVING官网',
+				url: require('../../img/home/guanwang.png'),
+				text: 'Moving官网',
 			},
-			{
-				// key: 'bbb',
-				// url: require('../../img/home/icon6.png'),
-				// text: '协议',
-			},
+			// {
+			// 	// key: 'bbb',
+			// 	// url: require('../../img/home/icon6.png'),
+			// 	// text: '协议',
+			// },
 		];
 		return (
 			<View style={styles.icon_container}>
@@ -244,14 +252,5 @@ const styles = StyleSheet.create({
 		height: 80,
 		marginHorizontal: 10,
 		flexDirection: 'row',
-	},
-	home_icon_item: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	home_icon_item_text: {
-		marginTop: 10,
-		fontSize: 12,
 	},
 });

@@ -1,17 +1,26 @@
 import React from 'react';
+import moment from 'moment';
 import GoodsItem from './GoodsItem';
 import Request from '../util/Request';
 import Toast from '../component/Toast';
-import Message from '../component/Message';
 import storageUtil from '../util/Storage';
+import Message from '../component/Message';
 import Loading from '../component/Loading';
-import moment from 'moment';
-// import config from '../config/config';
 import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
-import RadioItem from './RadioItem';
 import SafeViewComponent from '../component/SafeViewComponent';
-import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+	Text,
+	View,
+	StyleSheet,
+	ScrollView,
+	TextInput,
+	Dimensions,
+	Alert,
+	TouchableOpacity,
+	KeyboardAvoidingView,
+	Platform,
+} from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -20,16 +29,10 @@ export default class Goods extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
-			shopDetail: {},
-			defaultAddress: '',
-			userDetail: {},
 			totalPrice: 0.0,
+			shopDetail: {},
 			remark: '',
-			boxid: '',
-			order_type: '',
-			cabinetId: '',
 			loadingVisible: false,
-			send_status: 2,
 			urgencyMoney: 0.0, // 加急后的费用
 			urgency: 1, // 是否是加急订单 1-普通 2-加急
 			isThursday: moment(new Date().getTime()).day() === 3,
@@ -37,27 +40,17 @@ export default class Goods extends React.Component {
 	}
 
 	async componentDidMount() {
-		await this.getShopDetail();
 		await this.onSearchClothing();
 	}
 
-	// 当参数含有flash的时候会进行刷新
-	async UNSAFE_componentWillReceiveProps(nextProps) {
-		if (nextProps && nextProps.navigation && nextProps.navigation.state.params.flash) {
-			console.log(123);
-			await this.sendStatusClick(2);
-		}
-	}
-
-	// 获取商店信息详情
-	async getShopDetail() {
+	// 获取商店详情
+	async onGetShopDetail() {
 		let shop = await storageUtil.get('shop');
-		let user = await storageUtil.get('user');
-		if (!shop || !user) {
+		if (!shop) {
 			this.props.navigation.navigate('LoginScreen');
 			return Toast.warning('请登录!');
 		}
-		this.setState({ shopDetail: shop, userDetail: user });
+		this.setState({ shopDetail: shop });
 	}
 
 	// 查询衣物
@@ -65,16 +58,16 @@ export default class Goods extends React.Component {
 		try {
 			this.setState({ loadingVisible: true });
 			let shop = await storageUtil.get('shop');
-			let { navigation } = this.props;
-			let boxid = navigation.getParam('boxid', ''),
-				cabinetId = navigation.getParam('cabinetId', ''),
-				order_type = navigation.getParam('order_type', '');
+			if (!shop) {
+				this.props.navigation.navigate('LoginScreen');
+				return Toast.warning('请登录!');
+			}
 			let res = await Request.get('/clothing/getByShopid', { shopid: shop.id });
 			let data = res.data || [];
 			if (Array.isArray(data) && data.length !== 0) {
 				data.forEach(item => (item.num = 0));
 			}
-			this.setState({ data: data || [], boxid, cabinetId, loadingVisible: false, order_type });
+			this.setState({ data: data || [], loadingVisible: false });
 		} catch (error) {
 			this.setState({ loadingVisible: false });
 		}
@@ -93,83 +86,21 @@ export default class Goods extends React.Component {
 		});
 	}
 
-	// 派送方式改变
-	async sendStatusClick(flag) {
-		let { navigation } = this.props;
-		let { userDetail } = this.state;
-		// 如果是派送到洗衣柜
-		if (flag === 1) {
-			let res = await Request.get('/address/getAllByUserid', { userid: userDetail.id });
-			let addressList = res.data;
-			console.log(Array.isArray(addressList));
-			if (!addressList || !Array.isArray(addressList) || addressList.length === 0) {
-				return Message.warning('提示', '请选择默认地址', () => {
-					navigation.navigate('MyAddressScreen');
-				});
-			}
-			let defaultAddress = addressList.filter(item => item.is_defalut === 2)[0];
-			if (!defaultAddress) {
-				return Message.warning('提示', '请选择默认地址', () => {});
-			}
-			console.log(defaultAddress, 1222);
-			this.setState({
-				defaultAddress: `${defaultAddress.area} ${defaultAddress.street} ${defaultAddress.username} ${defaultAddress.phone}`,
-			});
-		}
-		this.setState({ send_status: flag });
-	}
-
-	// 当在店铺下单，录入订单
-	async addOrderByShopInput() {
-		let { data, totalPrice, remark, urgency, send_status } = this.state,
-			selectGoods = [];
-		let shop = await storageUtil.get('shop');
-		let user = await storageUtil.get('user');
-		if (data && Array.isArray(data)) {
-			data.forEach(item => {
-				if (item.num !== 0) {
-					selectGoods.push({ id: item.id, name: item.name, price: item.price, num: item.num });
-				}
-			});
-		}
-		console.log(shop, user, 999);
-		await Request.post('/order/addByShopInput', {
-			shopid: shop.id,
-			userid: user.id,
-			goods: JSON.stringify(selectGoods || []),
-			money: totalPrice,
-			desc: remark,
-			urgency: urgency,
-			send_status: send_status,
-		});
-	}
-
 	// 点击确定的时候
 	onSureClothing() {
-		let { remark = '', totalPrice = 0, data, boxid, cabinetId, urgency, order_type } = this.state;
-		let selectGoods = [];
-		if (data && Array.isArray(data)) {
-			data.forEach(item => {
-				if (item.num !== 0) {
-					selectGoods.push({ id: item.id, name: item.name, price: item.price, num: item.num });
-				}
-			});
-		}
-		Message.confirm('提示', '该价格仅供参考,最终价格由店员确认', () => {
-			// 店铺内下单
-			if (order_type && order_type === 'shop_order') {
-				this.addOrderByShopInput();
-				return;
-			}
-			this.props.navigation.navigate('CabinetScreen', {
-				boxid,
-				cabinetId,
-				remark: remark,
-				goods: selectGoods,
-				totalPrice: totalPrice,
-				urgency: urgency,
-			});
-		});
+		let { remark = '', totalPrice = 0, data, urgency } = this.state;
+		let selectGoods = data.filter(item => item.num !== 0);
+		Alert.alert(
+			'提示',
+			'该价格仅供参考,最终价格由店员确认',
+			[
+				{
+					text: '确定',
+					onPress: () => {},
+				},
+			],
+			{ cancelable: false },
+		);
 	}
 
 	// 减少衣物
@@ -209,54 +140,18 @@ export default class Goods extends React.Component {
 
 	render() {
 		const { navigation } = this.props;
-		let {
-			data,
-			totalPrice,
-			loadingVisible,
-			urgency,
-			urgencyMoney,
-			isThursday,
-			order_type,
-			shopDetail,
-			send_status,
-			defaultAddress,
-		} = this.state;
-		let flag = order_type && order_type === 'shop_order';
+		let { data, totalPrice, loadingVisible, urgency, urgencyMoney, isThursday } = this.state;
 		return (
 			<SafeViewComponent>
 				<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-					<CommonHeader title={flag ? '店内下单' : '计算洗衣费用'} navigation={navigation} />
+					<CommonHeader title="衣物信息录入" navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-						{flag ? (
-							<>
-								<View style={styles.content_title}>
-									<Text>当前店铺</Text>
-								</View>
-								<View style={styles.shop_name}>
-									<Text style={styles.shop_name_text}>店铺名称: {shopDetail.name}</Text>
-								</View>
-								<View style={styles.content_title}>
-									<Text>取衣方式</Text>
-								</View>
-								<View style={styles.urgency}>
-									<RadioItem select={send_status === 2} onPress={this.sendStatusClick.bind(this, 2)} text="自取" />
-									<RadioItem select={send_status === 1} onPress={this.sendStatusClick.bind(this, 1)} text="洗衣柜" />
-									{/* <RadioItem select={send_status === 3} onPress={this.sendStatusClick.bind(this, 3)} text="派送上门" /> */}
-								</View>
-								{send_status === 1 && defaultAddress ? (
-									<View style={styles.address}>
-										<Text style={styles.address_text}>默认收货地址: {defaultAddress}</Text>
-										{/* <Text style={styles.address_icon}>编辑</Text> */}
-										<TouchableOpacity
-											onPress={() => navigation.navigate('MyAddressScreen')}
-											style={styles.address_icon}
-										>
-											<FastImage style={styles.address_icon_img} source={require('../../img/home/edit.png')} />
-										</TouchableOpacity>
-									</View>
-								) : null}
-							</>
-						) : null}
+						<View style={styles.content_title}>
+							<Text>所属洗衣店</Text>
+						</View>
+						<View style={styles.content_clothing}>
+							<Text>咖啡机独守空房</Text>
+						</View>
 						<View style={styles.content_title}>
 							<Text>洗衣费用计算（仅供参考）</Text>
 						</View>
@@ -281,8 +176,28 @@ export default class Goods extends React.Component {
 							<Text>订单加急</Text>
 						</View>
 						<View style={styles.urgency}>
-							<RadioItem select={urgency === 1} onPress={this.urgencyClick.bind(this, 1)} text="普通订单" />
-							<RadioItem select={urgency === 2} onPress={this.urgencyClick.bind(this, 2)} text="加急订单" />
+							<TouchableOpacity style={styles.urgency_content} onPress={this.urgencyClick.bind(this, 1)}>
+								<FastImage
+									style={styles.img}
+									source={
+										urgency === 1
+											? require('../../img/public/check_box_select.png')
+											: require('../../img/public/check_box_no_select.png')
+									}
+								/>
+								<Text style={styles.img_des}>普通订单</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.urgency_content} onPress={this.urgencyClick.bind(this, 2)}>
+								<FastImage
+									style={styles.img}
+									source={
+										urgency === 2
+											? require('../../img/public/check_box_select.png')
+											: require('../../img/public/check_box_no_select.png')
+									}
+								/>
+								<Text style={styles.img_des}>加急订单</Text>
+							</TouchableOpacity>
 						</View>
 						<View style={styles.content_title}>
 							<Text>备注信息</Text>
@@ -343,43 +258,13 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
-		marginVertical: 5,
+		marginTop: 5,
 	},
 	urgency_content: {
 		flexDirection: 'row',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 		height: 35,
-	},
-	address: {
-		minHeight: 25,
-		marginBottom: 10,
-		flexDirection: 'row',
-		paddingLeft: 10,
-		paddingRight: 5,
-		justifyContent: 'flex-start',
-	},
-	address_text: {
-		flex: 1,
-		fontSize: 12,
-		lineHeight: 20,
-		color: '#8a8a8a',
-	},
-	address_icon: {
-		width: 30,
-		alignItems: 'flex-end',
-	},
-	address_icon_img: {
-		height: 18,
-		width: 18,
-	},
-	shop_name: {
-		height: 50,
-		justifyContent: 'center',
-		paddingLeft: 10,
-	},
-	shop_name_text: {
-		color: '#333',
 	},
 	img: {
 		height: 18,
