@@ -44,8 +44,7 @@ export default class Goods extends React.Component {
 	// 当参数含有flash的时候会进行刷新
 	async UNSAFE_componentWillReceiveProps(nextProps) {
 		if (nextProps && nextProps.navigation && nextProps.navigation.state.params.flash) {
-			console.log(123);
-			await this.sendStatusClick(2);
+			await this.sendStatusClick(1);
 		}
 	}
 
@@ -95,34 +94,40 @@ export default class Goods extends React.Component {
 
 	// 派送方式改变
 	async sendStatusClick(flag) {
-		let { navigation } = this.props;
-		let { userDetail } = this.state;
-		// 如果是派送到洗衣柜
-		if (flag === 1) {
-			let res = await Request.get('/address/getAllByUserid', { userid: userDetail.id });
-			let addressList = res.data;
-			console.log(Array.isArray(addressList));
-			if (!addressList || !Array.isArray(addressList) || addressList.length === 0) {
-				return Message.warning('提示', '请选择默认地址', () => {
-					navigation.navigate('MyAddressScreen');
+		try {
+			let { navigation } = this.props;
+			let { userDetail } = this.state;
+			// 如果是派送到洗衣柜
+			if (flag === 1) {
+				let res = await Request.get('/address/getAllByUserid', { userid: userDetail.id });
+				let addressList = res.data;
+				console.log(Array.isArray(addressList));
+				if (!addressList || !Array.isArray(addressList) || addressList.length === 0) {
+					return Message.confirm('提示', '未选择默认地址，请选择', () => {
+						navigation.navigate('MyAddressScreen');
+					});
+				}
+				let defaultAddress = addressList.filter(item => item.is_defalut === 2)[0];
+				if (!defaultAddress) {
+					return Message.confirm('提示', '未选择默认地址，请选择', () => {
+						navigation.navigate('MyAddressScreen');
+					});
+				}
+				this.setState({
+					defaultAddress: `${defaultAddress.area} ${defaultAddress.street} ${defaultAddress.username} ${defaultAddress.phone}`,
 				});
 			}
-			let defaultAddress = addressList.filter(item => item.is_defalut === 2)[0];
-			if (!defaultAddress) {
-				return Message.warning('提示', '请选择默认地址', () => {});
-			}
-			console.log(defaultAddress, 1222);
-			this.setState({
-				defaultAddress: `${defaultAddress.area} ${defaultAddress.street} ${defaultAddress.username} ${defaultAddress.phone}`,
-			});
+			this.setState({ send_status: flag });
+		} catch (error) {
+			console.log(error);
 		}
-		this.setState({ send_status: flag });
 	}
 
 	// 当在店铺下单，录入订单
 	async addOrderByShopInput() {
 		let { data, totalPrice, remark, urgency, send_status } = this.state,
-			selectGoods = [];
+			selectGoods = [],
+			{ navigation } = this.props;
 		let shop = await storageUtil.get('shop');
 		let user = await storageUtil.get('user');
 		if (data && Array.isArray(data)) {
@@ -132,8 +137,8 @@ export default class Goods extends React.Component {
 				}
 			});
 		}
-		console.log(shop, user, 999);
-		await Request.post('/order/addByShopInput', {
+		this.setState({ loadingVisible: true });
+		let res = await Request.post('/order/addByShopInput', {
 			shopid: shop.id,
 			userid: user.id,
 			goods: JSON.stringify(selectGoods || []),
@@ -142,6 +147,11 @@ export default class Goods extends React.Component {
 			urgency: urgency,
 			send_status: send_status,
 		});
+		this.setState({ loadingVisible: false });
+		if (res && res.data === 'success') {
+			Toast.success('下单成功, 待店员确认衣物价格');
+			return navigation.navigate('HomeScreen');
+		}
 	}
 
 	// 点击确定的时候
