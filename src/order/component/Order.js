@@ -2,6 +2,7 @@ import React from 'react';
 import Empty from './Empty';
 import FooterScreen from './Footer';
 import OrderItemByHome from './OrderItemByHome';
+import OrderItemByShop from './OrderItemByShop';
 import OrderItemByCabinet from './OrderItemByCabinet';
 import OrderItemByIntergral from './OrderItemByIntergral';
 import { View, FlatList, StyleSheet } from 'react-native';
@@ -70,6 +71,7 @@ export default class AllOrder extends React.Component {
 	render() {
 		let { navigation } = this.props;
 		let { data, headerLoading, footerStatus, loadingVisible } = this.state;
+		console.log(data, 999);
 		return (
 			<View style={styles.order_container}>
 				<FlatList
@@ -83,7 +85,7 @@ export default class AllOrder extends React.Component {
 					showsVerticalScrollIndicator={false}
 					ListFooterComponent={<FooterScreen status={footerStatus} />}
 					renderItem={({ item, index }) => {
-						if (item.order_type === 1 || item.order_type === 2) {
+						if (item.order_type === 1 || item.order_type === 2 || item.order_type === 5) {
 							let goods = '',
 								firstName = '--',
 								totalThings = 0;
@@ -114,6 +116,21 @@ export default class AllOrder extends React.Component {
 							if (item.order_type === 2) {
 								return (
 									<OrderItemByHome
+										detail={item}
+										key={String(item.id)}
+										navigation={navigation}
+										setLoading={flag => {
+											this.setState({ loadingVisible: flag });
+										}}
+										onSearch={this.headerRefresh.bind(this)}
+										goods={`${firstName} 等 ${totalThings} 件衣物`}
+									/>
+								);
+							}
+							// 店内下单
+							if (item.order_type === 5) {
+								return (
+									<OrderItemByShop
 										detail={item}
 										key={String(item.id)}
 										navigation={navigation}

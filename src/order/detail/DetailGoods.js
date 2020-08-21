@@ -22,7 +22,7 @@ export default class OrderScreen extends React.Component {
 		if (Number(orderDetail.urgency) === 2) {
 			subMoney = Number(orderDetail.origin_money * 1.5 - (orderDetail.origin_money * 1.5 * orderDetail.discount) / 10).toFixed(2);
 		}
-		if (goods && goods.length !== 0 && (Number(type) === 1 || Number(type) === 2)) {
+		if ((goods && goods.length !== 0 && (Number(type) === 1 || Number(type) === 2)) || Number(type) === 5) {
 			return (
 				<View style={styles.detail_content_goods}>
 					<View style={styles.detail_common_title}>

@@ -73,7 +73,6 @@ export default class OrderScreen extends React.Component {
 						<View>
 							<DetailSave orderDetail={orderDetail} address={address} type={type} />
 						</View>
-
 						{/* <DetailSend orderDetail={orderDetail} /> */}
 					</ScrollView>
 					<Loading visible={loadingVisible} />
