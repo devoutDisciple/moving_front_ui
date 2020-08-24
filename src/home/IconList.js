@@ -58,7 +58,7 @@ export default class IconList extends React.Component {
 			return 1;
 		}
 		// 用户信息不完整
-		if (!user.phone || !user.username || !user.email) {
+		if (!user.phone || !user.username) {
 			return 2;
 		}
 		// 普通会员

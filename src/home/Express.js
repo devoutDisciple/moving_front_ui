@@ -37,7 +37,7 @@ export default class Express extends React.Component {
 		await storageUtil.set('user', user);
 		setLoading(false);
 		// 登录过后验证用户信息是否完整
-		if (!user.phone || !user.username || !user.email) {
+		if (!user.phone || !user.username) {
 			navigation.navigate('MyMessage');
 			return Toast.warning('请先补全个人信息!');
 		}
