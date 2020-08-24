@@ -30,7 +30,7 @@ export default class OrderScreen extends React.Component {
 				</View>
 			);
 		}
-		if (orderDetail.cabinetAddress && Number(type) === 2) {
+		if (Number(type) === 2) {
 			return (
 				<>
 					{orderDetail.cabinetAddress ? (

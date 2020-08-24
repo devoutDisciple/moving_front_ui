@@ -236,7 +236,7 @@ export default class Member extends React.Component {
 								});
 							}}
 						/>
-						<ClothingItem label="物品重量" value="2 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} />
+						{/* <ClothingItem label="物品重量" value="2 kg" showIcon onPress={this.showWeightPick.bind(this, '修改昵称')} /> */}
 						<ClothingItem
 							label="取货地址"
 							value={selectAddress || '请选择'}

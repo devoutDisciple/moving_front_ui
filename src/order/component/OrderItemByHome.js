@@ -25,15 +25,12 @@ export default class AllOrder extends React.Component {
 				{ id } = detail;
 			// 订单金额待支付
 			if (detail.status === 3) {
-				let { is_sure, money, urgency } = detail;
+				let { is_sure, payMoney } = detail;
 				// 判断店员是否确认
 				if (Number(is_sure) !== 2) {
 					return Toast.warning('订单金额待店员确认，请稍后');
 				}
-				if (urgency === 2) {
-					money = Number(money * 1.5).toFixed(2);
-				}
-				return navigation.navigate('PayOrderScreen', { money: money, type: 'clothing', orderid: id, pay: 'payAllClothing' });
+				return navigation.navigate('PayOrderScreen', { money: payMoney, type: 'clothing', orderid: id, pay: 'payAllClothing' });
 			}
 
 			navigation.navigate('PayOrderScreen', { money: Config.getClothingMoney, type: 'clothing', orderid: id, pay: 'already' });
@@ -130,8 +127,7 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		let { goods, detail } = this.props;
-		const { id, shopName, create_time, status, home_time, urgency, money, cabinetAdderss, cabinetName, is_sure } = detail;
-		console.log(cabinetAdderss, cabinetName, 8989);
+		const { id, shopName, create_time, status, home_time, urgency, cabinetAdderss, cabinetName, is_sure } = detail;
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
@@ -157,26 +153,24 @@ export default class AllOrder extends React.Component {
 						)}
 					</View>
 					<TouchableOpacity style={styles.order_item_touch} onPress={this.onSearchDetail.bind(this, id)}>
+						<View style={styles.order_item_right_adrress}>
+							<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
+						</View>
 						{cabinetAdderss && cabinetName ? (
 							<View style={styles.order_item_right_adrress}>
 								<Text style={styles.font_desc_style}>
-									存取地址：{cabinetAdderss} {cabinetName}
+									衣物存取地址：{cabinetAdderss} {cabinetName}
 								</Text>
 							</View>
 						) : null}
-						{Number(is_sure) === 2 ? (
-							<MoneyItem text={goods} money={Number(money).toFixed(2)} />
-						) : (
-							<View style={styles.order_item_right_adrress}>
-								<Text style={styles.font_desc_style}>预约时间：{home_time}</Text>
-							</View>
-						)}
+						{Number(is_sure) === 2 ? <MoneyItem text={goods} money={detail.money} /> : null}
 						{Number(urgency) === 2 && (
 							<>
-								<MoneyItem text="加急费用：" money={Number(money * 0.5).toFixed(2)} />
-								<MoneyItem text="总费用：" money={Number(money * 1.5).toFixed(2)} />
+								<MoneyItem text="加急费用：" money={detail.urgencyMoney} />
 							</>
 						)}
+						<MoneyItem text="优惠价格：" money={`-${detail.subDiscountMoney}`} />
+						<MoneyItem text="洗衣总费用：" money={detail.payMoney} />
 						<View style={styles.order_item_right_order_type}>
 							<Text style={styles.font_desc_style}>订单方式：预约上门取衣</Text>
 						</View>

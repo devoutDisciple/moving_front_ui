@@ -51,11 +51,6 @@ export default class ConcatUs extends React.Component {
 						</View>
 						<Text style={styles.text_item}>&emsp;公司名称：广州锐动洗衣有限公司</Text>
 						<Text style={styles.text_item}>&emsp;公司地址：广州市花都区新雅街清布1队中心路8号首层</Text>
-						<Text style={styles.text_item}>&emsp;总负责人：卢景攀</Text>
-						<Text style={styles.text_item}>&emsp;联系方式：15994786393</Text>
-						<Text style={styles.text_item}>&emsp;联系邮箱：kim19900214@hotmail.com</Text>
-						<Text style={styles.text_item}>&emsp;开发人员：张振</Text>
-						<Text style={styles.text_item_bottom}>&emsp;联系方式：18210619398（微信同号）</Text>
 					</ScrollView>
 				</View>
 			</SafeViewComponent>

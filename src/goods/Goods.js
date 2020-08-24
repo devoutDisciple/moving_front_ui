@@ -1,15 +1,15 @@
 import React from 'react';
+import moment from 'moment';
 import GoodsItem from './GoodsItem';
+import RadioItem from './RadioItem';
 import Request from '../util/Request';
 import Toast from '../component/Toast';
-import Message from '../component/Message';
 import storageUtil from '../util/Storage';
+import Message from '../component/Message';
 import Loading from '../component/Loading';
-import moment from 'moment';
 // import config from '../config/config';
 import FastImage from '../component/FastImage';
 import CommonHeader from '../component/CommonHeader';
-import RadioItem from './RadioItem';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 
@@ -31,8 +31,9 @@ export default class Goods extends React.Component {
 			loadingVisible: false,
 			send_status: 2,
 			urgencyMoney: 0.0, // 加急后的费用
+			thursdayMoney: 0.0, // 会员日初始价格
 			urgency: 1, // 是否是加急订单 1-普通 2-加急
-			isThursday: moment(new Date().getTime()).day() === 3,
+			isThursday: moment(new Date().getTime()).day() === 4,
 		};
 	}
 
@@ -203,18 +204,28 @@ export default class Goods extends React.Component {
 
 	// 结算价格
 	onCountPrice() {
-		let { urgency } = this.state;
+		let { urgency, isThursday } = this.state;
 		let data = this.state.data;
 		let totalPrice = 0;
 		data.map(item => {
 			totalPrice += Number(item.price * item.num);
 		});
 		totalPrice = Number(totalPrice).toFixed(2);
-		let urgencyMoney = 0.0;
+		let urgencyMoney = 0.0,
+			thursdayMoney = 0.0;
+		// 是否加急
 		if (urgency === 2) {
 			urgencyMoney = Number(totalPrice * 1.5).toFixed(2);
 		}
-		this.setState({ totalPrice, urgencyMoney });
+		// 是否是周四会员日
+		if (isThursday) {
+			if (urgency === 2) {
+				thursdayMoney = Number(urgencyMoney * 0.85).toFixed(2);
+			} else {
+				thursdayMoney = Number(totalPrice * 0.85).toFixed(2);
+			}
+		}
+		this.setState({ totalPrice, urgencyMoney, thursdayMoney });
 	}
 
 	render() {
@@ -229,6 +240,7 @@ export default class Goods extends React.Component {
 			order_type,
 			shopDetail,
 			send_status,
+			thursdayMoney,
 			defaultAddress,
 		} = this.state;
 		let flag = order_type && order_type === 'shop_order';
@@ -258,8 +270,8 @@ export default class Goods extends React.Component {
 										<Text style={styles.address_text}>默认收货地址: {defaultAddress}</Text>
 										{/* <Text style={styles.address_icon}>编辑</Text> */}
 										<TouchableOpacity
-											onPress={() => navigation.navigate('MyAddressScreen')}
 											style={styles.address_icon}
+											onPress={() => navigation.navigate('MyAddressScreen')}
 										>
 											<FastImage style={styles.address_icon_img} source={require('../../img/home/edit.png')} />
 										</TouchableOpacity>
@@ -321,12 +333,11 @@ export default class Goods extends React.Component {
 								<Text style={styles.footer_left_content_text}>预计所需: ￥</Text>
 							</View>
 							<View style={styles.footer_right_content}>
-								<Text style={styles.footer_right_content_text}>{urgency === 1 ? totalPrice : urgencyMoney}</Text>
+								<Text style={styles.footer_right_content_text}>
+									{isThursday ? thursdayMoney : urgency === 1 ? totalPrice : urgencyMoney}
+								</Text>
 								{isThursday && <Text style={styles.footer_tip_content_text}>(周四85折优惠)</Text>}
 							</View>
-							{/* <View style={styles.footer_tip_content}>
-								<Text style={styles.footer_tip_content_text}>周四85折优惠</Text>
-							</View> */}
 						</View>
 						<TouchableOpacity style={styles.footer_right} onPress={this.onSureClothing.bind(this)}>
 							<Text style={styles.footer_right_text}>确定</Text>

@@ -71,7 +71,6 @@ export default class AllOrder extends React.Component {
 	render() {
 		let { navigation } = this.props;
 		let { data, headerLoading, footerStatus, loadingVisible } = this.state;
-		console.log(data, 999);
 		return (
 			<View style={styles.order_container}>
 				<FlatList

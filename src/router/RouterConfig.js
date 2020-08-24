@@ -62,8 +62,6 @@ import PayOrderScreen from '../payOrder/PayOrder';
 import AdvertisementScreen from '../advertisement/index';
 // 服务协议
 import ServiceProtocolScreen from '../protocol/ServiceProtocol';
-// 店内下单
-import ShopOrderScreen from '../shopOrderGoods/Goods';
 
 import TabBarItem from './TabBarItem';
 
@@ -188,16 +186,6 @@ const finnalApp = createStackNavigator(
 		// 首屏广告
 		AdvertisementScreen: {
 			screen: AdvertisementScreen,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
-
-		// 店内下单
-		ShopOrderScreen: {
-			screen: ShopOrderScreen,
 			navigationOptions: {
 				headerShown: false,
 				headerBackTitle: '返回',

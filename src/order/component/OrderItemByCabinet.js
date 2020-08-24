@@ -22,16 +22,13 @@ export default class AllOrder extends React.Component {
 		try {
 			let { detail } = this.props;
 			// 判断店员是否确认
-			let { is_sure, id, money, urgency } = detail;
+			let { is_sure, id, payMoney } = detail;
 			if (Number(is_sure) !== 2) {
 				return Toast.warning('订单金额待店员确认，请稍后');
 			}
-			if (urgency === 2) {
-				money = Number(money * 1.5).toFixed(2);
-			}
 			// 查看会员余额是否充足
 			let { navigation } = this.props;
-			navigation.navigate('PayOrderScreen', { money: money, type: 'order', orderid: id });
+			navigation.navigate('PayOrderScreen', { money: payMoney, type: 'order', orderid: id });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}
@@ -113,8 +110,8 @@ export default class AllOrder extends React.Component {
 	}
 
 	render() {
-		const { goods } = this.props;
-		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, cabinetName, money, urgency, status } = this.props.detail;
+		const { goods, detail } = this.props;
+		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, cabinetName, urgency, status } = detail;
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
@@ -145,13 +142,14 @@ export default class AllOrder extends React.Component {
 								存取地址：{cabinetAdderss} {cabinetName}
 							</Text>
 						</View>
-						<MoneyItem text={goods} money={Number(money).toFixed(2)} />
+						<MoneyItem text={goods} money={detail.money} />
 						{Number(urgency) === 2 && (
 							<>
-								<MoneyItem text="加急费用：" money={Number(money * 0.5).toFixed(2)} />
-								<MoneyItem text="洗衣总费用：" money={Number(money * 1.5).toFixed(2)} />
+								<MoneyItem text="加急费用：" money={detail.urgencyMoney} />
 							</>
 						)}
+						<MoneyItem text="优惠价格：" money={`-${detail.subDiscountMoney}`} />
+						<MoneyItem text="洗衣总费用：" money={detail.payMoney} />
 						<View style={styles.order_item_right_order_type}>
 							<Text style={styles.font_desc_style}>订单方式：MOVING洗衣柜下单</Text>
 						</View>
