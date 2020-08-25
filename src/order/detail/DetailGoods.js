@@ -63,6 +63,9 @@ export default class OrderScreen extends React.Component {
 					<View style={styles.detail_content_goods_send}>
 						<Text>派送费：￥{Number(orderDetail.send_money).toFixed(2) || '0.00'}</Text>
 					</View>
+					<View style={styles.detail_content_goods_send}>
+						<Text>备注信息：{orderDetail.desc || '无'}</Text>
+					</View>
 					<View style={styles.detail_content_goods_total}>
 						<Text style={styles.detail_content_goods_total_text}>应付金额：￥{orderDetail.payMoney}</Text>
 					</View>

@@ -25,7 +25,6 @@ export default class OrderScreen extends React.Component {
 						<CommonShow label="收件人" value={address.username} />
 						<CommonShow label="收件人电话" value={address.phone} />
 						<CommonShow label="收件人地址" value={`${address.area} ${address.street}`} />
-						<CommonShow label="备注" value={orderDetail.desc || '无'} />
 					</View>
 				</View>
 			);
@@ -53,7 +52,6 @@ export default class OrderScreen extends React.Component {
 							<CommonShow label="取衣地点" value={orderDetail.home_address} />
 							<CommonShow label="联系人" value={orderDetail.home_username} />
 							<CommonShow label="联系方式" value={orderDetail.home_phone} />
-							<CommonShow label="备注" value={orderDetail.desc} />
 						</View>
 					</View>
 				</>

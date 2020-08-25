@@ -9,6 +9,7 @@ import Request from '../../util/Request';
 import Loading from '../../component/Loading';
 import storageUtil from '../../util/Storage';
 import { Badge } from 'react-native-elements';
+import DetailShopOrder from './DetailShopOrder';
 import SafeViewComponent from '../../component/SafeViewComponent';
 
 export default class OrderScreen extends React.Component {
@@ -69,10 +70,12 @@ export default class OrderScreen extends React.Component {
 							</View>
 						</View>
 						<Detailgoods orderDetail={orderDetail} type={type} />
-						<DetailShop orderDetail={orderDetail} address={address} type={type} />
+						{Number(type) === 5 ? <DetailShopOrder orderDetail={orderDetail} address={address} /> : null}
 						<View>
 							<DetailSave orderDetail={orderDetail} address={address} type={type} />
 						</View>
+						<DetailShop orderDetail={orderDetail} address={address} type={type} />
+
 						{/* <DetailSend orderDetail={orderDetail} /> */}
 					</ScrollView>
 					<Loading visible={loadingVisible} />

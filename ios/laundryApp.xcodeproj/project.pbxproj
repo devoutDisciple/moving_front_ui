@@ -957,7 +957,7 @@
 				CODE_SIGN_ENTITLEMENTS = "laundryApp/MOVING洗衣.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202008141551;
+				CURRENT_PROJECT_VERSION = 202008250214;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -976,7 +976,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1001,7 +1001,7 @@
 				CODE_SIGN_ENTITLEMENTS = "laundryApp/MOVING洗衣.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202008141551;
+				CURRENT_PROJECT_VERSION = 202008250214;
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1013,7 +1013,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

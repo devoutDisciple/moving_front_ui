@@ -1,9 +1,9 @@
-// let flag = true; // true - 线上环境
-let flag = false; //  false-线下环境
+let flag = true; // true - 线上环境
+// let flag = false; //  false-线下环境
 export default {
 	baseUrl: flag ? 'http://47.107.43.166:3001' : 'http://127.0.01:3001',
 	AppStoreId: '1518058596',
-	currentVersion: '1.0.3', // 目前版本
+	currentVersion: '1.2.1', // 目前版本
 	getClothingMoney: 9.9, // 上门取衣费用
 	sercurity_code_time: 60, //验证码的过期时间
 	pickCommonConfig: {

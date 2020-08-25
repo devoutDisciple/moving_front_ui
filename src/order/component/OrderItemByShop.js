@@ -115,6 +115,7 @@ export default class AllOrder extends React.Component {
 	render() {
 		const { goods, detail } = this.props;
 		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, cabinetName, urgency, status } = detail;
+		console.log(detail);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
@@ -147,7 +148,7 @@ export default class AllOrder extends React.Component {
 								</Text>
 							</View>
 						) : null}
-						<MoneyItem text={goods} money={detail.origin_money} />
+						<MoneyItem text={goods} money={detail.money} />
 						{Number(urgency) === 2 && (
 							<>
 								<MoneyItem text="加急费用：" money={detail.urgencyMoney} />
@@ -155,6 +156,9 @@ export default class AllOrder extends React.Component {
 						)}
 						<MoneyItem text="优惠价格：" money={`-${detail.subDiscountMoney}`} />
 						<MoneyItem text="洗衣总费用：" money={detail.payMoney} />
+						<View style={styles.order_item_right_order_type}>
+							<Text style={styles.font_desc_style}>取货方式：{FilterStatus.filterSendStatus(detail.send_status)}</Text>
+						</View>
 						<View style={styles.order_item_right_order_type}>
 							<Text style={styles.font_desc_style}>订单方式：店内下单</Text>
 						</View>
