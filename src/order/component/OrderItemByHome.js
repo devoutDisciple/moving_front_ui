@@ -30,6 +30,14 @@ export default class AllOrder extends React.Component {
 				if (Number(is_sure) !== 2) {
 					return Toast.warning('订单金额待店员确认，请稍后');
 				}
+				if (Number(is_sure === 2)) {
+					return navigation.navigate('PayOrderScreen', {
+						money: payMoney,
+						type: 'payClothing',
+						orderid: id,
+						pay: 'payAllClothing',
+					});
+				}
 				return navigation.navigate('PayOrderScreen', { money: payMoney, type: 'clothing', orderid: id, pay: 'payAllClothing' });
 			}
 
