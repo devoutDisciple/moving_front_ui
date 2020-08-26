@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
 	detail_send: {
 		backgroundColor: '#fff',
 		padding: 10,
-		marginBottom: 20,
 		marginTop: 10,
 		borderRadius: 5,
 	},
@@ -91,19 +90,5 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginTop: 10,
 		borderRadius: 5,
-	},
-	detail_send_content_item: {
-		flexDirection: 'row',
-		marginBottom: 10,
-		marginLeft: 20,
-	},
-	detail_send_content_item_label: {
-		width: 80,
-		// textAlign: 'right',
-		marginRight: 5,
-	},
-	detail_send_content_item_text: {
-		flex: 1,
-		color: '#8a8a8a',
 	},
 });

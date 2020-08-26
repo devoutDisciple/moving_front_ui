@@ -119,11 +119,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		height: 40,
 	},
-	detail_content_goods_item_img: {
-		height: 30,
-		width: 30,
-		marginTop: 10,
-	},
 	detail_content_goods_item_name: {
 		flex: 1,
 		justifyContent: 'center',

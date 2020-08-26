@@ -218,7 +218,6 @@ export default class PayOrderScreen extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		let { payWay, user, money, wechatVisible, loadingVisible, type, clothingPay } = this.state;
-		console.log(clothingPay, 999000);
 		let shoText = type === 'clothing' ? (clothingPay === 'payAllClothing' ? '洗衣费用支付' : '收取衣物费用') : '洗衣费用支付';
 		return (
 			<SafeViewComponent>

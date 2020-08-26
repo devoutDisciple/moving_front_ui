@@ -114,12 +114,12 @@ export default class AllOrder extends React.Component {
 
 	render() {
 		const { goods, detail } = this.props;
-		const { id, shopName, cabinetUrl, create_time, cabinetAdderss, cabinetName, urgency, status } = detail;
+		const { id, shopName, create_time, cabinetAdderss, cabinetName, urgency, status } = detail;
 		console.log(detail);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					<FastImage style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/${cabinetUrl}` }} />
+					<FastImage style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/logo_square.jpg` }} />
 				</View>
 				<View style={styles.order_item_right}>
 					<View style={styles.order_item_right_title}>
