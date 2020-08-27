@@ -30,18 +30,16 @@ export default class AllOrder extends React.Component {
 				if (Number(is_sure) !== 2) {
 					return Toast.warning('订单金额待店员确认，请稍后');
 				}
-				if (Number(is_sure === 2)) {
-					return navigation.navigate('PayOrderScreen', {
-						money: payMoney,
-						type: 'payClothing',
-						orderid: id,
-						pay: 'payAllClothing',
-					});
-				}
 				return navigation.navigate('PayOrderScreen', { money: payMoney, type: 'clothing', orderid: id, pay: 'payAllClothing' });
 			}
-
-			navigation.navigate('PayOrderScreen', { money: Config.getClothingMoney, type: 'clothing', orderid: id, pay: 'already' });
+			// 支付上门取衣费用
+			navigation.navigate('PayOrderScreen', {
+				money: Config.getClothingMoney,
+				type: 'clothing',
+				orderid: id,
+				pay: 'pre_pay',
+				hasOrder: 'yes',
+			});
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}
@@ -91,12 +89,36 @@ export default class AllOrder extends React.Component {
 		});
 	}
 
+	// 取消订单
+	cancleOrder() {
+		// cancleOrder
+		Message.confirm('请确认', '是否取消此订单', async () => {
+			try {
+				this.props.setLoading(true);
+				let { id } = this.props.detail;
+				let result = await Request.post('/order/cancleOrder', { orderid: id });
+				this.props.setLoading(false);
+				if (result.data === 'success') {
+					Toast.success('此订单已取消');
+					return this.props.onSearch();
+				}
+			} catch (error) {
+				this.props.setLoading(false);
+			}
+		});
+	}
+
 	renderBtn() {
 		let actionBtn = [];
 		let { status } = this.props.detail;
 		const payBtn = (
 			<TouchableOpacity key="payBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>去支付</Text>
+			</TouchableOpacity>
+		);
+		const cancelBtn = (
+			<TouchableOpacity key="cancelBtn" onPress={this.cancleOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
+				<Text style={styles.order_pay_font}>取消</Text>
 			</TouchableOpacity>
 		);
 		const connectBtn = (
@@ -120,7 +142,7 @@ export default class AllOrder extends React.Component {
 		}
 		// 已经下单， 未付款
 		if (status === 6) {
-			actionBtn = [connectBtn, payBtn];
+			actionBtn = [connectBtn, payBtn, cancelBtn];
 		}
 		// 已经下单已付款
 		if (status === 8) {

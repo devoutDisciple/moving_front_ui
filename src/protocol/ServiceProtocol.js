@@ -24,7 +24,7 @@ export default class ShopRecord extends React.Component {
 								&emsp;&emsp;该协议用于规范所有使用MOVING洗衣软件的用户，使用该软件，须遵循以下相关条例
 							</Text>
 							<Text style={styles.member_detail_content_text}>
-								&emsp;&emsp;1：所有用于购买会员以及以及余额充值的资金不予退还（如遇特殊情况，请与广州锐动洗衣有限公司协商解决，最后结果以广州锐动洗衣有限公司处理结果为准）。
+								&emsp;&emsp;1：所有用于购买会员以及余额充值赠送的资金不予退还（如遇特殊情况，请与广州锐动洗衣有限公司协商解决，最后结果以广州锐动洗衣有限公司处理结果为准）。
 							</Text>
 							<Text style={styles.member_detail_content_text}>
 								&emsp;&emsp;2：MOVING洗衣柜的使用费用，支付完成之后不予退还，请知悉。

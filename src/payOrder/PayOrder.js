@@ -1,17 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import PayItem from './PayItem';
-import Toast from '../component/Toast';
-import CommonStyle from '../style/common';
-import CommonHeader from '../component/CommonHeader';
+import Alipay from '../util/Alipay';
 import Request from '../util/Request';
 import PayUtil from '../util/PayUtil';
-import Alipay from '../util/Alipay';
+import Toast from '../component/Toast';
+import CommonStyle from '../style/common';
 import StorageUtil from '../util/Storage';
-import * as WeChat from 'react-native-wechat-lib';
 import Loading from '../component/Loading';
 import Message from '../component/Message';
+import * as WeChat from 'react-native-wechat-lib';
 import NavigationUtil from '../util/NavigationUtil';
+import CommonHeader from '../component/CommonHeader';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 const { width } = Dimensions.get('window');
@@ -79,6 +79,7 @@ export default class PayOrderScreen extends React.Component {
 		const { navigation } = this.props;
 		let userid = navigation.getParam('userid'),
 			shopid = navigation.getParam('shopid'),
+			hasOrder = navigation.getParam('hasOrder'),
 			home_time = navigation.getParam('home_time'),
 			home_address = navigation.getParam('home_address'),
 			home_username = navigation.getParam('home_username'),
@@ -88,8 +89,9 @@ export default class PayOrderScreen extends React.Component {
 			clothingPay = navigation.getParam('pay');
 		let orderid = '',
 			showText = clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用';
-		// 未支付
-		if (!clothingPay) {
+		// pay --- clothingpay: pre_pay: 1 --- 预付款 9.9     2--- payAllClothing-支付订单金额
+		// 支付上门取衣费用 hasOrder - no-还没有创建此订单 has-已经创建过此订单
+		if (clothingPay === 'pre_pay' && hasOrder === 'no') {
 			this.setState({ loadingVisible: true });
 			// 创建上门取衣订单
 			let orderResult = await Request.post('/order/addByHome', {
@@ -107,9 +109,7 @@ export default class PayOrderScreen extends React.Component {
 				return;
 			}
 			orderid = orderResult.data.data;
-		}
-		// 已经支付
-		if (clothingPay === 'already') {
+		} else {
 			orderid = navigation.getParam('orderid');
 		}
 		if (payWay === 'wechat') {
@@ -122,9 +122,27 @@ export default class PayOrderScreen extends React.Component {
 					userid: user.id,
 				});
 				if (res === 'success') {
-					return Message.confirm('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
-						NavigationUtil.reset(navigation, 'HomeScreen');
-					});
+					// 上门取衣预付款
+					if (clothingPay === 'pre_pay') {
+						return Message.warning('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
+							NavigationUtil.reset(navigation, 'HomeScreen');
+						});
+					} else {
+						let orderResult = await Request.get('/order/getOrderById', { id: orderid });
+						let newOrderDetail = orderResult.data;
+						// 店员将衣物放到快递柜
+						if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
+							return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
+								navigation.goBack();
+							});
+						}
+						// 店员将衣物送到客户手中
+						if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
+							return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
+								NavigationUtil.reset(navigation, 'HomeScreen');
+							});
+						}
+					}
 				}
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请前往订单查看详细信息');
@@ -152,13 +170,32 @@ export default class PayOrderScreen extends React.Component {
 		}
 		if (payWay === 'moving') {
 			this.setState({ loadingVisible: true });
+			console.log(1111);
 			// 扣除用户余额费用
-			let res = await Request.post('/order/subMoneyByAccount', { userid: user.id, orderid: orderid });
+			let res = await Request.post('/order/subMoneyByAccount', { userid: user.id, orderid: orderid, money: money });
 			this.setState({ loadingVisible: false });
 			if (res.data === 'success') {
-				Message.confirm('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
-					NavigationUtil.reset(navigation, 'HomeScreen');
-				});
+				// 上门取衣预付款
+				if (clothingPay === 'pre_pay') {
+					return Message.warning('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
+						NavigationUtil.reset(navigation, 'HomeScreen');
+					});
+				} else {
+					let orderResult = await Request.get('/order/getOrderById', { id: orderid });
+					let newOrderDetail = orderResult.data;
+					// 店员将衣物放到快递柜
+					if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
+						return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
+							navigation.goBack();
+						});
+					}
+					// 店员将衣物送到客户手中
+					if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
+						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
+							NavigationUtil.reset(navigation, 'HomeScreen');
+						});
+					}
+				}
 			}
 		}
 	}
@@ -178,7 +215,20 @@ export default class PayOrderScreen extends React.Component {
 					userid: user.id,
 				});
 				if (res === 'success') {
-					return Toast.success('支付完成');
+					let orderResult = await Request.get('/order/getOrderById', { id: orderid });
+					let newOrderDetail = orderResult.data;
+					// 店员将衣物放到快递柜
+					if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
+						return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
+							navigation.goBack();
+						});
+					}
+					// 店员将衣物送到客户手中
+					if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
+						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
+							NavigationUtil.reset(navigation, 'HomeScreen');
+						});
+					}
 				}
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请刷新订单');
@@ -209,8 +259,21 @@ export default class PayOrderScreen extends React.Component {
 			let res = await Request.post('/pay/payByOrderByBalance', { orderid: orderid, money: money, userid: user.id });
 			this.setState({ loadingVisible: false });
 			if (res.data === 'success') {
-				Toast.success('支付完成, 请刷新订单');
-				return navigation.goBack();
+				let orderResult = await Request.get('/order/getOrderById', { id: orderid });
+				let newOrderDetail = orderResult.data;
+				// 店员将衣物放到快递柜
+				if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
+					return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
+						navigation.goBack();
+					});
+				}
+				console.log(newOrderDetail.status, 9890);
+				// 店员将衣物送到客户手中
+				if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
+					return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
+						NavigationUtil.reset(navigation, 'HomeScreen');
+					});
+				}
 			}
 		}
 	}

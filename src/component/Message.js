@@ -14,7 +14,7 @@ export default {
 			{ cancelable: false },
 		);
 	},
-	confirm: (title, message, callBack) => {
+	confirm: (title, message, callBack, cancleBack) => {
 		Alert.alert(
 			title,
 			message,
@@ -25,6 +25,7 @@ export default {
 				},
 				{
 					text: '取消',
+					onPress: cancleBack ? cancleBack : () => {},
 				},
 			],
 			{ cancelable: false },

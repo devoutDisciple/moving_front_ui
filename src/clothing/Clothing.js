@@ -184,7 +184,13 @@ export default class Member extends React.Component {
 			urgency,
 			desc,
 		};
-		navigation.navigate('PayOrderScreen', { type: 'clothing', money: config.getClothingMoney, ...params });
+		navigation.navigate('PayOrderScreen', {
+			type: 'clothing',
+			hasOrder: 'no',
+			pay: 'pre_pay',
+			money: config.getClothingMoney,
+			...params,
+		});
 	}
 
 	render() {
