@@ -5401,6 +5401,11 @@ react-native-image-zoom-viewer@^3.0.1:
   dependencies:
     react-native-image-pan-zoom "^2.1.12"
 
+react-native-localize@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npm.taobao.org/react-native-localize/download/react-native-localize-1.4.1.tgz#031bd2089f09cc16ee7daee03019684dda60c275"
+  integrity sha1-AxvSCJ8JzBbufa7gMBloTdpgwnU=
+
 react-native-picker@^4.3.7:
   version "4.3.7"
   resolved "https://registry.npm.taobao.org/react-native-picker/download/react-native-picker-4.3.7.tgz#9842e8c62ff0d8b676e9514d9f9172413c0518a8"

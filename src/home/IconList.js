@@ -1,5 +1,6 @@
 import React from 'react';
 import config from '../config/config';
+import langage from '../language/index';
 import Toast from '../component/Toast';
 import StorageUtil from '../util/Storage';
 import UpdateVersion from '../util/Update';
@@ -8,7 +9,8 @@ import IconWithText from '../component/IconWithText';
 import { View, StyleSheet, Linking } from 'react-native';
 import PushNotificationIOS from '../util/PushNotification';
 import { init, Geolocation } from 'react-native-amap-geolocation';
-
+import language from '../language/index';
+console.log(language);
 export default class IconList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -166,44 +168,44 @@ export default class IconList extends React.Component {
 			{
 				key: 'shop_order',
 				url: require('../../img/home/shop.png'),
-				text: '店内下单',
+				text: langage.homeScreen.shopOrder,
 			},
 			{
 				key: 'home_clothing',
 				url: require('../../img/home/service.png'),
-				text: '上门取衣',
+				text: langage.homeScreen.clothing,
 			},
 			{
 				key: 'home_shop',
 				url: require('../../img/home/jifen.png'),
-				text: 'Moving商城',
+				text: langage.homeScreen.shop,
 			},
 			{
 				key: 'home_member',
 				url: require('../../img/home/member.png'),
-				text: '成为会员',
+				text: langage.homeScreen.member,
 			},
 		];
 		const iconList2 = [
 			{
 				key: 'home_recharge',
 				url: require('../../img/home/chongzhi.png'),
-				text: '会员充值',
+				text: langage.homeScreen.recharge,
 			},
 			{
 				key: 'home_concat',
 				url: require('../../img/home/lianxi.png'),
-				text: '关于我们',
+				text: langage.homeScreen.aboutUs,
 			},
 			{
 				key: 'home_operation',
 				url: require('../../img/home/caozuo.png'),
-				text: '版本更新',
+				text: langage.homeScreen.update,
 			},
 			{
 				key: 'guanwang',
 				url: require('../../img/home/guanwang.png'),
-				text: 'Moving官网',
+				text: langage.homeScreen.website,
 			},
 			// {
 			// 	// key: 'bbb',

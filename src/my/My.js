@@ -6,6 +6,8 @@ import Request from '../util/Request';
 import Storage from '../util/Storage';
 import ListItem from '../component/ListItem';
 import Icon from 'react-native-vector-icons/AntDesign';
+import UserUtil from '../util/UserUtil';
+import Toast from '../component/Toast';
 import SafeViewComponent from '../component/SafeViewComponent';
 import { StyleSheet, TouchableOpacity, ScrollView, View, RefreshControl } from 'react-native';
 
@@ -48,6 +50,7 @@ export default class MyScreen extends React.Component {
 	// 获取用户信息
 	async getUserInfo() {
 		this.setState({ loading: true });
+		let { navigation } = this.props;
 		// 获取用户id的值
 		let currentUser = await Storage.get('user');
 		let userid = currentUser.id;
@@ -56,12 +59,8 @@ export default class MyScreen extends React.Component {
 		}
 		let res = await Request.get('/user/getUserByUserid', { userid });
 		let user = res.data || '';
+		await UserUtil.hasUser(user, navigation);
 		await Storage.set('user', user);
-		// 获取本地存储的用户信息
-		if (!user) {
-			// 去登陆页面
-			this.props.navigation.navigate('LoginScreen');
-		}
 		this.setState({ user: user, loading: false });
 	}
 
@@ -73,6 +72,23 @@ export default class MyScreen extends React.Component {
 	// 点击设置按钮
 	setIconClick() {
 		this.props.navigation.navigate('MySetting');
+	}
+
+	// 判断是不是会员
+	async judgeMember() {
+		return new Promise(async (resolve, reject) => {
+			let { navigation } = this.props;
+			let user = await Storage.get('user');
+			// 如果用户没有登录
+			if (!user) {
+				reject();
+				Toast.warning('请先登录!');
+				return setTimeout(() => {
+					navigation.navigate('LoginScreen');
+				}, 2000);
+			}
+			resolve(user);
+		});
 	}
 
 	// 点击listItem的时候
@@ -92,7 +108,7 @@ export default class MyScreen extends React.Component {
 		}
 		// 点击余额充值
 		if (key === 'account') {
-			return navigation.navigate('ReChargeScreen');
+			return navigation.navigate('ReChargeScreen', { type: 'recharge' });
 		}
 		// 点击消费记录
 		if (key === 'shopping') {
