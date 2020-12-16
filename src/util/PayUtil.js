@@ -1,6 +1,6 @@
 import * as WeChat from 'react-native-wechat-lib';
 import Request from './Request';
-import config from '../config/config';
+import config from '@/config/config';
 
 export default {
 	// 微信支付

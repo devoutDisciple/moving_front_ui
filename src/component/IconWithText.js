@@ -1,5 +1,5 @@
 import React from 'react';
-import FastImage from '../component/FastImage';
+import FastImage from '@/component/FastImage';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class IconWithText extends React.Component {

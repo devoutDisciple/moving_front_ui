@@ -2,66 +2,66 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Storage from '../util/Storage';
-import langage from '../language/index';
+import Storage from '@/util/Storage';
+import langage from '@/language/index';
 // 首页
-import HomeScreen from '../home/Home';
+import HomeScreen from '@/views/home/Home';
 // 上门取衣服
-import ClothingScreen from '../clothing/Clothing';
+import ClothingScreen from '@/views/clothing/Clothing';
 // 我的页面
-import MyScreen from '../my/My';
+import MyScreen from '@/views/my/My';
 // 我的设置页面
-import MySetting from '../my/setting/Setting';
+import MySetting from '@/views/my/setting/Setting';
 // 我的个人信息页面
-import MyMessage from '../my/message/Message';
+import MyMessage from '@/views/my/message/Message';
 // 积分兑换页面
-import IntergralScreen from '../integral/Intergral';
+import IntergralScreen from '@/views/integral/Intergral';
 // 积分兑换记录页面
-import IntergralRecordScreen from '../intergralRecord/IntergralRecord';
+import IntergralRecordScreen from '@/views/intergralRecord/IntergralRecord';
 // 订单页面
-import OrderScreen from '../order/Index';
+import OrderScreen from '@/views/order/Index';
 // 二维码页面
-import ScanCameraScreen from '../scan/ScanCamera';
+import ScanCameraScreen from '@/views/scan/ScanCamera';
 // 登录页面
-import LoginScreen from '../login/Login';
+import LoginScreen from '@/views/login/Login';
 // 注册页面
-import ResgisterScreen from '../login/Register';
+import ResgisterScreen from '@/views/login/Register';
 // 验证码登录页面
-import SecurityLoginScreen from '../login/SecurityLogin';
+import SecurityLoginScreen from '@/views/login/SecurityLogin';
 // 重置密码页面
-import ResetPasswordScreen from '../login/ResetPassword';
+import ResetPasswordScreen from '@/views/login/ResetPassword';
 // 会员页面
-import MemberScreen from '../member/Member';
+import MemberScreen from '@/views/member/Member';
 // 我的地址页面
-import MyAddressScreen from '../address/Address';
+import MyAddressScreen from '@/views/address/Address';
 // 地址编辑页面
-import AddressEditScreen from '../address/AddressEdit';
+import AddressEditScreen from '@/views/address/AddressEdit';
 // 新增地址页面
-import AddressAddScreen from '../address/AddressAdd';
+import AddressAddScreen from '@/views/address/AddressAdd';
 // 设置商品金额页面
-import GoodsScreen from '../goods/Goods';
+import GoodsScreen from '@/views/goods/Goods';
 // 订单详情页面
-import OrderDetailScreen from '../order/detail/Detail';
+import OrderDetailScreen from '@/views/order/detail/Detail';
 // 选择柜子界面
-import CabinetScreen from '../cabinet/Cabinet';
+import CabinetScreen from '@/views/cabinet/Cabinet';
 // 消费记录页面
-import ShopRecordScreen from '../shopRecord/ShopRecord';
+import ShopRecordScreen from '@/views/shopRecord/ShopRecord';
 // 充值页面
-import ReChargeScreen from '../Recharge/ReCharge';
+import ReChargeScreen from '@/views/Recharge/ReCharge';
 // 意见和反馈页面
-import SuggestionScreen from '../suggestion/Suggestion';
+import SuggestionScreen from '@/views/suggestion/Suggestion';
 // 联系我们页面
-import ConcatUsScreen from '../concatUs/ConcatUs';
+import ConcatUsScreen from '@/views/concatUs/ConcatUs';
 // 关于我们页面
-import AboutUsScreen from '../aboutUs/AboutUs';
+import AboutUsScreen from '@/views/aboutUs/AboutUs';
 // 隐私政策页面
-import PrivacyScreen from '../privacy/Privacy';
+import PrivacyScreen from '@/views/privacy/Privacy';
 // 支付订单页面
-import PayOrderScreen from '../payOrder/PayOrder';
+import PayOrderScreen from '@/views/payOrder/PayOrder';
 // 首屏广告
-import AdvertisementScreen from '../advertisement/index';
+import AdvertisementScreen from '@/views/advertisement/index';
 // 服务协议
-import ServiceProtocolScreen from '../protocol/ServiceProtocol';
+import ServiceProtocolScreen from '@/views/protocol/ServiceProtocol';
 
 import TabBarItem from './TabBarItem';
 

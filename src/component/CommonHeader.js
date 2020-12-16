@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-// import Dialog from '../util/Dialog';
+// import Dialog from '@/util/Dialog';
 
 const { width } = Dimensions.get('window');
 

@@ -1,6 +1,6 @@
 import Axios from 'axios';
-import message from '../component/Toast';
-import config from '../config/config';
+import message from '@/component/Toast';
+import config from '@/config/config';
 
 Axios.defaults = Object.assign(Axios.defaults, {
 	// `transformRequest` 允许在向服务器发送前，修改请求数据
