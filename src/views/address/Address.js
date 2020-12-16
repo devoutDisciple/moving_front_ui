@@ -117,8 +117,8 @@ export default class Member extends React.Component {
 											style={styles.content_item_img}
 											source={
 												item.is_defalut === 2
-													? require('@/img/home/radioActive.png')
-													: require('@/img/home/radio.png')
+													? require('@/asserts/home/radioActive.png')
+													: require('@/asserts/home/radio.png')
 											}
 										/>
 									</TouchableOpacity>
@@ -133,7 +133,7 @@ export default class Member extends React.Component {
 										</View>
 									</View>
 									<TouchableOpacity onPress={this.editAddressClick.bind(this, item)} style={styles.content_item_right}>
-										<FastImage style={styles.content_item_img} source={require('@/img/home/edit.png')} />
+										<FastImage style={styles.content_item_img} source={require('@/asserts/home/edit.png')} />
 									</TouchableOpacity>
 								</View>
 							);

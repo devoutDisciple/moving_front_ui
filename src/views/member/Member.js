@@ -26,19 +26,19 @@ export default class Member extends React.Component {
 		const { navigation } = this.props;
 		const iconList = [
 			{
-				url: require('@/img/home/icon1.png'),
+				url: require('@/asserts/home/icon1.png'),
 				text: '免费配送',
 			},
 			{
-				url: require('@/img/home/icon2.png'),
+				url: require('@/asserts/home/icon2.png'),
 				text: '上门取衣',
 			},
 			{
-				// url: require('@/img/home/icon3.png'),
+				// url: require('@/asserts/home/icon3.png'),
 				// text: '专属客服',
 			},
 			{
-				// url: require('@/img/home/icon3.png'),
+				// url: require('@/asserts/home/icon3.png'),
 				// text: '免费配送',
 			},
 		];

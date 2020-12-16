@@ -214,7 +214,7 @@ export default class ResetPassword extends React.Component {
 							<FastImage
 								style={styles.img}
 								source={
-									checked ? require('@/img/public/check_box_select.png') : require('@/img/public/check_box_no_select.png')
+									checked ? require('@/asserts/public/check_box_select.png') : require('@/asserts/public/check_box_no_select.png')
 								}
 							/>
 						</TouchableOpacity>

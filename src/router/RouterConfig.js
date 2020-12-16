@@ -116,8 +116,8 @@ const TabNavigator = createBottomTabNavigator(
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
-						normalImage={require('../../img/tabbar/tabbar_homepage.png')}
-						selectedImage={require('../../img/tabbar/tabbar_homepage_selected.png')}
+						normalImage={require('@/asserts/tabbar/tabbar_homepage.png')}
+						selectedImage={require('@/asserts/tabbar/tabbar_homepage_selected.png')}
 					/>
 				),
 			},
@@ -130,8 +130,8 @@ const TabNavigator = createBottomTabNavigator(
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
-						normalImage={require('../../img/tabbar/tabbar_order.png')}
-						selectedImage={require('../../img/tabbar/tabbar_order_selected.png')}
+						normalImage={require('@/asserts/tabbar/tabbar_order.png')}
+						selectedImage={require('@/asserts/tabbar/tabbar_order_selected.png')}
 					/>
 				),
 				tabBarOnPress: async ({ navigation, defaultHandler }) => {
@@ -152,8 +152,8 @@ const TabNavigator = createBottomTabNavigator(
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
-						normalImage={require('../../img/tabbar/tabbar_mine.png')}
-						selectedImage={require('../../img/tabbar/tabbar_mine_selected.png')}
+						normalImage={require('@/asserts/tabbar/tabbar_mine.png')}
+						selectedImage={require('@/asserts/tabbar/tabbar_mine_selected.png')}
 					/>
 				),
 				tabBarOnPress: async ({ navigation, defaultHandler }) => {

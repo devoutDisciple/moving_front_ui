@@ -33,7 +33,7 @@ export default class Waller extends React.Component {
 				<View style={styles.my_member}>
 					<View style={styles.my_member_left}>
 						<View style={styles.my_member_left_icon}>
-							<Image style={{ width: 20, height: 20 }} source={require('../../img/public/member.png')} />
+							<Image style={{ width: 20, height: 20 }} source={require('@/asserts/public/member.png')} />
 						</View>
 						<View style={styles.my_member_left_text}>
 							<Text style={{ color: '#fff' }}>Moving 尊贵会员</Text>

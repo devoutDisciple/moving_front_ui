@@ -62,7 +62,7 @@ export default class MyScreen extends React.Component {
 					</View>
 					<View style={styles[key]}>
 						<View style={styles.my_header_message_member_icon}>
-							<FastImage style={{ width: 20, height: 20 }} source={require('../../img/public/member.png')} />
+							<FastImage style={{ width: 20, height: 20 }} source={require('@/asserts/public/member.png')} />
 						</View>
 						<View style={styles.my_header_message_member_text}>
 							<Text style={{ color: '#fff' }}>{FilterStatus.filterMemberStatus(user.member)}</Text>

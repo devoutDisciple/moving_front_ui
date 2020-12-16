@@ -15,7 +15,7 @@ export default class Goods extends React.Component {
 			<TouchableOpacity style={styles.urgency_content} onPress={() => this.props.onPress()}>
 				<FastImage
 					style={styles.img}
-					source={select ? require('../../img/public/check_box_select.png') : require('../../img/public/check_box_no_select.png')}
+					source={select ? require('@/asserts/public/check_box_select.png') : require('@/asserts/public/check_box_no_select.png')}
 				/>
 				<Text style={styles.img_des}>{text}</Text>
 			</TouchableOpacity>

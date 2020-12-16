@@ -273,7 +273,7 @@ export default class Goods extends React.Component {
 											style={styles.address_icon}
 											onPress={() => navigation.navigate('MyAddressScreen')}
 										>
-											<FastImage style={styles.address_icon_img} source={require('@/img/home/edit.png')} />
+											<FastImage style={styles.address_icon_img} source={require('@/asserts/home/edit.png')} />
 										</TouchableOpacity>
 									</View>
 								) : null}

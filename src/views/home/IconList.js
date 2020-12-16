@@ -165,49 +165,49 @@ export default class IconList extends React.Component {
 		const iconList1 = [
 			{
 				key: 'shop_order',
-				url: require('@/img/home/shop.png'),
+				url: require('@/asserts/home/shop.png'),
 				text: language.homeScreen.shopOrder,
 			},
 			{
 				key: 'home_clothing',
-				url: require('@/img/home/service.png'),
+				url: require('@/asserts/home/service.png'),
 				text: language.homeScreen.clothing,
 			},
 			{
 				key: 'home_shop',
-				url: require('@/img/home/jifen.png'),
+				url: require('@/asserts/home/jifen.png'),
 				text: language.homeScreen.shop,
 			},
 			{
 				key: 'home_member',
-				url: require('@/img/home/member.png'),
+				url: require('@/asserts/home/member.png'),
 				text: language.homeScreen.member,
 			},
 		];
 		const iconList2 = [
 			{
 				key: 'home_recharge',
-				url: require('@/img/home/chongzhi.png'),
+				url: require('@/asserts/home/chongzhi.png'),
 				text: language.homeScreen.recharge,
 			},
 			{
 				key: 'home_concat',
-				url: require('@/img/home/lianxi.png'),
+				url: require('@/asserts/home/lianxi.png'),
 				text: language.homeScreen.aboutUs,
 			},
 			{
 				key: 'home_operation',
-				url: require('@/img/home/caozuo.png'),
+				url: require('@/asserts/home/caozuo.png'),
 				text: language.homeScreen.update,
 			},
 			{
 				key: 'guanwang',
-				url: require('@/img/home/guanwang.png'),
+				url: require('@/asserts/home/guanwang.png'),
 				text: language.homeScreen.website,
 			},
 			// {
 			// 	// key: 'bbb',
-			// 	// url: require('@/img/home/icon6.png'),
+			// 	// url: require('@/asserts/home/icon6.png'),
 			// 	// text: '协议',
 			// },
 		];
