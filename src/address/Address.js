@@ -103,11 +103,7 @@ export default class Member extends React.Component {
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader
-						title="我的收货地址"
-						navigation={navigation}
-						back={() => navigation.navigate('GoodsScreen', { flash: true })}
-					/>
+					<CommonHeader title="我的收货地址" navigation={navigation} back={() => navigation.navigate('GoodsScreen', { flash: true })} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						{addressList.map((item, index) => {
 							return (
@@ -115,11 +111,7 @@ export default class Member extends React.Component {
 									<TouchableOpacity onPress={this.selectRadio.bind(this, index)} style={styles.content_item_left}>
 										<FastImage
 											style={styles.content_item_img}
-											source={
-												item.is_defalut === 2
-													? require('../../img/home/radioActive.png')
-													: require('../../img/home/radio.png')
-											}
+											source={item.is_defalut === 2 ? require('../../img/home/radioActive.png') : require('../../img/home/radio.png')}
 										/>
 									</TouchableOpacity>
 									<View style={styles.content_item_center}>

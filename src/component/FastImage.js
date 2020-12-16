@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import FastImage from 'react-native-fast-image';
+// import FastImage from 'react-native-fast-image';
+import { Image } from 'react-native';
 
 export default class SwiperComponent extends Component {
 	constructor(props) {
@@ -8,6 +9,6 @@ export default class SwiperComponent extends Component {
 
 	render() {
 		let { style, source } = this.props;
-		return <FastImage style={style} source={source} />;
+		return <Image style={style} source={source} />;
 	}
 }
