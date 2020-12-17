@@ -68,9 +68,6 @@ export default class LoginScreen extends React.Component {
 		if (!/^1[3456789]\d{9}$/.test(phone)) {
 			return message.warning('提示', '请输入正确的手机号码');
 		}
-		if (password.length <= 5 || password.length > 11) {
-			return message.warning('提示', '密码请输入6-12个字符以内');
-		}
 		let res = await Request.post('/login/byPassword', {
 			phone,
 			password,

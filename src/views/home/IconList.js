@@ -192,18 +192,18 @@ export default class IconList extends React.Component {
 			},
 			{
 				key: 'home_concat',
-				url: require('@/asserts/home/lianxi.png'),
-				text: language.homeScreen.aboutUs,
+				// url: require('@/asserts/home/lianxi.png'),
+				// text: language.homeScreen.aboutUs,
 			},
 			{
 				key: 'home_operation',
-				url: require('@/asserts/home/caozuo.png'),
-				text: language.homeScreen.update,
+				// url: require('@/asserts/home/caozuo.png'),
+				// text: language.homeScreen.update,
 			},
 			{
 				key: 'guanwang',
-				url: require('@/asserts/home/guanwang.png'),
-				text: language.homeScreen.website,
+				// url: require('@/asserts/home/guanwang.png'),
+				// text: language.homeScreen.website,
 			},
 			// {
 			// 	// key: 'bbb',

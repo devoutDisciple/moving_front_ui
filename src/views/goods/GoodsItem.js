@@ -37,20 +37,21 @@ export default class Goods extends React.Component {
 const styles = StyleSheet.create({
 	goodsItem: {
 		flexDirection: 'row',
-		height: 70,
+		height: 65,
 		borderBottomColor: '#dbdbdb',
 		borderBottomWidth: 0.5,
+		paddingLeft: 10,
 	},
 	goodsItem_name: {
 		flex: 1,
 		justifyContent: 'center',
 	},
 	goodsItem_name_text: {
-		fontSize: 16,
+		fontSize: 14,
 		color: '#707070',
 	},
 	goodsItem_price_text: {
-		fontSize: 12,
+		fontSize: 11,
 		marginTop: 5,
 		color: '#bfbfbf',
 	},
