@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import Request from '@/util/Request';
+import RankingItem from './RankingItem';
 import Loading from '@/component/Loading';
 import CommonHeader from '@/component/CommonHeader';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-import RankingItem from './RankingItem';
-import Request from '@/util/Request';
 
 export default class ShopRecord extends React.Component {
 	constructor(props) {
