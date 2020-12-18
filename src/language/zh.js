@@ -13,5 +13,6 @@ export default {
 		aboutUs: '关于我们',
 		update: '版本更新',
 		website: 'Moving 官网',
+		ranking: '洗衣排行',
 	},
 };

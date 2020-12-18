@@ -179,36 +179,37 @@ export default class IconList extends React.Component {
 				text: language.homeScreen.shop,
 			},
 			{
+				key: 'ranking',
+				url: require('@/asserts/home/ranking.png'),
+				text: language.homeScreen.ranking,
+			},
+		];
+		const iconList2 = [
+			{
 				key: 'home_member',
 				url: require('@/asserts/home/member.png'),
 				text: language.homeScreen.member,
 			},
-		];
-		const iconList2 = [
 			{
 				key: 'home_recharge',
 				url: require('@/asserts/home/chongzhi.png'),
 				text: language.homeScreen.recharge,
 			},
+
 			{
 				key: 'home_concat',
-				// url: require('@/asserts/home/lianxi.png'),
-				// text: language.homeScreen.aboutUs,
+				url: require('@/asserts/home/lianxi.png'),
+				text: language.homeScreen.aboutUs,
 			},
 			{
 				key: 'home_operation',
-				// url: require('@/asserts/home/caozuo.png'),
-				// text: language.homeScreen.update,
-			},
-			{
-				key: 'guanwang',
-				// url: require('@/asserts/home/guanwang.png'),
-				// text: language.homeScreen.website,
+				url: require('@/asserts/home/caozuo.png'),
+				text: language.homeScreen.update,
 			},
 			// {
-			// 	// key: 'bbb',
-			// 	// url: require('@/asserts/home/icon6.png'),
-			// 	// text: '协议',
+			// 	key: 'guanwang',
+			// 	url: require('@/asserts/home/guanwang.png'),
+			// 	text: language.homeScreen.website,
 			// },
 		];
 		return (
