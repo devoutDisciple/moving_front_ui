@@ -62,6 +62,8 @@ import PayOrderScreen from '@/views/payOrder/PayOrder';
 import AdvertisementScreen from '@/views/advertisement/index';
 // 服务协议
 import ServiceProtocolScreen from '@/views/protocol/ServiceProtocol';
+// 消费排行榜
+import RankingScreen from '@/views/ranking/Ranking';
 
 import TabBarItem from './TabBarItem';
 
@@ -196,6 +198,16 @@ const finnalApp = createStackNavigator(
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
+
+		// 消费排行榜页面 RankingScreen
+		RankingScreen: {
+			screen: RankingScreen,
 			navigationOptions: {
 				headerShown: false,
 				headerBackTitle: '返回',

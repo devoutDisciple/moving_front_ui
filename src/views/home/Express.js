@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 	detail_common_title: CommonSylte.detail_common_title,
 	home_express: {
 		flex: 1,
-		margin: 10,
+		padding: 10,
 	},
 	home_express_title: {
 		height: 50,

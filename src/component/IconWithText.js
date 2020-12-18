@@ -1,6 +1,7 @@
 import React from 'react';
 import FastImage from '@/component/FastImage';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
 
 export default class IconWithText extends React.Component {
 	constructor(props) {
@@ -21,12 +22,14 @@ export default class IconWithText extends React.Component {
 	}
 }
 
-let iconSize = 35;
+let iconSize = 28;
 const styles = StyleSheet.create({
 	home_icon_item: {
-		flex: 1,
+		width: (width - 20) / 4,
 		alignItems: 'center',
 		justifyContent: 'center',
+		marginTop: 18,
+		backgroundColor: '#fff',
 	},
 	home_icon_item_img: {
 		height: iconSize,

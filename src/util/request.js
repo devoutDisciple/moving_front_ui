@@ -33,13 +33,13 @@ Axios.defaults = Object.assign(Axios.defaults, {
 Axios.interceptors.response.use(
 	function(res) {
 		if (res.status !== 200) {
-			message.warning('网络异常, 请稍后重试1');
+			message.warning('网络异常, 请稍后重试');
 			return Promise.reject('系统错误');
 		}
 		let data = JSON.parse(res.data);
 		// 自定义的错误
 		if (data.code === 500) {
-			message.warning(data.message || "'网络异常, 请稍后重试1");
+			message.warning(data.message || "'网络异常, 请稍后重试");
 		}
 		return Promise.resolve(data);
 	},
@@ -67,7 +67,7 @@ export default {
 					resolve(res);
 				})
 				.catch(err => {
-					message.warning('网络异常, 请稍后重试2');
+					message.warning('网络异常, 请稍后重试');
 					reject(err);
 				});
 		});
@@ -83,7 +83,7 @@ export default {
 					resolve(res);
 				})
 				.catch(err => {
-					message.warning('网络异常, 请稍后重试3');
+					message.warning('网络异常, 请稍后重试');
 					reject(err);
 				});
 		});
@@ -99,7 +99,7 @@ export default {
 					resolve(res);
 				})
 				.catch(err => {
-					message.warning('网络异常, 请稍后重试4');
+					message.warning('网络异常, 请稍后重试');
 					reject(err);
 				});
 		});
@@ -115,7 +115,7 @@ export default {
 					resolve(res);
 				})
 				.catch(err => {
-					message.warning('提示', '网络异常, 请稍后重试5');
+					message.warning('提示', '网络异常, 请稍后重试');
 					reject(err);
 				});
 		});

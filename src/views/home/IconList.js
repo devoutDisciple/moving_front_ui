@@ -107,6 +107,11 @@ export default class IconList extends React.Component {
 			navigation.navigate('IntergralScreen');
 		}
 
+		// 洗衣排行
+		if (data && data.key === 'home_ranking') {
+			navigation.navigate('RankingScreen');
+		}
+
 		// 成为会员
 		if (data && data.key === 'home_member') {
 			await this.judgeMember();
@@ -179,12 +184,10 @@ export default class IconList extends React.Component {
 				text: language.homeScreen.shop,
 			},
 			{
-				key: 'ranking',
+				key: 'home_ranking',
 				url: require('@/asserts/home/ranking.png'),
 				text: language.homeScreen.ranking,
 			},
-		];
-		const iconList2 = [
 			{
 				key: 'home_member',
 				url: require('@/asserts/home/member.png'),
@@ -206,11 +209,6 @@ export default class IconList extends React.Component {
 				url: require('@/asserts/home/caozuo.png'),
 				text: language.homeScreen.update,
 			},
-			// {
-			// 	key: 'guanwang',
-			// 	url: require('@/asserts/home/guanwang.png'),
-			// 	text: language.homeScreen.website,
-			// },
 		];
 		return (
 			<View style={styles.icon_container}>
@@ -227,19 +225,6 @@ export default class IconList extends React.Component {
 						);
 					})}
 				</View>
-				<View style={styles.home_icon}>
-					{iconList2.map((item, index) => {
-						return (
-							<IconWithText
-								key={index}
-								onPress={this.onIconPress.bind(this, item)}
-								source={item.url}
-								text={item.text}
-								index={`incon2_${index}`}
-							/>
-						);
-					})}
-				</View>
 			</View>
 		);
 	}
@@ -250,8 +235,9 @@ const styles = StyleSheet.create({
 		marginTop: 10,
 	},
 	home_icon: {
-		height: 80,
+		height: 145,
 		marginHorizontal: 10,
 		flexDirection: 'row',
+		flexWrap: 'wrap',
 	},
 });
