@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Config from '@/config/config';
 import NavigationUtil from '@/util/NavigationUtil';
@@ -70,7 +69,7 @@ export default class Advertisement extends React.Component {
 					<Image
 						style={{ width: screenWidth, height: height }}
 						source={{
-							uri: `${Config.baseUrl}/advertisement.jpg`,
+							uri: `${Config.baseUrl}/advertisement.png`,
 						}}
 					/>
 					<TouchableOpacity style={styles.skip} onPress={this.goHome.bind(this)}>

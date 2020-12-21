@@ -216,7 +216,7 @@ export default class Member extends React.Component {
 					<CommonHeader title="预约上门取衣" navigation={navigation} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						<ClothingItem
-							label="预约时间"
+							label="预约取衣时间"
 							value={`${selectDay} ${selectTime}`}
 							showIcon
 							onPress={this.showTimeSelect.bind(this)}
