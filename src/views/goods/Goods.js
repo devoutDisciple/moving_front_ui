@@ -42,7 +42,6 @@ export default class Goods extends React.Component {
 	async componentDidMount() {
 		await this.getShopDetail();
 		await this.getClothingType();
-		await this.onSearchClothing();
 	}
 
 	// 当参数含有flash的时候会进行刷新
@@ -60,7 +59,11 @@ export default class Goods extends React.Component {
 			this.props.navigation.navigate('LoginScreen');
 			return Toast.warning('请登录!');
 		}
-		this.setState({ shopDetail: shop, userDetail: user });
+		let { navigation } = this.props;
+		let boxid = navigation.getParam('boxid', ''),
+			cabinetId = navigation.getParam('cabinetId', ''),
+			order_type = navigation.getParam('order_type', '');
+		this.setState({ shopDetail: shop, userDetail: user, boxid, cabinetId, order_type });
 	}
 
 	// 获取衣物分类
@@ -72,32 +75,38 @@ export default class Goods extends React.Component {
 		if (tabList && tabList[0] && tabList[0].id) {
 			selectId = tabList[0].id;
 		}
-		this.setState({ tabList: tabList || [], selectId });
+		this.setState({ tabList: tabList || [], selectId }, () => {
+			this.onSearchClothing(selectId);
+		});
+	}
+
+	// 根据分类，查询衣物
+	async onSearchClothing(selectId) {
+		try {
+			this.setState({ loadingVisible: true });
+			let shop = await storageUtil.get('shop');
+			let res = await Request.get('/clothing/getByShopid', { shopid: shop.id, type: selectId });
+			let data = res.data || [];
+			if (Array.isArray(data) && data.length !== 0) {
+				data.forEach(item => {
+					item.num = 0;
+					item.show = item.typeid === selectId;
+				});
+			}
+			this.setState({ data: data || [], loadingVisible: false });
+		} catch (error) {
+			this.setState({ loadingVisible: false });
+		}
 	}
 
 	// 选择衣物分类
 	onSelectClothingType(selectId) {
-		this.setState({ selectId });
-	}
-
-	// 查询衣物
-	async onSearchClothing() {
-		try {
-			this.setState({ loadingVisible: true });
-			let shop = await storageUtil.get('shop');
-			let { navigation } = this.props;
-			let boxid = navigation.getParam('boxid', ''),
-				cabinetId = navigation.getParam('cabinetId', ''),
-				order_type = navigation.getParam('order_type', '');
-			let res = await Request.get('/clothing/getByShopid', { shopid: shop.id });
-			let data = res.data || [];
-			if (Array.isArray(data) && data.length !== 0) {
-				data.forEach(item => (item.num = 0));
-			}
-			this.setState({ data: data || [], boxid, cabinetId, loadingVisible: false, order_type });
-		} catch (error) {
-			this.setState({ loadingVisible: false });
-		}
+		let { data } = this.state;
+		data.forEach(item => {
+			console.log(item.typeid, selectId);
+			item.show = item.typeid === selectId;
+		});
+		this.setState({ data: data || [], selectId });
 	}
 
 	// 订单加急
@@ -266,6 +275,7 @@ export default class Goods extends React.Component {
 			selectId,
 		} = this.state;
 		let flag = order_type && order_type === 'shop_order';
+		let notEmpty = data.filter(item => item.typeid === selectId);
 		return (
 			<SafeViewComponent>
 				<KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -285,12 +295,10 @@ export default class Goods extends React.Component {
 								<View style={styles.urgency}>
 									<RadioItem select={send_status === 2} onPress={this.sendStatusClick.bind(this, 2)} text="自取" />
 									<RadioItem select={send_status === 1} onPress={this.sendStatusClick.bind(this, 1)} text="洗衣柜" />
-									{/* <RadioItem select={send_status === 3} onPress={this.sendStatusClick.bind(this, 3)} text="派送上门" /> */}
 								</View>
 								{send_status === 1 && defaultAddress ? (
 									<View style={styles.address}>
 										<Text style={styles.address_text}>默认收货地址: {defaultAddress}</Text>
-										{/* <Text style={styles.address_icon}>编辑</Text> */}
 										<TouchableOpacity
 											style={styles.address_icon}
 											onPress={() => navigation.navigate('MyAddressScreen')}
@@ -305,23 +313,30 @@ export default class Goods extends React.Component {
 							<Text>洗衣费用计算（仅供参考）</Text>
 						</View>
 						<SelectTab tabList={tabList} selectId={selectId} onSelectClothingType={this.onSelectClothingType.bind(this)} />
-						{/* <View style={styles.content_clothing}>
-							{data &&
+						<View style={styles.content_clothing}>
+							{notEmpty && notEmpty.length !== 0 ? (
 								data.map((item, index) => {
-									return (
-										<GoodsItem
-											key={item.id}
-											id={item.id}
-											num={item.num}
-											name={item.name}
-											source={item.url}
-											price={item.price}
-											onSubCloth={this.onSubCloth.bind(this)}
-											onAddCloth={this.onAddCloth.bind(this)}
-										/>
-									);
-								})}
-						</View> */}
+									if (item.show) {
+										return (
+											<GoodsItem
+												key={item.id}
+												id={item.id}
+												num={item.num}
+												name={item.name}
+												source={item.url}
+												price={item.price}
+												onSubCloth={this.onSubCloth.bind(this)}
+												onAddCloth={this.onAddCloth.bind(this)}
+											/>
+										);
+									}
+								})
+							) : (
+								<View style={styles.empty_clothing}>
+									<Text style={styles.empty_clothing_text}>该类衣物暂不支持清洗</Text>
+								</View>
+							)}
+						</View>
 						<View style={styles.content_title}>
 							<Text>订单加急</Text>
 						</View>
@@ -445,6 +460,15 @@ const styles = StyleSheet.create({
 	},
 	content_clothing: {
 		marginBottom: 20,
+	},
+	empty_clothing: {
+		height: 100,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	empty_clothing_text: {
+		fontSize: 14,
+		color: '#bfbfbf',
 	},
 	message_desc_input: {
 		height: 100,

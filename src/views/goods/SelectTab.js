@@ -47,8 +47,9 @@ const styles = StyleSheet.create({
 	tab: {
 		flexDirection: 'row',
 		height: 50,
-		borderBottomColor: '#ccc',
+		borderBottomColor: '#dbdbdb',
 		borderBottomWidth: 0.5,
+		marginTop: 20,
 	},
 	tab_item: {
 		width: 80,
@@ -73,6 +74,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		fontSize: 12,
-		color: '#bfbfbf',
+		color: '#707070',
 	},
 });
