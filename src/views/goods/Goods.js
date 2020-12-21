@@ -7,8 +7,8 @@ import Toast from '@/component/Toast';
 import storageUtil from '@/util/Storage';
 import Message from '@/component/Message';
 import Loading from '@/component/Loading';
-// import config from '@/config/config';
 import FastImage from '@/component/FastImage';
+import SelectTab from './SelectTab';
 import CommonHeader from '@/component/CommonHeader';
 import SafeViewComponent from '@/component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
@@ -30,6 +30,8 @@ export default class Goods extends React.Component {
 			cabinetId: '',
 			loadingVisible: false,
 			send_status: 2,
+			tabList: [], // 衣物分类
+			selectId: '', // 选择衣物的id
 			urgencyMoney: 0.0, // 加急后的费用
 			thursdayMoney: 0.0, // 会员日初始价格
 			urgency: 1, // 是否是加急订单 1-普通 2-加急
@@ -39,6 +41,7 @@ export default class Goods extends React.Component {
 
 	async componentDidMount() {
 		await this.getShopDetail();
+		await this.getClothingType();
 		await this.onSearchClothing();
 	}
 
@@ -58,6 +61,23 @@ export default class Goods extends React.Component {
 			return Toast.warning('请登录!');
 		}
 		this.setState({ shopDetail: shop, userDetail: user });
+	}
+
+	// 获取衣物分类
+	async getClothingType() {
+		let shop = await storageUtil.get('shop');
+		let res = await Request.get('/clothing_type/getByShopid', { shopid: shop.id });
+		let tabList = res.data || [],
+			selectId = '';
+		if (tabList && tabList[0] && tabList[0].id) {
+			selectId = tabList[0].id;
+		}
+		this.setState({ tabList: tabList || [], selectId });
+	}
+
+	// 选择衣物分类
+	onSelectClothingType(selectId) {
+		this.setState({ selectId });
 	}
 
 	// 查询衣物
@@ -242,6 +262,8 @@ export default class Goods extends React.Component {
 			send_status,
 			thursdayMoney,
 			defaultAddress,
+			tabList,
+			selectId,
 		} = this.state;
 		let flag = order_type && order_type === 'shop_order';
 		return (
@@ -282,7 +304,8 @@ export default class Goods extends React.Component {
 						<View style={styles.content_title}>
 							<Text>洗衣费用计算（仅供参考）</Text>
 						</View>
-						<View style={styles.content_clothing}>
+						<SelectTab tabList={tabList} selectId={selectId} onSelectClothingType={this.onSelectClothingType.bind(this)} />
+						{/* <View style={styles.content_clothing}>
 							{data &&
 								data.map((item, index) => {
 									return (
@@ -298,7 +321,7 @@ export default class Goods extends React.Component {
 										/>
 									);
 								})}
-						</View>
+						</View> */}
 						<View style={styles.content_title}>
 							<Text>订单加急</Text>
 						</View>
