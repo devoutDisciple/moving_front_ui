@@ -103,7 +103,6 @@ export default class Goods extends React.Component {
 	onSelectClothingType(selectId) {
 		let { data } = this.state;
 		data.forEach(item => {
-			console.log(item.typeid, selectId);
 			item.show = item.typeid === selectId;
 		});
 		this.setState({ data: data || [], selectId });
@@ -131,7 +130,6 @@ export default class Goods extends React.Component {
 			if (flag === 1) {
 				let res = await Request.get('/address/getAllByUserid', { userid: userDetail.id });
 				let addressList = res.data;
-				console.log(Array.isArray(addressList));
 				if (!addressList || !Array.isArray(addressList) || addressList.length === 0) {
 					return Message.confirm('提示', '未选择默认地址，请选择', () => {
 						navigation.navigate('MyAddressScreen');

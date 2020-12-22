@@ -39,7 +39,6 @@ export default class ReCharge extends React.Component {
 	async getAllMoneyTypeList() {
 		this.setState({ loadingVisible: true });
 		let res = await Request.get('/money/getAllType');
-		console.log(res.data, 999);
 		if (res && res.data && Array.isArray(res.data)) {
 			this.setState({ moneyTypeList: res.data, loadingVisible: false });
 		}

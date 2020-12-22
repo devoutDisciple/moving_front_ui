@@ -169,7 +169,6 @@ export default class PayOrderScreen extends React.Component {
 		}
 		if (payWay === 'moving') {
 			this.setState({ loadingVisible: true });
-			console.log(1111);
 			// 扣除用户余额费用
 			let res = await Request.post('/order/subMoneyByAccount', { userid: user.id, orderid: orderid, money: money });
 			this.setState({ loadingVisible: false });
@@ -266,7 +265,6 @@ export default class PayOrderScreen extends React.Component {
 						navigation.goBack();
 					});
 				}
-				console.log(newOrderDetail.status, 9890);
 				// 店员将衣物送到客户手中
 				if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
 					return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {

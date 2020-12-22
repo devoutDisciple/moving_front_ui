@@ -111,7 +111,6 @@ export default class AllOrder extends React.Component {
 	render() {
 		const { goods, detail } = this.props;
 		const { id, shopName, create_time, cabinetAdderss, cabinetName, urgency, status } = detail;
-		console.log(detail);
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>

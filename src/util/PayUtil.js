@@ -12,7 +12,6 @@ export default {
 					return reject('未下载微信');
 				}
 				let result = await Request.post('/pay/payOrderByWechat', { money: money, desc: desc, ...rest });
-				console.log(result, 9898);
 				let data = result.data;
 				let params = {
 					appId: config.appid,
