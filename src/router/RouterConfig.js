@@ -439,7 +439,7 @@ const finnalApp = createStackNavigator(
 		mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
 		headerMode: 'float', // headerMode -
 		// initialRouteName: 'AdvertisementScreen',
-		initialRouteName: 'LoginScreen',
+		// initialRouteName: 'LoginScreen',
 	},
 );
 
