@@ -154,22 +154,24 @@ export default class LoginScreen extends React.Component {
 								}
 							/>
 						</TouchableOpacity>
-						<Text style={styles.protocol_desc}>我已阅读并同意MOVING洗衣</Text>
-						<TouchableOpacity
-							onPress={() => {
-								navigation.navigate('PrivacyScreen');
-							}}
-						>
-							<Text style={styles.protocol_text}>《隐私政策》</Text>
-						</TouchableOpacity>
-						<Text style={styles.protocol_desc}>和</Text>
-						<TouchableOpacity
-							onPress={() => {
-								navigation.navigate('ServiceProtocolScreen');
-							}}
-						>
-							<Text style={styles.protocol_text}>《服务协议》</Text>
-						</TouchableOpacity>
+						<View style={styles.desc_container}>
+							<Text style={styles.protocol_desc}>我已阅读并同意MOVING洗衣</Text>
+							<TouchableOpacity
+								onPress={() => {
+									navigation.navigate('PrivacyScreen');
+								}}
+							>
+								<Text style={styles.protocol_text}>《隐私政策》</Text>
+							</TouchableOpacity>
+							<Text style={styles.protocol_desc}>和</Text>
+							<TouchableOpacity
+								onPress={() => {
+									navigation.navigate('ServiceProtocolScreen');
+								}}
+							>
+								<Text style={styles.protocol_text}>《服务协议》</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				</ScrollView>
 			</SafeViewComponent>
@@ -178,19 +180,24 @@ export default class LoginScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	img_container: {
-		width: 20,
-		height: 20,
-	},
 	protocol: {
 		marginTop: 30,
 		flexDirection: 'row',
 		justifyContent: 'center',
 	},
+	img_container: {
+		width: 20,
+		height: 20,
+	},
 	img: {
 		height: 18,
 		width: 18,
 		marginTop: -2,
+	},
+	desc_container: {
+		flex: 1,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
 	},
 	protocol_desc: {
 		fontSize: 12,

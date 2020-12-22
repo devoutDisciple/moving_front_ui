@@ -37,11 +37,6 @@ export default class Member extends React.Component {
 			phone: '',
 			house: '',
 			desc: '',
-			// selectAddress: '',
-			// username: '张振11',
-			// phone: '15906672702',
-			// house: 'aaa',
-			// desc: '描述',
 		};
 	}
 

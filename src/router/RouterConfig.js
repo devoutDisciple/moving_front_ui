@@ -151,6 +151,7 @@ const TabNavigator = createBottomTabNavigator(
 			navigationOptions: {
 				title: 'My',
 				tabBarLabel: langage.menu.my,
+
 				tabBarIcon: ({ focused, tintColor }) => (
 					<TabBarItem
 						focused={focused}
@@ -176,6 +177,8 @@ const TabNavigator = createBottomTabNavigator(
 			inactiveTintColor: '#8a8a8a', // 当前未选中的tab bar的文本颜色和图标颜色
 			activeBackgroundColor: '#fff', // 当前选中的tab bar的背景色
 			inactiveBackgroundColor: '#fff', //当前未选中的tab bar的背景色
+			headerTitleAllowFontScaling: false,
+			allowFontScaling: false,
 			// labelStyle: {
 			//     color: 'orange',
 			// },
@@ -192,6 +195,7 @@ const finnalApp = createStackNavigator(
 				headerShown: false,
 				headerBackTitle: '返回',
 				headerBackAllowFontScaling: false,
+				headerTitleAllowFontScaling: false,
 			},
 		},
 
@@ -434,6 +438,8 @@ const finnalApp = createStackNavigator(
 	{
 		mode: 'card', // 定义页面渲染和转换的风格： card 页面转换风格，此项为缺省。 modal - 使页面从屏幕底部滑入，只适用于iOS
 		headerMode: 'float', // headerMode -
+		// initialRouteName: 'AdvertisementScreen',
+		initialRouteName: 'LoginScreen',
 	},
 );
 
