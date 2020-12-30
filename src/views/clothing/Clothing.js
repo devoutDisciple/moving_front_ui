@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import moment from 'moment';
 import Config from '@/config/config';

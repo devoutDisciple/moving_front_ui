@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Storage from '@/util/Storage';
 import Request from '@/util/Request';
@@ -185,19 +184,17 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 	},
-	img_container: {
-		width: 20,
-		height: 20,
-	},
 	img: {
 		height: 18,
 		width: 18,
 		marginTop: -2,
 	},
 	desc_container: {
-		flex: 1,
+		marginLeft: 3,
 		flexDirection: 'row',
 		flexWrap: 'wrap',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	protocol_desc: {
 		fontSize: 12,
