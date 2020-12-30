@@ -80,7 +80,8 @@ export default class AllOrder extends React.Component {
 
 	renderBtn() {
 		let actionBtn = [];
-		let { status } = this.props.detail;
+		let { status, is_sure } = this.props.detail;
+		console.log(is_sure, 888);
 		const payBtn = (
 			<TouchableOpacity key="payBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>去支付</Text>
@@ -100,7 +101,10 @@ export default class AllOrder extends React.Component {
 			actionBtn = [connectBtn];
 		}
 		if (status === 3) {
-			actionBtn = [payBtn, connectBtn];
+			actionBtn = [connectBtn];
+			if (is_sure === 2) {
+				actionBtn.push(payBtn);
+			}
 		}
 		if (status === 4) {
 			actionBtn = [openBoxBtn, connectBtn];

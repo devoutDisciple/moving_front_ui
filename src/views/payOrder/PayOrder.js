@@ -255,11 +255,11 @@ export default class PayOrderScreen extends React.Component {
 		if (payWay === 'moving') {
 			this.setState({ loadingVisible: true });
 			let res = await Request.post('/pay/payByOrderByBalance', { orderid: orderid, money: money, userid: user.id });
-			this.setState({ loadingVisible: false });
 			if (res.data === 'success') {
 				let orderResult = await Request.get('/order/getOrderById', { id: orderid });
+				this.setState({ loadingVisible: false });
 				let newOrderDetail = orderResult.data;
-				// 店员将衣物放到快递柜
+				// 店员将衣物放到快递柜，用户取出快递柜归订单
 				if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
 					return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
 						navigation.goBack();
@@ -271,6 +271,7 @@ export default class PayOrderScreen extends React.Component {
 						NavigationUtil.reset(navigation, 'HomeScreen');
 					});
 				}
+				navigation.goBack();
 			}
 		}
 	}

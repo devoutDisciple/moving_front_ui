@@ -3,6 +3,7 @@ package com.moving.dry.cleaner;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.Resources;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 public class MainActivity extends ReactActivity {
@@ -24,15 +25,5 @@ public class MainActivity extends ReactActivity {
       return new RNGestureHandlerEnabledRootView(MainActivity.this);
      }
    };
- }
-
- // 禁止字体缩放
- @Override
- public Resources getResources() {
-     Resources res = super.getResources();
-     Configuration config=new Configuration();
-     config.setToDefaults();
-     res.updateConfiguration(config,res.getDisplayMetrics());
-     return res;
  }
 }
