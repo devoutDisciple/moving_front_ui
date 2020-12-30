@@ -17,6 +17,10 @@ export default class AllOrder extends React.Component {
 
 	componentDidMount() {}
 
+	onSearch() {
+		this.props.onSearch();
+	}
+
 	// 点击去支付
 	async payOrder() {
 		try {
@@ -27,7 +31,7 @@ export default class AllOrder extends React.Component {
 				return Toast.warning('订单金额待店员确认，请稍后');
 			}
 			let { navigation } = this.props;
-			navigation.navigate('PayOrderScreen', { money: payMoney, type: 'order', orderid: id });
+			navigation.navigate('PayOrderScreen', { money: payMoney, type: 'order', orderid: id, onSearch: this.onSearch.bind(this) });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}
