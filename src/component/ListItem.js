@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';

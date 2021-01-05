@@ -64,6 +64,8 @@ import AdvertisementScreen from '@/views/advertisement/index';
 import ServiceProtocolScreen from '@/views/protocol/ServiceProtocol';
 // 消费排行榜
 import RankingScreen from '@/views/ranking/Ranking';
+// moving账单
+import BillScreen from '@/views/bill/index';
 
 import TabBarItem from './TabBarItem';
 
@@ -218,7 +220,15 @@ const finnalApp = createStackNavigator(
 				headerBackAllowFontScaling: false,
 			},
 		},
-
+		// moving账单  BillScreen
+		BillScreen: {
+			screen: BillScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
 		// 登录页面
 		LoginScreen: {
 			screen: LoginScreen,

@@ -1,10 +1,11 @@
 import React from 'react';
 import Config from '@/config/config';
 import NavigationUtil from '@/util/NavigationUtil';
-import SafeViewComponent from '@/component/SafeViewComponent';
-import { Image, View, Dimensions, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ScrollView, Dimensions, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const screenWidth = Dimensions.get('window').width;
+const windowDetail = Dimensions.get('window');
+const screenWidth = windowDetail.width;
+const screenHeight = windowDetail.height;
 
 export default class Advertisement extends React.Component {
 	constructor(props) {
@@ -18,7 +19,10 @@ export default class Advertisement extends React.Component {
 
 	componentDidMount() {
 		this.getImageSize();
-		this.startTimer();
+	}
+
+	componentWillUnmount() {
+		this.timer && clearInterval(this.timer);
 	}
 
 	// 开启定时器
@@ -31,21 +35,20 @@ export default class Advertisement extends React.Component {
 				clearInterval(this.timer);
 				return NavigationUtil.reset(navigation, 'HomeScreen');
 			}
-			this.setState({ text: textArr[index] });
+			if (index < 4) {
+				this.setState({ text: textArr[index] });
+			}
 			index++;
 		}, 1000);
 	}
 
-	componentWillUnmount() {
-		this.timer && clearInterval(this.timer);
-	}
-
 	getImageSize() {
-		Image.getSize(`${Config.baseUrl}/advertisement.jpg`, (imgWidth, imgHeight) => {
+		Image.getSize(`${Config.baseUrl}/advertisement.png`, (imgWidth, imgHeight) => {
 			let pre = imgWidth / screenWidth;
 			// eslint-disable-next-line radix
 			let height = parseInt(imgHeight / pre);
 			this.setState({ height: height });
+			this.startTimer();
 		});
 	}
 
@@ -56,27 +59,18 @@ export default class Advertisement extends React.Component {
 
 	render() {
 		let { height, text } = this.state;
+		let relHeight = screenHeight > height ? screenHeight : height;
 		return (
-			<SafeViewComponent>
-				<View
-					style={{
-						flex: 1,
-						alignItems: 'center',
-						justifyContent: 'center',
-						backgroundColor: '#fdfdfd',
-					}}
-				>
-					<Image
-						style={{ width: screenWidth, height: height }}
-						source={{
-							uri: `${Config.baseUrl}/advertisement.png`,
-						}}
-					/>
-					<TouchableOpacity style={styles.skip} onPress={this.goHome.bind(this)}>
-						<Text style={styles.skip_text}>{text}</Text>
-					</TouchableOpacity>
-				</View>
-			</SafeViewComponent>
+			<ScrollView style={{ height: relHeight, backgroundColor: '#fdfdfd' }} showsVerticalScrollIndicator={false}>
+				<Image
+					style={{ width: screenWidth, height: relHeight }}
+					source={{ uri: `${Config.baseUrl}/advertisement.png` }}
+					onLoad={this.getImageSize.bind(this)}
+				/>
+				<TouchableOpacity style={styles.skip} onPress={this.goHome.bind(this)}>
+					<Text style={styles.skip_text}>{text}</Text>
+				</TouchableOpacity>
+			</ScrollView>
 		);
 	}
 }

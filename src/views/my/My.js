@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import My_Header from './Header';
 import My_Wallert from './Wallet';
@@ -102,6 +101,10 @@ export default class MyScreen extends React.Component {
 		if (key === 'intergralGoods') {
 			return navigation.navigate('IntergralScreen');
 		}
+		// 点击账单的时候
+		if (key === 'bill') {
+			return navigation.navigate('BillScreen');
+		}
 		// 点击积分兑换记录的时候
 		if (key === 'intergralRecord') {
 			return navigation.navigate('IntergralRecordScreen');
@@ -132,25 +135,22 @@ export default class MyScreen extends React.Component {
 		let { user, loading } = this.state;
 		return (
 			<SafeViewComponent>
-				<View style={styles.container}>
-					<ScrollView
-						style={styles.content}
-						howsVerticalScrollIndicator={false}
-						refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}
-					>
-						<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
-						<My_Wallert navigation={this.props.navigation} user={user} />
-						<View style={{ height: 10 }} />
-						<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
-						<ListItem iconName="staro" text="Moving商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
-						{/* <ListItem iconName="staro" text="购买记录" onPress={this.onPressListItem.bind(this, 'intergralRecord')} /> */}
-						<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
-						{/* <ListItem iconName="linechart" text="消费记录" onPress={this.onPressListItem.bind(this, 'shopping')} /> */}
-						<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
-						<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
-						{/* <ListItem iconName="message1" text="联系我们" onPress={this.onPressListItem.bind(this, 'concatUs')} /> */}
-					</ScrollView>
-				</View>
+				<ScrollView
+					style={styles.container}
+					showsVerticalScrollIndicator={false}
+					refreshControl={<RefreshControl refreshing={loading} onRefresh={this.refreshing.bind(this)} />}
+				>
+					<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
+					<My_Wallert navigation={this.props.navigation} user={user} />
+					<View style={{ height: 10 }} />
+					<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
+					<ListItem iconName="staro" text="MOVING商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
+					<ListItem iconName="linechart" text="MOVING账单" onPress={this.onPressListItem.bind(this, 'bill')} />
+					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
+					<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
+					<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
+					<View style={styles.btm_empty} />
+				</ScrollView>
 			</SafeViewComponent>
 		);
 	}
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 		marginTop: 10,
 	},
-	content: {
-		flex: 1,
+	btm_empty: {
+		height: 20,
 	},
 });

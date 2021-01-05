@@ -7,7 +7,7 @@ export default {
 	homeScreen: {
 		shopOrder: '店内下单',
 		clothing: '上门取衣',
-		shop: 'Moving 商城',
+		shop: 'MOVING商城',
 		member: '成为会员',
 		recharge: '会员充值',
 		aboutUs: '关于我们',

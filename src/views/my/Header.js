@@ -30,14 +30,14 @@ export default class MyScreen extends React.Component {
 		}
 		return (
 			<View style={styles.my_header}>
-				<View style={styles.my_header_img_container}>
+				<TouchableOpacity onPress={this.editBtnClick.bind(this)} style={styles.my_header_img_container}>
 					<FastImage
 						style={styles.my_header_image}
 						source={{
 							uri: `${config.baseUrl}/${user.photo}`,
 						}}
 					/>
-				</View>
+				</TouchableOpacity>
 				<View style={styles.my_header_message}>
 					<View style={styles.my_header_message_name}>
 						<View style={styles.my_header_message_name_left}>
