@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Request from '@/util/Request';
 import CabinetItem from './CabinetItem';

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import CommonSylte from '@/style/common';
 import { Text, View, StyleSheet } from 'react-native';
@@ -7,8 +6,6 @@ export default class OrderScreen extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-
-	componentDidMount() {}
 
 	render() {
 		let { orderDetail, type } = this.props,
@@ -109,6 +106,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		marginTop: 10,
 		padding: 10,
+		paddingTop: 0,
 		borderRadius: 5,
 	},
 	empty: {

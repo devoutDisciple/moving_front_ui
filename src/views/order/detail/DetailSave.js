@@ -1,17 +1,30 @@
 import React from 'react';
 import CommonShow from './CommonShow';
 import CommonSylte from '@/style/common';
+import storageUtil from '@/util/Storage';
 import { Text, View, StyleSheet } from 'react-native';
 
 export default class OrderScreen extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			userDetail: {},
+		};
 	}
 
-	async componentDidMount() {}
+	async componentDidMount() {
+		await this.getUserDetal();
+	}
+
+	async getUserDetal() {
+		let user = await storageUtil.get('user');
+		this.setState({ userDetail: user || {} });
+	}
 
 	render() {
-		let { orderDetail, address, type } = this.props;
+		const { orderDetail, address, type } = this.props;
+		const { userDetail } = this.state;
+		console.log(userDetail, 888);
 		// type-1 快递柜下单 2-上门取衣 3-积分兑换
 		if (orderDetail.cabinetAddress && (Number(type) === 1 || Number(type) === 5)) {
 			return (
@@ -21,10 +34,10 @@ export default class OrderScreen extends React.Component {
 					</View>
 					<View style={styles.detail_send_content}>
 						<CommonShow label="存货时间" value={orderDetail.create_time} />
-						<CommonShow label="存货地点" value={`${orderDetail.cabinetAddress} ${orderDetail.cabinetName}`} />
-						<CommonShow label="收件人" value={address.username} />
-						<CommonShow label="收件人电话" value={address.phone} />
-						<CommonShow label="收件人地址" value={`${address.area} ${address.street}`} />
+						<CommonShow label="存货地点" value={`${orderDetail.cabinetAddress || '--'} ${orderDetail.cabinetName || '--'}`} />
+						<CommonShow label="收件人" value={userDetail.username || '--'} />
+						<CommonShow label="收件人电话" value={userDetail.phone || '--'} />
+						<CommonShow label="收件人地址" value={`${address.area || '--'} ${address.street || '--'}`} />
 					</View>
 				</View>
 			);
@@ -48,10 +61,10 @@ export default class OrderScreen extends React.Component {
 							<Text>预约信息</Text>
 						</View>
 						<View style={styles.detail_send_content}>
-							<CommonShow label="取衣时间" value={orderDetail.home_time} />
-							<CommonShow label="取衣地点" value={orderDetail.home_address} />
-							<CommonShow label="联系人" value={orderDetail.home_username} />
-							<CommonShow label="联系方式" value={orderDetail.home_phone} />
+							<CommonShow label="取衣时间" value={orderDetail.home_time || '--'} />
+							<CommonShow label="取衣地点" value={orderDetail.home_address || '--'} />
+							<CommonShow label="联系人" value={orderDetail.home_username || '--'} />
+							<CommonShow label="联系方式" value={orderDetail.home_phone || '--'} />
 						</View>
 					</View>
 				</>
@@ -64,10 +77,10 @@ export default class OrderScreen extends React.Component {
 						<Text>兑换人信息</Text>
 					</View>
 					<View style={styles.detail_send_content}>
-						<CommonShow label="收货人" value={orderDetail.intergral_username} />
-						<CommonShow label="联系方式" value={orderDetail.intergral_phone} />
-						<CommonShow label="收货地址" value={orderDetail.intergral_address} />
-						<CommonShow label="消耗积分" value={orderDetail.intergral_num} />
+						<CommonShow label="收货人" value={orderDetail.intergral_username || '--'} />
+						<CommonShow label="联系方式" value={orderDetail.intergral_phone || '--'} />
+						<CommonShow label="收货地址" value={orderDetail.intergral_address || '--'} />
+						<CommonShow label="消耗积分" value={orderDetail.intergral_num || '--'} />
 						<CommonShow label="兑换时间" value={orderDetail.create_time} />
 					</View>
 				</View>
@@ -83,6 +96,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		padding: 10,
 		marginTop: 10,
+		paddingTop: 0,
 		borderRadius: 5,
 	},
 	detail_send2: {

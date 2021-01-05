@@ -96,6 +96,16 @@ export default class Member extends React.Component {
 		navigation.navigate('AddressAddScreen');
 	}
 
+	goback() {
+		const { navigation } = this.props;
+		console.log(navigation, 111);
+		if (navigation && navigation.state && navigation.state.params && navigation.state.params.onSearch) {
+			navigation.state.params.onSearch();
+		}
+		navigation.goBack();
+		// navigation.navigate('GoodsScreen', { flash: true });
+	}
+
 	render() {
 		const { navigation } = this.props;
 		let type = navigation.getParam('type');
@@ -103,11 +113,7 @@ export default class Member extends React.Component {
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader
-						title="我的收货地址"
-						navigation={navigation}
-						back={() => navigation.navigate('GoodsScreen', { flash: true })}
-					/>
+					<CommonHeader title="我的收货地址" navigation={navigation} back={this.goback.bind(this)} />
 					<ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
 						{addressList.map((item, index) => {
 							return (

@@ -132,13 +132,13 @@ export default class Goods extends React.Component {
 				let addressList = res.data;
 				if (!addressList || !Array.isArray(addressList) || addressList.length === 0) {
 					return Message.confirm('提示', '未选择默认地址，请选择', () => {
-						navigation.navigate('MyAddressScreen');
+						navigation.navigate('MyAddressScreen', { onSearch: this.sendStatusClick.bind(this, 1) });
 					});
 				}
 				let defaultAddress = addressList.filter(item => item.is_defalut === 2)[0];
 				if (!defaultAddress) {
 					return Message.confirm('提示', '未选择默认地址，请选择', () => {
-						navigation.navigate('MyAddressScreen');
+						navigation.navigate('MyAddressScreen', { onSearch: this.sendStatusClick.bind(this, 1) });
 					});
 				}
 				this.setState({
