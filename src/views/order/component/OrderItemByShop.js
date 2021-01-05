@@ -85,7 +85,6 @@ export default class AllOrder extends React.Component {
 	renderBtn() {
 		let actionBtn = [];
 		let { status, is_sure } = this.props.detail;
-		console.log(is_sure, 888);
 		const payBtn = (
 			<TouchableOpacity key="payBtn" onPress={this.payOrder.bind(this)} style={styles.order_item_right_bottom_btn}>
 				<Text style={styles.order_pay_font}>去支付</Text>

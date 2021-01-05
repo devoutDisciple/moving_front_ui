@@ -24,7 +24,6 @@ export default class OrderScreen extends React.Component {
 	render() {
 		const { orderDetail, address, type } = this.props;
 		const { userDetail } = this.state;
-		console.log(userDetail, 888);
 		// type-1 快递柜下单 2-上门取衣 3-积分兑换
 		if (orderDetail.cabinetAddress && (Number(type) === 1 || Number(type) === 5)) {
 			return (

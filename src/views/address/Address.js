@@ -98,7 +98,6 @@ export default class Member extends React.Component {
 
 	goback() {
 		const { navigation } = this.props;
-		console.log(navigation, 111);
 		if (navigation && navigation.state && navigation.state.params && navigation.state.params.onSearch) {
 			navigation.state.params.onSearch();
 		}

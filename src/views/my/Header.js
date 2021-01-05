@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import FastImage from '@/component/FastImage';
 import config from '@/config/config';
@@ -11,8 +10,6 @@ export default class MyScreen extends React.Component {
 		super(props);
 		this.state = {};
 	}
-
-	componentDidMount() {}
 
 	// 点击编辑按钮
 	editBtnClick() {
