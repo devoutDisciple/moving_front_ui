@@ -193,6 +193,12 @@ export default class PayOrderScreen extends React.Component {
 							NavigationUtil.reset(navigation, 'HomeScreen');
 						});
 					}
+					Toast.success('支付完成');
+					if (navigation && navigation.state && navigation.state.params && navigation.state.params.onSearch) {
+						navigation.state.params.onSearch();
+						return navigation.goBack();
+					}
+					NavigationUtil.reset(navigation, 'HomeScreen');
 				}
 			}
 		}
