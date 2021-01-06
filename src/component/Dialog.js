@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React from 'react';
 import { Text, View, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
 const { width, height } = Dimensions.get('window');

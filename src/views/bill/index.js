@@ -2,6 +2,7 @@ import React from 'react';
 import BillItem from './BillItem';
 import Request from '@/util/Request';
 import FooterContent from './Footer';
+import Loading from '@/component/Loading';
 import StorageUtil from '@/util/Storage';
 import EmptyContent from '@/component/EmptyContent';
 import { View, StyleSheet, FlatList } from 'react-native';
@@ -13,30 +14,42 @@ export default class BillRecord extends React.Component {
 		super(props);
 		this.state = {
 			billList: [],
+			loading: true,
 			refreshing: false,
 		};
 	}
 
 	componentDidMount() {
-		this.onSearchBill();
+		this.onInitSearch();
+	}
+
+	async onInitSearch() {
+		this.setState({ loading: true });
+		let data = await this.onSearchBill();
+		this.setState({ loading: false, billList: data || [] });
+	}
+
+	async onRefresh() {
+		this.setState({ refreshing: true });
+		let data = await this.onSearchBill();
+		this.setState({ refreshing: false, billList: data || [] });
 	}
 
 	async onSearchBill() {
 		try {
-			this.setState({ refreshing: true });
 			let user = await StorageUtil.get('user');
 			let userid = user.id;
 			const res = await Request.get('/bill/getAllBillByUserid', { userid });
 			let data = res.data || [];
-			this.setState({ refreshing: false, billList: data });
+			return data;
 		} catch (error) {
-			this.setState({ refreshing: false });
+			console.log(error);
 		}
 	}
 
 	render() {
 		const { navigation } = this.props;
-		const { billList, refreshing } = this.state;
+		const { billList, refreshing, loading } = this.state;
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
@@ -46,7 +59,7 @@ export default class BillRecord extends React.Component {
 							<FlatList
 								data={billList}
 								refreshing={refreshing}
-								onRefresh={this.onSearchBill.bind(this)}
+								onRefresh={this.onRefresh.bind(this)}
 								keyExtractor={item => item.id}
 								showsVerticalScrollIndicator={false}
 								ListEmptyComponent={<EmptyContent />}
@@ -57,6 +70,7 @@ export default class BillRecord extends React.Component {
 							<EmptyContent />
 						)}
 					</View>
+					<Loading visible={loading} />
 				</View>
 			</SafeViewComponent>
 		);

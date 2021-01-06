@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { PureComponent } from 'react';
 import { Image } from 'react-native';
 

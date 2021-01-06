@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import FastImage from '@/component/FastImage';
 import Icon from 'react-native-vector-icons/AntDesign';

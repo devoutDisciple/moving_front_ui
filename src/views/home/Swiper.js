@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React, { Component } from 'react';
 import Swiper from 'react-native-swiper';
 import Config from '@/config/config';

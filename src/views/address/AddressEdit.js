@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React from 'react';
 import config from '@/config/config';
 import Request from '@/util/Request';

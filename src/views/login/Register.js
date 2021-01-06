@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React from 'react';
 import { Button } from 'react-native-elements';
 import { Kohana } from 'react-native-textinput-effects';

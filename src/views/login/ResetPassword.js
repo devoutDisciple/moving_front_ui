@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import Request from '@/util/Request';
@@ -214,7 +213,9 @@ export default class ResetPassword extends React.Component {
 							<FastImage
 								style={styles.img}
 								source={
-									checked ? require('@/asserts/public/check_box_select.png') : require('@/asserts/public/check_box_no_select.png')
+									checked
+										? require('@/asserts/public/check_box_select.png')
+										: require('@/asserts/public/check_box_no_select.png')
 								}
 							/>
 						</TouchableOpacity>

@@ -7,7 +7,6 @@ export default class BillItem extends React.Component {
 	render() {
 		let data = this.props.data || {};
 		let billItem = data.item || {};
-		console.log(billItem, 999);
 		let showSend = ['recharge', 'member'];
 		return (
 			<View style={styles.detail}>

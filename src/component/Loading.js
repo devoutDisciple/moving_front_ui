@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import Spinner from 'react-native-spinkit';

@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React from 'react';
 import Config from '@/config/config';
 import CommonHeader from '@/component/CommonHeader';

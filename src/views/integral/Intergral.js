@@ -1,4 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
+
 import React from 'react';
 import GoodsItem from './GoodsItem';
 import Loading from '@/component/Loading';
