@@ -6,7 +6,7 @@ import CommonHeader from '@/component/CommonHeader';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
-export default class ShopRecord extends React.Component {
+export default class Ranking extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {

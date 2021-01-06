@@ -64,4 +64,46 @@ export default {
 		}
 		return data;
 	},
+	// 支付方式
+	filterPayType: status => {
+		let data = '';
+		switch (status) {
+			case 'wechat':
+				data = '微信';
+				break;
+			case 'alipay':
+				data = '支付宝';
+				break;
+			case 'account':
+				data = '余额支付';
+				break;
+			default:
+				data = '--';
+		}
+		return data;
+	},
+	// 消费类型：1-订单支付(order) 2-上门取衣支付(clothing) 3-充值(recharge) 4-购买会员(member) 5:保存衣物收取一元(save_clothing)
+	filterConsumeType: status => {
+		let data = '';
+		switch (status) {
+			case 'order':
+				data = '订单支付';
+				break;
+			case 'clothing':
+				data = '上门取衣支付';
+				break;
+			case 'recharge':
+				data = '充值';
+				break;
+			case 'member':
+				data = '购买会员';
+				break;
+			case 'save_clothing':
+				data = '使用洗衣柜';
+				break;
+			default:
+				data = '--';
+		}
+		return data;
+	},
 };

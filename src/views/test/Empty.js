@@ -1,9 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import CommonHeader from '@/component/CommonHeader';
 
-export default class ShopRecord extends React.Component {
+export default class Empty extends React.Component {
 	constructor(props) {
 		super(props);
 	}

@@ -44,8 +44,6 @@ import GoodsScreen from '@/views/goods/Goods';
 import OrderDetailScreen from '@/views/order/detail/Detail';
 // 选择柜子界面
 import CabinetScreen from '@/views/cabinet/Cabinet';
-// 消费记录页面
-import ShopRecordScreen from '@/views/shopRecord/ShopRecord';
 // 充值页面
 import ReChargeScreen from '@/views/Recharge/ReCharge';
 // 意见和反馈页面
@@ -200,7 +198,15 @@ const finnalApp = createStackNavigator(
 				headerTitleAllowFontScaling: false,
 			},
 		},
-
+		// 消费记录
+		BillScreen: {
+			screen: BillScreen,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
 		// 首页
 		HomeScreen: {
 			screen: TabNavigator,
@@ -220,15 +226,7 @@ const finnalApp = createStackNavigator(
 				headerBackAllowFontScaling: false,
 			},
 		},
-		// moving账单  BillScreen
-		BillScreen: {
-			screen: BillScreen,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
+
 		// 登录页面
 		LoginScreen: {
 			screen: LoginScreen,
@@ -345,14 +343,6 @@ const finnalApp = createStackNavigator(
 		// 意见和反馈页面
 		SuggestionScreen: {
 			screen: SuggestionScreen,
-			headerBackTitle: '返回',
-			navigationOptions: {
-				headerShown: false,
-			},
-		},
-		// 消费记录页面 ShopRecordScreen
-		ShopRecordScreen: {
-			screen: ShopRecordScreen,
 			headerBackTitle: '返回',
 			navigationOptions: {
 				headerShown: false,

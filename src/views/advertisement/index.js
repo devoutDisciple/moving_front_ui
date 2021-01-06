@@ -17,10 +17,6 @@ export default class Advertisement extends React.Component {
 		};
 	}
 
-	componentDidMount() {
-		this.getImageSize();
-	}
-
 	componentWillUnmount() {
 		this.timer && clearInterval(this.timer);
 	}

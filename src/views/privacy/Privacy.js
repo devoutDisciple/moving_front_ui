@@ -4,7 +4,7 @@ import CommonHeader from '@/component/CommonHeader';
 import { ScrollView } from 'react-native-gesture-handler';
 import SafeViewComponent from '@/component/SafeViewComponent';
 
-export default class ShopRecord extends React.Component {
+export default class Privacy extends React.Component {
 	constructor(props) {
 		super(props);
 	}

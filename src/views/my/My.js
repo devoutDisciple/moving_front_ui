@@ -113,10 +113,6 @@ export default class MyScreen extends React.Component {
 		if (key === 'account') {
 			return navigation.navigate('ReChargeScreen', { type: 'recharge' });
 		}
-		// 点击消费记录
-		if (key === 'shopping') {
-			return navigation.navigate('ShopRecordScreen');
-		}
 		// 点击意见反馈
 		if (key === 'suggestion') {
 			return navigation.navigate('SuggestionScreen');

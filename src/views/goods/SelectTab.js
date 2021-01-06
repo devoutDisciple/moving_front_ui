@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import FastImage from '@/component/FastImage';
 import config from '@/config/config';
 
-export default class ShopRecord extends React.Component {
+export default class SelectTab extends React.Component {
 	constructor(props) {
 		super(props);
 	}

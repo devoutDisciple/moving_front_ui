@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from '@/component/FastImage';
 
-export default class ShopRecord extends React.Component {
+export default class RenderIcon extends React.Component {
 	constructor(props) {
 		super(props);
 	}

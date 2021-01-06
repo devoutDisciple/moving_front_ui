@@ -4,7 +4,7 @@ import FastImage from '@/component/FastImage';
 import Config from '@/config/config';
 import RenderIcon from './RenderIcon';
 
-export default class ShopRecord extends React.Component {
+export default class RankingItem extends React.Component {
 	constructor(props) {
 		super(props);
 	}
