@@ -12,7 +12,14 @@ export default class Waller extends React.Component {
 
 	// 点击成为会员
 	beMember() {
-		this.props.navigation.navigate('MemberScreen');
+		let { navigation } = this.props;
+		navigation.navigate('MemberScreen');
+	}
+
+	// 点击余额
+	onSearchBill() {
+		let { navigation } = this.props;
+		return navigation.navigate('BillScreen');
 	}
 
 	render() {
@@ -20,7 +27,7 @@ export default class Waller extends React.Component {
 		return (
 			<View>
 				<View style={styles.my_wallet}>
-					<TouchableOpacity style={styles.my_wallet_chunk}>
+					<TouchableOpacity style={styles.my_wallet_chunk} onPress={this.onSearchBill.bind(this)}>
 						<Text style={styles.my_wallet_chunk_top}>{user.balance}</Text>
 						<Text style={styles.my_wallet_chunk_bottom}>我的余额</Text>
 					</TouchableOpacity>
