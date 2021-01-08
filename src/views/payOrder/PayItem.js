@@ -27,7 +27,7 @@ export default class Waller extends React.Component {
 								<FastImage
 									style={styles.logo}
 									source={{
-										uri: `${Config.baseUrl}/logo.jpg`,
+										uri: `${Config.baseUrl}/logo.png`,
 									}}
 								/>
 							</View>

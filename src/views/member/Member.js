@@ -1,4 +1,3 @@
-
 import React from 'react';
 import CommonSylte from '@/style/common';
 import CommonHeader from '@/component/CommonHeader';
@@ -17,7 +16,6 @@ export default class Member extends React.Component {
 
 	// 去支付
 	payOrder() {
-		// this.props.navigation.navigate('PayOrderScreen', { money, type: 'beMember' });
 		let { navigation } = this.props;
 		navigation.navigate('ReChargeScreen', { type: 'member' });
 	}
@@ -52,7 +50,7 @@ export default class Member extends React.Component {
 								<Image
 									style={styles.img}
 									source={{
-										uri: `${config.baseUrl}/member.jpg`,
+										uri: `${config.baseUrl}/member.png`,
 									}}
 									// source={{uri:  'https://facebook.githuby_logo.png',}}
 								/>

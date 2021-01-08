@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Config from '@/config/config';
 import CommonHeader from '@/component/CommonHeader';
@@ -27,7 +26,7 @@ export default class ConcatUs extends React.Component {
 							<FastImage
 								style={styles.logo}
 								source={{
-									uri: `${Config.baseUrl}/logo.jpg`,
+									uri: `${Config.baseUrl}/logo.png`,
 								}}
 							/>
 						</View>

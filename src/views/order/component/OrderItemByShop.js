@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MoneyItem from './MoneyItem';
 import Request from '@/util/Request';
@@ -121,7 +120,7 @@ export default class AllOrder extends React.Component {
 		return (
 			<View style={styles.order_item}>
 				<View style={styles.order_item_left}>
-					<FastImage style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/logo_square.jpg` }} />
+					<FastImage style={styles.order_item_left_img} source={{ uri: `${Config.baseUrl}/logo_square.png` }} />
 				</View>
 				<View style={styles.order_item_right}>
 					<View style={styles.order_item_right_title}>
