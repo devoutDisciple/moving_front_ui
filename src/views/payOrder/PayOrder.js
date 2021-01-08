@@ -72,6 +72,15 @@ export default class PayOrderScreen extends React.Component {
 		return this.payOrder();
 	}
 
+	goBack() {
+		const { navigation } = this.props;
+		if (navigation && navigation.state && navigation.state.params && navigation.state.params.onSearch) {
+			navigation.state.params.onSearch();
+			return navigation.goBack();
+		}
+		NavigationUtil.reset(navigation, 'HomeScreen');
+	}
+
 	// 上门取衣支付
 	async payGetClothing() {
 		let { payWay, money, user } = this.state;
@@ -86,8 +95,13 @@ export default class PayOrderScreen extends React.Component {
 			home_desc = navigation.getParam('desc'),
 			urgency = navigation.getParam('urgency'),
 			clothingPay = navigation.getParam('pay');
+
 		let orderid = '',
-			showText = clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用';
+			showText = clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用',
+			databaseType = {
+				pre_pay: 'clothing',
+				payAllClothing: 'order',
+			};
 		// pay --- clothingpay: pre_pay: 1 --- 预付款 9.9     2--- payAllClothing-支付订单金额
 		// 支付上门取衣费用 hasOrder - no-还没有创建此订单 has-已经创建过此订单
 		if (clothingPay === 'pre_pay' && hasOrder === 'no') {
@@ -116,36 +130,30 @@ export default class PayOrderScreen extends React.Component {
 				let res = await PayUtil.payMoneyByWeChat({
 					desc: showText,
 					money: money,
-					type: 'clothing',
+					type: databaseType[clothingPay],
 					orderid: orderid,
 					userid: user.id,
 				});
 				if (res === 'success') {
 					// 上门取衣预付款
 					if (clothingPay === 'pre_pay') {
-						return Message.warning('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
-							NavigationUtil.reset(navigation, 'HomeScreen');
-						});
+						return Message.warning('订单已下达', '我们店员稍后会联系您，请耐心等待', () => this.goBack());
 					} else {
 						let orderResult = await Request.get('/order/getOrderById', { id: orderid });
 						let newOrderDetail = orderResult.data;
 						// 店员将衣物放到快递柜
 						if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
-							return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
-								navigation.goBack();
-							});
+							return Message.warning('已完成支付', '请刷新订单，取出衣物', () => this.goBack());
 						}
 						// 店员将衣物送到客户手中
 						if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
-							return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
-								NavigationUtil.reset(navigation, 'HomeScreen');
-							});
+							return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => this.goBack());
 						}
 					}
 				}
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请前往订单查看详细信息');
-					NavigationUtil.reset(navigation, 'HomeScreen');
+					this.goBack();
 				});
 			} catch (error) {
 				Toast.warning(error);
@@ -155,14 +163,14 @@ export default class PayOrderScreen extends React.Component {
 			let res = await Request.post('/pay/payByOrderAlipay', {
 				desc: showText,
 				money: money,
-				type: 'clothing',
+				type: databaseType[clothingPay],
 				userid: user.id,
 				orderid: orderid,
 			});
 			setTimeout(() => {
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请前往订单查看详细信息');
-					NavigationUtil.reset(navigation, 'HomeScreen');
+					this.goBack();
 				});
 			}, 1000);
 			await Alipay.pay(res.data);
@@ -170,35 +178,30 @@ export default class PayOrderScreen extends React.Component {
 		if (payWay === 'moving') {
 			this.setState({ loadingVisible: true });
 			// 扣除用户余额费用
-			let res = await Request.post('/order/subMoneyByAccount', { userid: user.id, orderid: orderid, money: money });
+			let res = await Request.post('/order/subMoneyByAccount', {
+				userid: user.id,
+				orderid: orderid,
+				money: money,
+				type: databaseType[clothingPay],
+			});
 			this.setState({ loadingVisible: false });
 			if (res.data === 'success') {
 				// 上门取衣预付款
 				if (clothingPay === 'pre_pay') {
-					return Message.warning('订单已下达', '我们店员稍后会联系您，请耐心等待', () => {
-						NavigationUtil.reset(navigation, 'HomeScreen');
-					});
+					return Message.warning('订单已下达', '我们店员稍后会联系您，请耐心等待', () => this.goBack());
 				} else {
 					let orderResult = await Request.get('/order/getOrderById', { id: orderid });
 					let newOrderDetail = orderResult.data;
 					// 店员将衣物放到快递柜
 					if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
-						return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
-							navigation.goBack();
-						});
+						return Message.warning('已完成支付', '请刷新订单，取出衣物', () => this.goBack());
 					}
 					// 店员将衣物送到客户手中
 					if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
-						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
-							NavigationUtil.reset(navigation, 'HomeScreen');
-						});
+						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => this.goBack());
 					}
 					Toast.success('支付完成');
-					if (navigation && navigation.state && navigation.state.params && navigation.state.params.onSearch) {
-						navigation.state.params.onSearch();
-						return navigation.goBack();
-					}
-					NavigationUtil.reset(navigation, 'HomeScreen');
+					this.goBack();
 				}
 			}
 		}
@@ -206,7 +209,8 @@ export default class PayOrderScreen extends React.Component {
 
 	// 订单支付
 	async payOrder() {
-		let { payWay, money, user } = this.state;
+		let { payWay, money, user, type } = this.state;
+		console.log(type, 111);
 		const { navigation } = this.props;
 		let orderid = navigation.getParam('orderid');
 		if (payWay === 'wechat') {
@@ -223,20 +227,16 @@ export default class PayOrderScreen extends React.Component {
 					let newOrderDetail = orderResult.data;
 					// 店员将衣物放到快递柜
 					if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
-						return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
-							navigation.goBack();
-						});
+						return Message.warning('已完成支付', '请刷新订单，取出衣物', () => this.goBack());
 					}
 					// 店员将衣物送到客户手中
 					if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
-						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
-							NavigationUtil.reset(navigation, 'HomeScreen');
-						});
+						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => this.goBack());
 					}
 				}
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请刷新订单');
-					navigation.goBack();
+					this.goBack();
 				});
 			} catch (error) {
 				Toast.warning(error);
@@ -253,7 +253,7 @@ export default class PayOrderScreen extends React.Component {
 			setTimeout(() => {
 				Message.confirmPay('是否支付成功', '', () => {
 					Toast.success('请刷新订单');
-					navigation.goBack();
+					this.goBack();
 				});
 			}, 1000);
 			await Alipay.pay(res.data);
@@ -267,30 +267,30 @@ export default class PayOrderScreen extends React.Component {
 				let newOrderDetail = orderResult.data;
 				// 店员将衣物放到快递柜，用户取出快递柜归订单
 				if (newOrderDetail.cabinetName && newOrderDetail.cabinetAddress) {
-					return Message.warning('已完成支付', '请刷新订单，取出衣物', () => {
-						navigation.goBack();
-					});
+					return Message.warning('已完成支付', '请刷新订单，取出衣物', () => this.goBack());
 				}
 				// 店员将衣物送到客户手中
 				if (newOrderDetail.status === 5 && newOrderDetail.send_home === 2) {
-					return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => {
-						NavigationUtil.reset(navigation, 'HomeScreen');
-					});
+					return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => this.goBack());
 				}
 				Toast.success('支付完成');
 				if (navigation && navigation.state && navigation.state.params && navigation.state.params.onSearch) {
 					navigation.state.params.onSearch();
 					return navigation.goBack();
 				}
-				NavigationUtil.reset(navigation, 'HomeScreen');
+				this.goBack();
 			}
+			this.setState({ loadingVisible: false });
+			setTimeout(() => {
+				this.goBack();
+			}, 1000);
 		}
 	}
 
 	render() {
 		const { navigation } = this.props;
-		let { payWay, user, money, wechatVisible, loadingVisible, type, clothingPay } = this.state;
-		let shoText = type === 'clothing' ? (clothingPay === 'payAllClothing' ? '洗衣费用支付' : '收取衣物费用') : '洗衣费用支付';
+		let { payWay, user, money, wechatVisible, loadingVisible, clothingPay } = this.state;
+		let shoText = clothingPay === 'pre_pay' ? '收取衣物费用' : '洗衣费用支付';
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>

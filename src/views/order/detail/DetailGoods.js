@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
 	},
 	empty: {
 		fontSize: 12,
+		marginTop: 10,
 		justifyContent: 'center',
 	},
 	detail_content_goods_item: {

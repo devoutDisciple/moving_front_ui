@@ -9,6 +9,7 @@ import Message from '@/component/Message';
 import Loading from '@/component/Loading';
 import FastImage from '@/component/FastImage';
 import SelectTab from './SelectTab';
+import NavigationUtil from '@/util/NavigationUtil';
 import CommonHeader from '@/component/CommonHeader';
 import SafeViewComponent from '@/component/SafeViewComponent';
 import { Text, View, StyleSheet, ScrollView, TextInput, Dimensions, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
@@ -178,7 +179,7 @@ export default class Goods extends React.Component {
 		this.setState({ loadingVisible: false });
 		if (res && res.data === 'success') {
 			Toast.success('下单成功, 待店员确认衣物价格');
-			return navigation.navigate('HomeScreen');
+			return NavigationUtil.reset(navigation, 'HomeScreen');
 		}
 	}
 

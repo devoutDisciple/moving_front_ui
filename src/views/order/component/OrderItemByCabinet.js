@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MoneyItem from './MoneyItem';
 import Request from '@/util/Request';
@@ -17,6 +16,10 @@ export default class AllOrder extends React.Component {
 
 	componentDidMount() {}
 
+	onSearch() {
+		this.props.onSearch();
+	}
+
 	// 点击去支付
 	async payOrder() {
 		try {
@@ -28,7 +31,7 @@ export default class AllOrder extends React.Component {
 			}
 			// 查看会员余额是否充足
 			let { navigation } = this.props;
-			navigation.navigate('PayOrderScreen', { money: payMoney, type: 'order', orderid: id });
+			navigation.navigate('PayOrderScreen', { money: payMoney, type: 'order', orderid: id, onSearch: this.onSearch.bind(this) });
 		} catch (error) {
 			return Toast.warning(error || '系统错误');
 		}

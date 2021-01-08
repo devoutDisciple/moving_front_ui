@@ -17,6 +17,10 @@ export default class AllOrder extends React.Component {
 
 	componentDidMount() {}
 
+	onSearch() {
+		this.props.onSearch();
+	}
+
 	// 点击去支付
 	async payOrder() {
 		try {
@@ -29,7 +33,13 @@ export default class AllOrder extends React.Component {
 				if (Number(is_sure) !== 2) {
 					return Toast.warning('订单金额待店员确认，请稍后');
 				}
-				return navigation.navigate('PayOrderScreen', { money: payMoney, type: 'clothing', orderid: id, pay: 'payAllClothing' });
+				return navigation.navigate('PayOrderScreen', {
+					money: payMoney,
+					type: 'clothing',
+					orderid: id,
+					pay: 'payAllClothing',
+					onSearch: this.onSearch.bind(this),
+				});
 			}
 			// 支付上门取衣费用
 			navigation.navigate('PayOrderScreen', {
@@ -38,6 +48,7 @@ export default class AllOrder extends React.Component {
 				orderid: id,
 				pay: 'pre_pay',
 				hasOrder: 'yes',
+				onSearch: this.onSearch.bind(this),
 			});
 		} catch (error) {
 			return Toast.warning(error || '系统错误');

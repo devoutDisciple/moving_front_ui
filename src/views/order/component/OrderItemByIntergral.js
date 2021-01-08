@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Request from '@/util/Request';
 import Config from '@/config/config';
