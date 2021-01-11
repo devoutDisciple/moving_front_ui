@@ -60,7 +60,7 @@ export default class BillRecord extends React.Component {
 								data={billList}
 								refreshing={refreshing}
 								onRefresh={this.onRefresh.bind(this)}
-								keyExtractor={item => item.id}
+								keyExtractor={item => String(item.id)}
 								showsVerticalScrollIndicator={false}
 								ListEmptyComponent={<EmptyContent />}
 								ListFooterComponent={<FooterContent />}
