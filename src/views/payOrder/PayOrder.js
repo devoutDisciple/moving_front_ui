@@ -151,10 +151,7 @@ export default class PayOrderScreen extends React.Component {
 						}
 					}
 				}
-				Message.confirmPay('是否支付成功', '', () => {
-					Toast.success('请前往订单查看详细信息');
-					this.goBack();
-				});
+				Message.confirmPay('是否支付成功', '', () => this.goBack(), () => this.goBack());
 			} catch (error) {
 				Toast.warning(error);
 			}
@@ -168,10 +165,7 @@ export default class PayOrderScreen extends React.Component {
 				orderid: orderid,
 			});
 			setTimeout(() => {
-				Message.confirmPay('是否支付成功', '', () => {
-					Toast.success('请前往订单查看详细信息');
-					this.goBack();
-				});
+				Message.confirmPay('是否支付成功', '', () => this.goBack(), () => this.goBack());
 			}, 1000);
 			await Alipay.pay(res.data);
 		}
@@ -210,7 +204,6 @@ export default class PayOrderScreen extends React.Component {
 	// 订单支付
 	async payOrder() {
 		let { payWay, money, user, type } = this.state;
-		console.log(type, 111);
 		const { navigation } = this.props;
 		let orderid = navigation.getParam('orderid');
 		if (payWay === 'wechat') {
@@ -234,10 +227,7 @@ export default class PayOrderScreen extends React.Component {
 						return Message.warning('已完成支付', '感谢您的使用，祝您生活愉快', () => this.goBack());
 					}
 				}
-				Message.confirmPay('是否支付成功', '', () => {
-					Toast.success('请刷新订单');
-					this.goBack();
-				});
+				Message.confirmPay('是否支付成功', '', () => this.goBack(), () => this.goBack());
 			} catch (error) {
 				Toast.warning(error);
 			}
@@ -251,10 +241,7 @@ export default class PayOrderScreen extends React.Component {
 				userid: user.id,
 			});
 			setTimeout(() => {
-				Message.confirmPay('是否支付成功', '', () => {
-					Toast.success('请刷新订单');
-					this.goBack();
-				});
+				Message.confirmPay('是否支付成功', '', () => this.goBack(), () => this.goBack());
 			}, 1000);
 			await Alipay.pay(res.data);
 		}

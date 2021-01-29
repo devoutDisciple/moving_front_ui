@@ -31,13 +31,14 @@ export default {
 			{ cancelable: false },
 		);
 	},
-	confirmPay: (title, message, callBack) => {
+	confirmPay: (title, message, callBack, cancelBack) => {
 		Alert.alert(
 			title,
 			message,
 			[
 				{
 					text: '取消',
+					onPress: cancelBack ? cancelBack : () => {},
 				},
 				{
 					text: '已完成支付',

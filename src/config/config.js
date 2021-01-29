@@ -1,5 +1,5 @@
-// let flag = true; // true - 线上环境
-let flag = false; //  false-线下环境
+let flag = true; // true - 线上环境
+// let flag = false; //  false-线下环境
 export default {
 	baseUrl: flag ? 'http://47.107.43.166:3001' : 'http://127.0.01:3001',
 	AppStoreId: '1518058596',
