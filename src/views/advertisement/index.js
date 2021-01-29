@@ -1,7 +1,7 @@
 import React from 'react';
 import Config from '@/config/config';
 import NavigationUtil from '@/util/NavigationUtil';
-import { Image, ScrollView, Dimensions, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, ScrollView, Dimensions, Text, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const windowDetail = Dimensions.get('window');
 const screenWidth = windowDetail.width;
@@ -15,6 +15,11 @@ export default class Advertisement extends React.Component {
 			textArr: ['3 跳过', '2 跳过', '1 跳过', '跳过'],
 			text: '3 跳过',
 		};
+		this.timer = null;
+	}
+
+	componentDidMount() {
+		this.startTimer();
 	}
 
 	componentWillUnmount() {
@@ -44,12 +49,14 @@ export default class Advertisement extends React.Component {
 			// eslint-disable-next-line radix
 			let height = parseInt(imgHeight / pre);
 			this.setState({ height: height });
-			this.startTimer();
 		});
 	}
 
 	goHome() {
 		let { navigation } = this.props;
+		if (this.timer) {
+			clearInterval(this.timer);
+		}
 		NavigationUtil.reset(navigation, 'HomeScreen');
 	}
 
@@ -57,27 +64,33 @@ export default class Advertisement extends React.Component {
 		let { height, text } = this.state;
 		let relHeight = screenHeight > height ? screenHeight : height;
 		return (
-			<ScrollView style={{ height: relHeight, backgroundColor: '#fdfdfd' }} showsVerticalScrollIndicator={false}>
-				<Image
-					style={{ width: screenWidth, height: relHeight }}
-					source={{ uri: `${Config.baseUrl}/advertisement.png` }}
-					onLoad={this.getImageSize.bind(this)}
-				/>
+			<View style={styles.content}>
 				<TouchableOpacity style={styles.skip} onPress={this.goHome.bind(this)}>
 					<Text style={styles.skip_text}>{text}</Text>
 				</TouchableOpacity>
-			</ScrollView>
+				<ScrollView style={{ height: relHeight, backgroundColor: '#fdfdfd' }} showsVerticalScrollIndicator={false}>
+					<Image
+						style={{ width: screenWidth, height: relHeight }}
+						source={{ uri: `${Config.baseUrl}/advertisement.png` }}
+						onLoad={this.getImageSize.bind(this)}
+					/>
+				</ScrollView>
+			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	content: {
+		flex: 1,
+	},
 	skip: {
 		position: 'absolute',
 		right: 20,
 		top: 70,
 		height: 30,
 		width: 60,
+		zIndex: 100,
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: '#bfbfbf',

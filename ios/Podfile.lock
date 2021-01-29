@@ -42,7 +42,7 @@ PODS:
     - Folly (= 2018.10.22.00)
     - RCTRequired (= 0.61.4)
     - React-Core (= 0.61.4)
-  - RCTWeChat (1.1.25):
+  - RCTWeChat (1.1.26):
     - React-Core
   - React (0.61.4):
     - React-Core (= 0.61.4)
@@ -444,7 +444,7 @@ SPEC CHECKSUMS:
   Picker: 37554355aef82a532ea95b71b6eeba66bc86182b
   RCTRequired: f3b3fb6f4723e8e52facb229d0c75fdc76773849
   RCTTypeSafety: 2ec60de6abb1db050b56ecc4b60188026078fd10
-  RCTWeChat: eeae3323bef0d40d78181dbc7b3a1a33cd5a358e
+  RCTWeChat: 289c92186c1f55716a6378af55388292d94b2d9e
   React: 10e0130b57e55a7cd8c3dee37c1261102ce295f4
   React-Core: 636212410772d05f3a1eb79d965df2962ca1c70b
   React-CoreModules: 6f70d5e41919289c582f88c9ad9923fe5c87400a
