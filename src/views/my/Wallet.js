@@ -27,7 +27,8 @@ export default class Waller extends React.Component {
 		return (
 			<View>
 				<View style={styles.my_wallet}>
-					<TouchableOpacity style={styles.my_wallet_chunk} onPress={this.onSearchBill.bind(this)}>
+					{/* <TouchableOpacity style={styles.my_wallet_chunk} onPress={this.onSearchBill.bind(this)}> */}
+					<TouchableOpacity style={styles.my_wallet_chunk}>
 						<Text style={styles.my_wallet_chunk_top}>{user.balance}</Text>
 						<Text style={styles.my_wallet_chunk_bottom}>我的余额</Text>
 					</TouchableOpacity>

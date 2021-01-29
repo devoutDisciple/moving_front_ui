@@ -141,7 +141,7 @@ export default class MyScreen extends React.Component {
 					<View style={{ height: 10 }} />
 					<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
 					<ListItem iconName="staro" text="MOVING商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
-					<ListItem iconName="linechart" text="MOVING账单" onPress={this.onPressListItem.bind(this, 'bill')} />
+					{/* <ListItem iconName="linechart" text="MOVING账单" onPress={this.onPressListItem.bind(this, 'bill')} /> */}
 					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
 					<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
 					<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
