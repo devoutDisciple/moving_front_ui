@@ -1,4 +1,4 @@
-source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
+# source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
@@ -58,6 +58,16 @@ target 'laundryApp-tvOS' do
 end
 
 post_install do |installer|
+    find_and_replace(
+      "../node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm",
+      "_initializeModules:(NSArray<id<RCTBridgeModule>> *)modules",
+      "_initializeModules:(NSArray<Class> *)modules")
+       
+      find_and_replace(
+      "../node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm",
+      "RCTBridgeModuleNameForClass(module))",
+      "RCTBridgeModuleNameForClass(Class(module)))"
+      )
     installer.pods_project.targets.each do |target|
    target.build_configurations.each do |config|
     if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 8.0
@@ -66,3 +76,16 @@ post_install do |installer|
     end
    end
   end
+
+    def find_and_replace(dir, findstr, replacestr)
+      Dir[dir].each do |name|
+          text = File.read(name)
+          replace = text.gsub(findstr,replacestr)
+          if text != replace
+              puts "Fix: " + name
+              File.open(name, "w") { |file| file.puts replace }
+              STDOUT.flush
+          end
+      end
+      Dir[dir + '*/'].each(&method(:find_and_replace))
+    end

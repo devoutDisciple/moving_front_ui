@@ -6,7 +6,7 @@ import UpdateVersion from '@/util/Update';
 import Message from '@/component/Message';
 import IconWithText from '@/component/IconWithText';
 import { View, StyleSheet, Linking } from 'react-native';
-import PushNotificationIOS from '@/util/PushNotification';
+// import PushNotificationIOS from '@/util/PushNotification';
 import { init, Geolocation } from 'react-native-amap-geolocation';
 import language from '@/language/index';
 export default class IconList extends React.Component {
@@ -23,14 +23,14 @@ export default class IconList extends React.Component {
 		Geolocation.getCurrentPosition(({ coords }) => {
 			// console.log(coords, '用户位置');
 		});
-		PushNotificationIOS.requestPermissions().then(
-			data => {
-				console.log('PushNotificationIOS.requestPermissions', data);
-			},
-			data => {
-				console.log('PushNotificationIOS.requestPermissions failed', data);
-			},
-		);
+		// PushNotificationIOS.requestPermissions().then(
+		// 	data => {
+		// 		console.log('PushNotificationIOS.requestPermissions', data);
+		// 	},
+		// 	data => {
+		// 		console.log('PushNotificationIOS.requestPermissions failed', data);
+		// 	},
+		// );
 	}
 
 	// 判断是不是会员
@@ -158,11 +158,6 @@ export default class IconList extends React.Component {
 			// await StorageUtil.clear();
 			// console.log('清除成功');
 			//
-			// PushNotificationIOS.presentLocalNotification({
-			// 	alertTitle: 'Sample Title',
-			// 	alertBody: 'Sample local notification',
-			// 	applicationIconBadgeNumber: 1,
-			// });
 		}
 	}
 
