@@ -27,6 +27,7 @@ export default class HomeScreen extends React.Component {
 			versionForceDialogVisible: false, // 强制更新
 			previewModalVisible: false,
 			swiperList: [],
+			swiperIdx: 0, // 当前点击之后swiper所在的index
 			cabinetList: [],
 			previewSwiperList: [],
 			freshLoading: false,
@@ -257,13 +258,13 @@ export default class HomeScreen extends React.Component {
 	}
 
 	// 点击图片预览
-	onShowPreviewModal() {
+	onShowPreviewModal(idx) {
 		let { swiperList } = this.state,
 			list = [];
 		if (Array.isArray(swiperList)) {
 			swiperList.forEach(item => list.push({ url: `${config.baseUrl}/${item.url}` }));
 		}
-		this.setState({ previewModalVisible: true, previewSwiperList: list });
+		this.setState({ previewModalVisible: true, previewSwiperList: list, swiperIdx: idx });
 	}
 
 	render() {
@@ -275,6 +276,7 @@ export default class HomeScreen extends React.Component {
 			versionSoftDialogVisible,
 			cabinetList,
 			swiperList,
+			swiperIdx,
 			freshLoading,
 			previewSwiperList,
 			previewModalVisible,
@@ -333,6 +335,7 @@ export default class HomeScreen extends React.Component {
 						<ImageViewer
 							imageUrls={previewSwiperList}
 							failImageSource="暂无图片信息"
+							index={swiperIdx}
 							onClick={() => this.setState({ previewModalVisible: false })}
 							loadingRender={() => <Spinner type="Bounce" color="#fb9bcd" />}
 						/>

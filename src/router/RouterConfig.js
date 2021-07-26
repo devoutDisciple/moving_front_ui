@@ -188,6 +188,15 @@ const TabNavigator = createBottomTabNavigator(
 
 const finnalApp = createStackNavigator(
 	{
+		// 首页
+		HomeScreen: {
+			screen: TabNavigator,
+			navigationOptions: {
+				headerShown: false,
+				headerBackTitle: '返回',
+				headerBackAllowFontScaling: false,
+			},
+		},
 		// 首屏广告
 		AdvertisementScreen: {
 			screen: AdvertisementScreen,
@@ -207,16 +216,6 @@ const finnalApp = createStackNavigator(
 				headerBackAllowFontScaling: false,
 			},
 		},
-		// 首页
-		HomeScreen: {
-			screen: TabNavigator,
-			navigationOptions: {
-				headerShown: false,
-				headerBackTitle: '返回',
-				headerBackAllowFontScaling: false,
-			},
-		},
-
 		// 消费排行榜页面 RankingScreen
 		RankingScreen: {
 			screen: RankingScreen,

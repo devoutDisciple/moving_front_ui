@@ -95,7 +95,6 @@ export default class PayOrderScreen extends React.Component {
 			home_desc = navigation.getParam('desc'),
 			urgency = navigation.getParam('urgency'),
 			clothingPay = navigation.getParam('pay');
-
 		let orderid = '',
 			showText = clothingPay === 'payAllClothing' ? '洗衣费用支付' : '预约取衣派送费用',
 			databaseType = {

@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import Swiper from 'react-native-swiper';
 import Config from '@/config/config';
@@ -6,21 +5,35 @@ import FastImage from '@/component/FastImage';
 import { StyleSheet, Dimensions, View, Text, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
-
+let swiperIdx = 0;
 export default class SwiperComponent extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			index: 0,
+		};
+	}
+
+	changeIdx(idx) {
+		swiperIdx = idx;
 	}
 
 	render() {
-		let swiperList = this.props.swiperList;
+		let { swiperList } = this.props;
 		return (
-			<TouchableOpacity style={styles.swiperContainer} onPress={() => this.props.onShowPreviewModal(swiperList)}>
+			// <TouchableOpacity style={styles.swiperContainer} onPress={() => this.props.onShowPreviewModal(swiperList)}>
+			<TouchableOpacity style={styles.swiperContainer} onPress={() => this.props.onShowPreviewModal(swiperIdx)}>
 				{swiperList && swiperList.length !== 0 ? (
-					<Swiper removeClippedSubviews={false} autoplay={true} dotColor="rgba(255,255,255,.3)" activeDotColor="#fff">
+					<Swiper
+						onIndexChanged={this.changeIdx.bind(this)}
+						removeClippedSubviews={false}
+						autoplay={true}
+						dotColor="rgba(255,255,255,.3)"
+						activeDotColor="#fff"
+					>
 						{swiperList.map((item, index) => {
 							return (
-								<View key={index} style={styles.slide}>
+								<View key={index} style={styles.slide} onClick={() => console.log(123)}>
 									<FastImage
 										style={styles.img}
 										source={{

@@ -161,7 +161,7 @@ export default class OrderScreen extends React.Component {
 				return this.addOrder(detail.boxid, cellid, urgency, flag);
 			}
 		} catch (error) {
-			console.log(error, 111);
+			console.log(error);
 			this.setState({ loadingVisible: false });
 		}
 	}
