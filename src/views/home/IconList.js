@@ -162,7 +162,7 @@ export default class IconList extends React.Component {
 	}
 
 	render() {
-		const iconList1 = [
+		const iconList = [
 			{
 				key: 'shop_order',
 				url: require('@/asserts/home/shop.png'),
@@ -208,7 +208,7 @@ export default class IconList extends React.Component {
 		return (
 			<View style={styles.icon_container}>
 				<View style={styles.home_icon}>
-					{iconList1.map((item, index) => {
+					{iconList.map((item, index) => {
 						return (
 							<IconWithText
 								key={index}

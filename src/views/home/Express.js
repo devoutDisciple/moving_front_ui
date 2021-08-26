@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Request from '@/util/Request';
 import FastImage from '@/component/FastImage';
@@ -13,9 +12,6 @@ import Message from '@/component/Message';
 export default class Express extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			cabinetList: [],
-		};
 	}
 
 	// 存放衣物
@@ -41,6 +37,11 @@ export default class Express extends React.Component {
 			navigation.navigate('MyMessage');
 			return Toast.warning('请先补全个人信息!');
 		}
+		// 判断会否有未支付订单
+		let hasOrders = await Request.get('/order/hasUnCompleateOrder', { userid: user.id });
+		if (hasOrders.data !== 'success') {
+			return;
+		}
 		// 判断用户是否是会员
 		if (Number(user.member) === 1) {
 			// 普通用户，提示要收取费用
@@ -53,54 +54,63 @@ export default class Express extends React.Component {
 	}
 
 	render() {
-		let { cabinetList } = this.props;
+		let { cabinetList, adverList } = this.props;
 		return (
 			<View style={styles.home_express}>
 				<View style={styles.detail_common_title}>
 					<Text style={{ fontSize: 16, color: '#333' }}>MOVING 收衣柜</Text>
 				</View>
-				{cabinetList && cabinetList.length !== 0 ? (
-					cabinetList.map((item, index) => {
-						return (
-							<View style={styles.home_express_item} key={index}>
-								<View style={styles.home_express_item_left}>
-									<FastImage
-										style={styles.home_express_item_left_img}
-										source={{
-											uri: `${config.baseUrl}/${item.url}`,
-										}}
-									/>
-								</View>
-								<View style={styles.home_express_item_right}>
-									<View style={styles.home_express_item_right_title}>
-										<Text style={styles.home_express_item_right_title_name}>{item.name}</Text>
-										<Text style={styles.home_express_item_right_title_address}>位置：{item.address}</Text>
-									</View>
-									<View style={styles.home_express_item_right_bottom}>
-										<Button
-											buttonStyle={{
-												backgroundColor: '#fb9dd0',
-												paddingVertical: 7,
-												paddingHorizontal: 10,
-												borderRadius: 6,
+				{cabinetList && cabinetList.length !== 0
+					? cabinetList.map((item, index) => {
+							return (
+								<View style={styles.home_express_item} key={index}>
+									<View style={styles.home_express_item_left}>
+										<FastImage
+											style={styles.home_express_item_left_img}
+											source={{
+												uri: `${config.baseUrl}/${item.url}`,
 											}}
-											titleStyle={{ fontSize: 14 }}
-											title="存放衣物"
-											onPress={this.putClothing.bind(this, item)}
 										/>
 									</View>
+									<View style={styles.home_express_item_right}>
+										<View style={styles.home_express_item_right_title}>
+											<Text style={styles.home_express_item_right_title_name}>{item.name}</Text>
+											<Text style={styles.home_express_item_right_title_address}>位置：{item.address}</Text>
+										</View>
+										<View style={styles.home_express_item_right_bottom}>
+											<Button
+												buttonStyle={{
+													backgroundColor: '#fb9dd0',
+													paddingVertical: 7,
+													paddingHorizontal: 10,
+													borderRadius: 6,
+												}}
+												titleStyle={{ fontSize: 14 }}
+												title="存放衣物"
+												onPress={this.putClothing.bind(this, item)}
+											/>
+										</View>
+									</View>
 								</View>
-							</View>
-						);
-					})
-				) : (
-					<View style={styles.empty}>
-						<Text style={styles.empty_text}>洗衣柜不见了。。。</Text>
-					</View>
-				)}
+							);
+					  })
+					: adverList.map(item => {
+							return (
+								<FastImage
+									style={styles.home_adver}
+									source={{
+										uri: `${config.baseUrl}/adver/${item.url}`,
+									}}
+								/>
+							);
+					  })}
 			</View>
 		);
 	}
+
+	// <View style={styles.empty}>
+	// 					<Text style={styles.empty_text}>洗衣柜不见了。。。</Text>
+	// 				</View>
 }
 
 const styles = StyleSheet.create({
@@ -136,6 +146,10 @@ const styles = StyleSheet.create({
 	home_express_item_left_img: {
 		width: '100%',
 		height: '100%',
+	},
+	home_adver: {
+		width: '100%',
+		height: 400,
 	},
 	home_express_item_right: {
 		flex: 1,

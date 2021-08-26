@@ -31,6 +31,7 @@ export default class HomeScreen extends React.Component {
 			cabinetList: [],
 			previewSwiperList: [],
 			freshLoading: false,
+			adverList: [], // 店铺广告图片
 		};
 		this.locationClick = this.locationClick.bind(this);
 		this.goAppStore = this.goAppStore.bind(this);
@@ -41,6 +42,13 @@ export default class HomeScreen extends React.Component {
 		return {
 			headerTitle: 'MOVING洗衣',
 			headerLeft: () => {
+				let title = '';
+				if (navigation.state.params && navigation.state.params.title) {
+					title = navigation.state.params.title;
+					if (title && title.length > 5) {
+						title = `${title.substr(0, 5)}...`;
+					}
+				}
 				return (
 					<TouchableOpacity onPress={() => navigation.state.params.leftIconClick()}>
 						<View
@@ -54,7 +62,8 @@ export default class HomeScreen extends React.Component {
 						>
 							<Icon style={{ width: 20, marginTop: 2 }} name="enviromento" size={16} color="#fb9dd0" />
 							<Text style={{ flex: 1 }}>
-								{navigation.state.params && navigation.state.params.title ? navigation.state.params.title : ''}
+								{title}
+								{/* {navigation.state.params && navigation.state.params.title ? navigation.state.params.title : ''} */}
 							</Text>
 						</View>
 					</TouchableOpacity>
@@ -113,9 +122,13 @@ export default class HomeScreen extends React.Component {
 			// 获取所有商店
 			let shopid = await this.getAllShop();
 			// 获取快递柜子
-			await this.getAllCabinetByShop(shopid);
+			let cabinets = await this.getAllCabinetByShop(shopid);
 			// 获取轮播图信息
 			await this.getSwiperList(shopid);
+			// 获取广告图
+			if (cabinets && cabinets.length === 0) {
+				await this.onSearchAdverList(shopid);
+			}
 			flag ? (state.loadingVisible = false) : (state.freshLoading = false);
 			this.setState(state);
 			// 获取用户信息
@@ -124,6 +137,14 @@ export default class HomeScreen extends React.Component {
 			flag ? (state.loadingVisible = false) : (state.freshLoading = false);
 			this.setState(state);
 		}
+	}
+
+	// 查询广告图
+	async onSearchAdverList(shopid) {
+		let res = await Request.get('/shopAdver/list', { shopid });
+		const adverList = res.data || [];
+		console.log(adverList, 892);
+		this.setState({ adverList });
 	}
 
 	// 更新当前用户信息
@@ -191,6 +212,7 @@ export default class HomeScreen extends React.Component {
 		}
 		let res = await Request.get('/cabinet/getAllByShop', { shopid });
 		this.setState({ cabinetList: res.data || [] });
+		return res.data || [];
 	}
 
 	// 获取swiper
@@ -280,6 +302,7 @@ export default class HomeScreen extends React.Component {
 			freshLoading,
 			previewSwiperList,
 			previewModalVisible,
+			adverList,
 		} = this.state;
 		return (
 			<View style={{ flex: 1 }}>
@@ -302,6 +325,7 @@ export default class HomeScreen extends React.Component {
 						shopid={shopid}
 						navigation={navigation}
 						cabinetList={cabinetList}
+						adverList={adverList}
 						setLoading={flag => this.setState({ loadingVisible: flag })}
 					/>
 				</ScrollView>

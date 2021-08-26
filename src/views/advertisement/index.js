@@ -44,7 +44,7 @@ export default class Advertisement extends React.Component {
 	}
 
 	getImageSize() {
-		Image.getSize(`${Config.baseUrl}/advertisement.png`, (imgWidth, imgHeight) => {
+		Image.getSize(`${Config.baseUrl}/adver/advertisement.png`, (imgWidth, imgHeight) => {
 			let pre = imgWidth / screenWidth;
 			// eslint-disable-next-line radix
 			let height = parseInt(imgHeight / pre);
@@ -71,7 +71,7 @@ export default class Advertisement extends React.Component {
 				<ScrollView style={{ height: relHeight, backgroundColor: '#fdfdfd' }} showsVerticalScrollIndicator={false}>
 					<Image
 						style={{ width: screenWidth, height: relHeight }}
-						source={{ uri: `${Config.baseUrl}/advertisement.png` }}
+						source={{ uri: `${Config.baseUrl}/adver/advertisement.png` }}
 						onLoad={this.getImageSize.bind(this)}
 					/>
 				</ScrollView>

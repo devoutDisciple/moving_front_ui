@@ -202,7 +202,7 @@ export default class PayOrderScreen extends React.Component {
 
 	// 订单支付
 	async payOrder() {
-		let { payWay, money, user, type } = this.state;
+		let { payWay, money, user } = this.state;
 		const { navigation } = this.props;
 		let orderid = navigation.getParam('orderid');
 		if (payWay === 'wechat') {

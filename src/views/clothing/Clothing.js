@@ -177,6 +177,11 @@ export default class Member extends React.Component {
 			urgency,
 			desc,
 		};
+		// 判断会否有未支付订单
+		let hasOrders = await RequestUtil.get('/order/hasUnCompleateOrder', { userid: user.id });
+		if (hasOrders.data !== 'success') {
+			return;
+		}
 		navigation.navigate('PayOrderScreen', {
 			type: 'clothing',
 			hasOrder: 'no',
