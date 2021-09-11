@@ -1,5 +1,3 @@
-const { exp } = require('react-native-reanimated');
-
 import { NavigationActions, StackActions } from 'react-navigation';
 export default {
 	reset: (navigation, screenName, index = 0) => {
