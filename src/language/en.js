@@ -1,4 +1,10 @@
 export default {
+	common: {
+		normalUser: 'Normal Users',
+		vipUser: 'MOVING VIP',
+		vipPlus: 'MOVING PLUSE VIP',
+		cabinet: 'MOVING CLOTHING CABINET',
+	},
 	menu: {
 		home: 'Home',
 		order: 'Order',
@@ -13,5 +19,30 @@ export default {
 		aboutUs: 'About Us',
 		update: 'Update',
 		website: 'Website',
+		ranking: 'ranking',
+	},
+	orderScreen: {
+		all: 'All',
+		process: 'Process',
+		wating: 'Cleaned',
+		complate: 'finished',
+	},
+	myScreen: {
+		myAccount: 'Balance',
+		myIntegral: 'Integral',
+		becomeMem: 'Be Member',
+		balanceRecharge: 'Recharge',
+		myAddress: 'Address',
+		options: 'Suggestions',
+		aboutUs: 'About Us',
+	},
+	setting: {
+		setting: 'Setting',
+		resetPassword: 'reset password',
+		update: 'update version',
+		service: 'service agreement',
+		privacy: 'privacy policy',
+		giveUpAccount: 'account cancellation',
+		logout: 'logout',
 	},
 };

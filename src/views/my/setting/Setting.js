@@ -8,6 +8,7 @@ import NavigationUtil from '@/util/NavigationUtil';
 import config from '@/config/config';
 import CommonHeader from '@/component/CommonHeader';
 import Request from '@/util/Request';
+import language from '@/language';
 import Message from '@/component/Message';
 import SafeViewComponent from '@/component/SafeViewComponent';
 import { Text, View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
@@ -106,30 +107,35 @@ export default class SettingScreen extends React.Component {
 		return (
 			<SafeViewComponent>
 				<View style={styles.container}>
-					<CommonHeader title="设置" navigation={navigation} back={this.goBackHome.bind(this)} />
+					<CommonHeader title={language.setting.setting} navigation={navigation} back={this.goBackHome.bind(this)} />
 					<View style={styles.content}>
 						<View style={styles.empty} />
 						<View style={styles.content_chunk}>
-							<ListItem text="重置密码" onPress={this.onPress.bind(this, 'resetPassword')} withBorder bigText />
+							<ListItem
+								text={language.setting.resetPassword}
+								onPress={this.onPress.bind(this, 'resetPassword')}
+								withBorder
+								bigText
+							/>
 							{/* <ListItem text="语言切换" onPress={this.onPress.bind(this, 'language')} withBorder bigText /> */}
 							<ListItem
 								bigText
 								withBorder
 								otherText={config.currentVersion}
-								text="版本更新"
+								text={language.setting.update}
 								onPress={this.onPress.bind(this, 'about')}
 							/>
-							<ListItem bigText withBorder text="服务协议" onPress={this.onPress.bind(this, 'service')} />
-							<ListItem text="隐私政策" bigText onPress={this.onPress.bind(this, 'privacy')} />
+							<ListItem bigText withBorder text={language.setting.service} onPress={this.onPress.bind(this, 'service')} />
+							<ListItem text={language.setting.privacy} bigText onPress={this.onPress.bind(this, 'privacy')} />
 						</View>
 						<View style={styles.empty} />
 						<View style={styles.content_chunk}>
-							<ListItem text="永久注销账号" bigText onPress={this.onPress.bind(this, 'logout')} />
+							<ListItem text={language.setting.giveUpAccount} bigText onPress={this.onPress.bind(this, 'logout')} />
 						</View>
 						<View style={styles.empty} />
 						<View style={styles.empty} />
 						<TouchableOpacity style={styles.logout} onPress={this.logoutBtnClick.bind(this)}>
-							<Text style={styles.logout_text}>退出登录</Text>
+							<Text style={styles.logout_text}>{language.setting.logout}</Text>
 						</TouchableOpacity>
 					</View>
 					<Loading visible={loadingVisible} />

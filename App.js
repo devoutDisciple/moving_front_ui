@@ -15,6 +15,7 @@ export default class App extends React.Component {
 		TextInput.defaultProps = Object.assign({}, TextInput.defaultProps, { allowFontScaling: false }); // 新版RN使用该方法替代
 		Text.defaultProps = Object.assign({}, Text.defaultProps, { allowFontScaling: false });
 	}
+
 	render() {
 		return <RouterConfig />;
 	}

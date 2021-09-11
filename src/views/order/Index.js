@@ -2,6 +2,7 @@ import React from 'react';
 import Order from './component/Order';
 import { Text, View } from 'react-native';
 import SafeViewComponent from '@/component/SafeViewComponent';
+import language from '@/language';
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 export default class OrderScreen extends React.Component {
@@ -43,10 +44,10 @@ export default class OrderScreen extends React.Component {
 							onChangeTab={this.changeTab.bind(this)}
 							renderTabBar={() => <DefaultTabBar containerWidth={100} />}
 						>
-							<Text style={{ height: 0 }} tabLabel="全部" />
-							<Text style={{ height: 0 }} tabLabel="清洗中" />
-							<Text style={{ height: 0 }} tabLabel="待取货" />
-							<Text style={{ height: 0 }} tabLabel="已完成" />
+							<Text style={{ height: 0 }} tabLabel={language.orderScreen.all} />
+							<Text style={{ height: 0 }} tabLabel={language.orderScreen.process} />
+							<Text style={{ height: 0 }} tabLabel={language.orderScreen.wating} />
+							<Text style={{ height: 0 }} tabLabel={language.orderScreen.complate} />
 						</ScrollableTabView>
 					</View>
 					{currentPageIndex === 1 && <Order navigation={navigation} type="all" />}

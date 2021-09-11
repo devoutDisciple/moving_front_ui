@@ -164,42 +164,50 @@ export default class IconList extends React.Component {
 	render() {
 		const iconList = [
 			{
+				// 店内下单
 				key: 'shop_order',
 				url: require('@/asserts/home/shop.png'),
 				text: language.homeScreen.shopOrder,
 			},
 			{
+				// 上门取衣
 				key: 'home_clothing',
 				url: require('@/asserts/home/service.png'),
 				text: language.homeScreen.clothing,
 			},
 			{
+				// MOVING 商城
 				key: 'home_shop',
 				url: require('@/asserts/home/jifen.png'),
 				text: language.homeScreen.shop,
 			},
 			{
+				// 洗衣排行
 				key: 'home_ranking',
 				url: require('@/asserts/home/ranking.png'),
 				text: language.homeScreen.ranking,
 			},
 			{
+				// 成为会员
 				key: 'home_member',
 				url: require('@/asserts/home/member.png'),
 				text: language.homeScreen.member,
 			},
 			{
+				// 会员充值
 				key: 'home_recharge',
 				url: require('@/asserts/home/chongzhi.png'),
 				text: language.homeScreen.recharge,
 			},
 
 			{
+				// 关于我们
 				key: 'home_concat',
 				url: require('@/asserts/home/lianxi.png'),
 				text: language.homeScreen.aboutUs,
 			},
 			{
+				// 版本更新
 				key: 'home_operation',
 				url: require('@/asserts/home/caozuo.png'),
 				text: language.homeScreen.update,

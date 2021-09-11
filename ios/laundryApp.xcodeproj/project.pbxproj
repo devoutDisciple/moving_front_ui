@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* laundryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* laundryAppTests.m */; };
-		07D69FE180B98F46087CBD48 /* libPods-laundryApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43C7C4E52EE969BA1E2387E2 /* libPods-laundryApp-tvOSTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		14B415377DD56FD57C39288A /* libPods-laundryApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87B9A253C24C94D941D28B10 /* libPods-laundryApp-tvOSTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* laundryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* laundryAppTests.m */; };
-		6DFB2E214CE4A438E03A7683 /* libPods-laundryApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2883C9FD10AAAFC56BBC1A7 /* libPods-laundryApp.a */; };
+		75C47FAECC0895026FE30210 /* libPods-laundryApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB60354AD8AE94ECA2BA11F /* libPods-laundryApp-tvOS.a */; };
+		9CE231BB7ECC34BE19051C30 /* libPods-laundryApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DD66026A76D48A54FCB64E /* libPods-laundryApp.a */; };
+		AE4BD15C34C95F6B04EC61B0 /* libPods-laundryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A5170F02735E0B7AB6587D /* libPods-laundryAppTests.a */; };
 		C11F759523A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
 		C11F759623A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
 		C11F759723A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
@@ -94,8 +96,6 @@
 		C160094B268C363800E73D3F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1A78D1824350C1A003C01FE /* SystemConfiguration.framework */; };
 		C160094D268C363900E73D3F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C14FA80D249DD064006A36DD /* WebKit.framework */; };
 		C1A78D2E2435C412003C01FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		C5782C884E9EDA0C60447C7C /* libPods-laundryApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCC2CFDD1D1446396AAFDED /* libPods-laundryApp-tvOS.a */; };
-		E72E44FF1A1AC9F8534EDB8F /* libPods-laundryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EEB09BAE35F233B1692D6B8 /* libPods-laundryAppTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,8 +121,6 @@
 		00E356F21AD99517003FC87E /* laundryAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = laundryAppTests.m; sourceTree = "<group>"; };
 		070799362A5D44ADB5E24AC1 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		09DE60438B384CEE83838ABB /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		11731EDB7A2B996DDE0BB3AE /* Pods-laundryAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryAppTests.release.xcconfig"; path = "Target Support Files/Pods-laundryAppTests/Pods-laundryAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		1320713FF98FC37085EFDCB9 /* Pods-laundryApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOSTests/Pods-laundryApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MOVING洗衣.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MOVING洗衣.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = laundryApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = laundryApp/AppDelegate.m; sourceTree = "<group>"; };
@@ -134,20 +132,20 @@
 		279B95CF9D914C60986B834D /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* laundryApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "laundryApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* laundryApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "laundryApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EEB09BAE35F233B1692D6B8 /* libPods-laundryAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BE6CC7B38DF000400007B08 /* Pods-laundryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp.release.xcconfig"; path = "Target Support Files/Pods-laundryApp/Pods-laundryApp.release.xcconfig"; sourceTree = "<group>"; };
-		3F869078340BED318EFA45AE /* Pods-laundryAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryAppTests.debug.xcconfig"; path = "Target Support Files/Pods-laundryAppTests/Pods-laundryAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		43C7C4E52EE969BA1E2387E2 /* libPods-laundryApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		338B82E2A2CFB91F3C3075CB /* Pods-laundryApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOSTests/Pods-laundryApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		560346D1985A4404B3E0AF33 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		70630CF575626878CBA5F325 /* Pods-laundryApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOS/Pods-laundryApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		5C59E869B23A90B4CD2B6C9A /* Pods-laundryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp.debug.xcconfig"; path = "Target Support Files/Pods-laundryApp/Pods-laundryApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5EC107D3453FC03E634817DC /* Pods-laundryApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOSTests/Pods-laundryApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		81DD66026A76D48A54FCB64E /* libPods-laundryApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		87B9A253C24C94D941D28B10 /* libPods-laundryApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CD250E868DC41679A13CB1E /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		973630053860497AB90141A6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		97F3BFBDFCA34D46841E1920 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		9AB60354AD8AE94ECA2BA11F /* libPods-laundryApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A105B233C7C84E5D8DCFADF6 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		A35B858C3F0D1F54251BF3C4 /* Pods-laundryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp.release.xcconfig"; path = "Target Support Files/Pods-laundryApp/Pods-laundryApp.release.xcconfig"; sourceTree = "<group>"; };
 		A8188060946441F7A1B84A1A /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
-		A8E4C556791C71AE40BFC4E2 /* Pods-laundryApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOSTests/Pods-laundryApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		AB99B5EA7C544C379962525B /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		B14E5DC0E9B4A9C276F268F9 /* Pods-laundryApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOS/Pods-laundryApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		B80CE8B77BA2494D92BDF531 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C11F758523A15703007090FA /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		C11F758623A15703007090FA /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
@@ -186,15 +184,17 @@
 		C1AEFB5624C99B0200246732 /* MOVING洗衣.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "MOVING洗衣.entitlements"; path = "laundryApp/MOVING洗衣.entitlements"; sourceTree = "<group>"; };
 		C1F76989242F579D00420968 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
 		C1F7698B242F57B500420968 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
-		CFCC2CFDD1D1446396AAFDED /* libPods-laundryApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB07EF518714994B005F122F /* Pods-laundryApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOS/Pods-laundryApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		CB8DB7FA8012A3F9284EABF4 /* Pods-laundryAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryAppTests.debug.xcconfig"; path = "Target Support Files/Pods-laundryAppTests/Pods-laundryAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D287A8B510584A7AB74EC8C8 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
-		D758FFF98850BDED4A2C5C2F /* Pods-laundryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp.debug.xcconfig"; path = "Target Support Files/Pods-laundryApp/Pods-laundryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E099C810A6F44010AEE6E62C /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		E13C2A3081FA45EC88B936E8 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		E2883C9FD10AAAFC56BBC1A7 /* libPods-laundryApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8FE9EE36131419D8293646D /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		E9B50875365D4B5CBC391570 /* Pods-laundryAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryAppTests.release.xcconfig"; path = "Target Support Files/Pods-laundryAppTests/Pods-laundryAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		EBBB505993F7843386866065 /* Pods-laundryApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-laundryApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-laundryApp-tvOS/Pods-laundryApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F7A5170F02735E0B7AB6587D /* libPods-laundryAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-laundryAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,7 +202,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E72E44FF1A1AC9F8534EDB8F /* libPods-laundryAppTests.a in Frameworks */,
+				AE4BD15C34C95F6B04EC61B0 /* libPods-laundryAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +218,7 @@
 				C160094D268C363900E73D3F /* WebKit.framework in Frameworks */,
 				C1600947268C363400E73D3F /* AMapLocationKit.framework in Frameworks */,
 				C1600949268C363600E73D3F /* CoreTelephony.framework in Frameworks */,
-				6DFB2E214CE4A438E03A7683 /* libPods-laundryApp.a in Frameworks */,
+				9CE231BB7ECC34BE19051C30 /* libPods-laundryApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5782C884E9EDA0C60447C7C /* libPods-laundryApp-tvOS.a in Frameworks */,
+				75C47FAECC0895026FE30210 /* libPods-laundryApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07D69FE180B98F46087CBD48 /* libPods-laundryApp-tvOSTests.a in Frameworks */,
+				14B415377DD56FD57C39288A /* libPods-laundryApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,10 +292,10 @@
 				C1F76989242F579D00420968 /* AMapFoundationKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				E2883C9FD10AAAFC56BBC1A7 /* libPods-laundryApp.a */,
-				CFCC2CFDD1D1446396AAFDED /* libPods-laundryApp-tvOS.a */,
-				43C7C4E52EE969BA1E2387E2 /* libPods-laundryApp-tvOSTests.a */,
-				2EEB09BAE35F233B1692D6B8 /* libPods-laundryAppTests.a */,
+				81DD66026A76D48A54FCB64E /* libPods-laundryApp.a */,
+				9AB60354AD8AE94ECA2BA11F /* libPods-laundryApp-tvOS.a */,
+				87B9A253C24C94D941D28B10 /* libPods-laundryApp-tvOSTests.a */,
+				F7A5170F02735E0B7AB6587D /* libPods-laundryAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -341,14 +341,14 @@
 		8F88C5BE065797C287A976F0 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D758FFF98850BDED4A2C5C2F /* Pods-laundryApp.debug.xcconfig */,
-				3BE6CC7B38DF000400007B08 /* Pods-laundryApp.release.xcconfig */,
-				70630CF575626878CBA5F325 /* Pods-laundryApp-tvOS.debug.xcconfig */,
-				B14E5DC0E9B4A9C276F268F9 /* Pods-laundryApp-tvOS.release.xcconfig */,
-				1320713FF98FC37085EFDCB9 /* Pods-laundryApp-tvOSTests.debug.xcconfig */,
-				A8E4C556791C71AE40BFC4E2 /* Pods-laundryApp-tvOSTests.release.xcconfig */,
-				3F869078340BED318EFA45AE /* Pods-laundryAppTests.debug.xcconfig */,
-				11731EDB7A2B996DDE0BB3AE /* Pods-laundryAppTests.release.xcconfig */,
+				5C59E869B23A90B4CD2B6C9A /* Pods-laundryApp.debug.xcconfig */,
+				A35B858C3F0D1F54251BF3C4 /* Pods-laundryApp.release.xcconfig */,
+				EBBB505993F7843386866065 /* Pods-laundryApp-tvOS.debug.xcconfig */,
+				CB07EF518714994B005F122F /* Pods-laundryApp-tvOS.release.xcconfig */,
+				338B82E2A2CFB91F3C3075CB /* Pods-laundryApp-tvOSTests.debug.xcconfig */,
+				5EC107D3453FC03E634817DC /* Pods-laundryApp-tvOSTests.release.xcconfig */,
+				CB8DB7FA8012A3F9284EABF4 /* Pods-laundryAppTests.debug.xcconfig */,
+				E9B50875365D4B5CBC391570 /* Pods-laundryAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -416,7 +416,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "laundryAppTests" */;
 			buildPhases = (
-				802EED512C40B723E0627BF5 /* [CP] Check Pods Manifest.lock */,
+				D3F730B3E2C2019889778484 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -435,13 +435,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "laundryApp" */;
 			buildPhases = (
-				83E756A3323BEF323B158B5A /* [CP] Check Pods Manifest.lock */,
+				CDCDEC511D71BF1E0108F41F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				91AEE7751B0C6AF2DB9E5A81 /* [CP] Copy Pods Resources */,
+				03AB9F22C0E136B4B6EF675D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -456,7 +456,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "laundryApp-tvOS" */;
 			buildPhases = (
-				869140034E99C82A6CCE63E9 /* [CP] Check Pods Manifest.lock */,
+				A23A71104E65C60708974B36 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -476,7 +476,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "laundryApp-tvOSTests" */;
 			buildPhases = (
-				E1D0B4051A2785D73A02707C /* [CP] Check Pods Manifest.lock */,
+				81E6BD470325B22DBF832988 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -661,87 +661,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		802EED512C40B723E0627BF5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-laundryAppTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		83E756A3323BEF323B158B5A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-laundryApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		869140034E99C82A6CCE63E9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-laundryApp-tvOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		91AEE7751B0C6AF2DB9E5A81 /* [CP] Copy Pods Resources */ = {
+		03AB9F22C0E136B4B6EF675D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -795,7 +715,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-laundryApp/Pods-laundryApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E1D0B4051A2785D73A02707C /* [CP] Check Pods Manifest.lock */ = {
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		81E6BD470325B22DBF832988 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -811,6 +745,72 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-laundryApp-tvOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A23A71104E65C60708974B36 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-laundryApp-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDCDEC511D71BF1E0108F41F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-laundryApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3F730B3E2C2019889778484 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-laundryAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -924,7 +924,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F869078340BED318EFA45AE /* Pods-laundryAppTests.debug.xcconfig */;
+			baseConfigurationReference = CB8DB7FA8012A3F9284EABF4 /* Pods-laundryAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = W46MECA4RF;
@@ -948,7 +948,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11731EDB7A2B996DDE0BB3AE /* Pods-laundryAppTests.release.xcconfig */;
+			baseConfigurationReference = E9B50875365D4B5CBC391570 /* Pods-laundryAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -969,7 +969,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D758FFF98850BDED4A2C5C2F /* Pods-laundryApp.debug.xcconfig */;
+			baseConfigurationReference = 5C59E869B23A90B4CD2B6C9A /* Pods-laundryApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -997,7 +997,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1017,7 +1017,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BE6CC7B38DF000400007B08 /* Pods-laundryApp.release.xcconfig */;
+			baseConfigurationReference = A35B858C3F0D1F54251BF3C4 /* Pods-laundryApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1041,7 +1041,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.1;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1060,7 +1060,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70630CF575626878CBA5F325 /* Pods-laundryApp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = EBBB505993F7843386866065 /* Pods-laundryApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1089,7 +1089,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B14E5DC0E9B4A9C276F268F9 /* Pods-laundryApp-tvOS.release.xcconfig */;
+			baseConfigurationReference = CB07EF518714994B005F122F /* Pods-laundryApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1118,7 +1118,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1320713FF98FC37085EFDCB9 /* Pods-laundryApp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 338B82E2A2CFB91F3C3075CB /* Pods-laundryApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1146,7 +1146,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8E4C556791C71AE40BFC4E2 /* Pods-laundryApp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 5EC107D3453FC03E634817DC /* Pods-laundryApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

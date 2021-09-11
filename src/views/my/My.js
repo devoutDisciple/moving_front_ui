@@ -7,6 +7,7 @@ import ListItem from '@/component/ListItem';
 import Icon from 'react-native-vector-icons/AntDesign';
 import UserUtil from '@/util/UserUtil';
 import Toast from '@/component/Toast';
+import language from '@/language';
 import SafeViewComponent from '@/component/SafeViewComponent';
 import { StyleSheet, TouchableOpacity, ScrollView, View, RefreshControl } from 'react-native';
 
@@ -139,12 +140,28 @@ export default class MyScreen extends React.Component {
 					<My_Header navigation={this.props.navigation} user={user} getUserInfo={this.getUserInfo.bind(this)} />
 					<My_Wallert navigation={this.props.navigation} user={user} />
 					<View style={{ height: 10 }} />
-					<ListItem iconName="creditcard" text="余额充值" onPress={this.onPressListItem.bind(this, 'account')} />
-					<ListItem iconName="staro" text="MOVING商城" onPress={this.onPressListItem.bind(this, 'intergralGoods')} />
+					<ListItem
+						iconName="creditcard"
+						text={language.myScreen.balanceRecharge}
+						onPress={this.onPressListItem.bind(this, 'account')}
+					/>
+					<ListItem
+						iconName="staro"
+						text={language.homeScreen.shop}
+						onPress={this.onPressListItem.bind(this, 'intergralGoods')}
+					/>
 					{/* <ListItem iconName="linechart" text="MOVING账单" onPress={this.onPressListItem.bind(this, 'bill')} /> */}
-					<ListItem iconName="enviromento" text="我的地址" onPress={this.onPressListItem.bind(this, 'address')} />
-					<ListItem iconName="notification" text="意见反馈" onPress={this.onPressListItem.bind(this, 'suggestion')} />
-					<ListItem iconName="team" text="关于我们" onPress={this.onPressListItem.bind(this, 'aboutUs')} />
+					<ListItem
+						iconName="enviromento"
+						text={language.myScreen.myAddress}
+						onPress={this.onPressListItem.bind(this, 'address')}
+					/>
+					<ListItem
+						iconName="notification"
+						text={language.myScreen.options}
+						onPress={this.onPressListItem.bind(this, 'suggestion')}
+					/>
+					<ListItem iconName="team" text={language.myScreen.aboutUs} onPress={this.onPressListItem.bind(this, 'aboutUs')} />
 					<View style={styles.btm_empty} />
 				</ScrollView>
 			</SafeViewComponent>

@@ -1,19 +1,21 @@
+import language from '@/language';
+
 export default {
 	// 会员等级
 	filterMemberStatus: function(status) {
 		let data = '';
 		switch (Number(status)) {
 			case 1:
-				data = '普通用户';
+				data = language.common.normalUser;
 				break;
 			case 2:
-				data = 'MOVING会员';
+				data = language.common.vipUser;
 				break;
 			case 3:
-				data = 'MOVING PLUS 会员';
+				data = language.common.vipPlus;
 				break;
 			default:
-				data = '普通用户';
+				data = language.common.normalUser;
 		}
 		return data;
 	},

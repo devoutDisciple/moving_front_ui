@@ -1,4 +1,10 @@
 export default {
+	common: {
+		normalUser: '普通用户',
+		vipUser: 'MOVING会员',
+		vipPlus: 'MOVING PLUSE 会员',
+		cabinet: 'MOVING 收衣柜',
+	},
 	menu: {
 		home: '首页',
 		order: '订单',
@@ -14,5 +20,29 @@ export default {
 		update: '版本更新',
 		website: 'Moving 官网',
 		ranking: '洗衣排行',
+	},
+	orderScreen: {
+		all: '全部',
+		process: '清洗中',
+		wating: '待取货',
+		complate: '已完成',
+	},
+	myScreen: {
+		myAccount: '我的余额',
+		myIntegral: '我的积分',
+		becomeMem: '成为会员',
+		balanceRecharge: '余额充值',
+		myAddress: '我的地址',
+		options: '意见反馈',
+		aboutUs: '关于我们',
+	},
+	setting: {
+		setting: '设置',
+		resetPassword: '重置密码',
+		update: '版本更新',
+		service: '服务协议',
+		privacy: '隐私政策',
+		giveUpAccount: '永久注销账号',
+		logout: '退出登录',
 	},
 };

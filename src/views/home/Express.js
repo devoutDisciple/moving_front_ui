@@ -6,6 +6,7 @@ import { Button } from 'react-native-elements';
 import { Text, View, StyleSheet } from 'react-native';
 import config from '@/config/config';
 import storageUtil from '@/util/Storage';
+import language from '@/language';
 import Toast from '@/component/Toast';
 import Message from '@/component/Message';
 
@@ -58,7 +59,7 @@ export default class Express extends React.Component {
 		return (
 			<View style={styles.home_express}>
 				<View style={styles.detail_common_title}>
-					<Text style={{ fontSize: 16, color: '#333' }}>MOVING 收衣柜</Text>
+					<Text style={{ fontSize: 16, color: '#333' }}>{language.common.cabinet}</Text>
 				</View>
 				{cabinetList && cabinetList.length !== 0
 					? cabinetList.map((item, index) => {

@@ -10,5 +10,4 @@ if (locals && Array.isArray(locals) && locals[0] && locals[0].languageCode) {
 		language = en;
 	}
 }
-language = zh;
 export default language;

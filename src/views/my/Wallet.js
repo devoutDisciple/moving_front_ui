@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
+import language from '@/language';
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 export default class Waller extends React.Component {
@@ -30,11 +31,11 @@ export default class Waller extends React.Component {
 					{/* <TouchableOpacity style={styles.my_wallet_chunk} onPress={this.onSearchBill.bind(this)}> */}
 					<TouchableOpacity style={styles.my_wallet_chunk}>
 						<Text style={styles.my_wallet_chunk_top}>{user.balance}</Text>
-						<Text style={styles.my_wallet_chunk_bottom}>我的余额</Text>
+						<Text style={styles.my_wallet_chunk_bottom}>{language.myScreen.myAccount}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.my_wallet_chunk}>
 						<Text style={styles.my_wallet_chunk_top}>{user.integral}</Text>
-						<Text style={styles.my_wallet_chunk_bottom}>我的积分</Text>
+						<Text style={styles.my_wallet_chunk_bottom}>{language.myScreen.myIntegral}</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.my_member}>
@@ -43,7 +44,7 @@ export default class Waller extends React.Component {
 							<Image style={{ width: 20, height: 20 }} source={require('@/asserts/public/member.png')} />
 						</View>
 						<View style={styles.my_member_left_text}>
-							<Text style={{ color: '#fff' }}>Moving 尊贵会员</Text>
+							<Text style={{ color: '#fff' }}>{language.common.vipUser}</Text>
 						</View>
 					</View>
 					<View style={styles.my_member_right}>
@@ -51,7 +52,7 @@ export default class Waller extends React.Component {
 							onPress={this.beMember.bind(this)}
 							icon={<Icon name="right" size={15} color="#b1a082" />}
 							iconRight
-							title="成为会员"
+							title={language.homeScreen.member}
 							buttonStyle={{
 								backgroundColor: '#f8eacf',
 								borderRadius: 10,
