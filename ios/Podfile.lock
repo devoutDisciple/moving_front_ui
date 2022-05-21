@@ -1,8 +1,8 @@
 PODS:
   - AlipaySDK-iOS (15.7.9)
-  - AMapFoundation (1.6.7)
-  - AMapLocation (2.6.8):
-    - AMapFoundation (~> 1.6.4)
+  - AMapFoundation (1.6.8)
+  - AMapLocation (2.6.9):
+    - AMapFoundation (~> 1.6.8)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.61.4)
@@ -427,8 +427,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AlipaySDK-iOS: 94ff4c0e17c5e7d126b8207596d5033006534c25
-  AMapFoundation: c7da72b42a713f1429c88af1858d623dde88934b
-  AMapLocation: dad27669c4ca68e395ce7532ff614b7d4d45f7b7
+  AMapFoundation: 32e9a0264ee62f5aa2aaf82bdafdda7985ce09c7
+  AMapLocation: 3ec0e9bf53800b40cceb313cbd047743f75e2483
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: feb35a6b7f7b50f367be07f34012f34a79282fa3
@@ -478,4 +478,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 81837b63abe99e04f56604836ff8f02af8dd204e
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.0

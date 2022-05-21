@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* laundryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* laundryAppTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -18,69 +17,52 @@
 		2DCD954D1E0B4F2C00145EB5 /* laundryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* laundryAppTests.m */; };
 		75C47FAECC0895026FE30210 /* libPods-laundryApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AB60354AD8AE94ECA2BA11F /* libPods-laundryApp-tvOS.a */; };
 		9CE231BB7ECC34BE19051C30 /* libPods-laundryApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DD66026A76D48A54FCB64E /* libPods-laundryApp.a */; };
-		AE4BD15C34C95F6B04EC61B0 /* libPods-laundryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A5170F02735E0B7AB6587D /* libPods-laundryAppTests.a */; };
 		C11F759523A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
-		C11F759623A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
 		C11F759723A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
 		C11F759823A15704007090FA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758523A15703007090FA /* Fontisto.ttf */; };
 		C11F759923A15704007090FA /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758623A15703007090FA /* Octicons.ttf */; };
-		C11F759A23A15704007090FA /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758623A15703007090FA /* Octicons.ttf */; };
 		C11F759B23A15704007090FA /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758623A15703007090FA /* Octicons.ttf */; };
 		C11F759C23A15704007090FA /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758623A15703007090FA /* Octicons.ttf */; };
 		C11F759D23A15704007090FA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758723A15703007090FA /* Feather.ttf */; };
-		C11F759E23A15704007090FA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758723A15703007090FA /* Feather.ttf */; };
 		C11F759F23A15704007090FA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758723A15703007090FA /* Feather.ttf */; };
 		C11F75A023A15704007090FA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758723A15703007090FA /* Feather.ttf */; };
 		C11F75A123A15704007090FA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758823A15703007090FA /* Entypo.ttf */; };
-		C11F75A223A15704007090FA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758823A15703007090FA /* Entypo.ttf */; };
 		C11F75A323A15704007090FA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758823A15703007090FA /* Entypo.ttf */; };
 		C11F75A423A15704007090FA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758823A15703007090FA /* Entypo.ttf */; };
 		C11F75A523A15704007090FA /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758923A15703007090FA /* FontAwesome5_Brands.ttf */; };
-		C11F75A623A15704007090FA /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758923A15703007090FA /* FontAwesome5_Brands.ttf */; };
 		C11F75A723A15704007090FA /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758923A15703007090FA /* FontAwesome5_Brands.ttf */; };
 		C11F75A823A15704007090FA /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758923A15703007090FA /* FontAwesome5_Brands.ttf */; };
 		C11F75A923A15704007090FA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758A23A15703007090FA /* MaterialCommunityIcons.ttf */; };
-		C11F75AA23A15704007090FA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758A23A15703007090FA /* MaterialCommunityIcons.ttf */; };
 		C11F75AB23A15704007090FA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758A23A15703007090FA /* MaterialCommunityIcons.ttf */; };
 		C11F75AC23A15704007090FA /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758A23A15703007090FA /* MaterialCommunityIcons.ttf */; };
 		C11F75AD23A15704007090FA /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758B23A15703007090FA /* AntDesign.ttf */; };
-		C11F75AE23A15704007090FA /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758B23A15703007090FA /* AntDesign.ttf */; };
 		C11F75AF23A15704007090FA /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758B23A15703007090FA /* AntDesign.ttf */; };
 		C11F75B023A15704007090FA /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758B23A15703007090FA /* AntDesign.ttf */; };
 		C11F75B123A15704007090FA /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758C23A15703007090FA /* Foundation.ttf */; };
-		C11F75B223A15704007090FA /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758C23A15703007090FA /* Foundation.ttf */; };
 		C11F75B323A15704007090FA /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758C23A15703007090FA /* Foundation.ttf */; };
 		C11F75B423A15704007090FA /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758C23A15703007090FA /* Foundation.ttf */; };
 		C11F75B523A15704007090FA /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758D23A15703007090FA /* Ionicons.ttf */; };
-		C11F75B623A15704007090FA /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758D23A15703007090FA /* Ionicons.ttf */; };
 		C11F75B723A15704007090FA /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758D23A15703007090FA /* Ionicons.ttf */; };
 		C11F75B823A15704007090FA /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758D23A15703007090FA /* Ionicons.ttf */; };
 		C11F75B923A15704007090FA /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758E23A15703007090FA /* FontAwesome5_Solid.ttf */; };
-		C11F75BA23A15704007090FA /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758E23A15703007090FA /* FontAwesome5_Solid.ttf */; };
 		C11F75BB23A15704007090FA /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758E23A15703007090FA /* FontAwesome5_Solid.ttf */; };
 		C11F75BC23A15704007090FA /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758E23A15703007090FA /* FontAwesome5_Solid.ttf */; };
 		C11F75BD23A15704007090FA /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758F23A15703007090FA /* FontAwesome5_Regular.ttf */; };
-		C11F75BE23A15704007090FA /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758F23A15703007090FA /* FontAwesome5_Regular.ttf */; };
 		C11F75BF23A15704007090FA /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758F23A15703007090FA /* FontAwesome5_Regular.ttf */; };
 		C11F75C023A15704007090FA /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F758F23A15703007090FA /* FontAwesome5_Regular.ttf */; };
 		C11F75C123A15704007090FA /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759023A15703007090FA /* FontAwesome.ttf */; };
-		C11F75C223A15704007090FA /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759023A15703007090FA /* FontAwesome.ttf */; };
 		C11F75C323A15704007090FA /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759023A15703007090FA /* FontAwesome.ttf */; };
 		C11F75C423A15704007090FA /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759023A15703007090FA /* FontAwesome.ttf */; };
 		C11F75C523A15704007090FA /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759123A15703007090FA /* Zocial.ttf */; };
-		C11F75C623A15704007090FA /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759123A15703007090FA /* Zocial.ttf */; };
 		C11F75C723A15704007090FA /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759123A15703007090FA /* Zocial.ttf */; };
 		C11F75C823A15704007090FA /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759123A15703007090FA /* Zocial.ttf */; };
 		C11F75C923A15704007090FA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759223A15703007090FA /* EvilIcons.ttf */; };
-		C11F75CA23A15704007090FA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759223A15703007090FA /* EvilIcons.ttf */; };
 		C11F75CB23A15704007090FA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759223A15703007090FA /* EvilIcons.ttf */; };
 		C11F75CC23A15704007090FA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759223A15703007090FA /* EvilIcons.ttf */; };
 		C11F75CD23A15704007090FA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759323A15703007090FA /* SimpleLineIcons.ttf */; };
-		C11F75CE23A15704007090FA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759323A15703007090FA /* SimpleLineIcons.ttf */; };
 		C11F75CF23A15704007090FA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759323A15703007090FA /* SimpleLineIcons.ttf */; };
 		C11F75D023A15704007090FA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759323A15703007090FA /* SimpleLineIcons.ttf */; };
 		C11F75D123A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
-		C11F75D223A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C11F75D323A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C11F75D423A15704007090FA /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11F759423A15703007090FA /* MaterialIcons.ttf */; };
 		C1245F3D24A6979B009421B3 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C1245F3B24A6979B009421B3 /* main.jsbundle */; };
@@ -99,13 +81,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = laundryApp;
-		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -116,7 +91,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* laundryAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = laundryAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* laundryAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = laundryAppTests.m; sourceTree = "<group>"; };
 		070799362A5D44ADB5E24AC1 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -198,14 +172,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AE4BD15C34C95F6B04EC61B0 /* libPods-laundryAppTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,7 +297,6 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* MOVING洗衣.app */,
-				00E356EE1AD99517003FC87E /* laundryAppTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* laundryApp-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* laundryApp-tvOSTests.xctest */,
 			);
@@ -412,25 +377,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* laundryAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "laundryAppTests" */;
-			buildPhases = (
-				D3F730B3E2C2019889778484 /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
-			);
-			name = laundryAppTests;
-			productName = laundryAppTests;
-			productReference = 00E356EE1AD99517003FC87E /* laundryAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		13B07F861A680F5B00A75B9A /* laundryApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "laundryApp" */;
@@ -500,11 +446,6 @@
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = W46MECA4RF;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = W46MECA4RF;
 						LastSwiftMigration = 1150;
@@ -538,7 +479,6 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* laundryApp */,
-				00E356ED1AD99517003FC87E /* laundryAppTests */,
 				2D02E47A1E0B4A5D006451C7 /* laundryApp-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* laundryApp-tvOSTests */,
 			);
@@ -546,29 +486,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C11F759A23A15704007090FA /* Octicons.ttf in Resources */,
-				C11F75B223A15704007090FA /* Foundation.ttf in Resources */,
-				C11F75CE23A15704007090FA /* SimpleLineIcons.ttf in Resources */,
-				C11F75B623A15704007090FA /* Ionicons.ttf in Resources */,
-				C11F75CA23A15704007090FA /* EvilIcons.ttf in Resources */,
-				C11F75BE23A15704007090FA /* FontAwesome5_Regular.ttf in Resources */,
-				C11F75C623A15704007090FA /* Zocial.ttf in Resources */,
-				C11F75A223A15704007090FA /* Entypo.ttf in Resources */,
-				C11F75D223A15704007090FA /* MaterialIcons.ttf in Resources */,
-				C11F75AE23A15704007090FA /* AntDesign.ttf in Resources */,
-				C11F75BA23A15704007090FA /* FontAwesome5_Solid.ttf in Resources */,
-				C11F759623A15704007090FA /* Fontisto.ttf in Resources */,
-				C11F759E23A15704007090FA /* Feather.ttf in Resources */,
-				C11F75AA23A15704007090FA /* MaterialCommunityIcons.ttf in Resources */,
-				C11F75A623A15704007090FA /* FontAwesome5_Brands.ttf in Resources */,
-				C11F75C223A15704007090FA /* FontAwesome.ttf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -690,25 +607,6 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RSKImageCropperStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -795,28 +693,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D3F730B3E2C2019889778484 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-laundryAppTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -858,14 +734,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00E356F31AD99517003FC87E /* laundryAppTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -896,11 +764,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* laundryApp */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* laundryApp-tvOS */;
@@ -922,51 +785,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB8DB7FA8012A3F9284EABF4 /* Pods-laundryAppTests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = W46MECA4RF;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = laundryAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MOVING洗衣.app/MOVING洗衣";
-			};
-			name = Debug;
-		};
-		00E356F71AD99517003FC87E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9B50875365D4B5CBC391570 /* Pods-laundryAppTests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = W46MECA4RF;
-				INFOPLIST_FILE = laundryAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MOVING洗衣.app/MOVING洗衣";
-			};
-			name = Release;
-		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5C59E869B23A90B4CD2B6C9A /* Pods-laundryApp.debug.xcconfig */;
@@ -976,7 +794,7 @@
 				CODE_SIGN_ENTITLEMENTS = "laundryApp/MOVING洗衣.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202108282329;
+				CURRENT_PROJECT_VERSION = 202205211721;
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = W46MECA4RF;
@@ -997,7 +815,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 5.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1024,7 +842,7 @@
 				CODE_SIGN_ENTITLEMENTS = "laundryApp/MOVING洗衣.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 202108282329;
+				CURRENT_PROJECT_VERSION = 202205211721;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = W46MECA4RF;
 				ENABLE_ONLY_ACTIVE_RESOURCES = YES;
@@ -1041,7 +859,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/laundryApp/thirdpart/wechat",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 5.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1286,15 +1104,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "laundryAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "laundryApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

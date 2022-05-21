@@ -143,7 +143,6 @@ export default class HomeScreen extends React.Component {
 	async onSearchAdverList(shopid) {
 		let res = await Request.get('/shopAdver/list', { shopid });
 		const adverList = res.data || [];
-		console.log(adverList, 892);
 		this.setState({ adverList });
 	}
 

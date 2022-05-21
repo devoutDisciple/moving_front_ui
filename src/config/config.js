@@ -1,7 +1,10 @@
 let flag = true; // true - 线上环境
 // let flag = false; //  false-线下环境
+
+const baseUrl = flag ? 'http://47.109.34.141:9000/movingxiyi_front' : 'http://127.0.01:3001';
+
 export default {
-	baseUrl: flag ? 'http://47.107.43.166:3001' : 'http://127.0.01:3001',
+	baseUrl,
 	AppStoreId: '1518058596',
 	currentVersion: '4.0.0', // 目前版本
 	getClothingMoney: 9.9, // 上门取衣费用
@@ -20,4 +23,13 @@ export default {
 	map_key_IOS: 'c0ec8c9c3924a698ca4e89099a2bed27', // 高德地图ios的key
 	map_key_android: '2f9deb208364c088f3154ca2ee5a7bf3', // 高德地图安卓的key
 	SAVE_CLOTHING_MONEY: 1, //普通用户存放柜子收钱
+
+	ADVERTISEMENT_URL: `${baseUrl}/adver/advertisement.png`,
+	GUANWANG_ADDRESS_URL: `${baseUrl}/website/index.html`,
 };
+
+// Showing Recent Messages
+// Unable to process request - PLA Update available: You currently don't have access to this membership resource. To resolve this issue, agree to the latest Program License Agreement in your developer account.
+
+// Showing Recent Messages
+// Provisioning profile "iOS Team Provisioning Profile: com.moving.dry.cleaner" doesn't include the currently selected device "张振的 iPhone" (identifier 00008020-000261563E3B402E).
