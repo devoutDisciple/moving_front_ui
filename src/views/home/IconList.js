@@ -136,7 +136,7 @@ export default class IconList extends React.Component {
 
 		// 获取所有的存储的key
 		if (data && data.key === 'guanwang') {
-			let url = 'http://47.107.43.166/';
+			let url = config.GUANWANG_ADDRESS_URL;
 			Linking.canOpenURL(url)
 				.then(supported => {
 					if (supported) {

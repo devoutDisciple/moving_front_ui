@@ -1,6 +1,6 @@
 {
     "name": "laundryApp",
-    "version": "0.0.1",
+    "version": "5.0.0",
     "private": true,
     "scripts": {
       "android": "react-native run-android",
@@ -59,4 +59,3 @@
       "preset": "react-native"
     }
   }
-  
